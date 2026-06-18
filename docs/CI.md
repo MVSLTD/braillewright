@@ -12,34 +12,33 @@ compatibility/advisory drift.
 |---|---|---|---|
 | **PHP syntax lint** | `php -l` on PHP 8.3 | **Blocking** | All 56 PHP files must parse on the Atomic runtime. |
 | **Coding standards + security** | PHPCS `WordPress-Extra` (incl. `WordPress.Security.*`) | Advisory → blocking | Full report uploaded as the `phpcs-report` artifact. |
-| **PHP 8.3+ compatibility** | PHPCompatibility (`testVersion 8.3-`) | Advisory → blocking | `phpcompat-report` artifact. Likely the first to flip to blocking. |
-| **Static analysis** | PHPStan level 5 + WordPress stubs | Advisory → blocking | Emits a regenerated `phpstan-baseline` artifact each run. |
+| **PHP 8.3+ compatibility** | PHPCompatibility (`testVersion 8.3-`) | **Blocking** | Verified 0 findings on 8.3 (2026-06-18). `phpcompat-report` artifact. |
+| **Static analysis** | PHPStan level 5 + WordPress stubs | **Blocking (new issues)** | 45 inherited findings in `phpstan-baseline.neon`; fails only on regressions. |
 | **Accessibility** | wp-env + pa11y-ci (axe + HTML_CodeSniffer) + Lighthouse CI | Advisory | Scans a clean WP install with the theme + plugin active. |
 
 ## Why "advisory → blocking"
 
-Braillewright is a fork of ~12,300 LOC of upstream code. Hard-gating PHPCS and
-PHPStan on day one would just paint the pipeline red against inherited debt and
-hide real regressions. So the four code-quality jobs run with
-`continue-on-error: true`: the pipeline goes **green**, but each job uploads its
-full findings as an artifact to triage. The PHP-lint gate **is** blocking from
-day one because the tree already lints clean on 8.3.
+Braillewright is a fork of ~12,300 LOC of upstream code. Hard-gating everything on
+day one would just paint the pipeline red against inherited debt and hide real
+regressions. So jobs were introduced in report mode and promoted as their findings
+were understood. As of 2026-06-18: **php-lint, PHPCompatibility, and PHPStan
+(baselined) are blocking**; **PHPCS and accessibility remain advisory**
+(`continue-on-error: true`) and upload their full findings as artifacts to triage.
 
-### How to make a job blocking (the tightening path)
+### The tightening path (status)
 
-1. **PHPCompatibility** — run the job, confirm zero (or a small, fixed set of)
-   findings, then delete `continue-on-error: true` from the `php-compatibility`
-   job. This is the highest-value first gate.
-2. **PHPStan** — download the `phpstan-baseline` artifact from a run (or run
-   `composer analyse:baseline` once a PHP/Composer env is available), commit it
-   as `phpstan-baseline.neon`, uncomment the baseline `include` in
-   `phpstan.neon.dist`, then drop `continue-on-error` from `static-analysis`.
-   Analysis then fails only on **new** issues.
-3. **Coding standards / security** — work the `phpcs-report` findings down
-   (the Phase 2 pre-ship security pass targets the ~14 unescaped-output spots +
-   the plugin's input handling), then drop `continue-on-error` from
-   `coding-standards`. Consider `composer lint:fix` (phpcbf) for the
-   mechanically-fixable subset first.
+1. **PHPCompatibility — DONE (2026-06-18).** The first CI run reported 0 findings
+   on 8.3, so `continue-on-error` was removed; it is now a blocking gate.
+2. **PHPStan — DONE (2026-06-18).** The first run's 45 findings were committed as
+   `phpstan-baseline.neon` and the baseline `include` enabled; analysis now fails
+   only on **new** issues. After remediation, refresh with `composer analyse:baseline`.
+3. **Coding standards / security — pending.** Work the `phpcs-report` findings
+   down (the Phase 2 pre-ship security pass targets the ~14 unescaped-output
+   spots + the plugin's input handling), then drop `continue-on-error` from
+   `coding-standards`. `composer lint:fix` (phpcbf) handles the mechanically-
+   fixable subset first.
+4. **Accessibility — keep advisory** until stable across several runs (first run:
+   0 errors). Then drop `continue-on-error` from the pa11y / Lighthouse steps.
 
 ## Running it locally
 
@@ -70,7 +69,8 @@ npm run env:stop
 | `composer.json` | Dev-only PHP toolchain + convenience scripts. The theme/plugin have **no runtime Composer deps**. |
 | `phpcs.xml.dist` | PHPCS ruleset: WordPress-Extra + security; text domains + kept prefixes whitelisted; `tgm/`, `languages/`, min assets excluded. |
 | `phpcompat.xml.dist` | PHPCompatibility ruleset, `testVersion 8.3-`. |
-| `phpstan.neon.dist` | PHPStan level 5; WP stubs via `szepeviktor/phpstan-wordpress`; `tgm/` + `woocommerce.php` excluded from reporting; baseline include ready to enable. |
+| `phpstan.neon.dist` | PHPStan level 5; WP stubs via `szepeviktor/phpstan-wordpress`; `tgm/` + `woocommerce.php` excluded; baseline enabled. |
+| `phpstan-baseline.neon` | The 45 inherited PHPStan findings, so analysis blocks only on regressions. |
 | `package.json` | Node a11y toolchain (`@wordpress/env`, `pa11y-ci`, `@lhci/cli`, `@axe-core/cli`). |
 | `.wp-env.json` | wp-env: latest WP, **PHP 8.3**, theme + plugin mounted. |
 | `.pa11yci` | pa11y-ci: WCAG2AA, axe + HTML_CodeSniffer runners, home + a post + a page. |

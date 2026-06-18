@@ -15,8 +15,7 @@ permissions:
 
 jobs:
   # ---------------------------------------------------------------------------
-  # BLOCKING gate. Every PHP file must parse on PHP 8.3 (the Atomic runtime).
-  # High-confidence green: the tree already lints clean on 8.3.
+  # BLOCKING. Every PHP file must parse on PHP 8.3 (the Atomic runtime).
   # ---------------------------------------------------------------------------
   php-lint:
     name: PHP syntax lint (8.3)
@@ -36,10 +35,58 @@ jobs:
             | xargs -0 -P8 -n1 -- php -l
 
   # ---------------------------------------------------------------------------
-  # ADVISORY during Phase 2 scaffolding (continue-on-error). The fork inherits
-  # ~12K LOC of upstream code, so these surface the full triage list rather than
-  # blocking from day one. Flip continue-on-error to false per docs/CI.md once
-  # the register / baseline is in place.
+  # BLOCKING. Verified 0 findings on PHP 8.3 (CI run 2026-06-18), so this gate
+  # is enforced. PHPCompatibilityWP accounts for WordPress core polyfills.
+  # ---------------------------------------------------------------------------
+  php-compatibility:
+    name: PHP 8.3+ compatibility (PHPCompatibility)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Set up PHP 8.3 + Composer
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          coverage: none
+          tools: composer:v2
+      - name: Install Composer dependencies
+        run: composer install --no-interaction --no-progress --prefer-dist
+      - name: PHPCompatibility (testVersion 8.3-)
+        run: composer compat -- --report-full --report-checkstyle=phpcompat-report.xml
+      - name: Upload compatibility report
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: phpcompat-report
+          path: phpcompat-report.xml
+          if-no-files-found: ignore
+
+  # ---------------------------------------------------------------------------
+  # BLOCKING on NEW issues. The 45 inherited findings are captured in
+  # phpstan-baseline.neon; analysis fails only on regressions. Regenerate the
+  # baseline with `composer analyse:baseline`. See docs/CI.md.
+  # ---------------------------------------------------------------------------
+  static-analysis:
+    name: Static analysis (PHPStan + WordPress stubs)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Set up PHP 8.3 + Composer
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          coverage: none
+          tools: composer:v2
+      - name: Install Composer dependencies
+        run: composer install --no-interaction --no-progress --prefer-dist
+      - name: PHPStan (level 5, baselined)
+        run: composer analyse -- --error-format=github
+
+  # ---------------------------------------------------------------------------
+  # ADVISORY (continue-on-error). PHPCS WordPress-Extra on a ~12K-LOC fork still
+  # reports thousands of mostly-stylistic findings; this surfaces the full
+  # triage list + the security subset without blocking. Flip continue-on-error
+  # to false once the register is worked down (see docs/CI.md — the security pass).
   # ---------------------------------------------------------------------------
   coding-standards:
     name: Coding standards + security (PHPCS WordPress-Extra)
@@ -65,65 +112,12 @@ jobs:
           path: phpcs-report.xml
           if-no-files-found: ignore
 
-  php-compatibility:
-    name: PHP 8.3+ compatibility (PHPCompatibility)
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v6
-      - name: Set up PHP 8.3 + Composer
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.3'
-          coverage: none
-          tools: composer:v2
-      - name: Install Composer dependencies
-        run: composer install --no-interaction --no-progress --prefer-dist
-      - name: PHPCompatibility (testVersion 8.3-)
-        continue-on-error: true
-        run: composer compat -- --report-full --report-checkstyle=phpcompat-report.xml
-      - name: Upload compatibility report
-        if: always()
-        uses: actions/upload-artifact@v7
-        with:
-          name: phpcompat-report
-          path: phpcompat-report.xml
-          if-no-files-found: ignore
-
-  static-analysis:
-    name: Static analysis (PHPStan + WordPress stubs)
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v6
-      - name: Set up PHP 8.3 + Composer
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.3'
-          coverage: none
-          tools: composer:v2
-      - name: Install Composer dependencies
-        run: composer install --no-interaction --no-progress --prefer-dist
-      - name: PHPStan (level 5)
-        continue-on-error: true
-        run: composer analyse -- --error-format=github
-      - name: Generate baseline (commit it later to make this a blocking gate)
-        if: always()
-        continue-on-error: true
-        run: composer analyse:baseline
-      - name: Upload PHPStan baseline
-        if: always()
-        uses: actions/upload-artifact@v7
-        with:
-          name: phpstan-baseline
-          path: phpstan-baseline.neon
-          if-no-files-found: ignore
-
   # ---------------------------------------------------------------------------
-  # Accessibility: stand up WordPress (wp-env, PHP 8.3) with the theme + plugin
-  # active and scan with axe + HTML_CodeSniffer (pa11y-ci) and Lighthouse. This
-  # gates the THEME/PLUGIN template-level a11y (skip link, landmarks, focus,
-  # menu ARIA) on a clean install. TTT's content/widget defects (Phase 0 audit)
-  # are governed by the content-safety contract, not by this job.
-  # Advisory while the harness is proven out.
+  # Accessibility: WordPress (wp-env, PHP 8.3) with the theme + plugin active,
+  # scanned with axe + HTML_CodeSniffer (pa11y-ci) and Lighthouse. Gates the
+  # THEME/PLUGIN template-level a11y; TTT content/widget defects are a separate,
+  # content-safety concern. Advisory until proven stable across several runs
+  # (first run: 0 errors across home + post + page).
   # ---------------------------------------------------------------------------
   accessibility:
     name: Accessibility (wp-env + axe/pa11y + Lighthouse)

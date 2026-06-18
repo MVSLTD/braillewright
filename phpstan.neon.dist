@@ -1,11 +1,10 @@
 includes:
     # WordPress function/class/constant stubs + WP-aware rules.
     - vendor/szepeviktor/phpstan-wordpress/extension.neon
-    # After the first CI run produces a baseline (downloadable artifact, or run
-    # `composer analyse:baseline` locally), commit phpstan-baseline.neon and
-    # uncomment the next line to turn static analysis into a blocking gate that
-    # only fails on NEW issues. See docs/CI.md.
-    # - phpstan-baseline.neon
+    # The 45 inherited findings are captured here so analysis fails only on NEW
+    # issues. Regenerate after remediation with `composer analyse:baseline`.
+    # See docs/CI.md.
+    - phpstan-baseline.neon
 
 parameters:
     level: 5

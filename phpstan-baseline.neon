@@ -1,0 +1,175 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Function switch_theme invoked with 2 parameters, 1 required\.$#'
+			identifier: arguments.count
+			count: 1
+			path: plugin/braillewright-pro/braillewright-pro.php
+
+		-
+			message: '#^Parameter \#2 \$allowed_html of function wp_kses expects array\<array\>\|string, array\<int, string\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: plugin/braillewright-pro/braillewright-pro.php
+
+		-
+			message: '#^Constant PERIOD_PRO_PATH not found\.$#'
+			identifier: constant.notFound
+			count: 1
+			path: plugin/braillewright-pro/inc/background.php
+
+		-
+			message: '#^Constant PERIOD_PRO_URL not found\.$#'
+			identifier: constant.notFound
+			count: 2
+			path: plugin/braillewright-pro/inc/background.php
+
+		-
+			message: '#^Call to function method_exists\(\) with ''WP_Customize_Manager'' and ''add_panel'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: plugin/braillewright-pro/inc/customizer.php
+
+		-
+			message: '#^Parameter \#3 \$args of class WP_Customize_Image_Control constructor expects array\{instance_number\?\: int, manager\?\: WP_Customize_Manager, id\?\: string, settings\?\: array, setting\?\: string, capability\?\: string, priority\?\: int, section\?\: string, \.\.\.\}, array\{label\: string, section\: ''ct_period_pro…'', settings\: ''background_image…''\} given\.$#'
+			identifier: argument.type
+			count: 2
+			path: plugin/braillewright-pro/inc/customizer.php
+
+		-
+			message: '#^Parameter \#3 \$args of class WP_Customize_Image_Control constructor expects array\{instance_number\?\: int, manager\?\: WP_Customize_Manager, id\?\: string, settings\?\: array, setting\?\: string, capability\?\: string, priority\?\: int, section\?\: string, \.\.\.\}, array\{label\: string, section\: ''ct_period_pro…'', settings\: ''header_image_upload''\} given\.$#'
+			identifier: argument.type
+			count: 1
+			path: plugin/braillewright-pro/inc/customizer.php
+
+		-
+			message: '#^Function is_amp_endpoint not found\.$#'
+			identifier: function.notFound
+			count: 2
+			path: plugin/braillewright-pro/inc/featured-videos.php
+
+		-
+			message: '#^Constant PERIOD_PRO_PATH not found\.$#'
+			identifier: constant.notFound
+			count: 1
+			path: plugin/braillewright-pro/inc/fonts.php
+
+		-
+			message: '#^Constant PERIOD_PRO_URL not found\.$#'
+			identifier: constant.notFound
+			count: 12
+			path: plugin/braillewright-pro/inc/scripts.php
+
+		-
+			message: '#^Negated boolean expression is always true\.$#'
+			identifier: booleanNot.alwaysTrue
+			count: 2
+			path: theme/braillewright/comments.php
+
+		-
+			message: '#^Variable \$post might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: theme/braillewright/comments.php
+
+		-
+			message: '#^Variable \$post might not be defined\.$#'
+			identifier: variable.undefined
+			count: 2
+			path: theme/braillewright/content-attachment.php
+
+		-
+			message: '#^Parameter \#1 \$author_id of function get_author_posts_url expects int, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: theme/braillewright/content/post-byline.php
+
+		-
+			message: '#^Access to an undefined property WP_Term\:\:\$cat_name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: theme/braillewright/content/post-categories.php
+
+		-
+			message: '#^Variable \$post might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: theme/braillewright/content/post-categories.php
+
+		-
+			message: '#^Parameter \#1 \$size of function next_image_link expects array\<int\>\|string, false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: theme/braillewright/content/post-nav-attachment.php
+
+		-
+			message: '#^Parameter \#1 \$size of function previous_image_link expects array\<int\>\|string, false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: theme/braillewright/content/post-nav-attachment.php
+
+		-
+			message: '#^Variable \$post might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: theme/braillewright/content/post-tags.php
+
+		-
+			message: '#^Variable \$content_width in isset\(\) is never defined\.$#'
+			identifier: isset.variable
+			count: 1
+			path: theme/braillewright/functions.php
+
+		-
+			message: '#^Call to function method_exists\(\) with ''WP_Customize_Manager'' and ''add_panel'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: theme/braillewright/inc/customizer.php
+
+		-
+			message: '#^Parameter \#2 \$allowed_html of function wp_kses expects array\<array\>\|string, array\<int, string\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: theme/braillewright/inc/customizer.php
+
+		-
+			message: '#^Parameter \#3 \$args of class WP_Customize_Image_Control constructor expects array\{instance_number\?\: int, manager\?\: WP_Customize_Manager, id\?\: string, settings\?\: array, setting\?\: string, capability\?\: string, priority\?\: int, section\?\: string, \.\.\.\}, array\{label\: string, section\: ''ct_period_logo…'', settings\: ''logo_upload''\} given\.$#'
+			identifier: argument.type
+			count: 1
+			path: theme/braillewright/inc/customizer.php
+
+		-
+			message: '#^Parameter \#3 \$args of class WP_Customize_Image_Control constructor expects array\{instance_number\?\: int, manager\?\: WP_Customize_Manager, id\?\: string, settings\?\: array, setting\?\: string, capability\?\: string, priority\?\: int, section\?\: string, \.\.\.\}, array\{label\: string, section\: ''ct_period_social…'', settings\: ''social_icon_custom…'', priority\: 12\|17\|int\<22, max\>\} given\.$#'
+			identifier: argument.type
+			count: 1
+			path: theme/braillewright/inc/customizer.php
+
+		-
+			message: '#^Parameter \#3 \$args of class WP_Customize_Image_Control constructor expects array\{instance_number\?\: int, manager\?\: WP_Customize_Manager, id\?\: string, settings\?\: array, setting\?\: string, capability\?\: string, priority\?\: int, section\?\: string, \.\.\.\}, array\{label\: string, section\: ''ct_period_social…'', settings\: ''social_icon_custom…'', priority\: 16\|21\|int\<26, max\>\} given\.$#'
+			identifier: argument.type
+			count: 1
+			path: theme/braillewright/inc/customizer.php
+
+		-
+			message: '#^Parameter \#3 \$args of class WP_Customize_Image_Control constructor expects array\{instance_number\?\: int, manager\?\: WP_Customize_Manager, id\?\: string, settings\?\: array, setting\?\: string, capability\?\: string, priority\?\: int, section\?\: string, \.\.\.\}, array\{label\: string, section\: ''ct_period_social…'', settings\: ''social_icon_custom…'', priority\: 20\|25\|int\<30, max\>\} given\.$#'
+			identifier: argument.type
+			count: 1
+			path: theme/braillewright/inc/customizer.php
+
+		-
+			message: '#^Variable \$s might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: theme/braillewright/search.php
+
+		-
+			message: '#^Function is_account_page not found\.$#'
+			identifier: function.notFound
+			count: 1
+			path: theme/braillewright/sidebar-primary.php
+
+		-
+			message: '#^Function is_checkout not found\.$#'
+			identifier: function.notFound
+			count: 1
+			path: theme/braillewright/sidebar-primary.php
