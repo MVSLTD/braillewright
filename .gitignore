@@ -1,0 +1,8 @@
+# Local / tooling
+node_modules/
+vendor/
+*.log
+.DS_Store
+Thumbs.db
+.phpcs-cache
+/coverage/
