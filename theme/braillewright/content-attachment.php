@@ -11,12 +11,12 @@
 				$image_meta = wp_prepare_attachment_for_js($post->ID);
 				?>
 				<div class="attachment-container">
-					<?php echo $image; ?>
+					<?php echo wp_kses_post( $image ); ?>
 					<span class="attachment-caption">
 						<?php echo esc_html( $image_meta['caption'] ); ?>
 					</span>
 				</div>
-				<?php echo wpautop( esc_html( $image_meta['description'] ) ); ?>
+				<?php echo wp_kses_post( wpautop( esc_html( $image_meta['description'] ) ) ); ?>
 				<div class="post-meta">
 					<?php get_template_part( 'content/post-nav-attachment' ); ?>
 				</div>

@@ -6,7 +6,7 @@
 	<?php wp_head(); ?>
 </head>
 
-<body id="<?php print get_stylesheet(); ?>" <?php body_class(); ?>>
+<body id="<?php echo esc_attr( get_stylesheet() ); ?>" <?php body_class(); ?>>
 <?php do_action( 'body_top' ); ?>
 <?php 
 if ( function_exists( 'wp_body_open' ) ) {
@@ -31,7 +31,7 @@ if ( function_exists( 'wp_body_open' ) ) {
 			</div>
 			<button id="toggle-navigation" class="toggle-navigation" name="toggle-navigation" aria-expanded="false">
 				<span class="screen-reader-text"><?php echo esc_html_x( 'open menu', 'verb: open the menu', 'braillewright' ); ?></span>
-				<?php echo ct_period_svg_output( 'toggle-navigation' ); ?>
+				<?php echo ct_period_svg_output( 'toggle-navigation' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- returns a hardcoded literal SVG; no user data. ?>
 			</button>
 			<div id="menu-primary-container" class="menu-primary-container">
 				<div class="icon-container">

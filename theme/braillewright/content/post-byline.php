@@ -11,10 +11,10 @@ $date   = "<a class='date' href='" . esc_url( get_month_link( get_the_date( 'Y' 
 
 echo '<div class="post-byline">';
 	if ( $author_display == 'hide' ) {
-		printf( esc_html_x( 'Published %s', 'This blog post was published on some date', 'braillewright' ), $date );
+		echo wp_kses_post( sprintf( esc_html_x( 'Published %s', 'This blog post was published on some date', 'braillewright' ), $date ) );
 	} elseif ( $date_display == 'hide' ) {
-		printf( esc_html_x( 'Published by %s', 'This blog post was published by some author', 'braillewright' ), $author );
+		echo wp_kses_post( sprintf( esc_html_x( 'Published by %s', 'This blog post was published by some author', 'braillewright' ), $author ) );
 	} else {
-		printf( esc_html_x( 'Published %1$s by %2$s', 'This blog post was published on some date by some author', 'braillewright' ), $date, $author );
+		echo wp_kses_post( sprintf( esc_html_x( 'Published %1$s by %2$s', 'This blog post was published on some date by some author', 'braillewright' ), $date, $author ) );
 	}
 echo '</div>';

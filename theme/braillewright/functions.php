@@ -364,7 +364,7 @@ if (! function_exists('ct_period_featured_image')) {
         $featured_image = apply_filters('ct_period_featured_image', $featured_image);
 
         if ($featured_image) {
-            echo $featured_image;
+            echo wp_kses_post( (string) $featured_image );
         }
     }
 }
@@ -520,14 +520,14 @@ if (! function_exists('ct_period_social_icons_output')) {
                 // Output the icon
                 if ($name == 'social_icon_custom_1' || $name == 'social_icon_custom_2' || $name == 'social_icon_custom_3') { ?>
 					<li>
-						<a class="custom-icon" target="_blank" href="<?php echo $href; ?>">
+						<a class="custom-icon" target="_blank" href="<?php echo $href; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $href is pre-escaped via esc_url() above. ?>">
 							<img class="icon" src="<?php echo esc_url(get_theme_mod($name .'_image')); ?>" style="width: <?php echo absint(get_theme_mod($name . '_size', '20')); ?>px;" alt="<?php echo esc_html(get_theme_mod($name . '_name'));  ?>" />
 						</a>
 					</li>
 				<?php
                 } else { ?>
 					<li>
-						<a class="<?php echo esc_attr($name); ?>" target="_blank" href="<?php echo $href; ?>"
+						<a class="<?php echo esc_attr($name); ?>" target="_blank" href="<?php echo $href; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $href is pre-escaped per protocol branch (esc_url / mailto antispambot) above. ?>"
                             <?php if ($title == 'mastodon') {
                                 echo 'rel="me"';
                             } ?>>
@@ -640,8 +640,10 @@ add_action('admin_init', 'ct_period_reset_customizer_options');
 if (! function_exists(('ct_period_delete_settings_notice'))) {
     function ct_period_delete_settings_notice()
     {
-        if (isset($_GET['period_status'])) {
-            if ($_GET['period_status'] == 'deleted') {
+        // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only admin notice after the nonce-verified reset redirect; no state change.
+        if ( isset( $_GET['period_status'] ) ) {
+            // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only notice; compared to a string literal, no sanitization required.
+            if ( 'deleted' === $_GET['period_status'] ) {
                 ?>
 				<div class="updated">
 					<p><?php esc_html_e('Customizer settings deleted.', 'braillewright'); ?></p>
@@ -763,7 +765,7 @@ if (! function_exists(('ct_period_add_meta_elements'))) {
         $template = sprintf('<meta name="template" content="%s %s" />' . "\n", esc_attr($theme->get('Name')), esc_attr($theme->get('Version')));
         $meta_elements .= $template;
 
-        echo $meta_elements;
+        echo $meta_elements; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- composed of literal <meta> tags + esc_attr()'d values; wp_kses_post() would strip <meta>.
     }
 }
 add_action('wp_head', 'ct_period_add_meta_elements', 1);
@@ -865,7 +867,7 @@ function ct_period_output_last_updated_date()
             ($updated_customizer == 'yes' && ($updated_post != 'no'))
             || $updated_post == 'yes'
             ) {
-            echo '<p class="last-updated">'. esc_html__("Last updated on", "braillewright") . ' ' . get_the_modified_date() . ' </p>';
+            echo '<p class="last-updated">'. esc_html__("Last updated on", "braillewright") . ' ' . esc_html( (string) get_the_modified_date() ) . ' </p>';
         }
     }
 }

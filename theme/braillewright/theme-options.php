@@ -16,11 +16,11 @@ function ct_period_options_content()
 {
     $pro_url = '#'; ?>
 	<div id="period-dashboard-wrap" class="wrap period-dashboard-wrap">
-		<h2><?php printf(esc_html__('%s Dashboard', 'braillewright'), wp_get_theme()); ?></h2>
+		<h2><?php printf(esc_html__('%s Dashboard', 'braillewright'), esc_html( (string) wp_get_theme() )); ?></h2>
 		<?php do_action('theme_options_before'); ?>
 		<div class="main">
 			<?php if (function_exists('ct_period_pro_init')) : ?>
-			<div class="thanks-upgrading" style="background-image: url(<?php echo trailingslashit(get_template_directory_uri()) . 'assets/images/bg-texture.png'; ?>)">
+			<div class="thanks-upgrading" style="background-image: url(<?php echo esc_url( trailingslashit(get_template_directory_uri()) . 'assets/images/bg-texture.png' ); ?>)">
 				<h3>Thanks for upgrading!</h3>
 				<p>You can find the new features in the Customizer</p>
 			</div>
@@ -33,11 +33,11 @@ function ct_period_options_content()
 			</div>
 			<div class="pro">
 				<h3>Customize More with Braillewright Pro</h3>
-				<p>Add 13 new customization features to your site with the <a href="<?php echo $pro_url; ?>" target="_blank">Braillewright Pro</a> plugin.</p>
+				<p>Add 13 new customization features to your site with the <a href="<?php echo esc_url( $pro_url ); ?>" target="_blank">Braillewright Pro</a> plugin.</p>
 				<ul class="feature-list">
 					<li>
 						<div class="image">
-							<img src="<?php echo trailingslashit(get_template_directory_uri()) . 'assets/images/layouts.png'; ?>" />
+							<img src="<?php echo esc_url( trailingslashit(get_template_directory_uri()) . 'assets/images/layouts.png' ); ?>" />
 						</div>
 						<div class="text">
 							<h4>New Layouts</h4>
@@ -47,7 +47,7 @@ function ct_period_options_content()
 					</li>
 					<li>
 						<div class="image">
-							<img src="<?php echo trailingslashit(get_template_directory_uri()) . 'assets/images/custom-colors.png'; ?>" />
+							<img src="<?php echo esc_url( trailingslashit(get_template_directory_uri()) . 'assets/images/custom-colors.png' ); ?>" />
 						</div>
 						<div class="text">
 							<h4>Custom Colors</h4>
@@ -57,7 +57,7 @@ function ct_period_options_content()
 					</li>
 					<li>
 						<div class="image">
-							<img src="<?php echo trailingslashit(get_template_directory_uri()) . 'assets/images/fonts.png'; ?>" />
+							<img src="<?php echo esc_url( trailingslashit(get_template_directory_uri()) . 'assets/images/fonts.png' ); ?>" />
 						</div>
 						<div class="text">
 							<h4>New Fonts</h4>
@@ -67,7 +67,7 @@ function ct_period_options_content()
 					</li>
 					<li>
 						<div class="image">
-							<img src="<?php echo trailingslashit(get_template_directory_uri()) . 'assets/images/header-image.png'; ?>" />
+							<img src="<?php echo esc_url( trailingslashit(get_template_directory_uri()) . 'assets/images/header-image.png' ); ?>" />
 						</div>
 						<div class="text">
 							<h4>Flexible Header Image</h4>
@@ -77,7 +77,7 @@ function ct_period_options_content()
 					</li>
 					<li>
 						<div class="image">
-							<img src="<?php echo trailingslashit(get_template_directory_uri()) . 'assets/images/featured-videos.png'; ?>" />
+							<img src="<?php echo esc_url( trailingslashit(get_template_directory_uri()) . 'assets/images/featured-videos.png' ); ?>" />
 						</div>
 						<div class="text">
 							<h4>Featured Videos</h4>
@@ -87,7 +87,7 @@ function ct_period_options_content()
 					</li>
 					<li>
 						<div class="image">
-							<img src="<?php echo trailingslashit(get_template_directory_uri()) . 'assets/images/featured-sliders.png'; ?>" />
+							<img src="<?php echo esc_url( trailingslashit(get_template_directory_uri()) . 'assets/images/featured-sliders.png' ); ?>" />
 						</div>
 						<div class="text">
 							<h4>Featured Sliders</h4>
@@ -97,7 +97,7 @@ function ct_period_options_content()
 					</li>
 					<li>
 						<div class="image">
-							<img src="<?php echo trailingslashit(get_template_directory_uri()) . 'assets/images/background-images.png'; ?>" />
+							<img src="<?php echo esc_url( trailingslashit(get_template_directory_uri()) . 'assets/images/background-images.png' ); ?>" />
 						</div>
 						<div class="text">
 							<h4>Background Images</h4>
@@ -107,7 +107,7 @@ function ct_period_options_content()
 					</li>
 					<li>
 						<div class="image">
-							<img src="<?php echo trailingslashit(get_template_directory_uri()) . 'assets/images/background-textures.png'; ?>" />
+							<img src="<?php echo esc_url( trailingslashit(get_template_directory_uri()) . 'assets/images/background-textures.png' ); ?>" />
 						</div>
 						<div class="text">
 							<h4>Background Textures</h4>
@@ -117,7 +117,7 @@ function ct_period_options_content()
 					</li>
 					<li>
 						<div class="image">
-							<img src="<?php echo trailingslashit(get_template_directory_uri()) . 'assets/images/featured-image-size.png'; ?>" />
+							<img src="<?php echo esc_url( trailingslashit(get_template_directory_uri()) . 'assets/images/featured-image-size.png' ); ?>" />
 						</div>
 						<div class="text">
 							<h4>Featured Image Size</h4>
@@ -127,7 +127,7 @@ function ct_period_options_content()
 					</li>
 					<li>
 						<div class="image">
-							<img src="<?php echo trailingslashit(get_template_directory_uri()) . 'assets/images/widget-areas.png'; ?>" />
+							<img src="<?php echo esc_url( trailingslashit(get_template_directory_uri()) . 'assets/images/widget-areas.png' ); ?>" />
 						</div>
 						<div class="text">
 							<h4>New Widget Areas</h4>
@@ -137,7 +137,7 @@ function ct_period_options_content()
 					</li>
 					<li>
 						<div class="image">
-							<img src="<?php echo trailingslashit(get_template_directory_uri()) . 'assets/images/secondary-menu.png'; ?>" />
+							<img src="<?php echo esc_url( trailingslashit(get_template_directory_uri()) . 'assets/images/secondary-menu.png' ); ?>" />
 						</div>
 						<div class="text">
 							<h4>Secondary Menu</h4>
@@ -147,7 +147,7 @@ function ct_period_options_content()
 					</li>
 					<li>
 						<div class="image">
-							<img src="<?php echo trailingslashit(get_template_directory_uri()) . 'assets/images/display-controls.png'; ?>" />
+							<img src="<?php echo esc_url( trailingslashit(get_template_directory_uri()) . 'assets/images/display-controls.png' ); ?>" />
 						</div>
 						<div class="text">
 							<h4>Display Controls</h4>
@@ -157,7 +157,7 @@ function ct_period_options_content()
 					</li>
 					<li>
 						<div class="image">
-							<img src="<?php echo trailingslashit(get_template_directory_uri()) . 'assets/images/footer-text.png'; ?>" />
+							<img src="<?php echo esc_url( trailingslashit(get_template_directory_uri()) . 'assets/images/footer-text.png' ); ?>" />
 						</div>
 						<div class="text">
 							<h4>Custom Footer Text</h4>
@@ -166,12 +166,12 @@ function ct_period_options_content()
 						</div>
 					</li>
 				</ul>
-				<p><a href="<?php echo $pro_url; ?>" target="_blank">Click here</a> to view Braillewright Pro now, and see what it can do for your site.</p>
+				<p><a href="<?php echo esc_url( $pro_url ); ?>" target="_blank">Click here</a> to view Braillewright Pro now, and see what it can do for your site.</p>
 			</div>
-			<div class="pro-ad" style="background-image: url(<?php echo trailingslashit(get_template_directory_uri()) . 'assets/images/bg-texture.png'; ?>)">
+			<div class="pro-ad" style="background-image: url(<?php echo esc_url( trailingslashit(get_template_directory_uri()) . 'assets/images/bg-texture.png' ); ?>)">
 				<h3>Add Incredible Flexibility to Your Site</h3>
 				<p>Start customizing with Braillewright Pro today</p>
-				<a href="<?php echo $pro_url; ?>" target="_blank">View Braillewright Pro</a>
+				<a href="<?php echo esc_url( $pro_url ); ?>" target="_blank">View Braillewright Pro</a>
 			</div>
 			<?php endif; ?>
 		</div>
@@ -185,12 +185,12 @@ function ct_period_options_content()
 					<li><a href="#" target="_blank">CSS Snippets</a></li>
 					<li><a href="#" target="_blank">Starter child theme</a></li>
 					<li><a href="#" target="_blank">Period demo data</a></li>
-					<li><a href="<?php echo $pro_url; ?>" target="_blank">Braillewright Pro</a></li>
+					<li><a href="<?php echo esc_url( $pro_url ); ?>" target="_blank">Braillewright Pro</a></li>
 				</ul>
 			</div>
 			<div class="ad iawp">
 				<div class="logo-container">
-					<img width="308px" height="46px" src="<?php echo trailingslashit(get_template_directory_uri()) . 'assets/images/iawp.svg'; ?>" alt="Independent Analytics logo" />
+					<img width="308px" height="46px" src="<?php echo esc_url( trailingslashit(get_template_directory_uri()) . 'assets/images/iawp.svg' ); ?>" alt="Independent Analytics logo" />
 				</div>
 				<div class="features">
 					<div class="title">Free WordPress Analytics Plugin</div>
@@ -208,7 +208,7 @@ function ct_period_options_content()
 			</div>
 			<div class="dashboard-widget">
 				<h4>User Reviews</h4>
-				<img src="<?php echo trailingslashit(get_template_directory_uri()) . 'assets/images/reviews.png'; ?>" />
+				<img src="<?php echo esc_url( trailingslashit(get_template_directory_uri()) . 'assets/images/reviews.png' ); ?>" />
 				<p>Users are loving Period! <a href="https://wordpress.org/support/theme/period/reviews/?filter=5#new-post" target="_blank">Click here</a> to leave your own review</p>
 			</div>
 			<div class="dashboard-widget">

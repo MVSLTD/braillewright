@@ -11,7 +11,7 @@
 	<?php wp_head(); ?>
 </head>
 
-<body id="<?php print get_stylesheet(); ?>" <?php body_class(); ?>>
+<body id="<?php echo esc_attr( get_stylesheet() ); ?>" <?php body_class(); ?>>
   <a class="skip-content" href="#main"><?php esc_html_e( 'Press "Enter" to skip to content', 'braillewright' ); ?></a>
   <div id="overflow-container" class="overflow-container">
     <div id="primary-container" class="primary-container">

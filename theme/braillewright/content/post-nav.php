@@ -34,7 +34,7 @@ if ( $next_post == '' ) {
 		<span><?php echo esc_html( $previous_text ); ?></span>
 		<?php
 		if ( $previous_post == '' ) {
-			echo $previous_link;
+			echo wp_kses_post( $previous_link );
 		} else {
 			previous_post_link( '%link' );
 		}
@@ -44,7 +44,7 @@ if ( $next_post == '' ) {
 		<span><?php echo esc_html( $next_text ); ?></span>
 		<?php
 		if ( $next_post == '' ) {
-			echo $next_link;
+			echo wp_kses_post( $next_link );
 		} else {
 			next_post_link( '%link' );
 		}

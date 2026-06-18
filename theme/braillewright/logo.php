@@ -18,4 +18,4 @@ $output .= $logo;
 $output .= "</a>";
 $output .= "</div>";
 
-echo $output;
+echo wp_kses_post( $output );
