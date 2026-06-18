@@ -130,7 +130,7 @@ function ct_period_pro_add_oembed_callback() {
 
 	// Logged-in editors only; this is a read-only oembed preview (no state change).
 	if ( ! current_user_can( 'edit_posts' ) ) {
-		wp_die( -1, 403 );
+		wp_die( '', '', array( 'response' => 403 ) );
 	}
 
 	// get the video url passed from the JS (validate user input right away)
