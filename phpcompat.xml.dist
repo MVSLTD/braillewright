@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<ruleset name="Braillewright PHP Compatibility">
+    <description>Flags PHP 8.3+ incompatibilities in the Braillewright theme + plugin. WP.com Atomic runs PHP 8.3; WordPress core polyfills are accounted for by the PHPCompatibilityWP standard, so functions WP backfills are not false-flagged.</description>
+
+    <file>theme/braillewright</file>
+    <file>plugin/braillewright-pro</file>
+    <file>tools</file>
+
+    <arg name="extensions" value="php"/>
+    <arg name="parallel" value="8"/>
+    <arg name="colors"/>
+    <arg value="sp"/>
+
+    <exclude-pattern>*/tgm/*</exclude-pattern>
+    <exclude-pattern>*/languages/*</exclude-pattern>
+    <exclude-pattern>*/node_modules/*</exclude-pattern>
+    <exclude-pattern>*/vendor/*</exclude-pattern>
+
+    <!-- Deploy target: PHP 8.3 and up (the trailing dash = "and higher"; watch 8.4+). -->
+    <config name="testVersion" value="8.3-"/>
+
+    <rule ref="PHPCompatibilityWP"/>
+</ruleset>

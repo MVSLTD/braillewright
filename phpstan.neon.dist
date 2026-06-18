@@ -1,0 +1,25 @@
+includes:
+    # WordPress function/class/constant stubs + WP-aware rules.
+    - vendor/szepeviktor/phpstan-wordpress/extension.neon
+    # After the first CI run produces a baseline (downloadable artifact, or run
+    # `composer analyse:baseline` locally), commit phpstan-baseline.neon and
+    # uncomment the next line to turn static analysis into a blocking gate that
+    # only fails on NEW issues. See docs/CI.md.
+    # - phpstan-baseline.neon
+
+parameters:
+    level: 5
+    phpVersion: 80300
+    paths:
+        - theme/braillewright
+        - plugin/braillewright-pro
+        - tools
+    excludePaths:
+        # analyse = still scanned for symbols (so calls elsewhere resolve), but
+        # not error-reported. tgm/ is the vendored TGM Plugin Activation library;
+        # woocommerce.php is a WooCommerce template (WC functions aren't stubbed
+        # here, and TTT does not depend on it).
+        analyse:
+            - theme/braillewright/tgm/*
+            - theme/braillewright/woocommerce.php
+    treatPhpDocTypesAsCertain: false

@@ -1,0 +1,24 @@
+{
+    "name": "braillewright",
+    "version": "0.0.0",
+    "private": true,
+    "description": "Accessibility CI tooling for the Braillewright theme + Braillewright Pro plugin: a local WordPress (wp-env) running the theme + plugin, scanned with pa11y-ci (axe + HTML_CodeSniffer) and Lighthouse CI.",
+    "license": "GPL-2.0-or-later",
+    "engines": {
+        "node": ">=20"
+    },
+    "scripts": {
+        "env:start": "wp-env start",
+        "env:stop": "wp-env stop",
+        "env:activate": "wp-env run cli wp theme activate braillewright && wp-env run cli wp plugin activate braillewright-pro",
+        "a11y:pa11y": "pa11y-ci",
+        "a11y:lighthouse": "lhci autorun",
+        "a11y": "npm run a11y:pa11y && npm run a11y:lighthouse"
+    },
+    "devDependencies": {
+        "@axe-core/cli": "^4.11.3",
+        "@lhci/cli": "^0.15.1",
+        "@wordpress/env": "^11.8.1",
+        "pa11y-ci": "^4.1.1"
+    }
+}

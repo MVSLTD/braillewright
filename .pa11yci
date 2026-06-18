@@ -1,0 +1,18 @@
+{
+    "defaults": {
+        "standard": "WCAG2AA",
+        "timeout": 60000,
+        "wait": 500,
+        "concurrency": 1,
+        "runners": [ "axe", "htmlcs" ],
+        "chromeLaunchConfig": {
+            "args": [ "--no-sandbox", "--disable-dev-shm-usage" ]
+        },
+        "ignore": []
+    },
+    "urls": [
+        "http://localhost:8888/",
+        "http://localhost:8888/?p=1",
+        "http://localhost:8888/?page_id=2"
+    ]
+}

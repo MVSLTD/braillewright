@@ -1,0 +1,74 @@
+name: Weekly security & compatibility scan
+
+# Phase 2's "honest ownership" mitigation: not a 24/7 CVE-watcher, but a weekly
+# pass that re-runs the security/compat/static checks against the current PHP
+# toolchain and the WordPress advisory DB, and opens a GitHub issue when the
+# *world* changes underneath us (a new PHP release breaks compatibility, or a
+# CVE lands in the CI toolchain). Inherited code-quality debt is tracked by the
+# per-PR CI gates, not re-filed here every week.
+
+on:
+  schedule:
+    # Mondays 13:00 UTC (~09:00 ET).
+    - cron: '0 13 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  scan:
+    name: Security sniffs + compat + static analysis + dependency audit
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Set up PHP 8.3 + Composer
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          coverage: none
+          tools: composer:v2
+      - name: Install Composer dependencies
+        run: composer install --no-interaction --no-progress --prefer-dist
+
+      - name: Security sniffs (WordPress.Security.*)
+        id: security
+        continue-on-error: true
+        run: |
+          vendor/bin/phpcs theme/braillewright plugin/braillewright-pro tools \
+            --standard=WordPress \
+            --sniffs=WordPress.Security.EscapeOutput,WordPress.Security.ValidatedSanitizedInput,WordPress.Security.NonceVerification \
+            --extensions=php \
+            --ignore=*/tgm/*,*/languages/* \
+            --report-full
+
+      - name: PHP 8.3+ compatibility
+        id: compat
+        continue-on-error: true
+        run: composer compat
+
+      - name: Static analysis
+        id: stan
+        continue-on-error: true
+        run: composer analyse
+
+      - name: Dependency audit (CI toolchain)
+        id: audit
+        continue-on-error: true
+        run: composer audit --no-interaction
+
+      # Only file an issue for "the world changed" signals — a new PHP version
+      # breaking compatibility, or a CVE in the toolchain. Security-sniff and
+      # PHPStan findings are inherited debt surfaced on every PR already.
+      - name: Open an issue on compatibility / advisory drift
+        if: steps.compat.outcome == 'failure' || steps.audit.outcome == 'failure'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          run_url="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          title="Weekly scan: compatibility/advisory drift ($(date -u +%Y-%m-%d))"
+          body="The scheduled weekly scan flagged a drift signal. Outcomes — security:${{ steps.security.outcome }} compat:${{ steps.compat.outcome }} static-analysis:${{ steps.stan.outcome }} dependency-audit:${{ steps.audit.outcome }}. Full run: ${run_url}"
+          gh issue create --title "$title" --body "$body" --label security --label automated \
+            || gh issue create --title "$title" --body "$body"

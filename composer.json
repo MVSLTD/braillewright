@@ -1,0 +1,44 @@
+{
+    "name": "adiblasi/braillewright",
+    "description": "Accessibility-first in-house fork of the GPL Period theme + Period Pro plugin. This manifest provides the dev-only PHP tooling (coding standards, PHP 8.3 compatibility, static analysis) used by CI; the theme and plugin themselves have no runtime Composer dependencies.",
+    "type": "project",
+    "license": "GPL-2.0-or-later",
+    "keywords": ["wordpress", "theme", "plugin", "accessibility", "wcag", "braillewright"],
+    "authors": [
+        { "name": "Aaron Di Blasi" }
+    ],
+    "require": {
+        "php": ">=8.3"
+    },
+    "require-dev": {
+        "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
+        "phpcompatibility/phpcompatibility-wp": "^2.1",
+        "phpstan/phpstan": "^2.0",
+        "squizlabs/php_codesniffer": "^3.13.4",
+        "szepeviktor/phpstan-wordpress": "^2.0",
+        "wp-coding-standards/wpcs": "^3.3"
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        },
+        "sort-packages": true,
+        "optimize-autoloader": true
+    },
+    "scripts": {
+        "lint": "phpcs",
+        "lint:fix": "phpcbf",
+        "compat": "phpcs --standard=phpcompat.xml.dist",
+        "analyse": "phpstan analyse --no-progress",
+        "analyse:baseline": "phpstan analyse --generate-baseline=phpstan-baseline.neon --no-progress",
+        "ci": ["@lint", "@compat", "@analyse"]
+    },
+    "scripts-descriptions": {
+        "lint": "PHPCS WordPress-Extra + security sniffs (phpcs.xml.dist).",
+        "lint:fix": "Auto-fix the PHPCS findings that are safely fixable.",
+        "compat": "PHPCompatibility scan against PHP 8.3+ (phpcompat.xml.dist).",
+        "analyse": "PHPStan static analysis with WordPress stubs (phpstan.neon.dist).",
+        "analyse:baseline": "Regenerate the PHPStan baseline so analysis can become a blocking gate.",
+        "ci": "Run lint + compat + analyse in sequence (local mirror of the CI gates)."
+    }
+}

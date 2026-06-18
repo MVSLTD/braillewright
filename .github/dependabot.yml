@@ -1,0 +1,25 @@
+version: 2
+updates:
+  # PHP CI toolchain (PHPCS/WPCS, PHPCompatibility, PHPStan, stubs).
+  - package-ecosystem: composer
+    directory: "/"
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    labels: [ "dependencies", "ci" ]
+
+  # Accessibility CI toolchain (wp-env, pa11y-ci, Lighthouse CI, axe).
+  - package-ecosystem: npm
+    directory: "/"
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    labels: [ "dependencies", "ci" ]
+
+  # The GitHub Actions themselves (checkout, setup-php, setup-node, upload-artifact).
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    labels: [ "dependencies", "ci" ]

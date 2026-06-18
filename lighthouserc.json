@@ -1,0 +1,24 @@
+{
+    "ci": {
+        "collect": {
+            "url": [
+                "http://localhost:8888/",
+                "http://localhost:8888/?p=1"
+            ],
+            "numberOfRuns": 1,
+            "settings": {
+                "onlyCategories": [ "accessibility" ],
+                "chromeFlags": "--no-sandbox --disable-dev-shm-usage"
+            }
+        },
+        "assert": {
+            "assertions": {
+                "categories:accessibility": [ "warn", { "minScore": 0.9 } ]
+            }
+        },
+        "upload": {
+            "target": "filesystem",
+            "outputDir": ".lighthouseci"
+        }
+    }
+}
