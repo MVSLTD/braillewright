@@ -355,8 +355,10 @@ input[type=search]:focus,
 input[type=tel]:focus,
 input[type=url]:focus,
 textarea:focus {
-  outline: none;
   background: white;
+  border-color: #333333;
+  outline: 2px solid #333333;
+  outline-offset: 1px;
 }
 
 textarea {
@@ -365,8 +367,10 @@ textarea {
   /* to hide scrollbar in IE */
 }
 textarea:focus {
-  outline: none;
   background: white;
+  border-color: #333333;
+  outline: 2px solid #333333;
+  outline-offset: 1px;
 }
 
 input[type=submit] {
@@ -1740,6 +1744,12 @@ li.pingback > article {
 }
 
 .widget_calendar a:hover, .widget_calendar a:active, .widget_calendar a:focus {
+  text-decoration: none;
+}
+.widget a {
+  text-decoration: underline;
+}
+.widget_calendar a {
   text-decoration: none;
 }
 .widget_calendar caption {

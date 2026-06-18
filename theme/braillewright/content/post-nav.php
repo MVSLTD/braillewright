@@ -29,7 +29,7 @@ if ( $next_post == '' ) {
 }
 
 ?>
-<nav class="further-reading">
+<nav class="further-reading" aria-label="<?php esc_attr_e( 'Post', 'braillewright' ); ?>">
 	<div class="previous">
 		<span><?php echo esc_html( $previous_text ); ?></span>
 		<?php

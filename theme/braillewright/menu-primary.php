@@ -1,8 +1,8 @@
-<div id="menu-primary" class="menu-container menu-primary" role="navigation">
+<div id="menu-primary" class="menu-container menu-primary" role="navigation" aria-label="<?php esc_attr_e( 'Primary', 'braillewright' ); ?>">
     <?php wp_nav_menu(
         array(
             'theme_location'  => 'primary',
-            'container'       => 'nav',
+            'container'       => 'div',
             'container_class' => 'menu',
             'menu_class'      => 'menu-primary-items',
             'menu_id'         => 'menu-primary-items',
