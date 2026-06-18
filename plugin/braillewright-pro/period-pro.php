@@ -135,7 +135,6 @@ if ( get_template() != 'period' ) {
 	require_once( PERIOD_PRO_PATH . 'inc/layout.php' );
 	require_once( PERIOD_PRO_PATH . 'inc/page-layouts.php' );
 	require_once( PERIOD_PRO_PATH . 'inc/menus.php' );
-	require_once( PERIOD_PRO_PATH . 'licensing/licensing.php' );
 
 	function ct_period_pro_init() {
 		// check if meta slider plugin is active (for featured sliders)
