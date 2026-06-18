@@ -14,7 +14,7 @@ if ( function_exists( 'wp_body_open' ) ) {
 	} else {
 			do_action( 'wp_body_open' );
 } ?>
-<a class="skip-content" href="#main"><?php esc_html_e( 'Press "Enter" to skip to content', 'period' ); ?></a>
+<a class="skip-content" href="#main"><?php esc_html_e( 'Press "Enter" to skip to content', 'braillewright' ); ?></a>
 <div id="overflow-container" class="overflow-container">
 	<?php do_action( 'before_header' ); ?>
 	<?php
@@ -30,7 +30,7 @@ if ( function_exists( 'wp_body_open' ) ) {
 				} ?>
 			</div>
 			<button id="toggle-navigation" class="toggle-navigation" name="toggle-navigation" aria-expanded="false">
-				<span class="screen-reader-text"><?php echo esc_html_x( 'open menu', 'verb: open the menu', 'period' ); ?></span>
+				<span class="screen-reader-text"><?php echo esc_html_x( 'open menu', 'verb: open the menu', 'braillewright' ); ?></span>
 				<?php echo ct_period_svg_output( 'toggle-navigation' ); ?>
 			</button>
 			<div id="menu-primary-container" class="menu-primary-container">

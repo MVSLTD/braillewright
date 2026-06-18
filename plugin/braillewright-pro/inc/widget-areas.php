@@ -7,9 +7,9 @@ function ct_period_pro_register_widget_areas() {
 
 	// After post content
 	register_sidebar( array(
-		'name'          => esc_html__( 'After Post Content', 'period-pro' ),
+		'name'          => esc_html__( 'After Post Content', 'braillewright-pro' ),
 		'id'            => 'after-post',
-		'description'   => esc_html__( 'Widgets in this area will be shown after the post content', 'period-pro' ),
+		'description'   => esc_html__( 'Widgets in this area will be shown after the post content', 'braillewright-pro' ),
 		'before_widget' => '<section id="%1$s" class="widget %2$s">',
 		'after_widget'  => '</section>',
 		'before_title'  => '<h3 class="widget-title">',
@@ -17,9 +17,9 @@ function ct_period_pro_register_widget_areas() {
 	) );
 	// After page content
 	register_sidebar( array(
-		'name'          => esc_html__( 'After Page Content', 'period-pro' ),
+		'name'          => esc_html__( 'After Page Content', 'braillewright-pro' ),
 		'id'            => 'after-page',
-		'description'   => esc_html__( 'Widgets in this area will be shown after the page content', 'period-pro' ),
+		'description'   => esc_html__( 'Widgets in this area will be shown after the page content', 'braillewright-pro' ),
 		'before_widget' => '<section id="%1$s" class="widget %2$s">',
 		'after_widget'  => '</section>',
 		'before_title'  => '<h3 class="widget-title">',
@@ -27,9 +27,9 @@ function ct_period_pro_register_widget_areas() {
 	) );
 	// Before main content
 	register_sidebar( array(
-		'name'          => esc_html__( 'Before Main Content', 'period-pro' ),
+		'name'          => esc_html__( 'Before Main Content', 'braillewright-pro' ),
 		'id'            => 'before-main',
-		'description'   => esc_html__( 'Widgets in this area will be shown after the site title and above the posts', 'period-pro' ),
+		'description'   => esc_html__( 'Widgets in this area will be shown after the site title and above the posts', 'braillewright-pro' ),
 		'before_widget' => '<section id="%1$s" class="widget %2$s">',
 		'after_widget'  => '</section>',
 		'before_title'  => '<h3 class="widget-title">',
@@ -37,9 +37,9 @@ function ct_period_pro_register_widget_areas() {
 	) );
 	// Footer
 	register_sidebar( array(
-		'name'          => esc_html__( 'Footer', 'period-pro' ),
+		'name'          => esc_html__( 'Footer', 'braillewright-pro' ),
 		'id'            => 'footer',
-		'description'   => esc_html__( 'Widgets in this area will be shown in the footer', 'period-pro' ),
+		'description'   => esc_html__( 'Widgets in this area will be shown in the footer', 'braillewright-pro' ),
 		'before_widget' => '<section id="%1$s" class="widget %2$s">',
 		'after_widget'  => '</section>',
 		'before_title'  => '<h3 class="widget-title">',

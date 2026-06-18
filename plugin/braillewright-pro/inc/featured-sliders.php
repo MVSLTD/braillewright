@@ -9,7 +9,7 @@ function ct_period_pro_add_sliders_meta_box() {
 
 		add_meta_box(
 			'ct_period_pro_slider',
-			esc_html__( 'Featured Slider', 'period-pro' ),
+			esc_html__( 'Featured Slider', 'braillewright-pro' ),
 			'ct_period_pro_slider_callback',
 			$screen,
 			'normal',
@@ -36,16 +36,16 @@ function ct_period_pro_slider_callback( $post ) {
 		// if there are no sliders, link them to the creation page
 		if ( empty( $sliders ) ) {
 			$link = add_query_arg( 'page', 'metaslider', admin_url( 'admin.php' ) );
-			echo '<p class="slider-notice"> ' . sprintf( __( "Looks like you don't have any Sliders yet. <a href='%s' target='_blank'>Click here</a> to create your first slider.", "period-pro" ), esc_url( $link ) ) . '</p>';
+			echo '<p class="slider-notice"> ' . sprintf( __( "Looks like you don't have any Sliders yet. <a href='%s' target='_blank'>Click here</a> to create your first slider.", "braillewright-pro" ), esc_url( $link ) ) . '</p>';
 		}
 
 		// add dropdown for selecting a slider
 		echo '<div class="ct_period_pro_slider_input_container">';
 			echo '<label for="ct_period_pro_slider_selection">';
-				esc_html_e( 'Choose a slider:', 'period-pro' );
+				esc_html_e( 'Choose a slider:', 'braillewright-pro' );
 			echo '</label> ';
 			echo '<select id="ct_period_pro_slider_selection" name="ct_period_pro_slider_selection">';
-				echo '<option value="select">' . esc_html__( "Select a slider", "period-pro" ) . '</option>';
+				echo '<option value="select">' . esc_html__( "Select a slider", "braillewright-pro" ) . '</option>';
 				foreach ( $sliders as $slider ) {
 					$title = $slider->post_title;
 					$id    = $slider->ID;
@@ -55,7 +55,7 @@ function ct_period_pro_slider_callback( $post ) {
 					} ?>><?php echo sanitize_text_field( $title ); ?></option>
 				<?php }
 			echo '</select>';
-			echo '<p><em> ' . esc_html__( "Recommended slider dimensions: 2x1", "period-pro" ) . '</em></p>';
+			echo '<p><em> ' . esc_html__( "Recommended slider dimensions: 2x1", "braillewright-pro" ) . '</em></p>';
 		echo '</div>';
 
 		// Display option
@@ -69,18 +69,18 @@ function ct_period_pro_slider_callback( $post ) {
 
 			// add radio buttons for post vs post and blog display
 			echo '<div class="ct_period_pro_slider_display_container">';
-				echo '<p>' . esc_html__( 'Choose where to display the slider:', 'period-pro' ) . '</p>';
+				echo '<p>' . esc_html__( 'Choose where to display the slider:', 'braillewright-pro' ) . '</p>';
 				echo '<label for="ct_period_pro_slider_display_post">';
 					echo '<input type="radio" name="ct_period_pro_slider_display" id="ct_period_pro_slider_display_post" value="post" ' . checked( $display_blog, "post", false ) . '>';
-					esc_html_e( 'Post', 'period-pro' );
+					esc_html_e( 'Post', 'braillewright-pro' );
 				echo '</label> ';
 				echo '<label for="ct_period_pro_slider_display_blog">';
 					echo '<input type="radio" name="ct_period_pro_slider_display" id="ct_period_pro_slider_display_blog" value="blog" ' . checked( $display_blog, "blog", false ) . '>';
-					esc_html_e( 'Blog', 'period-pro' );
+					esc_html_e( 'Blog', 'braillewright-pro' );
 				echo '</label> ';
 				echo '<label for="ct_period_pro_slider_display_both">';
 					echo '<input type="radio" name="ct_period_pro_slider_display" id="ct_period_pro_slider_display_both" value="both" ' . checked( $display_blog, "both", false ) . '>';
-					esc_html_e( 'Post & Blog', 'period-pro' );
+					esc_html_e( 'Post & Blog', 'braillewright-pro' );
 				echo '</label> ';
 			echo '</div>';
 		endif;
@@ -92,15 +92,15 @@ function ct_period_pro_slider_callback( $post ) {
 		// if Meta Slider is installed, but not active
 		if ( array_key_exists( 'ml-slider/ml-slider.php', $plugins ) ) {
 			$link_plugins = admin_url( 'plugins.php' );
-			echo '<p class="slider-notice">' . sprintf( __( "Please activate Meta Slider from the <a href='%s'>Plugins menu</a>.", "period-pro" ), esc_url( $link_plugins ) );
+			echo '<p class="slider-notice">' . sprintf( __( "Please activate Meta Slider from the <a href='%s'>Plugins menu</a>.", "braillewright-pro" ), esc_url( $link_plugins ) );
 		} else { // if not installed and not active
 			echo '<div class="ct_period_pro_slider_no_slider_container">';
 			$link_ml_search = add_query_arg( array(
 				'tab' => 'search',
 				's'   => 'metaslider'
 			), admin_url( 'plugin-install.php' ) );
-			echo '<p class="slider-notice">' . esc_html__( "Featured Sliders require the Meta Slider plugin.", "period-pro" );
-			echo ' ' . sprintf( __( "<a href='%s'>Click here</a> to find and install Meta Slider from the Plugins menu.", "period-pro" ), esc_url( $link_ml_search ) ) . '</p>';
+			echo '<p class="slider-notice">' . esc_html__( "Featured Sliders require the Meta Slider plugin.", "braillewright-pro" );
+			echo ' ' . sprintf( __( "<a href='%s'>Click here</a> to find and install Meta Slider from the Plugins menu.", "braillewright-pro" ), esc_url( $link_ml_search ) ) . '</p>';
 			echo '</div>';
 		}
 	}
@@ -181,6 +181,6 @@ add_filter( 'ct_period_featured_image', 'ct_period_pro_output_featured_slider', 
 
 // replace all purchase links with affiliate link
 function ct_period_pro_metaslider_hoplink( $link ) {
-	return "http://link.competethemes.com/meta-slider-period-pro";
+	return $link;
 }
 add_filter( 'metaslider_hoplink', 'ct_period_pro_metaslider_hoplink', 10, 1 );

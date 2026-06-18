@@ -9,7 +9,7 @@ function ct_period_last_updated_meta_box() {
 
 		add_meta_box(
 			'ct_period_last_updated',
-			esc_html__( 'Last Updated Date', 'period' ),
+			esc_html__( 'Last Updated Date', 'braillewright' ),
 			'ct_period_last_updated_callback',
 			$screen,
 			'side'
@@ -26,14 +26,14 @@ function ct_period_last_updated_callback( $post ) {
   ?>
 	<p>
 		<select name="period-last-updated" id="period-last-updated" style="box-sizing: border-box; width: 100%;">
-			<option value="default"><?php esc_html_e( 'Use Customizer setting', 'period' ); ?></option>
+			<option value="default"><?php esc_html_e( 'Use Customizer setting', 'braillewright' ); ?></option>
 			<option value="yes" <?php if ( $display == 'yes' ) {
 				echo 'selected';
-			} ?>><?php esc_html_e( 'Show the date', 'period' ); ?>
+			} ?>><?php esc_html_e( 'Show the date', 'braillewright' ); ?>
 			</option>
 			<option value="no" <?php if ( $display == 'no' ) {
 				echo 'selected';
-			} ?>><?php esc_html_e( "Don't show the date", 'period' ); ?>
+			} ?>><?php esc_html_e( "Don't show the date", 'braillewright' ); ?>
 			</option>
 		</select>
 	</p> <?php

@@ -75,7 +75,7 @@ jQuery(document).ready(function($) {
         });
     }
 
-    // label Period Pro customizer sections
+    // label Braillewright Pro customizer sections
     function addProlabel() {
 
         // to prevent running more than once per session

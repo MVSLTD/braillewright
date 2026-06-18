@@ -345,7 +345,7 @@
     wp.customize( 'footer_text', function( value ) {
         value.bind( function( to ) {
             if ( to == '' ) {
-                to = '<a target="_blank" href="https://www.competethemes.com/period/">Period WordPress Theme</a> by Compete Themes.';
+                to = '';
             }
             $('.design-credit').children('span').html(to);
         });

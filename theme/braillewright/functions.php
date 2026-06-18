@@ -31,12 +31,12 @@ function ct_period_register_required_plugins()
         'is_automatic' => false,
         'message'      => '',
         'strings'      => array(
-            'page_title'                      => __('Install Recommended Plugins', 'period'),
-            'menu_title'                      => __('Recommended Plugins', 'period'),
+            'page_title'                      => __('Install Recommended Plugins', 'braillewright'),
+            'menu_title'                      => __('Recommended Plugins', 'braillewright'),
             'notice_can_install_recommended'     => _n_noop(
-                'The makers of the Period theme now recommend installing Independent Analytics, their new plugin for visitor tracking: %1$s.',
-                'The makers of the Period theme now recommend installing Independent Analytics, their new plugin for visitor tracking: %1$s.',
-                'period'
+                'The makers of the Braillewright theme now recommend installing Independent Analytics, their new plugin for visitor tracking: %1$s.',
+                'The makers of the Braillewright theme now recommend installing Independent Analytics, their new plugin for visitor tracking: %1$s.',
+                'braillewright'
             ),
         )
     );
@@ -83,33 +83,33 @@ if (! function_exists(('ct_period_theme_setup'))) {
         // Gutenberg - modify the font sizes
         add_theme_support('editor-font-sizes', array(
             array(
-                    'name' => __('small', 'period'),
-                    'shortName' => __('S', 'period'),
+                    'name' => __('small', 'braillewright'),
+                    'shortName' => __('S', 'braillewright'),
                     'size' => 12,
                     'slug' => 'small'
             ),
             array(
-                    'name' => __('regular', 'period'),
-                    'shortName' => __('M', 'period'),
+                    'name' => __('regular', 'braillewright'),
+                    'shortName' => __('M', 'braillewright'),
                     'size' => 16,
                     'slug' => 'regular'
             ),
             array(
-                    'name' => __('large', 'period'),
-                    'shortName' => __('L', 'period'),
+                    'name' => __('large', 'braillewright'),
+                    'shortName' => __('L', 'braillewright'),
                     'size' => 21,
                     'slug' => 'large'
             ),
             array(
-                    'name' => __('larger', 'period'),
-                    'shortName' => __('XL', 'period'),
+                    'name' => __('larger', 'braillewright'),
+                    'shortName' => __('XL', 'braillewright'),
                     'size' => 28,
                     'slug' => 'larger'
             )
     ));
 
         register_nav_menus(array(
-            'primary' => esc_html__('Primary', 'period')
+            'primary' => esc_html__('Primary', 'braillewright')
         ));
 
         // Add WooCommerce support
@@ -119,7 +119,7 @@ if (! function_exists(('ct_period_theme_setup'))) {
         add_theme_support('wc-product-gallery-lightbox');
         add_theme_support('wc-product-gallery-slider');
 
-        load_theme_textdomain('period', get_template_directory() . '/languages');
+        load_theme_textdomain('braillewright', get_template_directory() . '/languages');
     }
 }
 add_action('after_setup_theme', 'ct_period_theme_setup', 10);
@@ -139,9 +139,9 @@ if (! function_exists(('ct_period_register_widget_areas'))) {
     function ct_period_register_widget_areas()
     {
         register_sidebar(array(
-            'name'          => esc_html__('Primary Sidebar', 'period'),
+            'name'          => esc_html__('Primary Sidebar', 'braillewright'),
             'id'            => 'primary',
-            'description'   => esc_html__('Widgets in this area will be shown in the sidebar next to the main post content', 'period'),
+            'description'   => esc_html__('Widgets in this area will be shown in the sidebar next to the main post content', 'braillewright'),
             'before_widget' => '<section id="%1$s" class="widget %2$s">',
             'after_widget'  => '</section>',
             'before_title'  => '<h3 class="widget-title">',
@@ -168,19 +168,19 @@ if (! function_exists(('ct_period_customize_comments'))) {
 			</div>
 			<div class="comment-content">
 				<?php if ($comment->comment_approved == '0') : ?>
-					<em><?php esc_html_e('Your comment is awaiting moderation.', 'period') ?></em>
+					<em><?php esc_html_e('Your comment is awaiting moderation.', 'braillewright') ?></em>
 					<br/>
 				<?php endif; ?>
 				<?php comment_text(); ?>
 			</div>
 			<div class="comment-footer">
 				<?php comment_reply_link(array_merge($args, array(
-                    'reply_text' => esc_html_x('Reply', 'verb: reply to this comment', 'period'),
+                    'reply_text' => esc_html_x('Reply', 'verb: reply to this comment', 'braillewright'),
                     'depth'      => $depth,
                     'max_depth'  => $args['max_depth'],
                     'before'     => '<i class="fas fa-reply"></i>'
                 ))); ?>
-				<?php edit_comment_link(esc_html_x('Edit', 'verb: edit this comment', 'period'), '<i class="fas fa-edit"></i>'); ?>
+				<?php edit_comment_link(esc_html_x('Edit', 'verb: edit this comment', 'braillewright'), '<i class="fas fa-edit"></i>'); ?>
 			</div>
 		</article>
 		<?php
@@ -192,26 +192,26 @@ if (! function_exists('ct_period_update_fields')) {
     {
         $commenter = wp_get_current_commenter();
         $req       = get_option('require_name_email');
-        $label     = $req ? '*' : ' ' . esc_html__('(optional)', 'period');
+        $label     = $req ? '*' : ' ' . esc_html__('(optional)', 'braillewright');
         $aria_req  = $req ? "aria-required='true'" : '';
 
         $fields['author'] =
             '<p class="comment-form-author">
-	            <label for="author">' . esc_html_x("Name", "noun", "period") . $label . '</label>
-	            <input id="author" name="author" type="text" placeholder="' . esc_attr__("Jane Doe", "period") . '" value="' . esc_attr($commenter['comment_author']) .
+	            <label for="author">' . esc_html_x("Name", "noun", "braillewright") . $label . '</label>
+	            <input id="author" name="author" type="text" placeholder="' . esc_attr__("Jane Doe", "braillewright") . '" value="' . esc_attr($commenter['comment_author']) .
             '" size="30" ' . $aria_req . ' />
 	        </p>';
 
         $fields['email'] =
             '<p class="comment-form-email">
-	            <label for="email">' . esc_html_x("Email", "noun", "period") . $label . '</label>
-	            <input id="email" name="email" type="email" placeholder="' . esc_attr__("name@email.com", "period") . '" value="' . esc_attr($commenter['comment_author_email']) .
+	            <label for="email">' . esc_html_x("Email", "noun", "braillewright") . $label . '</label>
+	            <input id="email" name="email" type="email" placeholder="' . esc_attr__("name@email.com", "braillewright") . '" value="' . esc_attr($commenter['comment_author_email']) .
             '" size="30" ' . $aria_req . ' />
 	        </p>';
 
         $fields['url'] =
             '<p class="comment-form-url">
-	            <label for="url">' . esc_html__("Website", "period") . '</label>
+	            <label for="url">' . esc_html__("Website", "braillewright") . '</label>
 	            <input id="url" name="url" type="url" placeholder="http://google.com" value="' . esc_attr($commenter['comment_author_url']) .
             '" size="30" />
 	            </p>';
@@ -234,7 +234,7 @@ if (! function_exists('ct_period_update_comment_field')) {
         
         $comment_field =
             '<p class="comment-form-comment">
-	            <label for="comment">' . esc_html_x("Comment", "noun", "period") . '</label>
+	            <label for="comment">' . esc_html_x("Comment", "noun", "braillewright") . '</label>
 	            <textarea required id="comment" name="comment" cols="45" rows="8" aria-required="true"></textarea>
 	        </p>';
 
@@ -271,7 +271,7 @@ if (! function_exists('ct_period_filter_read_more_link')) {
         }
         // Because i18n text cannot be stored in a variable
         if (empty($read_more_text)) {
-            $output .= '<div class="more-link-wrapper"><a class="more-link" href="' . esc_url(get_permalink()) . '">' . esc_html__('Continue reading', 'period') . '<span class="screen-reader-text">' . esc_html(get_the_title()) . '</span></a></div>';
+            $output .= '<div class="more-link-wrapper"><a class="more-link" href="' . esc_url(get_permalink()) . '">' . esc_html__('Continue reading', 'braillewright') . '<span class="screen-reader-text">' . esc_html(get_the_title()) . '</span></a></div>';
         } else {
             $output .= '<div class="more-link-wrapper"><a class="more-link" href="' . esc_url(get_permalink()) . '">' . esc_html($read_more_text) . '<span class="screen-reader-text">' . esc_html(get_the_title()) . '</span></a></div>';
         }
@@ -339,7 +339,7 @@ function ct_period_update_yoast_og_description($ogdesc)
 {
     $read_more_text = get_theme_mod('read_more_text');
     if (empty($read_more_text)) {
-        $read_more_text = esc_html__('Continue reading', 'period');
+        $read_more_text = esc_html__('Continue reading', 'braillewright');
     }
     $ogdesc = substr($ogdesc, 0, strpos($ogdesc, $read_more_text));
 
@@ -564,7 +564,7 @@ if (! function_exists(('ct_period_nav_dropdown_buttons'))) {
     {
         if ($args->theme_location == 'primary') {
             if (in_array('menu-item-has-children', $item->classes) || in_array('page_item_has_children', $item->classes)) {
-                $item_output = str_replace($args->link_after . '</a>', $args->link_after . '</a><button class="toggle-dropdown" aria-expanded="false" name="toggle-dropdown"><span class="screen-reader-text">' . esc_html_x("open dropdown menu", "verb: open the dropdown menu", "period") . '</span><span class="arrow"></span></button>', $item_output);
+                $item_output = str_replace($args->link_after . '</a>', $args->link_after . '</a><button class="toggle-dropdown" aria-expanded="false" name="toggle-dropdown"><span class="screen-reader-text">' . esc_html_x("open dropdown menu", "verb: open the dropdown menu", "braillewright") . '</span><span class="arrow"></span></button>', $item_output);
             }
         }
 
@@ -577,7 +577,7 @@ if (! function_exists(('ct_period_sticky_post_marker'))) {
     function ct_period_sticky_post_marker()
     {
         if (is_sticky() && !is_archive() && !is_search()) {
-            echo '<div class="sticky-status"><span>' . esc_html__("Featured", "period") . '</span></div>';
+            echo '<div class="sticky-status"><span>' . esc_html__("Featured", "braillewright") . '</span></div>';
         }
     }
 }
@@ -644,7 +644,7 @@ if (! function_exists(('ct_period_delete_settings_notice'))) {
             if ($_GET['period_status'] == 'deleted') {
                 ?>
 				<div class="updated">
-					<p><?php esc_html_e('Customizer settings deleted.', 'period'); ?></p>
+					<p><?php esc_html_e('Customizer settings deleted.', 'braillewright'); ?></p>
 				</div>
 				<?php
             }
@@ -846,7 +846,7 @@ function ct_period_scroll_to_top_arrow()
     $setting = get_theme_mod('scroll_to_top');
     
     if ($setting == 'yes') {
-        echo '<button id="scroll-to-top" class="scroll-to-top"><span class="screen-reader-text">'. esc_html__('Scroll to the top', 'period') .'</span><i class="fas fa-arrow-up"></i></button>';
+        echo '<button id="scroll-to-top" class="scroll-to-top"><span class="screen-reader-text">'. esc_html__('Scroll to the top', 'braillewright') .'</span><i class="fas fa-arrow-up"></i></button>';
     }
 }
 add_action('body_bottom', 'ct_period_scroll_to_top_arrow');
@@ -865,7 +865,7 @@ function ct_period_output_last_updated_date()
             ($updated_customizer == 'yes' && ($updated_post != 'no'))
             || $updated_post == 'yes'
             ) {
-            echo '<p class="last-updated">'. esc_html__("Last updated on", "period") . ' ' . get_the_modified_date() . ' </p>';
+            echo '<p class="last-updated">'. esc_html__("Last updated on", "braillewright") . ' ' . get_the_modified_date() . ' </p>';
         }
     }
 }
@@ -886,13 +886,13 @@ if (! function_exists(('ct_period_pagination'))) {
         // Output pagination if Jetpack not installed, otherwise check if infinite scroll is active before outputting
         if (!class_exists('Jetpack')) {
             the_posts_pagination(array(
-        'prev_text' => esc_html__('Previous', 'period'),
-        'next_text' => esc_html__('Next', 'period')
+        'prev_text' => esc_html__('Previous', 'braillewright'),
+        'next_text' => esc_html__('Next', 'braillewright')
       ));
         } elseif (!Jetpack::is_module_active('infinite-scroll')) {
             the_posts_pagination(array(
-        'prev_text' => esc_html__('Previous', 'period'),
-        'next_text' => esc_html__('Next', 'period')
+        'prev_text' => esc_html__('Previous', 'braillewright'),
+        'next_text' => esc_html__('Next', 'braillewright')
       ));
         }
     }

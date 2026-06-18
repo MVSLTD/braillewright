@@ -1,19 +1,18 @@
 @charset "UTF-8";
 /*
-Theme Name: Period
-Theme URI: https://www.competethemes.com/period/
-Author: Compete Themes
-Author URI: https://www.competethemes.com
-Description: Period is a dark, clean, and SEO-optimized blogging theme. As a responsive theme, it displays your content beautifully across phones, widescreen monitors, and everything in between. With special attention to typography, accessibility, and minimalism, Period has a design you can trust for presenting your content. Now with WooCommerce support, you can include an eCommerce shop right on your website (for free). Use Period to blog about the news, music, travel, business, gaming, you name it! It’s equally well-suited for a corporate blog or personal podcast. Period also has full compatibility with the new Gutenberg post editor. Preview Period on desktop, tablets, and mobile devices with the interactive live demo: https://www.competethemes.com/demos/?theme=period
+Theme Name: Braillewright
+Author: Aaron Di Blasi
+Description: Accessibility-first WordPress theme, maintained in-house. Forked from the GPL Period theme
 Version: 1.750
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: two-columns, left-sidebar, right-sidebar, accessibility-ready, custom-logo, custom-menu, featured-images, full-width-template, rtl-language-support, sticky-post, theme-options, threaded-comments, translation-ready, blog, education, news
-Text Domain: period
+Text Domain: braillewright
 Tested up to: 6.7
 Requires PHP: 5.4
 
 Period WordPress Theme, Copyright 2024 Compete Themes
+Braillewright is a fork of Period 1.750; modifications Copyright 2026 Aaron Di Blasi, GNU GPL v2 or later.
 Period is distributed under the terms of the GNU GPL
 */
 /*===== Variables =====*/
@@ -2109,6 +2108,6 @@ Please do not edit this. Your changes will be overwritten when you update Period
 
 If you want to make CSS edits, use the "Custom CSS" section in the Customizer instead (Appearance > Customize).
 
-If you want more information about customizing Period with CSS, check out this guide: https://www.competethemes.com/help/custom-css-period/
+If you want more information about customizing Period with CSS, check out this guide: #
 
 */

@@ -31,7 +31,7 @@ function ct_period_pro_output_header_image() {
 			>';
 		}
 			if ( $link != '' ) {
-				echo '<a href="'. esc_url( $link ) .'">'. esc_html__( "Visit Page", "period-pro" ) .'</a>';
+				echo '<a href="'. esc_url( $link ) .'">'. esc_html__( "Visit Page", "braillewright-pro" ) .'</a>';
 			}
 		echo '</span>';
 	} elseif ( $header_video && $header_image_type == 'video' ) {

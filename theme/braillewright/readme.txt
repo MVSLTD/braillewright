@@ -1,45 +1,25 @@
-=== Period ===
-Contributors: bensibley
-Tags: two-columns, left-sidebar, right-sidebar, accessibility-ready, custom-logo, custom-menu, featured-images, full-width-template, rtl-language-support, sticky-post, theme-options, threaded-comments, translation-ready, blog, education, news
+=== Braillewright ===
 Requires at least: 5.2
 Tested up to: 6.7
 Stable tag: 1.750
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Tags: accessibility-ready, custom-logo, custom-menu, featured-images, two-columns, left-sidebar, right-sidebar
 
-Period is a dark, clean, and SEO-optimized blogging theme.
+Accessibility-first WordPress theme, maintained in-house.
 
 == Description ==
 
-Period is a dark, clean, and SEO-optimized blogging theme. As a responsive theme, it displays your content beautifully across phones, widescreen monitors, and everything in between. With special attention to typography, accessibility, and minimalism, Period has a design you can trust for presenting your content. Now with WooCommerce support, you can include an eCommerce shop right on your website (for free). Use Period to blog about the news, music, travel, business, gaming, you name it! It’s equally well-suited for a corporate blog or personal podcast.
+Braillewright is an accessibility-first WordPress theme maintained in-house by Aaron Di Blasi. It is a fork of the GPL-licensed Period theme (1.750), kept and remediated for WCAG 2.2 AA conformance. Its companion plugin is Braillewright Pro (forked from Period Pro 1.16).
 
-**Live Demo**
+== Provenance ==
 
-View a fully-setup live demo of Period here: [Live demo](https://www.competethemes.com/demos/?theme=period)
+Forked from Period 1.750 (GPLv2-or-later) Source integrity hashes and full attribution are in docs/PROVENANCE.md in the Braillewright repository. "Period" and "Compete Themes" are the upstream author's marks and are not used in Braillewright's branding.
 
-**Features**
+== Changelog ==
 
-Period comes with the following features:
-
-* Custom logo
-* Right & left sidebar layouts
-* Built-in search bar
-* 50+ social media icons
-* Show excerpts VS full posts on blog
-* Custom excerpt word count
-
-**Period Pro**
-
-Period also has a premium plugin upgrade called [Period Pro](https://www.competethemes.com/period-pro/) that includes the following features:
-
-* 6 new layouts
-* Custom colors
-* Over 700+ fonts
-* Flexible header image
-* Featured videos
-* Featured sliders
-* Background images
-* Background textures
-* 12 Featured Image aspect ratios
-* Secondary menu
-* Display controls
-* More widget areas
-* Custom footer text
+= Fork - 2026 =
+* Forked from Period 1.750; companion plugin forked from Period Pro 1.16.
+* Removed the EDD Software Licensing / auto-updater (no vendor phone-home).
+* Rebranded to Braillewright / Braillewright Pro.
+* Ongoing accessibility remediation.

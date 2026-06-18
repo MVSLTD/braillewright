@@ -9,7 +9,7 @@ function ct_period_pro_add_post_layout_meta_box() {
 
 		add_meta_box(
 			'ct_period_pro_post_layout',
-			esc_html__( 'Layout', 'period-pro' ),
+			esc_html__( 'Layout', 'braillewright-pro' ),
 			'ct_period_pro_post_layout_callback',
 			$screen,
 			'side'
@@ -26,22 +26,22 @@ function ct_period_pro_post_layout_callback( $post ) {
 	?>
 	<p>
 		<select name="period-pro-post-layout" id="period-pro-post-layout" style="box-sizing: border-box; width: 100%;">
-			<option value="default"><?php esc_html_e( 'Use layout set in Customizer', 'period-pro' ); ?></option>
+			<option value="default"><?php esc_html_e( 'Use layout set in Customizer', 'braillewright-pro' ); ?></option>
 			<option value="right" <?php if ( $layout == 'right' ) {
 				echo 'selected';
-			} ?>><?php esc_html_e( 'Right sidebar', 'period-pro' ); ?>
+			} ?>><?php esc_html_e( 'Right sidebar', 'braillewright-pro' ); ?>
 			</option>
 			<option value="left" <?php if ( $layout == 'left' ) {
 				echo 'selected';
-			} ?>><?php esc_html_e( 'Left sidebar', 'period-pro' ); ?>
+			} ?>><?php esc_html_e( 'Left sidebar', 'braillewright-pro' ); ?>
 			</option>
 			<option value="narrow" <?php if ( $layout == 'narrow' ) {
 				echo 'selected';
-			} ?>><?php esc_html_e( 'Narrow', 'period-pro' ); ?>
+			} ?>><?php esc_html_e( 'Narrow', 'braillewright-pro' ); ?>
 			</option>
 			<option value="wide" <?php if ( $layout == 'wide' ) {
 				echo 'selected';
-			} ?>><?php esc_html_e( 'Wide', 'period-pro' ); ?>
+			} ?>><?php esc_html_e( 'Wide', 'braillewright-pro' ); ?>
 			</option>
 		</select>
 	</p> <?php

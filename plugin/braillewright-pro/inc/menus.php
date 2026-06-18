@@ -4,7 +4,7 @@ defined( 'ABSPATH' ) OR exit;
 function ct_period_pro_register_nav_menus() {
 
 	register_nav_menus( array(
-		'secondary' => esc_html__( 'Secondary', 'period-pro' )
+		'secondary' => esc_html__( 'Secondary', 'braillewright-pro' )
 	) );
 }
 add_action( 'after_setup_theme', 'ct_period_pro_register_nav_menus', 11 );

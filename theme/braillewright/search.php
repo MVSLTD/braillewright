@@ -6,9 +6,9 @@
             $total_results = $wp_query->found_posts;
             $s             = htmlentities( $s );
             if ( $total_results ) {
-                printf( esc_html( _n( '%1$d search result for "%2$s"', '%1$d search results for "%2$s"', $total_results, 'period' ) ), $total_results, $s );
+                printf( esc_html( _n( '%1$d search result for "%2$s"', '%1$d search results for "%2$s"', $total_results, 'braillewright' ) ), $total_results, $s );
             } else {
-                printf( esc_html__( 'No search results for "%s"', 'period' ), $s );
+                printf( esc_html__( 'No search results for "%s"', 'braillewright' ), $s );
             }
             ?>
         </h1>
@@ -31,7 +31,7 @@ $total_results = $wp_query->found_posts;
 if ( $total_results ) {
     ?>
     <div class="search-bottom">
-        <p><?php esc_html_e( "Can't find what you're looking for?  Try refining your search:", "period" ); ?></p>
+        <p><?php esc_html_e( "Can't find what you're looking for?  Try refining your search:", "braillewright" ); ?></p>
         <?php get_search_form(); ?>
     </div>
 <?php }

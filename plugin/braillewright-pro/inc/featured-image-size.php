@@ -9,7 +9,7 @@ function ct_period_pro_fi_size_meta_box() {
 
 		add_meta_box(
 			'ct_period_pro_fi_size',
-			esc_html__( 'Featured Image Size', 'period-pro' ),
+			esc_html__( 'Featured Image Size', 'braillewright-pro' ),
 			'ct_period_pro_fi_size_callback',
 			$screen,
 			'side'
@@ -26,7 +26,7 @@ function ct_period_pro_fi_size_callback( $post ) {
 	?>
 	<p>
 		<select name="period-pro-fi-size" id="period-pro-fi-size" style="box-sizing: border-box; width: 100%;">
-			<option value="default"><?php esc_html_e( 'Use size set in Customizer', 'period-pro' ); ?></option>
+			<option value="default"><?php esc_html_e( 'Use size set in Customizer', 'braillewright-pro' ); ?></option>
 			<option value="2-1" <?php if ( $ratio == '2-1' ) {
 				echo 'selected';
 			} ?>>2:1
@@ -73,7 +73,7 @@ function ct_period_pro_fi_size_callback( $post ) {
 			</option>
 			<option value="natural" <?php if ( $ratio == 'natural' ) {
 				echo 'selected';
-			} ?>><?php esc_html_e( 'Natural Dimensions', 'period-pro' ); ?></option>
+			} ?>><?php esc_html_e( 'Natural Dimensions', 'braillewright-pro' ); ?></option>
 		</select>
 	</p> <?php
 }

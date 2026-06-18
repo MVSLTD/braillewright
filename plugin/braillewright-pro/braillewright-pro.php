@@ -1,18 +1,17 @@
 <?php
 /*
-Plugin Name: Period Pro
+Plugin Name: Braillewright Pro
 Version: 1.16
-Plugin URI: https://www.competethemes.com/period-pro/
-Description: Period Pro adds premium functionality and flexibility to the Period WordPress theme.
-Author: Compete Themes
-Author URI: https://www.competethemes.com
-Text Domain: period-pro
+Description: Companion plugin for the Braillewright theme: layouts, colors, fonts, header image, display controls. Forked from the GPL Period Pro plugin
+Author: Aaron Di Blasi
+Text Domain: braillewright-pro
 Domain Path: /languages
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Period Pro WordPress Plugin, Copyright 2025 Compete Themes
-Period Pro is distributed under the terms of the GNU GPL
+Braillewright Pro is a fork of Period Pro 1.16; modifications Copyright 2026 Aaron Di Blasi, GNU GPL v2 or later.
+Braillewright Pro is distributed under the terms of the GNU GPL
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -31,9 +30,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 defined( 'ABSPATH' ) OR exit;
 
 // Period not active
-if ( get_template() != 'period' ) {
+if ( get_template() != 'braillewright' ) {
 
-	$period = wp_get_theme( 'period' );
+	$period = wp_get_theme( 'braillewright' );
 
 	// if installed, but not active
 	if ( $period->exists() ) {
@@ -44,16 +43,16 @@ if ( get_template() != 'period' ) {
 				<p>
 					<?php
 					$link = admin_url( 'themes.php' );
-					printf( __( 'Almost done! Please <a id="switch-themes-link" href="%s">click here</a> to activate the Period theme and use the Period Pro plugin.', 'period-pro' ), esc_url( $link ) );
+					printf( __( 'Almost done! Please <a id="switch-themes-link" href="%s">click here</a> to activate the Braillewright theme and use the Braillewright Pro plugin.', 'braillewright-pro' ), esc_url( $link ) );
 					?>
 				</p>
 			</div>
 		<?php }
 		add_action( 'admin_notices', 'ct_period_pro_needs_period' );
 
-		// switch to Period theme, and send them to the Appearance menu
+		// switch to Braillewright theme, and send them to the Appearance menu
 		function ct_period_pro_switch_themes() {
-			switch_theme( 'period', 'period' );
+			switch_theme( 'braillewright', 'braillewright' );
 			echo admin_url( 'themes.php' );
 			wp_die();
 		}
@@ -88,9 +87,9 @@ if ( get_template() != 'period' ) {
 				<p>
 					<?php
 					$link_period_search = add_query_arg(
-						'search', 'period', admin_url( 'theme-install.php' )
+						'search', 'braillewright', admin_url( 'theme-install.php' )
 					);
-					printf( __( "Period Pro needs the Period theme to work. Please <a href='%s'>click here</a> to find and install Period from the Appearance menu.", "period-pro" ), esc_url( $link_period_search ) )
+					printf( __( "Braillewright Pro needs the Braillewright theme to work. Please <a href='%s'>click here</a> to find and install Period from the Appearance menu.", "braillewright-pro" ), esc_url( $link_period_search ) )
 					?>
 				</p>
 			</div>
@@ -159,7 +158,7 @@ if ( get_template() != 'period' ) {
 						),
 						admin_url( 'customize.php' )
 					);
-					printf( __( 'New features now available in the <a href="%s">Customizer</a>!', 'period-pro' ), esc_url( $customizer_url ) );
+					printf( __( 'New features now available in the <a href="%s">Customizer</a>!', 'braillewright-pro' ), esc_url( $customizer_url ) );
 					?>
 				</p>
 			</div>
@@ -177,7 +176,7 @@ if ( get_template() != 'period' ) {
 	register_deactivation_hook( __FILE__, 'ct_period_pro_deactivate' );
 
 	function ct_period_pro_load_textdomain() {
-		load_plugin_textdomain( 'period-pro', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
+		load_plugin_textdomain( 'braillewright-pro', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
 	}
 	add_action( 'plugins_loaded', 'ct_period_pro_load_textdomain' );
 

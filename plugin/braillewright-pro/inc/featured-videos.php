@@ -12,7 +12,7 @@ function ct_period_pro_add_video_meta_box() {
 
 		add_meta_box(
 			'ct_period_pro_video',
-			esc_html__( 'Featured Video', 'period-pro' ),
+			esc_html__( 'Featured Video', 'braillewright-pro' ),
 			'ct_period_pro_video_callback',
 			$screen,
 			'normal',
@@ -39,7 +39,7 @@ function ct_period_pro_video_callback( $post ) {
 	// video preview
 	echo '<div class="ct_period_pro_video_preview_container" id="ct_period_pro_video_preview_container">';
 		echo '<label for="ct_period_pro_video_url">';
-			esc_html_e( 'Video Preview', 'period-pro' );
+			esc_html_e( 'Video Preview', 'braillewright-pro' );
 		echo '</label> ';
 		if ( $video_url ) {
 			if ( strpos( $video_url, 'youtube-nocookie.com' ) !== false ) {
@@ -54,7 +54,7 @@ function ct_period_pro_video_callback( $post ) {
 	// video URL input
 	echo '<div class="ct_period_pro_video_input_container">';
 		echo '<label for="ct_period_pro_video_url">';
-			esc_html_e( 'Add video URL:', 'period-pro' );
+			esc_html_e( 'Add video URL:', 'braillewright-pro' );
 		echo '</label> ';
 		echo '<div>';
 			echo '<input type="text" class="regular-text" id="ct_period_pro_video_url" name="ct_period_pro_video_url" value="' . esc_url( $video_url ) . '" />';
@@ -72,18 +72,18 @@ function ct_period_pro_video_callback( $post ) {
 		}
 
 		echo '<div class="ct_period_pro_video_display_container">';
-			echo '<p>' . esc_html__( 'Choose where to display the video:', 'period-pro' ) . '</p>';
+			echo '<p>' . esc_html__( 'Choose where to display the video:', 'braillewright-pro' ) . '</p>';
 			echo '<label for="ct_period_pro_video_display_post">';
 				echo '<input type="radio" name="ct_period_pro_video_display" id="ct_period_pro_video_display_post" value="post" ' . checked( $display_blog, "post", false ) . '>';
-				esc_html_e( 'Post', 'period-pro' );
+				esc_html_e( 'Post', 'braillewright-pro' );
 			echo '</label> ';
 			echo '<label for="ct_period_pro_video_display_blog">';
 				echo '<input type="radio" name="ct_period_pro_video_display" id="ct_period_pro_video_display_blog" value="blog" ' . checked( $display_blog, "blog", false ) . '>';
-				esc_html_e( 'Blog', 'period-pro' );
+				esc_html_e( 'Blog', 'braillewright-pro' );
 			echo '</label> ';
 			echo '<label for="ct_period_pro_video_display_both">';
 				echo '<input type="radio" name="ct_period_pro_video_display" id="ct_period_pro_video_display_both" value="both" ' . checked( $display_blog, "both", false ) . '>';
-				esc_html_e( 'Post & Blog', 'period-pro' );
+				esc_html_e( 'Post & Blog', 'braillewright-pro' );
 			echo '</label> ';
 		echo '</div>';
 	endif;
@@ -97,26 +97,26 @@ function ct_period_pro_video_callback( $post ) {
 	}
 
 	echo '<div class="ct_period_pro_video_youtube_controls_container ' . esc_attr( $class ) . '">';
-		echo '<p>' . esc_html__( 'Youtube controls', 'period-pro' ) . '</p>';
+		echo '<p>' . esc_html__( 'Youtube controls', 'braillewright-pro' ) . '</p>';
 		echo '<label for="ct_period_pro_video_youtube_logo">';
 			echo '<input type="checkbox" name="ct_period_pro_video_youtube_logo" id="ct_period_pro_video_youtube_logo" value="1" ' . checked( '1', $youtube_logo, false ) . '>';
-			esc_html_e( 'Hide Youtube logo in control bar', 'period-pro' );
+			esc_html_e( 'Hide Youtube logo in control bar', 'braillewright-pro' );
 		echo '</label> ';
 		echo '<label for="ct_period_pro_video_youtube_captions">';
 			echo '<input type="checkbox" name="ct_period_pro_video_youtube_captions" id="ct_period_pro_video_youtube_captions" value="1" ' . checked( '1', $youtube_captions, false ) . '>';
-			esc_html_e( 'Show Captions by Default', 'period-pro' );
+			esc_html_e( 'Show Captions by Default', 'braillewright-pro' );
 		echo '</label> ';
 		echo '<label for="ct_period_pro_video_youtube_autoplay">';
 			echo '<input type="checkbox" name="ct_period_pro_video_youtube_autoplay" id="ct_period_pro_video_youtube_autoplay" value="1" ' . checked( '1', $youtube_autoplay, false ) . '>';
-			esc_html_e( 'Autoplay video', 'period-pro' );
+			esc_html_e( 'Autoplay video', 'braillewright-pro' );
 		echo '</label> ';
 		echo '<label for="ct_period_pro_video_youtube_loop">';
 			echo '<input type="checkbox" name="ct_period_pro_video_youtube_loop" id="ct_period_pro_video_youtube_loop" value="1" ' . checked( '1', $youtube_loop, false ) . '>';
-			esc_html_e( 'Loop video', 'period-pro' );
+			esc_html_e( 'Loop video', 'braillewright-pro' );
 		echo '</label> ';
 		echo '<label for="ct_period_pro_video_youtube_mute">';
 			echo '<input type="checkbox" name="ct_period_pro_video_youtube_mute" id="ct_period_pro_video_youtube_mute" value="1" ' . checked( '1', $youtube_mute, false ) . '>';
-			esc_html_e( 'Auto-mute video', 'period-pro' );
+			esc_html_e( 'Auto-mute video', 'braillewright-pro' );
 		echo '</label> ';
 	echo '</div>';
 }

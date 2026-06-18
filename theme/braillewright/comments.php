@@ -7,7 +7,7 @@ if ( post_password_required() || ( !have_comments() && !comments_open() && !ping
   <?php if ( wp_count_comments($post->ID)->approved > 0 ) : ?>
     <div class="comments-number">
       <h2>
-        <?php comments_number( esc_html__( 'Be First to Comment', 'period' ), esc_html__( 'One Comment', 'period' ), esc_html_x( '% Comments', 'noun: 5 comments', 'period' ) ); ?>
+        <?php comments_number( esc_html__( 'Be First to Comment', 'braillewright' ), esc_html__( 'One Comment', 'braillewright' ), esc_html_x( '% Comments', 'noun: 5 comments', 'braillewright' ) ); ?>
       </h2>
     </div>
   <?php endif; ?>
@@ -29,12 +29,12 @@ if ( post_password_required() || ( !have_comments() && !comments_open() && !ping
     <p class="comments-closed pings-open">
       <?php
       // translators: placeholder is link to the trackback URL
-      echo wp_kses_post( sprintf( __( 'Comments are closed, but <a href="%s" title="Trackback URL for this post">trackbacks</a> and pingbacks are open.', 'period' ), esc_url( get_trackback_url() ) ) );
+      echo wp_kses_post( sprintf( __( 'Comments are closed, but <a href="%s" title="Trackback URL for this post">trackbacks</a> and pingbacks are open.', 'braillewright' ), esc_url( get_trackback_url() ) ) );
       ?>
     </p>
   <?php } elseif (!comments_open() && have_comments() ) { ?>
     <p class="comments-closed">
-      <?php esc_html_e( 'Comments are closed.', 'period' ); ?>
+      <?php esc_html_e( 'Comments are closed.', 'braillewright' ); ?>
     </p>
   <?php } ?>
 </section>

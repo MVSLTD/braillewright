@@ -16,8 +16,8 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
   //	Remove Adds
   //----------------------------------------------------------------------------------
 
-	$wp_customize->get_section( 'period_layout' )->description = __( 'Layout can be overridden for any post or page.', 'period-pro' );
-	$wp_customize->get_section( 'period_layout_pages' )->description = __( 'Layout can be overridden for any post or page.', 'period-pro' );
+	$wp_customize->get_section( 'period_layout' )->description = __( 'Layout can be overridden for any post or page.', 'braillewright-pro' );
+	$wp_customize->get_section( 'period_layout_pages' )->description = __( 'Layout can be overridden for any post or page.', 'braillewright-pro' );
 	$wp_customize->get_section( 'period_layout_blog' )->description = '';
 	$wp_customize->get_section( 'period_layout_archives' )->description = '';
 	$wp_customize->get_panel( 'ct_period_layout_panel' )->priority = 1;
@@ -43,28 +43,28 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 
 		$wp_customize->add_panel( 'ct_period_pro_colors_panel', array(
 			'priority'    => 2,
-			'title'       => __( 'Colors', 'period-pro' ),
-			'description' => __( 'Change any color on your site', 'period-pro' )
+			'title'       => __( 'Colors', 'braillewright-pro' ),
+			'description' => __( 'Change any color on your site', 'braillewright-pro' )
 		) );
 		$wp_customize->add_panel( 'ct_period_pro_fonts_panel', array(
 			'priority'    => 3,
-			'title'       => __( 'Fonts', 'period-pro' ),
-			'description' => __( 'Change the fonts on your site', 'period-pro' )
+			'title'       => __( 'Fonts', 'braillewright-pro' ),
+			'description' => __( 'Change the fonts on your site', 'braillewright-pro' )
 		) );
 		$wp_customize->add_panel( 'ct_period_pro_font_sizes_panel', array(
 			'priority'    => 4,
-			'title'       => __( 'Font Sizes', 'period-pro' ),
-			'description' => __( 'Change the size of text on your site', 'period-pro' )
+			'title'       => __( 'Font Sizes', 'braillewright-pro' ),
+			'description' => __( 'Change the size of text on your site', 'braillewright-pro' )
 		) );
 		$wp_customize->add_panel( 'ct_period_pro_background_panel', array(
 			'priority'    => 6,
-			'title'       => __( 'Background', 'period-pro' ),
-			'description' => __( 'Change your background using images & textures', 'period-pro' )
+			'title'       => __( 'Background', 'braillewright-pro' ),
+			'description' => __( 'Change your background using images & textures', 'braillewright-pro' )
 		) );
 		$wp_customize->add_panel( 'ct_period_pro_show_hide_panel', array(
 			'priority'    => 8,
-			'title'       => __( 'Show/Hide Elements', 'period-pro' ),
-			'description' => __( 'Choose which elements you want to display on the site.', 'period-pro' )
+			'title'       => __( 'Show/Hide Elements', 'braillewright-pro' ),
+			'description' => __( 'Choose which elements you want to display on the site.', 'braillewright-pro' )
 		) );
 	}
 
@@ -76,7 +76,7 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 
 	$wp_customize->add_section( 'ct_period_pro_site_title_font_size', array(
 		'panel' => 'ct_period_pro_font_sizes_panel',
-		'title' => __( 'Site Title', 'period-pro' )
+		'title' => __( 'Site Title', 'braillewright-pro' )
 	) );
 	// Setting - Mobile
 	$wp_customize->add_setting( 'site_title_font_size_mobile', array(
@@ -85,8 +85,8 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	) );
 	// Control - Mobile
 	$wp_customize->add_control( 'site_title_font_size_mobile', array(
-		'label'    		=> __( 'Mobile', 'period-pro' ),
-		'description' => __( 'Default is 21px', 'period-pro' ),
+		'label'    		=> __( 'Mobile', 'braillewright-pro' ),
+		'description' => __( 'Default is 21px', 'braillewright-pro' ),
 		'section'  		=> 'ct_period_pro_site_title_font_size',
 		'settings' 		=> 'site_title_font_size_mobile',
 		'type'    		=> 'number'
@@ -98,8 +98,8 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	) );
 	// Control - Tablet
 	$wp_customize->add_control( 'site_title_font_size_tablet', array(
-		'label'    		=> __( 'Tablet', 'period-pro' ),
-		'description' => __( 'Default is 21px', 'period-pro' ),
+		'label'    		=> __( 'Tablet', 'braillewright-pro' ),
+		'description' => __( 'Default is 21px', 'braillewright-pro' ),
 		'section'  		=> 'ct_period_pro_site_title_font_size',
 		'settings' 		=> 'site_title_font_size_tablet',
 		'type'     		=> 'number'
@@ -111,8 +111,8 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	) );
 	// Control - Desktop
 	$wp_customize->add_control( 'site_title_font_size_desktop', array(
-		'label'    		=> __( 'Desktop', 'period-pro' ),
-		'description' => __( 'Default is 21px', 'period-pro' ),
+		'label'    		=> __( 'Desktop', 'braillewright-pro' ),
+		'description' => __( 'Default is 21px', 'braillewright-pro' ),
 		'section'  		=> 'ct_period_pro_site_title_font_size',
 		'settings' 		=> 'site_title_font_size_desktop',
 		'type'     		=> 'number'
@@ -122,7 +122,7 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	
 	$wp_customize->add_section( 'ct_period_pro_tagline_font_size', array(
 		'panel' => 'ct_period_pro_font_sizes_panel',
-		'title' => __( 'Tagline', 'period-pro' )
+		'title' => __( 'Tagline', 'braillewright-pro' )
 	) );
 	// Setting - Mobile
 	$wp_customize->add_setting( 'tagline_font_size_mobile', array(
@@ -131,8 +131,8 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	) );
 	// Control - Mobile
 	$wp_customize->add_control( 'tagline_font_size_mobile', array(
-		'label'    		=> __( 'Mobile', 'period-pro' ),
-		'description' => __( 'Default is 14px', 'period-pro' ),
+		'label'    		=> __( 'Mobile', 'braillewright-pro' ),
+		'description' => __( 'Default is 14px', 'braillewright-pro' ),
 		'section'  		=> 'ct_period_pro_tagline_font_size',
 		'settings' 		=> 'tagline_font_size_mobile',
 		'type'    		=> 'number'
@@ -144,8 +144,8 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	) );
 	// Control - Tablet
 	$wp_customize->add_control( 'tagline_font_size_tablet', array(
-		'label'    		=> __( 'Tablet', 'period-pro' ),
-		'description' => __( 'Default is 14px', 'period-pro' ),
+		'label'    		=> __( 'Tablet', 'braillewright-pro' ),
+		'description' => __( 'Default is 14px', 'braillewright-pro' ),
 		'section'  		=> 'ct_period_pro_tagline_font_size',
 		'settings' 		=> 'tagline_font_size_tablet',
 		'type'     		=> 'number'
@@ -157,8 +157,8 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	) );
 	// Control - Desktop
 	$wp_customize->add_control( 'tagline_font_size_desktop', array(
-		'label'    		=> __( 'Desktop', 'period-pro' ),
-		'description' => __( 'Default is 14px', 'period-pro' ),
+		'label'    		=> __( 'Desktop', 'braillewright-pro' ),
+		'description' => __( 'Default is 14px', 'braillewright-pro' ),
 		'section'  		=> 'ct_period_pro_tagline_font_size',
 		'settings' 		=> 'tagline_font_size_desktop',
 		'type'     		=> 'number'
@@ -168,7 +168,7 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	
 	$wp_customize->add_section( 'ct_period_pro_menu_primary_font_size', array(
 		'panel' => 'ct_period_pro_font_sizes_panel',
-		'title' => __( 'Primary Menu Items', 'period-pro' )
+		'title' => __( 'Primary Menu Items', 'braillewright-pro' )
 	) );
 	// Setting - Mobile
 	$wp_customize->add_setting( 'menu_primary_font_size_mobile', array(
@@ -177,8 +177,8 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	) );
 	// Control - Mobile
 	$wp_customize->add_control( 'menu_primary_font_size_mobile', array(
-		'label'    		=> __( 'Mobile', 'period-pro' ),
-		'description' => __( 'Default is 14px', 'period-pro' ),
+		'label'    		=> __( 'Mobile', 'braillewright-pro' ),
+		'description' => __( 'Default is 14px', 'braillewright-pro' ),
 		'section'  		=> 'ct_period_pro_menu_primary_font_size',
 		'settings' 		=> 'menu_primary_font_size_mobile',
 		'type'    		=> 'number'
@@ -190,8 +190,8 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	) );
 	// Control - Tablet
 	$wp_customize->add_control( 'menu_primary_font_size_tablet', array(
-		'label'    		=> __( 'Tablet', 'period-pro' ),
-		'description' => __( 'Default is 14px', 'period-pro' ),
+		'label'    		=> __( 'Tablet', 'braillewright-pro' ),
+		'description' => __( 'Default is 14px', 'braillewright-pro' ),
 		'section'  		=> 'ct_period_pro_menu_primary_font_size',
 		'settings' 		=> 'menu_primary_font_size_tablet',
 		'type'     		=> 'number'
@@ -203,8 +203,8 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	) );
 	// Control - Desktop
 	$wp_customize->add_control( 'menu_primary_font_size_desktop', array(
-		'label'    		=> __( 'Desktop', 'period-pro' ),
-		'description' => __( 'Default is 14px', 'period-pro' ),
+		'label'    		=> __( 'Desktop', 'braillewright-pro' ),
+		'description' => __( 'Default is 14px', 'braillewright-pro' ),
 		'section'  		=> 'ct_period_pro_menu_primary_font_size',
 		'settings' 		=> 'menu_primary_font_size_desktop',
 		'type'     		=> 'number'
@@ -214,7 +214,7 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	
 	$wp_customize->add_section( 'ct_period_pro_menu_secondary_font_size', array(
 		'panel' => 'ct_period_pro_font_sizes_panel',
-		'title' => __( 'Secondary Menu Items', 'period-pro' )
+		'title' => __( 'Secondary Menu Items', 'braillewright-pro' )
 	) );
 	// Setting - Mobile
 	$wp_customize->add_setting( 'menu_secondary_font_size_mobile', array(
@@ -223,8 +223,8 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	) );
 	// Control - Mobile
 	$wp_customize->add_control( 'menu_secondary_font_size_mobile', array(
-		'label'    		=> __( 'Mobile', 'period-pro' ),
-		'description' => __( 'Default is 12px', 'period-pro' ),
+		'label'    		=> __( 'Mobile', 'braillewright-pro' ),
+		'description' => __( 'Default is 12px', 'braillewright-pro' ),
 		'section'  		=> 'ct_period_pro_menu_secondary_font_size',
 		'settings' 		=> 'menu_secondary_font_size_mobile',
 		'type'    		=> 'number'
@@ -236,8 +236,8 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	) );
 	// Control - Tablet
 	$wp_customize->add_control( 'menu_secondary_font_size_tablet', array(
-		'label'    		=> __( 'Tablet', 'period-pro' ),
-		'description' => __( 'Default is 12px', 'period-pro' ),
+		'label'    		=> __( 'Tablet', 'braillewright-pro' ),
+		'description' => __( 'Default is 12px', 'braillewright-pro' ),
 		'section'  		=> 'ct_period_pro_menu_secondary_font_size',
 		'settings' 		=> 'menu_secondary_font_size_tablet',
 		'type'     		=> 'number'
@@ -249,8 +249,8 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	) );
 	// Control - Desktop
 	$wp_customize->add_control( 'menu_secondary_font_size_desktop', array(
-		'label'    		=> __( 'Desktop', 'period-pro' ),
-		'description' => __( 'Default is 12px', 'period-pro' ),
+		'label'    		=> __( 'Desktop', 'braillewright-pro' ),
+		'description' => __( 'Default is 12px', 'braillewright-pro' ),
 		'section'  		=> 'ct_period_pro_menu_secondary_font_size',
 		'settings' 		=> 'menu_secondary_font_size_desktop',
 		'type'     		=> 'number'
@@ -260,7 +260,7 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	
 	$wp_customize->add_section( 'ct_period_pro_post_title_font_size', array(
 		'panel' => 'ct_period_pro_font_sizes_panel',
-		'title' => __( 'Post Titles', 'period-pro' )
+		'title' => __( 'Post Titles', 'braillewright-pro' )
 	) );
 	// Setting - Mobile
 	$wp_customize->add_setting( 'post_title_font_size_mobile', array(
@@ -269,8 +269,8 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	) );
 	// Control - Mobile
 	$wp_customize->add_control( 'post_title_font_size_mobile', array(
-		'label'    		=> __( 'Mobile', 'period-pro' ),
-		'description' => __( 'Default is 18px', 'period-pro' ),
+		'label'    		=> __( 'Mobile', 'braillewright-pro' ),
+		'description' => __( 'Default is 18px', 'braillewright-pro' ),
 		'section'  		=> 'ct_period_pro_post_title_font_size',
 		'settings' 		=> 'post_title_font_size_mobile',
 		'type'    		=> 'number'
@@ -282,8 +282,8 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	) );
 	// Control - Tablet
 	$wp_customize->add_control( 'post_title_font_size_tablet', array(
-		'label'    		=> __( 'Tablet', 'period-pro' ),
-		'description' => __( 'Default is 21px', 'period-pro' ),
+		'label'    		=> __( 'Tablet', 'braillewright-pro' ),
+		'description' => __( 'Default is 21px', 'braillewright-pro' ),
 		'section'  		=> 'ct_period_pro_post_title_font_size',
 		'settings' 		=> 'post_title_font_size_tablet',
 		'type'     		=> 'number'
@@ -295,8 +295,8 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	) );
 	// Control - Desktop
 	$wp_customize->add_control( 'post_title_font_size_desktop', array(
-		'label'    		=> __( 'Desktop', 'period-pro' ),
-		'description' => __( 'Default is 28px', 'period-pro' ),
+		'label'    		=> __( 'Desktop', 'braillewright-pro' ),
+		'description' => __( 'Default is 28px', 'braillewright-pro' ),
 		'section'  		=> 'ct_period_pro_post_title_font_size',
 		'settings' 		=> 'post_title_font_size_desktop',
 		'type'     		=> 'number'
@@ -306,7 +306,7 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	
 	$wp_customize->add_section( 'ct_period_pro_post_byline_font_size', array(
 		'panel' => 'ct_period_pro_font_sizes_panel',
-		'title' => __( 'Post Byline', 'period-pro' )
+		'title' => __( 'Post Byline', 'braillewright-pro' )
 	) );
 	// Setting - Mobile
 	$wp_customize->add_setting( 'post_byline_font_size_mobile', array(
@@ -315,8 +315,8 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	) );
 	// Control - Mobile
 	$wp_customize->add_control( 'post_byline_font_size_mobile', array(
-		'label'    		=> __( 'Mobile', 'period-pro' ),
-		'description' => __( 'Default is 12px', 'period-pro' ),
+		'label'    		=> __( 'Mobile', 'braillewright-pro' ),
+		'description' => __( 'Default is 12px', 'braillewright-pro' ),
 		'section'  		=> 'ct_period_pro_post_byline_font_size',
 		'settings' 		=> 'post_byline_font_size_mobile',
 		'type'    		=> 'number'
@@ -328,8 +328,8 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	) );
 	// Control - Tablet
 	$wp_customize->add_control( 'post_byline_font_size_tablet', array(
-		'label'    		=> __( 'Tablet', 'period-pro' ),
-		'description' => __( 'Default is 12px', 'period-pro' ),
+		'label'    		=> __( 'Tablet', 'braillewright-pro' ),
+		'description' => __( 'Default is 12px', 'braillewright-pro' ),
 		'section'  		=> 'ct_period_pro_post_byline_font_size',
 		'settings' 		=> 'post_byline_font_size_tablet',
 		'type'     		=> 'number'
@@ -341,8 +341,8 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	) );
 	// Control - Desktop
 	$wp_customize->add_control( 'post_byline_font_size_desktop', array(
-		'label'    		=> __( 'Desktop', 'period-pro' ),
-		'description' => __( 'Default is 12px', 'period-pro' ),
+		'label'    		=> __( 'Desktop', 'braillewright-pro' ),
+		'description' => __( 'Default is 12px', 'braillewright-pro' ),
 		'section'  		=> 'ct_period_pro_post_byline_font_size',
 		'settings' 		=> 'post_byline_font_size_desktop',
 		'type'     		=> 'number'
@@ -352,7 +352,7 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	
 	$wp_customize->add_section( 'ct_period_pro_post_text_font_size', array(
 		'panel' => 'ct_period_pro_font_sizes_panel',
-		'title' => __( 'Post Text', 'period-pro' )
+		'title' => __( 'Post Text', 'braillewright-pro' )
 	) );
 	// Setting - Mobile
 	$wp_customize->add_setting( 'post_text_font_size_mobile', array(
@@ -361,8 +361,8 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	) );
 	// Control - Mobile
 	$wp_customize->add_control( 'post_text_font_size_mobile', array(
-		'label'    		=> __( 'Mobile', 'period-pro' ),
-		'description' => __( 'Default is 16px', 'period-pro' ),
+		'label'    		=> __( 'Mobile', 'braillewright-pro' ),
+		'description' => __( 'Default is 16px', 'braillewright-pro' ),
 		'section'  		=> 'ct_period_pro_post_text_font_size',
 		'settings' 		=> 'post_text_font_size_mobile',
 		'type'    		=> 'number'
@@ -374,8 +374,8 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	) );
 	// Control - Tablet
 	$wp_customize->add_control( 'post_text_font_size_tablet', array(
-		'label'    		=> __( 'Tablet', 'period-pro' ),
-		'description' => __( 'Default is 16px', 'period-pro' ),
+		'label'    		=> __( 'Tablet', 'braillewright-pro' ),
+		'description' => __( 'Default is 16px', 'braillewright-pro' ),
 		'section'  		=> 'ct_period_pro_post_text_font_size',
 		'settings' 		=> 'post_text_font_size_tablet',
 		'type'     		=> 'number'
@@ -387,8 +387,8 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	) );
 	// Control - Desktop
 	$wp_customize->add_control( 'post_text_font_size_desktop', array(
-		'label'    		=> __( 'Desktop', 'period-pro' ),
-		'description' => __( 'Default is 16px', 'period-pro' ),
+		'label'    		=> __( 'Desktop', 'braillewright-pro' ),
+		'description' => __( 'Default is 16px', 'braillewright-pro' ),
 		'section'  		=> 'ct_period_pro_post_text_font_size',
 		'settings' 		=> 'post_text_font_size_desktop',
 		'type'     		=> 'number'
@@ -398,7 +398,7 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	
 	$wp_customize->add_section( 'ct_period_pro_comments_font_size', array(
 		'panel' => 'ct_period_pro_font_sizes_panel',
-		'title' => __( 'Comments', 'period-pro' )
+		'title' => __( 'Comments', 'braillewright-pro' )
 	) );
 	// Setting - Mobile
 	$wp_customize->add_setting( 'comments_font_size_mobile', array(
@@ -407,8 +407,8 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	) );
 	// Control - Mobile
 	$wp_customize->add_control( 'comments_font_size_mobile', array(
-		'label'    		=> __( 'Mobile', 'period-pro' ),
-		'description' => __( 'Default is 14px', 'period-pro' ),
+		'label'    		=> __( 'Mobile', 'braillewright-pro' ),
+		'description' => __( 'Default is 14px', 'braillewright-pro' ),
 		'section'  		=> 'ct_period_pro_comments_font_size',
 		'settings' 		=> 'comments_font_size_mobile',
 		'type'    		=> 'number'
@@ -420,8 +420,8 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	) );
 	// Control - Tablet
 	$wp_customize->add_control( 'comments_font_size_tablet', array(
-		'label'    		=> __( 'Tablet', 'period-pro' ),
-		'description' => __( 'Default is 14px', 'period-pro' ),
+		'label'    		=> __( 'Tablet', 'braillewright-pro' ),
+		'description' => __( 'Default is 14px', 'braillewright-pro' ),
 		'section'  		=> 'ct_period_pro_comments_font_size',
 		'settings' 		=> 'comments_font_size_tablet',
 		'type'     		=> 'number'
@@ -433,8 +433,8 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	) );
 	// Control - Desktop
 	$wp_customize->add_control( 'comments_font_size_desktop', array(
-		'label'    		=> __( 'Desktop', 'period-pro' ),
-		'description' => __( 'Default is 14px', 'period-pro' ),
+		'label'    		=> __( 'Desktop', 'braillewright-pro' ),
+		'description' => __( 'Default is 14px', 'braillewright-pro' ),
 		'section'  		=> 'ct_period_pro_comments_font_size',
 		'settings' 		=> 'comments_font_size_desktop',
 		'type'     		=> 'number'
@@ -444,7 +444,7 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	
 	$wp_customize->add_section( 'ct_period_pro_widget_titles_font_size', array(
 		'panel' => 'ct_period_pro_font_sizes_panel',
-		'title' => __( 'Widget Titles', 'period-pro' )
+		'title' => __( 'Widget Titles', 'braillewright-pro' )
 	) );
 	// Setting - Mobile
 	$wp_customize->add_setting( 'ct_widget_titles_font_size_mobile', array(
@@ -453,8 +453,8 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	) );
 	// Control - Mobile
 	$wp_customize->add_control( 'ct_widget_titles_font_size_mobile', array(
-		'label'    		=> __( 'Mobile', 'period-pro' ),
-		'description' => __( 'Default is 16px', 'period-pro' ),
+		'label'    		=> __( 'Mobile', 'braillewright-pro' ),
+		'description' => __( 'Default is 16px', 'braillewright-pro' ),
 		'section'  		=> 'ct_period_pro_widget_titles_font_size',
 		'settings' 		=> 'ct_widget_titles_font_size_mobile',
 		'type'    		=> 'number'
@@ -466,8 +466,8 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	) );
 	// Control - Tablet
 	$wp_customize->add_control( 'ct_widget_titles_font_size_tablet', array(
-		'label'    		=> __( 'Tablet', 'period-pro' ),
-		'description' => __( 'Default is 16px', 'period-pro' ),
+		'label'    		=> __( 'Tablet', 'braillewright-pro' ),
+		'description' => __( 'Default is 16px', 'braillewright-pro' ),
 		'section'  		=> 'ct_period_pro_widget_titles_font_size',
 		'settings' 		=> 'ct_widget_titles_font_size_tablet',
 		'type'     		=> 'number'
@@ -479,8 +479,8 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	) );
 	// Control - Desktop
 	$wp_customize->add_control( 'ct_widget_titles_font_size_desktop', array(
-		'label'    		=> __( 'Desktop', 'period-pro' ),
-		'description' => __( 'Default is 16px', 'period-pro' ),
+		'label'    		=> __( 'Desktop', 'braillewright-pro' ),
+		'description' => __( 'Default is 16px', 'braillewright-pro' ),
 		'section'  		=> 'ct_period_pro_widget_titles_font_size',
 		'settings' 		=> 'ct_widget_titles_font_size_desktop',
 		'type'     		=> 'number'
@@ -490,7 +490,7 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	
 	$wp_customize->add_section( 'ct_period_pro_widget_text_font_size', array(
 		'panel' => 'ct_period_pro_font_sizes_panel',
-		'title' => __( 'Widget Text', 'period-pro' )
+		'title' => __( 'Widget Text', 'braillewright-pro' )
 	) );
 	// Setting - Mobile
 	$wp_customize->add_setting( 'ct_widget_text_font_size_mobile', array(
@@ -499,8 +499,8 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	) );
 	// Control - Mobile
 	$wp_customize->add_control( 'ct_widget_text_font_size_mobile', array(
-		'label'    		=> __( 'Mobile', 'period-pro' ),
-		'description' => __( 'Default is 14px', 'period-pro' ),
+		'label'    		=> __( 'Mobile', 'braillewright-pro' ),
+		'description' => __( 'Default is 14px', 'braillewright-pro' ),
 		'section'  		=> 'ct_period_pro_widget_text_font_size',
 		'settings' 		=> 'ct_widget_text_font_size_mobile',
 		'type'    		=> 'number'
@@ -512,8 +512,8 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	) );
 	// Control - Tablet
 	$wp_customize->add_control( 'ct_widget_text_font_size_tablet', array(
-		'label'    		=> __( 'Tablet', 'period-pro' ),
-		'description' => __( 'Default is 14px', 'period-pro' ),
+		'label'    		=> __( 'Tablet', 'braillewright-pro' ),
+		'description' => __( 'Default is 14px', 'braillewright-pro' ),
 		'section'  		=> 'ct_period_pro_widget_text_font_size',
 		'settings' 		=> 'ct_widget_text_font_size_tablet',
 		'type'     		=> 'number'
@@ -525,8 +525,8 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	) );
 	// Control - Desktop
 	$wp_customize->add_control( 'ct_widget_text_font_size_desktop', array(
-		'label'    		=> __( 'Desktop', 'period-pro' ),
-		'description' => __( 'Default is 14px', 'period-pro' ),
+		'label'    		=> __( 'Desktop', 'braillewright-pro' ),
+		'description' => __( 'Default is 14px', 'braillewright-pro' ),
 		'section'  		=> 'ct_period_pro_widget_text_font_size',
 		'settings' 		=> 'ct_widget_text_font_size_desktop',
 		'type'     		=> 'number'
@@ -536,7 +536,7 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	
 	$wp_customize->add_section( 'ct_period_pro_footer_text_font_size', array(
 		'panel' => 'ct_period_pro_font_sizes_panel',
-		'title' => __( 'Footer Text', 'period-pro' )
+		'title' => __( 'Footer Text', 'braillewright-pro' )
 	) );
 	// Setting - Mobile
 	$wp_customize->add_setting( 'footer_text_font_size_mobile', array(
@@ -545,8 +545,8 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	) );
 	// Control - Mobile
 	$wp_customize->add_control( 'footer_text_font_size_mobile', array(
-		'label'    		=> __( 'Mobile', 'period-pro' ),
-		'description' => __( 'Default is 16px', 'period-pro' ),
+		'label'    		=> __( 'Mobile', 'braillewright-pro' ),
+		'description' => __( 'Default is 16px', 'braillewright-pro' ),
 		'section'  		=> 'ct_period_pro_footer_text_font_size',
 		'settings' 		=> 'footer_text_font_size_mobile',
 		'type'    		=> 'number'
@@ -558,8 +558,8 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	) );
 	// Control - Tablet
 	$wp_customize->add_control( 'footer_text_font_size_tablet', array(
-		'label'    		=> __( 'Tablet', 'period-pro' ),
-		'description' => __( 'Default is 16px', 'period-pro' ),
+		'label'    		=> __( 'Tablet', 'braillewright-pro' ),
+		'description' => __( 'Default is 16px', 'braillewright-pro' ),
 		'section'  		=> 'ct_period_pro_footer_text_font_size',
 		'settings' 		=> 'footer_text_font_size_tablet',
 		'type'     		=> 'number'
@@ -571,8 +571,8 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	) );
 	// Control - Desktop
 	$wp_customize->add_control( 'footer_text_font_size_desktop', array(
-		'label'    		=> __( 'Desktop', 'period-pro' ),
-		'description' => __( 'Default is 16px', 'period-pro' ),
+		'label'    		=> __( 'Desktop', 'braillewright-pro' ),
+		'description' => __( 'Default is 16px', 'braillewright-pro' ),
 		'section'  		=> 'ct_period_pro_footer_text_font_size',
 		'settings' 		=> 'footer_text_font_size_desktop',
 		'type'     		=> 'number'
@@ -584,7 +584,7 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 
 	// section
 	$wp_customize->add_section( 'ct_period_pro_header_image', array(
-		'title'    => __( 'Header Image', 'period-pro' ),
+		'title'    => __( 'Header Image', 'braillewright-pro' ),
 		'priority' => 5
 	) );
 	// setting - image or video
@@ -594,13 +594,13 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	) );
 	// control - image or video
 	$wp_customize->add_control( 'header_image_type', array(
-		'label'    => __( 'Display image or video?', 'period-pro' ),
+		'label'    => __( 'Display image or video?', 'braillewright-pro' ),
 		'section'  => 'ct_period_pro_header_image',
 		'settings' => 'header_image_type',
 		'type'     => 'radio',
 		'choices'  => array(
-			'image'  => __( 'Image', 'period-pro' ),
-			'video'  => __( 'Video', 'period-pro' )
+			'image'  => __( 'Image', 'braillewright-pro' ),
+			'video'  => __( 'Video', 'braillewright-pro' )
 		)
 	) );
 	// setting - upload
@@ -610,7 +610,7 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	// control - upload
 	$wp_customize->add_control( new WP_Customize_Image_Control(
 		$wp_customize, 'header_image_upload', array(
-			'label'    => __( 'Upload an image', 'period-pro' ),
+			'label'    => __( 'Upload an image', 'braillewright-pro' ),
 			'section'  => 'ct_period_pro_header_image',
 			'settings' => 'header_image_upload',
 		)
@@ -622,7 +622,7 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	) );
 	// control - video
 	$wp_customize->add_control( 'header_image_video', array(
-		'label'    => __( 'Enter a video URL', 'period-pro' ),
+		'label'    => __( 'Enter a video URL', 'braillewright-pro' ),
 		'section'  => 'ct_period_pro_header_image',
 		'settings' => 'header_image_video',
 		'type'     => 'url'
@@ -634,13 +634,13 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	) );
 	// control - homepage only
 	$wp_customize->add_control( 'header_image_homepage', array(
-		'label'    => __( 'Only display on homepage?', 'period-pro' ),
+		'label'    => __( 'Only display on homepage?', 'braillewright-pro' ),
 		'section'  => 'ct_period_pro_header_image',
 		'settings' => 'header_image_homepage',
 		'type'     => 'radio',
 		'choices'  => array(
-			'yes' => __( 'Yes', 'period-pro' ),
-			'no'  => __( 'No', 'period-pro' )
+			'yes' => __( 'Yes', 'braillewright-pro' ),
+			'no'  => __( 'No', 'braillewright-pro' )
 		)
 	) );
 	// setting - link home
@@ -649,7 +649,7 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	) );
 	// control - link home
 	$wp_customize->add_control( 'header_image_link', array(
-		'label'    => __( 'Header image link', 'period-pro' ),
+		'label'    => __( 'Header image link', 'braillewright-pro' ),
 		'section'  => 'ct_period_pro_header_image',
 		'settings' => 'header_image_link',
 		'type'     => 'url'
@@ -661,13 +661,13 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	) );
 	// control - height type
 	$wp_customize->add_control( 'header_image_height_type', array(
-		'label'    => __( 'Responsive or Fixed height?', 'period-pro' ),
+		'label'    => __( 'Responsive or Fixed height?', 'braillewright-pro' ),
 		'section'  => 'ct_period_pro_header_image',
 		'settings' => 'header_image_height_type',
 		'type'     => 'radio',
 		'choices'  => array(
-			'responsive' => __( 'Responsive', 'period-pro' ),
-			'fixed'      => __( 'Fixed', 'period-pro' )
+			'responsive' => __( 'Responsive', 'braillewright-pro' ),
+			'fixed'      => __( 'Fixed', 'braillewright-pro' )
 		)
 	) );
 	// setting - height
@@ -678,7 +678,7 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	) );
 	// control - height
 	$wp_customize->add_control( 'header_image_height', array(
-		'label'       => __( 'Adjust the height', 'period-pro' ),
+		'label'       => __( 'Adjust the height', 'braillewright-pro' ),
 		'section'     => 'ct_period_pro_header_image',
 		'settings'    => 'header_image_height',
 		'type'        => 'range',
@@ -745,14 +745,14 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 
 	// add more choices to existing controls
 	$layouts = array(
-		'right'      => __( 'Right sidebar', 'period' ),
-		'left'       => __( 'Left sidebar', 'period' ),
-		'narrow'     => __( 'No sidebar - Narrow', 'period' ),
-		'wide'       => __( 'No sidebar - Wide', 'period' ),
-		'two-right'  => __( 'Two column - Right sidebar', 'period' ),
-		'two-left'   => __( 'Two column - Left sidebar', 'period' ),
-		'two-narrow' => __( 'Two column - No Sidebar - Narrow', 'period' ),
-		'two-wide'   => __( 'Two column - No Sidebar - Wide', 'period' )
+		'right'      => __( 'Right sidebar', 'braillewright' ),
+		'left'       => __( 'Left sidebar', 'braillewright' ),
+		'narrow'     => __( 'No sidebar - Narrow', 'braillewright' ),
+		'wide'       => __( 'No sidebar - Wide', 'braillewright' ),
+		'two-right'  => __( 'Two column - Right sidebar', 'braillewright' ),
+		'two-left'   => __( 'Two column - Left sidebar', 'braillewright' ),
+		'two-narrow' => __( 'Two column - No Sidebar - Narrow', 'braillewright' ),
+		'two-wide'   => __( 'Two column - No Sidebar - Wide', 'braillewright' )
 	);
 	$wp_customize->get_control( 'layout' )->choices = $layouts;
 	$wp_customize->get_control( 'layout_pages' )->choices = $layouts;
@@ -765,7 +765,7 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 
 	// section
 	$wp_customize->add_section( 'ct_period_pro_background_image', array(
-		'title'    => __( 'Background Images', 'period-pro' ),
+		'title'    => __( 'Background Images', 'braillewright-pro' ),
 		'priority' => 55,
 		'panel'    => 'ct_period_pro_background_panel'
 	) );
@@ -777,7 +777,7 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	// control - header
 	$wp_customize->add_control( new WP_Customize_Image_Control(
 		$wp_customize, 'background_image_header', array(
-			'label'    => __( 'Header', 'period-pro' ),
+			'label'    => __( 'Header', 'braillewright-pro' ),
 			'section'  => 'ct_period_pro_background_image',
 			'settings' => 'background_image_header'
 		)
@@ -790,7 +790,7 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	// control - main
 	$wp_customize->add_control( new WP_Customize_Image_Control(
 		$wp_customize, 'background_image_main', array(
-			'label'    => __( 'Body', 'period-pro' ),
+			'label'    => __( 'Body', 'braillewright-pro' ),
 			'section'  => 'ct_period_pro_background_image',
 			'settings' => 'background_image_main'
 		)
@@ -802,7 +802,7 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 
 	// section
 	$wp_customize->add_section( 'ct_period_pro_background_texture', array(
-		'title'    => __( 'Background Textures', 'period-pro' ),
+		'title'    => __( 'Background Textures', 'braillewright-pro' ),
 		'priority' => 56,
 		'panel'    => 'ct_period_pro_background_panel'
 	) );
@@ -825,8 +825,8 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 				'settings' => $setting['setting_id'],
 				'type'     => 'radio',
 				'choices'  => array(
-					'yes' => __( 'Yes', 'period-pro' ),
-					'no'  => __( 'No', 'period-pro' )
+					'yes' => __( 'Yes', 'braillewright-pro' ),
+					'no'  => __( 'No', 'braillewright-pro' )
 				)
 			) );
 		} else {
@@ -858,22 +858,22 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	}
 
 	$font_weights = array(
-		'default' => __( 'Default', 'period-pro' ),
-		'100' => __( 'Thin', 'period-pro' ),
-		'200' => __( 'Extra-light', 'period-pro' ),
-		'300' => __( 'Light', 'period-pro' ),
-		'400' => __( 'Regular', 'period-pro' ),
-		'500' => __( 'Medium', 'period-pro' ),
-		'600' => __( 'Semi-Bold', 'period-pro' ),
-		'700' => __( 'Bold', 'period-pro' ),
-		'800' => __( 'Extra-Bold', 'period-pro' ),
-		'900' => __( 'Ultra-Bold', 'period-pro' )
+		'default' => __( 'Default', 'braillewright-pro' ),
+		'100' => __( 'Thin', 'braillewright-pro' ),
+		'200' => __( 'Extra-light', 'braillewright-pro' ),
+		'300' => __( 'Light', 'braillewright-pro' ),
+		'400' => __( 'Regular', 'braillewright-pro' ),
+		'500' => __( 'Medium', 'braillewright-pro' ),
+		'600' => __( 'Semi-Bold', 'braillewright-pro' ),
+		'700' => __( 'Bold', 'braillewright-pro' ),
+		'800' => __( 'Extra-Bold', 'braillewright-pro' ),
+		'900' => __( 'Ultra-Bold', 'braillewright-pro' )
 	);
 
 	// section
 	$wp_customize->add_section( 'ct_period_pro_fonts', array(
-		'title'       => __( 'Global', 'period-pro' ),
-		'description' => sprintf( __( '<i>All fonts can be previewed at <a href="%s" target="_blank">Google Fonts</a>.</i>', 'period-pro' ), 'https://fonts.google.com/' ),
+		'title'       => __( 'Global', 'braillewright-pro' ),
+		'description' => sprintf( __( '<i>All fonts can be previewed at <a href="%s" target="_blank">Google Fonts</a>.</i>', 'braillewright-pro' ), 'https://fonts.google.com/' ),
 		'panel'		  => 'ct_period_pro_fonts_panel'
 	) );
 	// setting - language
@@ -884,8 +884,8 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	// control - language
 	$wp_customize->add_control( 'font_language', array(
 		'type'        => 'select',
-		'label'       => __( 'Character set', 'period-pro' ),
-		'description' => __( 'Change the character set if your language does not use the Latin alphabet.', 'period-pro' ),
+		'label'       => __( 'Character set', 'braillewright-pro' ),
+		'description' => __( 'Change the character set if your language does not use the Latin alphabet.', 'braillewright-pro' ),
 		'section'     => 'ct_period_pro_fonts',
 		'setting'     => 'font_language',
 		'choices'     => array(
@@ -926,8 +926,8 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	// control - primary font family
 	$wp_customize->add_control( 'primary_font', array(
 		'type'        => 'select',
-		'label'       => __( 'Primary Font', 'period-pro' ),
-		'description' => __( 'Changes font everywhere. Overridable with other font settings.', 'period-pro' ),
+		'label'       => __( 'Primary Font', 'braillewright-pro' ),
+		'description' => __( 'Changes font everywhere. Overridable with other font settings.', 'braillewright-pro' ),
 		'section'     => 'ct_period_pro_fonts',
 		'setting'     => 'primary_font',
 		'choices'     => $fonts
@@ -940,7 +940,7 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	// control - primary font weight
 	$wp_customize->add_control( 'primary_font_weight', array(
 		'type'    => 'select',
-		'label'   => __( 'Primary Font Weight', 'period-pro' ),
+		'label'   => __( 'Primary Font Weight', 'braillewright-pro' ),
 		'section' => 'ct_period_pro_fonts',
 		'setting' => 'primary_font_weight',
 		'choices' => $font_weights
@@ -953,7 +953,7 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	// control - headings font family
 	$wp_customize->add_control( 'heading_font', array(
 		'type'        => 'select',
-		'label'       => __( 'Headings', 'period-pro' ),
+		'label'       => __( 'Headings', 'braillewright-pro' ),
 		'section'     => 'ct_period_pro_fonts',
 		'setting'     => 'heading_font',
 		'choices'     => $fonts
@@ -966,7 +966,7 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	// control - headings font weight
 	$wp_customize->add_control( 'heading_font_weight', array(
 		'type'    => 'select',
-		'label'   => __( 'Headings (Font weight)', 'period-pro' ),
+		'label'   => __( 'Headings (Font weight)', 'braillewright-pro' ),
 		'section' => 'ct_period_pro_fonts',
 		'setting' => 'heading_font_weight',
 		'choices' => $font_weights
@@ -979,7 +979,7 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	// control - inputs font family
 	$wp_customize->add_control( 'input_font', array(
 		'type'        => 'select',
-		'label'       => __( 'Buttons & Inputs', 'period-pro' ),
+		'label'       => __( 'Buttons & Inputs', 'braillewright-pro' ),
 		'section'     => 'ct_period_pro_fonts',
 		'setting'     => 'input_font',
 		'choices'     => $fonts
@@ -992,7 +992,7 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	// control - inputs font weight
 	$wp_customize->add_control( 'input_font_weight', array(
 		'type'    => 'select',
-		'label'   => __( 'Buttons & Inputs (Font weight)', 'period-pro' ),
+		'label'   => __( 'Buttons & Inputs (Font weight)', 'braillewright-pro' ),
 		'section' => 'ct_period_pro_fonts',
 		'setting' => 'input_font_weight',
 		'choices' => $font_weights
@@ -1000,8 +1000,8 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 
 	// section
 	$wp_customize->add_section( 'ct_period_pro_fonts_advanced', array(
-		'title'       => __( 'Individual Elements', 'period-pro' ),
-		'description' => sprintf( __( '<i>All fonts can be previewed at <a href="%s" target="_blank">Google Fonts</a>.</i>', 'period-pro' ), 'https://fonts.google.com/' ),
+		'title'       => __( 'Individual Elements', 'braillewright-pro' ),
+		'description' => sprintf( __( '<i>All fonts can be previewed at <a href="%s" target="_blank">Google Fonts</a>.</i>', 'braillewright-pro' ), 'https://fonts.google.com/' ),
 		'panel'		  => 'ct_period_pro_fonts_panel'
 	) );
 
@@ -1015,7 +1015,7 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	// control - site title font family
 	$wp_customize->add_control( 'site_title_font', array(
 		'type'        => 'select',
-		'label'       => __( 'Site Title', 'period-pro' ),
+		'label'       => __( 'Site Title', 'braillewright-pro' ),
 		'section'     => 'ct_period_pro_fonts_advanced',
 		'setting'     => 'site_title_font',
 		'choices'     => $fonts
@@ -1028,7 +1028,7 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	// control - site title font weight
 	$wp_customize->add_control( 'site_title_font_weight', array(
 		'type'    => 'select',
-		'label'   => __( 'Site Title (Font weight)', 'period-pro' ),
+		'label'   => __( 'Site Title (Font weight)', 'braillewright-pro' ),
 		'section' => 'ct_period_pro_fonts_advanced',
 		'setting' => 'site_title_font_weight',
 		'choices' => $font_weights
@@ -1041,7 +1041,7 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	// control - tagline font family
 	$wp_customize->add_control( 'tagline_font', array(
 		'type'        => 'select',
-		'label'       => __( 'Tagline', 'period-pro' ),
+		'label'       => __( 'Tagline', 'braillewright-pro' ),
 		'section'     => 'ct_period_pro_fonts_advanced',
 		'setting'     => 'tagline_font',
 		'choices'     => $fonts
@@ -1054,7 +1054,7 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	// control - tagline font weight
 	$wp_customize->add_control( 'tagline_font_weight', array(
 		'type'    => 'select',
-		'label'   => __( 'Tagline (Font weight)', 'period-pro' ),
+		'label'   => __( 'Tagline (Font weight)', 'braillewright-pro' ),
 		'section' => 'ct_period_pro_fonts_advanced',
 		'setting' => 'tagline_font_weight',
 		'choices' => $font_weights
@@ -1067,7 +1067,7 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	// control - primary menu font family
 	$wp_customize->add_control( 'primary_menu_font', array(
 		'type'        => 'select',
-		'label'       => __( 'Primary Menu', 'period-pro' ),
+		'label'       => __( 'Primary Menu', 'braillewright-pro' ),
 		'section'     => 'ct_period_pro_fonts_advanced',
 		'setting'     => 'primary_menu_font',
 		'choices'     => $fonts
@@ -1080,7 +1080,7 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	// control - primary menu font weight
 	$wp_customize->add_control( 'primary_menu_font_weight', array(
 		'type'    => 'select',
-		'label'   => __( 'Primary Menu (Font weight)', 'period-pro' ),
+		'label'   => __( 'Primary Menu (Font weight)', 'braillewright-pro' ),
 		'section' => 'ct_period_pro_fonts_advanced',
 		'setting' => 'primary_menu_font_weight',
 		'choices' => $font_weights
@@ -1093,7 +1093,7 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	// control - secondary menu font family
 	$wp_customize->add_control( 'secondary_menu_font', array(
 		'type'        => 'select',
-		'label'       => __( 'Secondary Menu', 'period-pro' ),
+		'label'       => __( 'Secondary Menu', 'braillewright-pro' ),
 		'section'     => 'ct_period_pro_fonts_advanced',
 		'setting'     => 'secondary_menu_font',
 		'choices'     => $fonts
@@ -1106,7 +1106,7 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	// control - secondary menu font weight
 	$wp_customize->add_control( 'secondary_menu_font_weight', array(
 		'type'    => 'select',
-		'label'   => __( 'Secondary Menu (Font weight)', 'period-pro' ),
+		'label'   => __( 'Secondary Menu (Font weight)', 'braillewright-pro' ),
 		'section' => 'ct_period_pro_fonts_advanced',
 		'setting' => 'secondary_menu_font_weight',
 		'choices' => $font_weights
@@ -1119,7 +1119,7 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	// control - post titles font family
 	$wp_customize->add_control( 'post_titles_font', array(
 		'type'        => 'select',
-		'label'       => __( 'Post Titles', 'period-pro' ),
+		'label'       => __( 'Post Titles', 'braillewright-pro' ),
 		'section'     => 'ct_period_pro_fonts_advanced',
 		'setting'     => 'post_titles_font',
 		'choices'     => $fonts
@@ -1132,7 +1132,7 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	// control - post titles font weight
 	$wp_customize->add_control( 'post_titles_font_weight', array(
 		'type'    => 'select',
-		'label'   => __( 'Post Titles (Font weight)', 'period-pro' ),
+		'label'   => __( 'Post Titles (Font weight)', 'braillewright-pro' ),
 		'section' => 'ct_period_pro_fonts_advanced',
 		'setting' => 'post_titles_font_weight',
 		'choices' => $font_weights
@@ -1145,7 +1145,7 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	// control - post byline font family
 	$wp_customize->add_control( 'post_byline_font', array(
 		'type'        => 'select',
-		'label'       => __( 'Post Byline', 'period-pro' ),
+		'label'       => __( 'Post Byline', 'braillewright-pro' ),
 		'section'     => 'ct_period_pro_fonts_advanced',
 		'setting'     => 'post_byline_font',
 		'choices'     => $fonts
@@ -1158,7 +1158,7 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	// control - post byline font weight
 	$wp_customize->add_control( 'post_byline_font_weight', array(
 		'type'    => 'select',
-		'label'   => __( 'Post Byline (Font weight)', 'period-pro' ),
+		'label'   => __( 'Post Byline (Font weight)', 'braillewright-pro' ),
 		'section' => 'ct_period_pro_fonts_advanced',
 		'setting' => 'post_byline_font_weight',
 		'choices' => $font_weights
@@ -1171,7 +1171,7 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	// control - post text font family
 	$wp_customize->add_control( 'post_text_font', array(
 		'type'        => 'select',
-		'label'       => __( 'Post Text', 'period-pro' ),
+		'label'       => __( 'Post Text', 'braillewright-pro' ),
 		'section'     => 'ct_period_pro_fonts_advanced',
 		'setting'     => 'post_text_font',
 		'choices'     => $fonts
@@ -1184,7 +1184,7 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	// control - post text font weight
 	$wp_customize->add_control( 'post_text_font_weight', array(
 		'type'    => 'select',
-		'label'   => __( 'Post Text (Font weight)', 'period-pro' ),
+		'label'   => __( 'Post Text (Font weight)', 'braillewright-pro' ),
 		'section' => 'ct_period_pro_fonts_advanced',
 		'setting' => 'post_text_font_weight',
 		'choices' => $font_weights
@@ -1197,7 +1197,7 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	// control - comments font family
 	$wp_customize->add_control( 'comments_font', array(
 		'type'        => 'select',
-		'label'       => __( 'Comments', 'period-pro' ),
+		'label'       => __( 'Comments', 'braillewright-pro' ),
 		'section'     => 'ct_period_pro_fonts_advanced',
 		'setting'     => 'comments_font',
 		'choices'     => $fonts
@@ -1210,7 +1210,7 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	// control - comments font weight
 	$wp_customize->add_control( 'comments_font_weight', array(
 		'type'    => 'select',
-		'label'   => __( 'Comments (Font weight)', 'period-pro' ),
+		'label'   => __( 'Comments (Font weight)', 'braillewright-pro' ),
 		'section' => 'ct_period_pro_fonts_advanced',
 		'setting' => 'comments_font_weight',
 		'choices' => $font_weights
@@ -1223,7 +1223,7 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	// control - widget titles font family
 	$wp_customize->add_control( 'ct_widget_titles_font', array(
 		'type'        => 'select',
-		'label'       => __( 'Widget Titles', 'period-pro' ),
+		'label'       => __( 'Widget Titles', 'braillewright-pro' ),
 		'section'     => 'ct_period_pro_fonts_advanced',
 		'setting'     => 'ct_widget_titles_font',
 		'choices'     => $fonts
@@ -1236,7 +1236,7 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	// control - widget titles font weight
 	$wp_customize->add_control( 'ct_widget_titles_font_weight', array(
 		'type'    => 'select',
-		'label'   => __( 'Widget Titles (Font weight)', 'period-pro' ),
+		'label'   => __( 'Widget Titles (Font weight)', 'braillewright-pro' ),
 		'section' => 'ct_period_pro_fonts_advanced',
 		'setting' => 'ct_widget_titles_font_weight',
 		'choices' => $font_weights
@@ -1249,7 +1249,7 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	// control - widget text font family
 	$wp_customize->add_control( 'ct_widget_text_font', array(
 		'type'        => 'select',
-		'label'       => __( 'Widget Text', 'period-pro' ),
+		'label'       => __( 'Widget Text', 'braillewright-pro' ),
 		'section'     => 'ct_period_pro_fonts_advanced',
 		'setting'     => 'ct_widget_text_font',
 		'choices'     => $fonts
@@ -1262,7 +1262,7 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	// control - widget text font weight
 	$wp_customize->add_control( 'ct_widget_text_font_weight', array(
 		'type'    => 'select',
-		'label'   => __( 'Widget Text (Font weight)', 'period-pro' ),
+		'label'   => __( 'Widget Text (Font weight)', 'braillewright-pro' ),
 		'section' => 'ct_period_pro_fonts_advanced',
 		'setting' => 'ct_widget_text_font_weight',
 		'choices' => $font_weights
@@ -1275,7 +1275,7 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	// control - footer text font family
 	$wp_customize->add_control( 'footer_text_font', array(
 		'type'        => 'select',
-		'label'       => __( 'Footer Text', 'period-pro' ),
+		'label'       => __( 'Footer Text', 'braillewright-pro' ),
 		'section'     => 'ct_period_pro_fonts_advanced',
 		'setting'     => 'footer_text_font',
 		'choices'     => $fonts
@@ -1288,7 +1288,7 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	// control - footer text font weight
 	$wp_customize->add_control( 'footer_text_font_weight', array(
 		'type'    => 'select',
-		'label'   => __( 'Footer Text (Font weight)', 'period-pro' ),
+		'label'   => __( 'Footer Text (Font weight)', 'braillewright-pro' ),
 		'section' => 'ct_period_pro_fonts_advanced',
 		'setting' => 'footer_text_font_weight',
 		'choices' => $font_weights
@@ -1300,7 +1300,7 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 
 	// section
 	$wp_customize->add_section( 'ct_period_pro_featured_image_size', array(
-		'title'    => __( 'Featured Image Size', 'period-pro' ),
+		'title'    => __( 'Featured Image Size', 'braillewright-pro' ),
 		'priority' => 7
 	) );
 	// setting
@@ -1310,8 +1310,8 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	) );
 	// control
 	$wp_customize->add_control( 'featured_image_size', array(
-		'label'       => __( 'Aspect ratio for all Featured Images', 'period-pro' ),
-		'description' => __( 'Size can be overridden in Post editor.', 'period-pro' ),
+		'label'       => __( 'Aspect ratio for all Featured Images', 'braillewright-pro' ),
+		'description' => __( 'Size can be overridden in Post editor.', 'braillewright-pro' ),
 		'section'     => 'ct_period_pro_featured_image_size',
 		'settings'    => 'featured_image_size',
 		'type'        => 'select',
@@ -1327,7 +1327,7 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 			'5-4'     => '5:4',
 			'4-5'     => '4:5',
 			'1-1'     => '1:1',
-			'natural' => __( 'Natural Dimensions', 'period-pro' )
+			'natural' => __( 'Natural Dimensions', 'braillewright-pro' )
 		)
 	) );
 
@@ -1338,7 +1338,7 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	/***** Header *****/
 
 	$wp_customize->add_section( 'ct_period_pro_show_hide_header', array(
-		'title' => __( 'Header', 'period-pro' ),
+		'title' => __( 'Header', 'braillewright-pro' ),
 		'panel'	=> 'ct_period_pro_show_hide_panel'
 	) );
 	// setting - site title
@@ -1350,12 +1350,12 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	// control - site title
 	$wp_customize->add_control( 'display_site_title', array(
 		'type'    => 'radio',
-		'label'   => __( 'Site title', 'period-pro' ),
+		'label'   => __( 'Site title', 'braillewright-pro' ),
 		'section' => 'ct_period_pro_show_hide_header',
 		'setting' => 'display_site_title',
 		'choices' => array(
-			'show' => __( 'Show', 'period-pro' ),
-			'hide' => __( 'Hide', 'period-pro' )
+			'show' => __( 'Show', 'braillewright-pro' ),
+			'hide' => __( 'Hide', 'braillewright-pro' )
 		)
 	) );
 	// setting - tagline
@@ -1367,12 +1367,12 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	// control - tagline
 	$wp_customize->add_control( 'display_tagline', array(
 		'type'    => 'radio',
-		'label'   => __( 'Tagline', 'period-pro' ),
+		'label'   => __( 'Tagline', 'braillewright-pro' ),
 		'section' => 'ct_period_pro_show_hide_header',
 		'setting' => 'display_tagline',
 		'choices' => array(
-			'show' => __( 'Show', 'period-pro' ),
-			'hide' => __( 'Hide', 'period-pro' )
+			'show' => __( 'Show', 'braillewright-pro' ),
+			'hide' => __( 'Hide', 'braillewright-pro' )
 		)
 	) );
 	// setting - primary menu
@@ -1384,19 +1384,19 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	// control - primary menu
 	$wp_customize->add_control( 'display_primary_menu', array(
 		'type'    => 'radio',
-		'label'   => __( 'Primary Menu', 'period-pro' ),
+		'label'   => __( 'Primary Menu', 'braillewright-pro' ),
 		'section' => 'ct_period_pro_show_hide_header',
 		'setting' => 'display_primary_menu',
 		'choices' => array(
-			'show' => __( 'Show', 'period-pro' ),
-			'hide' => __( 'Hide', 'period-pro' )
+			'show' => __( 'Show', 'braillewright-pro' ),
+			'hide' => __( 'Hide', 'braillewright-pro' )
 		)
 	) );
 
 	/***** Post *****/
 
 	$wp_customize->add_section( 'ct_period_pro_show_hide_post', array(
-		'title' => __( 'Posts', 'period-pro' ),
+		'title' => __( 'Posts', 'braillewright-pro' ),
 		'panel'	=> 'ct_period_pro_show_hide_panel'
 	) );
 	// setting - post title
@@ -1408,13 +1408,13 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	// control - post title
 	$wp_customize->add_control( 'display_post_title', array(
 		'type'     => 'radio',
-		'label'    => __( 'Post title', 'period-pro' ),
+		'label'    => __( 'Post title', 'braillewright-pro' ),
 		'section'  => 'ct_period_pro_show_hide_post',
 		'setting'  => 'display_post_title',
 		'priority' => 1,
 		'choices' => array(
-			'show' => __( 'Show', 'period-pro' ),
-			'hide' => __( 'Hide', 'period-pro' )
+			'show' => __( 'Show', 'braillewright-pro' ),
+			'hide' => __( 'Hide', 'braillewright-pro' )
 		)
 	) );
 	// setting - Featured Image
@@ -1426,13 +1426,13 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	// control - Featured Image
 	$wp_customize->add_control( 'display_post_featured_image', array(
 		'type'     => 'radio',
-		'label'    => __( 'Featured Image', 'period-pro' ),
+		'label'    => __( 'Featured Image', 'braillewright-pro' ),
 		'section'  => 'ct_period_pro_show_hide_post',
 		'setting'  => 'display_post_featured_image',
 		'priority' => 1,
 		'choices' => array(
-			'show' => __( 'Show', 'period-pro' ),
-			'hide' => __( 'Hide', 'period-pro' )
+			'show' => __( 'Show', 'braillewright-pro' ),
+			'hide' => __( 'Hide', 'braillewright-pro' )
 		)
 	) );
 
@@ -1453,12 +1453,12 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	// control - post categories
 	$wp_customize->add_control( 'display_post_categories', array(
 		'type'    => 'radio',
-		'label'   => __( 'Post categories', 'period-pro' ),
+		'label'   => __( 'Post categories', 'braillewright-pro' ),
 		'section' => 'ct_period_pro_show_hide_post',
 		'setting' => 'display_post_categories',
 		'choices' => array(
-			'show' => __( 'Show', 'period-pro' ),
-			'hide' => __( 'Hide', 'period-pro' )
+			'show' => __( 'Show', 'braillewright-pro' ),
+			'hide' => __( 'Hide', 'braillewright-pro' )
 		)
 	) );
 	// setting - post tags
@@ -1470,12 +1470,12 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	// control - post tags
 	$wp_customize->add_control( 'display_post_tags', array(
 		'type'    => 'radio',
-		'label'   => __( 'Post tags', 'period-pro' ),
+		'label'   => __( 'Post tags', 'braillewright-pro' ),
 		'section' => 'ct_period_pro_show_hide_post',
 		'setting' => 'display_post_tags',
 		'choices' => array(
-			'show' => __( 'Show', 'period-pro' ),
-			'hide' => __( 'Hide', 'period-pro' )
+			'show' => __( 'Show', 'braillewright-pro' ),
+			'hide' => __( 'Hide', 'braillewright-pro' )
 		)
 	) );
 	// setting - post nav
@@ -1487,12 +1487,12 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	// control - post nav
 	$wp_customize->add_control( 'display_post_nav', array(
 		'type'    => 'radio',
-		'label'   => __( 'Previous/Next post links', 'period-pro' ),
+		'label'   => __( 'Previous/Next post links', 'braillewright-pro' ),
 		'section' => 'ct_period_pro_show_hide_post',
 		'setting' => 'display_post_nav',
 		'choices' => array(
-			'show' => __( 'Show', 'period-pro' ),
-			'hide' => __( 'Hide', 'period-pro' )
+			'show' => __( 'Show', 'braillewright-pro' ),
+			'hide' => __( 'Hide', 'braillewright-pro' )
 		)
 	) );
 	// setting - comment count
@@ -1504,12 +1504,12 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	// control - comment count
 	$wp_customize->add_control( 'display_comment_count', array(
 		'type'    => 'radio',
-		'label'   => __( 'Comment count', 'period-pro' ),
+		'label'   => __( 'Comment count', 'braillewright-pro' ),
 		'section' => 'ct_period_pro_show_hide_post',
 		'setting' => 'display_comment_count',
 		'choices' => array(
-			'show' => __( 'Show', 'period-pro' ),
-			'hide' => __( 'Hide', 'period-pro' )
+			'show' => __( 'Show', 'braillewright-pro' ),
+			'hide' => __( 'Hide', 'braillewright-pro' )
 		)
 	) );
 	// setting - comment date
@@ -1521,19 +1521,19 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	// control - comment count
 	$wp_customize->add_control( 'display_comment_date', array(
 		'type'    => 'radio',
-		'label'   => __( 'Comment date', 'period-pro' ),
+		'label'   => __( 'Comment date', 'braillewright-pro' ),
 		'section' => 'ct_period_pro_show_hide_post',
 		'setting' => 'display_comment_date',
 		'choices' => array(
-			'show' => __( 'Show', 'period-pro' ),
-			'hide' => __( 'Hide', 'period-pro' )
+			'show' => __( 'Show', 'braillewright-pro' ),
+			'hide' => __( 'Hide', 'braillewright-pro' )
 		)
 	) );
 
 	/***** Blog & Archives *****/
 
 	$wp_customize->add_section( 'ct_period_pro_show_hide_blog_archives', array(
-		'title' => __( 'Blog & Archives', 'period-pro' ),
+		'title' => __( 'Blog & Archives', 'braillewright-pro' ),
 		'panel'	=> 'ct_period_pro_show_hide_panel'
 	) );
 	// setting - Featured Images
@@ -1545,12 +1545,12 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	// control - Featured Images
 	$wp_customize->add_control( 'display_featured_images', array(
 		'type'    => 'radio',
-		'label'   => __( 'Featured Images', 'period-pro' ),
+		'label'   => __( 'Featured Images', 'braillewright-pro' ),
 		'section' => 'ct_period_pro_show_hide_blog_archives',
 		'setting' => 'display_featured_images',
 		'choices' => array(
-			'show' => __( 'Show', 'period-pro' ),
-			'hide' => __( 'Hide', 'period-pro' )
+			'show' => __( 'Show', 'braillewright-pro' ),
+			'hide' => __( 'Hide', 'braillewright-pro' )
 		)
 	) );
 	// setting - more link
@@ -1562,12 +1562,12 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	// control - more link
 	$wp_customize->add_control( 'display_more_link', array(
 		'type'    => 'radio',
-		'label'   => __( '"Continue reading" button', 'period-pro' ),
+		'label'   => __( '"Continue reading" button', 'braillewright-pro' ),
 		'section' => 'ct_period_pro_show_hide_blog_archives',
 		'setting' => 'display_more_link',
 		'choices' => array(
-			'show' => __( 'Show', 'period-pro' ),
-			'hide' => __( 'Hide', 'period-pro' )
+			'show' => __( 'Show', 'braillewright-pro' ),
+			'hide' => __( 'Hide', 'braillewright-pro' )
 		)
 	) );
 	// setting - comments link
@@ -1579,19 +1579,19 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	// control - comments link
 	$wp_customize->add_control( 'display_comments_link', array(
 		'type'    => 'radio',
-		'label'   => __( 'Comments link', 'period-pro' ),
+		'label'   => __( 'Comments link', 'braillewright-pro' ),
 		'section' => 'ct_period_pro_show_hide_blog_archives',
 		'setting' => 'display_comments_link',
 		'choices' => array(
-			'show' => __( 'Show', 'period-pro' ),
-			'hide' => __( 'Hide', 'period-pro' )
+			'show' => __( 'Show', 'braillewright-pro' ),
+			'hide' => __( 'Hide', 'braillewright-pro' )
 		)
 	) );
 
 	/***** Archives *****/
 
 	$wp_customize->add_section( 'ct_period_pro_show_hide_archives', array(
-		'title' => __( 'Archives', 'period-pro' ),
+		'title' => __( 'Archives', 'braillewright-pro' ),
 		'panel'	=> 'ct_period_pro_show_hide_panel'
 	) );
 	// setting - archive title
@@ -1603,12 +1603,12 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	// control - archive title
 	$wp_customize->add_control( 'display_archive_title', array(
 		'type'    => 'radio',
-		'label'   => __( 'Archive Title', 'period-pro' ),
+		'label'   => __( 'Archive Title', 'braillewright-pro' ),
 		'section' => 'ct_period_pro_show_hide_archives',
 		'setting' => 'display_archive_title',
 		'choices' => array(
-			'show' => __( 'Show', 'period-pro' ),
-			'hide' => __( 'Hide', 'period-pro' )
+			'show' => __( 'Show', 'braillewright-pro' ),
+			'hide' => __( 'Hide', 'braillewright-pro' )
 		)
 	) );
 	// setting - archive description
@@ -1620,19 +1620,19 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	// control - archive description
 	$wp_customize->add_control( 'display_archive_description', array(
 		'type'    => 'radio',
-		'label'   => __( 'Archive Description', 'period-pro' ),
+		'label'   => __( 'Archive Description', 'braillewright-pro' ),
 		'section' => 'ct_period_pro_show_hide_archives',
 		'setting' => 'display_archive_description',
 		'choices' => array(
-			'show' => __( 'Show', 'period-pro' ),
-			'hide' => __( 'Hide', 'period-pro' )
+			'show' => __( 'Show', 'braillewright-pro' ),
+			'hide' => __( 'Hide', 'braillewright-pro' )
 		)
 	) );
 
 	/***** Footer *****/
 
 	$wp_customize->add_section( 'ct_period_pro_show_hide_footer', array(
-		'title' => __( 'Footer', 'period-pro' ),
+		'title' => __( 'Footer', 'braillewright-pro' ),
 		'panel'	=> 'ct_period_pro_show_hide_panel'
 	) );
 
@@ -1645,12 +1645,12 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	// control - footer
 	$wp_customize->add_control( 'display_footer', array(
 		'type'    => 'radio',
-		'label'   => __( 'Footer', 'period-pro' ),
+		'label'   => __( 'Footer', 'braillewright-pro' ),
 		'section' => 'ct_period_pro_show_hide_footer',
 		'setting' => 'display_footer',
 		'choices' => array(
-			'show' => __( 'Show', 'period-pro' ),
-			'hide' => __( 'Hide', 'period-pro' )
+			'show' => __( 'Show', 'braillewright-pro' ),
+			'hide' => __( 'Hide', 'braillewright-pro' )
 		)
 	) );
 
@@ -1660,7 +1660,7 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 
 	// section
 	$wp_customize->add_section( 'ct_period_pro_footer_text', array(
-		'title'    => __( 'Footer Text', 'period-pro' ),
+		'title'    => __( 'Footer Text', 'braillewright-pro' ),
 		'priority' => 9
 	) );
 	// setting
@@ -1670,7 +1670,7 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 	) );
 	// control
 	$wp_customize->add_control( 'footer_text', array(
-		'label'    => __( 'Edit the text in your footer', 'period-pro' ),
+		'label'    => __( 'Edit the text in your footer', 'braillewright-pro' ),
 		'section'  => 'ct_period_pro_footer_text',
 		'settings' => 'footer_text',
 		'type'     => 'textarea'
@@ -1685,8 +1685,8 @@ function ct_period_pro_add_customizer_content( $wp_customize ) {
 function ct_period_pro_sanitize_yes_no_settings( $input ) {
 
 	$valid = array(
-		'yes' => __( 'Yes', 'period-pro' ),
-		'no'  => __( 'No', 'period-pro' )
+		'yes' => __( 'Yes', 'braillewright-pro' ),
+		'no'  => __( 'No', 'braillewright-pro' )
 	);
 
 	return array_key_exists( $input, $valid ) ? $input : '';
@@ -1695,8 +1695,8 @@ function ct_period_pro_sanitize_yes_no_settings( $input ) {
 function ct_period_pro_sanitize_header_image_height_type( $input ) {
 
 	$valid = array(
-		'responsive' => __( 'Responsive', 'period-pro' ),
-		'fixed'      => __( 'Fixed', 'period-pro' )
+		'responsive' => __( 'Responsive', 'braillewright-pro' ),
+		'fixed'      => __( 'Fixed', 'braillewright-pro' )
 	);
 
 	return array_key_exists( $input, $valid ) ? $input : '';
@@ -1716,16 +1716,16 @@ function ct_period_pro_sanitize_font_family( $input ) {
 function ct_period_pro_sanitize_font_weight( $input ) {
 
 	$valid = array(
-		'default' => __( 'Default', 'period-pro' ),
-		'100' => __( 'Thin', 'period-pro' ),
-		'200' => __( 'Extra-light', 'period-pro' ),
-		'300' => __( 'Light', 'period-pro' ),
-		'400' => __( 'Regular', 'period-pro' ),
-		'500' => __( 'Medium', 'period-pro' ),
-		'600' => __( 'Semi-Bold', 'period-pro' ),
-		'700' => __( 'Bold', 'period-pro' ),
-		'800' => __( 'Extra-Bold', 'period-pro' ),
-		'900' => __( 'Ultra-Bold', 'period-pro' )
+		'default' => __( 'Default', 'braillewright-pro' ),
+		'100' => __( 'Thin', 'braillewright-pro' ),
+		'200' => __( 'Extra-light', 'braillewright-pro' ),
+		'300' => __( 'Light', 'braillewright-pro' ),
+		'400' => __( 'Regular', 'braillewright-pro' ),
+		'500' => __( 'Medium', 'braillewright-pro' ),
+		'600' => __( 'Semi-Bold', 'braillewright-pro' ),
+		'700' => __( 'Bold', 'braillewright-pro' ),
+		'800' => __( 'Extra-Bold', 'braillewright-pro' ),
+		'900' => __( 'Ultra-Bold', 'braillewright-pro' )
 	);
 
 	return array_key_exists( $input, $valid ) ? $input : '';
@@ -1742,13 +1742,13 @@ function ct_period_pro_sanitize_checkbox( $input ) {
 function ct_period_pro_sanitize_layout( $input ) {
 
 	$valid = array(
-		'two-column'    => __( 'Two columns', 'period-pro' ),
-		'one-column'    => __( 'One column', 'period-pro' ),
-		'right-sidebar' => __( 'Right sidebar', 'period-pro' ),
-		'left-sidebar'  => __( 'Left sidebar', 'period-pro' ),
-		'two-right'     => __( 'Two columns - Right sidebar', 'period-pro' ),
-		'two-left'      => __( 'Two columns - Left sidebar', 'period-pro' ),
-		'three-column'  => __( 'Three columns', 'period-pro' )
+		'two-column'    => __( 'Two columns', 'braillewright-pro' ),
+		'one-column'    => __( 'One column', 'braillewright-pro' ),
+		'right-sidebar' => __( 'Right sidebar', 'braillewright-pro' ),
+		'left-sidebar'  => __( 'Left sidebar', 'braillewright-pro' ),
+		'two-right'     => __( 'Two columns - Right sidebar', 'braillewright-pro' ),
+		'two-left'      => __( 'Two columns - Left sidebar', 'braillewright-pro' ),
+		'three-column'  => __( 'Three columns', 'braillewright-pro' )
 	);
 
 	return array_key_exists( $input, $valid ) ? $input : '';
@@ -1764,8 +1764,8 @@ function ct_period_pro_sanitize_textures( $input ) {
 function ct_period_pro_sanitize_show_hide( $input ) {
 
 	$valid = array(
-		'show' => __( 'Show', 'period-pro' ),
-		'hide' => __( 'Hide', 'period-pro' )
+		'show' => __( 'Show', 'braillewright-pro' ),
+		'hide' => __( 'Hide', 'braillewright-pro' )
 	);
 
 	return array_key_exists( $input, $valid ) ? $input : '';
@@ -1785,7 +1785,7 @@ function ct_period_pro_sanitize_featured_image_size( $input ) {
 		'5-4'     => '5:4',
 		'4-5'     => '4:5',
 		'1-1'     => '1:1',
-		'natural' => __( 'Natural Dimensions', 'period-pro' )
+		'natural' => __( 'Natural Dimensions', 'braillewright-pro' )
 	);
 
 	return array_key_exists( $input, $valid ) ? $input : '';
@@ -1793,8 +1793,8 @@ function ct_period_pro_sanitize_featured_image_size( $input ) {
 
 function ct_period_pro_sanitize_header_image_type( $input ) {
 	$valid = array(
-		'image'  => __( 'Image', 'period-pro' ),
-		'video'  => __( 'Video', 'period-pro' )
+		'image'  => __( 'Image', 'braillewright-pro' ),
+		'video'  => __( 'Video', 'braillewright-pro' )
 	);
 	return array_key_exists( $input, $valid ) ? $input : '';
 }

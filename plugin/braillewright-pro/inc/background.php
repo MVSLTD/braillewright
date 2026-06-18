@@ -70,22 +70,22 @@ function ct_period_pro_background_textures_data() {
 	$texture_data = array(
 		array(
 			'setting_id' => 'background_texture_header_show',
-			'label'      => esc_html__( 'Show a texture in the header?', 'period-pro' ),
+			'label'      => esc_html__( 'Show a texture in the header?', 'braillewright-pro' ),
 			'type'       => 'show'
 		),
 		array(
 			'setting_id' => 'background_texture_header',
-			'label'      => esc_html__( 'Choose a texture for the header:', 'period-pro' ),
+			'label'      => esc_html__( 'Choose a texture for the header:', 'braillewright-pro' ),
 			'type'       => 'textures'
 		),
 		array(
 			'setting_id' => 'background_texture_main_show',
-			'label'      => esc_html__( 'Show a texture in the body?', 'period-pro' ),
+			'label'      => esc_html__( 'Show a texture in the body?', 'braillewright-pro' ),
 			'type'       => 'show'
 		),
 		array(
 			'setting_id' => 'background_texture_main',
-			'label'      => esc_html__( 'Choose a texture for the body:', 'period-pro' ),
+			'label'      => esc_html__( 'Choose a texture for the body:', 'braillewright-pro' ),
 			'type'       => 'textures'
 		)
 	);

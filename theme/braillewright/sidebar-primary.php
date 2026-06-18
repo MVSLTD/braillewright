@@ -9,7 +9,7 @@ if ( function_exists('is_cart') ) {
 }
 if ( is_active_sidebar( 'primary' ) ) : ?>
     <aside class="sidebar sidebar-primary" id="sidebar-primary" role="complementary">
-        <h2 class="screen-reader-text"><?php esc_html_e('Sidebar', 'period'); ?></h2>
+        <h2 class="screen-reader-text"><?php esc_html_e('Sidebar', 'braillewright'); ?></h2>
         <?php dynamic_sidebar( 'primary' ); ?>
     </aside>
 <?php endif;

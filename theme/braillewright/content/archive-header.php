@@ -7,7 +7,7 @@ if ( function_exists( 'is_bbpress' ) ) {
 	} 
 }
 if ( is_home() ) {
-	echo '<h1 class="screen-reader-text">' . esc_html( get_bloginfo("name") ) . ' ' . esc_html_x('Posts', 'noun: Site Title posts', 'period') . '</h1>';
+	echo '<h1 class="screen-reader-text">' . esc_html( get_bloginfo("name") ) . ' ' . esc_html_x('Posts', 'noun: Site Title posts', 'braillewright') . '</h1>';
 }
 if ( ! is_archive() ) {
 	return;

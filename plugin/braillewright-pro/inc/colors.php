@@ -9,355 +9,355 @@ function ct_period_pro_custom_colors_data() {
 
 		array(
 			'section_id'    => 'ct_period_pro_colors_base',
-			'section_title' => esc_html__( 'Base', 'period-pro' ),
-			'description'   => esc_html__( 'These colors affect elements across the entire site.', 'period-pro' ),
+			'section_title' => esc_html__( 'Base', 'braillewright-pro' ),
+			'description'   => esc_html__( 'These colors affect elements across the entire site.', 'braillewright-pro' ),
 			array(
 				'setting_id'      => 'colors_base_background',
 				'setting_default' => '#ededed',
-				'control_label'   => esc_html__( 'Background', 'period-pro' )
+				'control_label'   => esc_html__( 'Background', 'braillewright-pro' )
 			),
 			array(
 				'setting_id'      => 'colors_base_content_bg',
 				'setting_default' => '#ffffff',
-				'control_label'   => esc_html__( 'Content Background', 'period-pro' )
+				'control_label'   => esc_html__( 'Content Background', 'braillewright-pro' )
 			),
 			array(
 				'setting_id'      => 'colors_base_headings',
 				'setting_default' => '#333333',
-				'control_label'   => esc_html__( 'Headings', 'period-pro' )
+				'control_label'   => esc_html__( 'Headings', 'braillewright-pro' )
 			),
 			array(
 				'setting_id'      => 'colors_base_links',
 				'setting_default' => '#333333',
-				'control_label'   => esc_html__( 'Links', 'period-pro' )
+				'control_label'   => esc_html__( 'Links', 'braillewright-pro' )
 			),
 			array(
 				'setting_id'      => 'colors_base_links_hover',
 				'setting_default' => '#757575',
-				'control_label'   => esc_html__( 'Links (hover)', 'period-pro' )
+				'control_label'   => esc_html__( 'Links (hover)', 'braillewright-pro' )
 			),
 			array(
 				'setting_id'      => 'colors_base_content',
 				'setting_default' => '#333333',
-				'control_label'   => esc_html__( 'Text', 'period-pro' )
+				'control_label'   => esc_html__( 'Text', 'braillewright-pro' )
 			),
 			array(
 				'setting_id'      => 'colors_base_inputs',
 				'setting_default' => '#333333',
-				'control_label'   => esc_html__( 'Inputs', 'period-pro' )
+				'control_label'   => esc_html__( 'Inputs', 'braillewright-pro' )
 			),
 			array(
 				'setting_id'      => 'colors_base_inputs_bg',
 				'setting_default' => '#f7f7f7',
-				'control_label'   => esc_html__( 'Inputs Background', 'period-pro' )
+				'control_label'   => esc_html__( 'Inputs Background', 'braillewright-pro' )
 			),
 			array(
 				'setting_id'      => 'colors_base_inputs_bg_focus',
 				'setting_default' => '#ffffff',
-				'control_label'   => esc_html__( 'Inputs Background (focus)', 'period-pro' )
+				'control_label'   => esc_html__( 'Inputs Background (focus)', 'braillewright-pro' )
 			),
 			array(
 				'setting_id'      => 'colors_base_inputs_border',
 				'setting_default' => '#d4d4d4',
-				'control_label'   => esc_html__( 'Inputs Border', 'period-pro' )
+				'control_label'   => esc_html__( 'Inputs Border', 'braillewright-pro' )
 			),
 			array(
 				'setting_id'      => 'colors_base_buttons',
 				'setting_default' => '#333333',
-				'control_label'   => esc_html__( 'Buttons', 'period-pro' )
+				'control_label'   => esc_html__( 'Buttons', 'braillewright-pro' )
 			),
 			array(
 				'setting_id'      => 'colors_base_buttons_hover',
 				'setting_default' => '#ffffff',
-				'control_label'   => esc_html__( 'Buttons (hover)', 'period-pro' )
+				'control_label'   => esc_html__( 'Buttons (hover)', 'braillewright-pro' )
 			),
 			array(
 				'setting_id'      => 'colors_base_buttons_bg',
 				'setting_default' => '#ffffff',
-				'control_label'   => esc_html__( 'Buttons Background', 'period-pro' )
+				'control_label'   => esc_html__( 'Buttons Background', 'braillewright-pro' )
 			),
 			array(
 				'setting_id'      => 'colors_base_buttons_bg_hover',
 				'setting_default' => '#333333',
-				'control_label'   => esc_html__( 'Buttons Background (hover)', 'period-pro' )
+				'control_label'   => esc_html__( 'Buttons Background (hover)', 'braillewright-pro' )
 			)
 		),
 		/***** Header *****/
 
 		array(
 			'section_id'    => 'ct_period_pro_colors_header',
-			'section_title' => esc_html__( 'Header', 'period-pro' ),
-			'description'   => esc_html__( 'These colors affect elements in the Header.', 'period-pro' ),
+			'section_title' => esc_html__( 'Header', 'braillewright-pro' ),
+			'description'   => esc_html__( 'These colors affect elements in the Header.', 'braillewright-pro' ),
 			array(
 				'setting_id'      => 'colors_header_bg',
 				'setting_default' => '#333333',
-				'control_label'   => esc_html__( 'Background', 'period-pro' )
+				'control_label'   => esc_html__( 'Background', 'braillewright-pro' )
 			),
 			array(
 				'setting_id'      => 'colors_header_site_title',
 				'setting_default' => '#ffffff',
-				'control_label'   => esc_html__( 'Site Title', 'period-pro' )
+				'control_label'   => esc_html__( 'Site Title', 'braillewright-pro' )
 			),
 			array(
 				'setting_id'      => 'colors_header_site_title_hover',
 				'setting_default' => '#666666',
-				'control_label'   => esc_html__( 'Site Title (hover)', 'period-pro' )
+				'control_label'   => esc_html__( 'Site Title (hover)', 'braillewright-pro' )
 			),
 			array(
 				'setting_id'      => 'colors_header_tagline',
 				'setting_default' => '#d4d4d4',
-				'control_label'   => esc_html__( 'Tagline', 'period-pro' )
+				'control_label'   => esc_html__( 'Tagline', 'braillewright-pro' )
 			),
 			array(
 				'setting_id'      => 'colors_header_social_icons',
 				'setting_default' => '#ffffff',
-				'control_label'   => esc_html__( 'Social Icons', 'period-pro' )
+				'control_label'   => esc_html__( 'Social Icons', 'braillewright-pro' )
 			),
 			array(
 				'setting_id'      => 'colors_header_social_icons_hover',
 				'setting_default' => '#d4d4d4',
-				'control_label'   => esc_html__( 'Social Icons (hover)', 'period-pro' )
+				'control_label'   => esc_html__( 'Social Icons (hover)', 'braillewright-pro' )
 			)
 
 		),
 		/***** Menus *****/
 		array(
 			'section_id'    => 'ct_period_pro_colors_menus',
-			'section_title' => esc_html__( 'Menus', 'period-pro' ),
-			'description'   => esc_html__( 'These colors affect elements in the Primary and Secondary menu.', 'period-pro' ),
+			'section_title' => esc_html__( 'Menus', 'braillewright-pro' ),
+			'description'   => esc_html__( 'These colors affect elements in the Primary and Secondary menu.', 'braillewright-pro' ),
 			array(
 				'setting_id'      => 'colors_header_menu_links',
 				'setting_default' => '#ffffff',
-				'control_label'   => esc_html__( 'Primary Menu Links', 'period-pro' )
+				'control_label'   => esc_html__( 'Primary Menu Links', 'braillewright-pro' )
 			),
 			array(
 				'setting_id'      => 'colors_header_menu_links_hover',
 				'setting_default' => '#333333',
-				'control_label'   => esc_html__( 'Primary Menu Links (hover)', 'period-pro' )
+				'control_label'   => esc_html__( 'Primary Menu Links (hover)', 'braillewright-pro' )
 			),
 			array(
 				'setting_id'      => 'colors_header_menu_links_bg_hover',
 				'setting_default' => '#ffffff',
-				'control_label'   => esc_html__( 'Primary Menu Links Background (hover)', 'period-pro' )
+				'control_label'   => esc_html__( 'Primary Menu Links Background (hover)', 'braillewright-pro' )
 			),
 			array(
 				'setting_id'      => 'colors_header_menu_links_bg_current',
 				'setting_default' => '#242424',
-				'control_label'   => esc_html__( 'Primary Menu Links Background (current)', 'period-pro' )
+				'control_label'   => esc_html__( 'Primary Menu Links Background (current)', 'braillewright-pro' )
 			),
 			array(
 				'setting_id'      => 'colors_header_submenu_links',
 				'setting_default' => '#333333',
-				'control_label'   => esc_html__( 'Submenu links', 'period-pro' )
+				'control_label'   => esc_html__( 'Submenu links', 'braillewright-pro' )
 			),
 			array(
 				'setting_id'      => 'colors_header_submenu_bg',
 				'setting_default' => '#ffffff',
-				'control_label'   => esc_html__( 'Submenu Background', 'period-pro' )
+				'control_label'   => esc_html__( 'Submenu Background', 'braillewright-pro' )
 			),
 			array(
 				'setting_id'      => 'colors_header_mobile_menu_button',
 				'setting_default' => '#ffffff',
-				'control_label'   => esc_html__( 'Primary Mobile Menu Button', 'period-pro' )
+				'control_label'   => esc_html__( 'Primary Mobile Menu Button', 'braillewright-pro' )
 			),
 			array(
 				'setting_id'      => 'colors_header_secondary_menu_links',
 				'setting_default' => '#ffffff',
-				'control_label'   => esc_html__( 'Secondary Menu Links', 'period-pro' )
+				'control_label'   => esc_html__( 'Secondary Menu Links', 'braillewright-pro' )
 			),
 			array(
 				'setting_id'      => 'colors_header_secondary_menu_links_hover',
 				'setting_default' => '#d4d4d4',
-				'control_label'   => esc_html__( 'Secondary Menu Links (hover)', 'period-pro' )
+				'control_label'   => esc_html__( 'Secondary Menu Links (hover)', 'braillewright-pro' )
 			),
 			array(
 				'setting_id'      => 'colors_header_secondary_menu_bg',
 				'setting_default' => '#242424',
-				'control_label'   => esc_html__( 'Secondary Menu Background', 'period-pro' )
+				'control_label'   => esc_html__( 'Secondary Menu Background', 'braillewright-pro' )
 			),
 			array(
 				'setting_id'      => 'colors_header_secondary_menu_button',
 				'setting_default' => '#ffffff',
-				'control_label'   => esc_html__( 'Secondary Mobile Menu Button', 'period-pro' )
+				'control_label'   => esc_html__( 'Secondary Mobile Menu Button', 'braillewright-pro' )
 			),
 		),
 		/***** Post *****/
 		array(
 			'section_id'    => 'ct_period_pro_colors_post',
-			'section_title' => esc_html__( 'Posts', 'period-pro' ),
-			'description'   => esc_html__( 'These colors affect elements in Posts on the Blog and Post pages.', 'period-pro' ),
+			'section_title' => esc_html__( 'Posts', 'braillewright-pro' ),
+			'description'   => esc_html__( 'These colors affect elements in Posts on the Blog and Post pages.', 'braillewright-pro' ),
 			array(
 				'setting_id'      => 'colors_post_title',
 				'setting_default' => '#333333',
-				'control_label'   => esc_html__( 'Title', 'period-pro' )
+				'control_label'   => esc_html__( 'Title', 'braillewright-pro' )
 			),
 			array(
 				'setting_id'      => 'colors_post_title_hover',
 				'setting_default' => '#757575',
-				'control_label'   => esc_html__( 'Title (hover)', 'period-pro' )
+				'control_label'   => esc_html__( 'Title (hover)', 'braillewright-pro' )
 			),
 			array(
 				'setting_id'      => 'colors_post_content',
 				'setting_default' => '#333333',
-				'control_label'   => esc_html__( 'Text', 'period-pro' )
+				'control_label'   => esc_html__( 'Text', 'braillewright-pro' )
 			),
 			array(
 				'setting_id'      => 'colors_post_links',
 				'setting_default' => '#333333',
-				'control_label'   => esc_html__( 'Links', 'period-pro' )
+				'control_label'   => esc_html__( 'Links', 'braillewright-pro' )
 			),
 			array(
 				'setting_id'      => 'colors_post_links_hover',
 				'setting_default' => '#757575',
-				'control_label'   => esc_html__( 'Links (hover)', 'period-pro' )
+				'control_label'   => esc_html__( 'Links (hover)', 'braillewright-pro' )
 			),
 			array(
 				'setting_id'      => 'colors_post_more_button',
 				'setting_default' => '#333333',
-				'control_label'   => esc_html__( 'More Button', 'period-pro' )
+				'control_label'   => esc_html__( 'More Button', 'braillewright-pro' )
 			),
 			array(
 				'setting_id'      => 'colors_post_more_button_hover',
 				'setting_default' => '#ffffff',
-				'control_label'   => esc_html__( 'More Button (hover)', 'period-pro' )
+				'control_label'   => esc_html__( 'More Button (hover)', 'braillewright-pro' )
 			),
 			array(
 				'setting_id'      => 'colors_post_more_button_bg',
 				'setting_default' => '#ffffff',
-				'control_label'   => esc_html__( 'More Button Background', 'period-pro' )
+				'control_label'   => esc_html__( 'More Button Background', 'braillewright-pro' )
 			),
 			array(
 				'setting_id'      => 'colors_post_more_button_bg_hover',
 				'setting_default' => '#333333',
-				'control_label'   => esc_html__( 'More Button Background (hover)', 'period-pro' )
+				'control_label'   => esc_html__( 'More Button Background (hover)', 'braillewright-pro' )
 			),
 			array(
 				'setting_id'      => 'colors_post_more_button_border',
 				'setting_default' => '#333333',
-				'control_label'   => esc_html__( 'More Button Border', 'period-pro' )
+				'control_label'   => esc_html__( 'More Button Border', 'braillewright-pro' )
 			),
 			array(
 				'setting_id'      => 'colors_post_more_button_border_hover',
 				'setting_default' => '#333333',
-				'control_label'   => esc_html__( 'More Button Border (hover)', 'period-pro' )
+				'control_label'   => esc_html__( 'More Button Border (hover)', 'braillewright-pro' )
 			),
 			array(
 				'setting_id'      => 'colors_post_comments_link',
 				'setting_default' => '#333333',
-				'control_label'   => esc_html__( 'Comments Link', 'period-pro' )
+				'control_label'   => esc_html__( 'Comments Link', 'braillewright-pro' )
 			),
 			array(
 				'setting_id'      => 'colors_post_comments_link_hover',
 				'setting_default' => '#757575',
-				'control_label'   => esc_html__( 'Comments Link (hover)', 'period-pro' )
+				'control_label'   => esc_html__( 'Comments Link (hover)', 'braillewright-pro' )
 			)
 		),
 		/***** Comments *****/
 
 		array(
 			'section_id'    => 'ct_period_pro_colors_comments',
-			'section_title' => esc_html__( 'Comments', 'period-pro' ),
-			'description'   => esc_html__( 'These colors affect elements in the Comments.', 'period-pro' ),
+			'section_title' => esc_html__( 'Comments', 'braillewright-pro' ),
+			'description'   => esc_html__( 'These colors affect elements in the Comments.', 'braillewright-pro' ),
 			array(
 				'setting_id'      => 'colors_comments_content',
 				'setting_default' => '#333333',
-				'control_label'   => esc_html__( 'Text', 'period-pro' )
+				'control_label'   => esc_html__( 'Text', 'braillewright-pro' )
 			),
 			array(
 				'setting_id'      => 'colors_comments_links',
 				'setting_default' => '#333333',
-				'control_label'   => esc_html__( 'Links', 'period-pro' )
+				'control_label'   => esc_html__( 'Links', 'braillewright-pro' )
 			),
 			array(
 				'setting_id'      => 'colors_comments_links_hover',
 				'setting_default' => '#757575',
-				'control_label'   => esc_html__( 'Links (hover)', 'period-pro' )
+				'control_label'   => esc_html__( 'Links (hover)', 'braillewright-pro' )
 			)
 		),
 		/***** Widgets *****/
 
 		array(
 			'section_id'    => 'ct_period_pro_colors_widgets',
-			'section_title' => esc_html__( 'Widgets', 'period-pro' ),
-			'description'   => esc_html__( 'These colors affect elements in Widgets.', 'period-pro' ),
+			'section_title' => esc_html__( 'Widgets', 'braillewright-pro' ),
+			'description'   => esc_html__( 'These colors affect elements in Widgets.', 'braillewright-pro' ),
 			array(
 				'setting_id'      => 'colors_widgets_headings',
 				'setting_default' => '#333333',
-				'control_label'   => esc_html__( 'Headings', 'period-pro' )
+				'control_label'   => esc_html__( 'Headings', 'braillewright-pro' )
 			),
 			array(
 				'setting_id'      => 'colors_widgets_content',
 				'setting_default' => '#333333',
-				'control_label'   => esc_html__( 'Content', 'period-pro' )
+				'control_label'   => esc_html__( 'Content', 'braillewright-pro' )
 			),
 			array(
 				'setting_id'      => 'colors_widgets_links',
 				'setting_default' => '#333333',
-				'control_label'   => esc_html__( 'Links', 'period-pro' )
+				'control_label'   => esc_html__( 'Links', 'braillewright-pro' )
 			),
 			array(
 				'setting_id'      => 'colors_widgets_links_hover',
 				'setting_default' => '#757575',
-				'control_label'   => esc_html__( 'Links (hover)', 'period-pro' )
+				'control_label'   => esc_html__( 'Links (hover)', 'braillewright-pro' )
 			)
 		),
 		/***** Archives *****/
 
 		array(
 			'section_id'    => 'ct_period_pro_colors_archives',
-			'section_title' => esc_html__( 'Archives', 'period-pro' ),
-			'description'   => esc_html__( 'These colors affect elements in archives (categories, blog, tags, etc).', 'period-pro' ),
+			'section_title' => esc_html__( 'Archives', 'braillewright-pro' ),
+			'description'   => esc_html__( 'These colors affect elements in archives (categories, blog, tags, etc).', 'braillewright-pro' ),
 			array(
 				'setting_id'      => 'colors_archives_header',
 				'setting_default' => '#ffffff',
-				'control_label'   => esc_html__( 'Archive Header', 'period-pro' )
+				'control_label'   => esc_html__( 'Archive Header', 'braillewright-pro' )
 			),
 			array(
 				'setting_id'      => 'colors_archives_header_bg',
 				'setting_default' => '#242424',
-				'control_label'   => esc_html__( 'Archive Header Background', 'period-pro' )
+				'control_label'   => esc_html__( 'Archive Header Background', 'braillewright-pro' )
 			),
 			array(
 				'setting_id'      => 'colors_archives_pagination',
 				'setting_default' => '#333333',
-				'control_label'   => esc_html__( 'Pagination Links', 'period-pro' )
+				'control_label'   => esc_html__( 'Pagination Links', 'braillewright-pro' )
 			),
 			array(
 				'setting_id'      => 'colors_archives_pagination_current',
 				'setting_default' => '#ededed',
-				'control_label'   => esc_html__( 'Pagination - Current Page Background', 'period-pro' )
+				'control_label'   => esc_html__( 'Pagination - Current Page Background', 'braillewright-pro' )
 			)
 		),
 		/***** Footer *****/
 
 		array(
 			'section_id'    => 'ct_period_pro_colors_footer',
-			'section_title' => esc_html__( 'Footer', 'period-pro' ),
-			'description'   => esc_html__( 'These colors affect elements in the Footer.', 'period-pro' ),
+			'section_title' => esc_html__( 'Footer', 'braillewright-pro' ),
+			'description'   => esc_html__( 'These colors affect elements in the Footer.', 'braillewright-pro' ),
 			array(
 				'setting_id'      => 'colors_footer_bg',
 				'setting_default' => '#242424',
-				'control_label'   => esc_html__( 'Background', 'period-pro' )
+				'control_label'   => esc_html__( 'Background', 'braillewright-pro' )
 			),
 			array(
 				'setting_id'      => 'colors_footer_content',
 				'setting_default' => '#d4d4d4',
-				'control_label'   => esc_html__( 'Text', 'period-pro' )
+				'control_label'   => esc_html__( 'Text', 'braillewright-pro' )
 			),
 			array(
 				'setting_id'      => 'colors_footer_links',
 				'setting_default' => '#ffffff',
-				'control_label'   => esc_html__( 'Links', 'period-pro' )
+				'control_label'   => esc_html__( 'Links', 'braillewright-pro' )
 			),
 			array(
 				'setting_id'      => 'colors_footer_links_hover',
 				'setting_default' => '#d4d4d4',
-				'control_label'   => esc_html__( 'Links (hover)', 'period-pro' )
+				'control_label'   => esc_html__( 'Links (hover)', 'braillewright-pro' )
 			),
 			array(
 				'setting_id'      => 'colors_footer_widgets_bg',
 				'setting_default' => '#333333',
-				'control_label'   => esc_html__( 'Widget Area Background', 'period-pro' )
+				'control_label'   => esc_html__( 'Widget Area Background', 'braillewright-pro' )
 			)
 		)
 	);

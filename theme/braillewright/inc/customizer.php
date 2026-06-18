@@ -26,8 +26,8 @@ function ct_period_add_customizer_content( $wp_customize ) {
 
 		$wp_customize->add_panel( 'ct_period_layout_panel', array(
 			'priority'    => 40,
-			'title'       => __( 'Layout', 'period' ),
-			'description' => __( 'Change your layouts across the site', 'period' )
+			'title'       => __( 'Layout', 'braillewright' ),
+			'description' => __( 'Change your layouts across the site', 'braillewright' )
 		) );
 	}
 	
@@ -35,7 +35,7 @@ function ct_period_add_customizer_content( $wp_customize ) {
 
 	// section
 	$wp_customize->add_section( 'ct_period_logo_upload', array(
-		'title'    => __( 'Logo', 'period' ),
+		'title'    => __( 'Logo', 'braillewright' ),
 		'priority' => 20
 	) );
 	// Upload - setting
@@ -45,7 +45,7 @@ function ct_period_add_customizer_content( $wp_customize ) {
 	// Upload - control
 	$wp_customize->add_control( new WP_Customize_Image_Control(
 		$wp_customize, 'logo_image', array(
-			'label'    => __( 'Upload a logo', 'period' ),
+			'label'    => __( 'Upload a logo', 'braillewright' ),
 			'section'  => 'ct_period_logo_upload',
 			'settings' => 'logo_upload'
 		)
@@ -58,7 +58,7 @@ function ct_period_add_customizer_content( $wp_customize ) {
 	) );
 	// Size - control
 	$wp_customize->add_control( 'logo_size', array(
-		'label'    => __( 'Adjust the size of the logo', 'period' ),
+		'label'    => __( 'Adjust the size of the logo', 'braillewright' ),
 		'section'  => 'ct_period_logo_upload',
 		'settings' => 'logo_size',
 		'type'     => 'range',
@@ -79,9 +79,9 @@ function ct_period_add_customizer_content( $wp_customize ) {
 
 	// section
 	$wp_customize->add_section( 'ct_period_social_media_icons', array(
-		'title'       => __( 'Social Media Icons', 'period' ),
+		'title'       => __( 'Social Media Icons', 'braillewright' ),
 		'priority'    => 25,
-		'description' => __( 'Add the URL for each of your social profiles.', 'period' )
+		'description' => __( 'Add the URL for each of your social profiles.', 'braillewright' )
 	) );
 
 	// create a setting and control for each social site
@@ -94,7 +94,7 @@ function ct_period_add_customizer_content( $wp_customize ) {
 			) );
 			// control
 			$wp_customize->add_control( $social_site, array(
-				'label'    => __( 'Email Address', 'period' ),
+				'label'    => __( 'Email Address', 'braillewright' ),
 				'section'  => 'ct_period_social_media_icons',
 				'priority' => $priority
 			) );
@@ -105,7 +105,7 @@ function ct_period_add_customizer_content( $wp_customize ) {
 			) );
 			// control
 			$wp_customize->add_control( $social_site, array(
-				'label'    => __( 'Phone', 'period' ),
+				'label'    => __( 'Phone', 'braillewright' ),
 				'section'     => 'ct_period_social_media_icons',
 				'priority'    => $priority,
 				'type'        => 'text'
@@ -115,51 +115,51 @@ function ct_period_add_customizer_content( $wp_customize ) {
 			$label = ucfirst( $social_site );
 
 			if ( $social_site == 'rss' ) {
-				$label = __('RSS', 'period');
+				$label = __('RSS', 'braillewright');
 			} elseif ( $social_site == 'researchgate' ) {
-				$label = __('ResearchGate', 'period');
+				$label = __('ResearchGate', 'braillewright');
 			} elseif ( $social_site == 'diaspora' ) {
-				$label = __('diaspora*', 'period');
+				$label = __('diaspora*', 'braillewright');
 			} elseif ( $social_site == 'imdb' ) {
-				$label = __('IMDB', 'period');
+				$label = __('IMDB', 'braillewright');
 			} elseif ( $social_site == 'soundcloud' ) {
-				$label = __('SoundCloud', 'period');
+				$label = __('SoundCloud', 'braillewright');
 			} elseif ( $social_site == 'slideshare' ) {
-				$label = __('SlideShare', 'period');
+				$label = __('SlideShare', 'braillewright');
 			} elseif ( $social_site == 'codepen' ) {
-				$label = __('CodePen', 'period');
+				$label = __('CodePen', 'braillewright');
 			} elseif ( $social_site == 'stumbleupon' ) {
-				$label = __('StumbleUpon', 'period');
+				$label = __('StumbleUpon', 'braillewright');
 			} elseif ( $social_site == 'deviantart' ) {
-				$label = __('DeviantArt', 'period');
+				$label = __('DeviantArt', 'braillewright');
 			} elseif ( $social_site == 'hacker-news' ) {
-				$label = __('Hacker News', 'period');
+				$label = __('Hacker News', 'braillewright');
 			} elseif ( $social_site == 'google-wallet' ) {
-				$label = __('Google Wallet', 'period');
+				$label = __('Google Wallet', 'braillewright');
 			} elseif ( $social_site == 'whatsapp' ) {
-				$label = __('WhatsApp', 'period');
+				$label = __('WhatsApp', 'braillewright');
 			} elseif ( $social_site == 'qq' ) {
-				$label = __('QQ', 'period');
+				$label = __('QQ', 'braillewright');
 			} elseif ( $social_site == 'vk' ) {
-				$label = __('VK', 'period');
+				$label = __('VK', 'braillewright');
 			} elseif ( $social_site == 'wechat' ) {
-				$label = __('WeChat', 'period');
+				$label = __('WeChat', 'braillewright');
 			} elseif ( $social_site == 'tencent-weibo' ) {
-				$label = __('Tencent Weibo', 'period');
+				$label = __('Tencent Weibo', 'braillewright');
 			} elseif ( $social_site == 'paypal' ) {
-				$label = __('PayPal', 'period');
+				$label = __('PayPal', 'braillewright');
 			} elseif ( $social_site == 'ok-ru' ) {
-				$label = __('OK.ru', 'period');
+				$label = __('OK.ru', 'braillewright');
 			} elseif ( $social_site == 'stack-overflow' ) {
-				$label = __('Stack Overflow', 'period');
+				$label = __('Stack Overflow', 'braillewright');
 			} elseif ( $social_site == 'artstation' ) {
-				$label = __('ArtStation', 'period');
+				$label = __('ArtStation', 'braillewright');
 			} elseif ( $social_site == 'email-form' ) {
-				$label = __('Contact Form', 'period');
+				$label = __('Contact Form', 'braillewright');
 			} elseif ( $social_site == 'tiktok' ) {
-				$label = __('TikTok', 'period');
+				$label = __('TikTok', 'braillewright');
 			} elseif ( $social_site == 'twitter' ) {
-				$label = __('X (Twitter)', 'period');
+				$label = __('X (Twitter)', 'braillewright');
 			}
 
 			if ( $social_site == 'skype' ) {
@@ -171,7 +171,7 @@ function ct_period_add_customizer_content( $wp_customize ) {
 				$wp_customize->add_control( $social_site, array(
 					'type'        => 'url',
 					'label'       => $label,
-					'description' => sprintf( __( 'Accepts Skype link protocol (<a href="%s" target="_blank">learn more</a>)', 'period' ), 'https://www.competethemes.com/blog/skype-links-wordpress/' ),
+					'description' => sprintf( __( 'Accepts Skype link protocol (<a href="%s" target="_blank">learn more</a>)', 'braillewright' ), '#' ),
 					'section'     => 'ct_period_social_media_icons',
 					'priority'    => $priority
 				) );
@@ -197,7 +197,7 @@ function ct_period_add_customizer_content( $wp_customize ) {
 		'sanitize_callback' => 'ct_period_sanitize_text'
 	) );
 	$wp_customize->add_control( 'social_icon_custom_1_name', array(
-		'label'    => __('Custom icon 1 Name', 'period'),
+		'label'    => __('Custom icon 1 Name', 'braillewright'),
 		'section'  => 'ct_period_social_media_icons',
 		'settings' => 'social_icon_custom_1_name',
 		'type'     => 'text',
@@ -207,7 +207,7 @@ function ct_period_add_customizer_content( $wp_customize ) {
 		'sanitize_callback' => 'esc_url_raw'
 	) );
 	$wp_customize->add_control( 'social_icon_custom_1', array(
-		'label'    => __('Custom icon 1 URL', 'period'),
+		'label'    => __('Custom icon 1 URL', 'braillewright'),
 		'section'  => 'ct_period_social_media_icons',
 		'settings' => 'social_icon_custom_1',
 		'type'     => 'url',
@@ -217,7 +217,7 @@ function ct_period_add_customizer_content( $wp_customize ) {
 		'sanitize_callback' => 'esc_url_raw'
 	) );
 	$wp_customize->add_control(new WP_Customize_Image_Control( $wp_customize, 'social_icon_custom_1_image', array(
-		'label'    => __( 'Custom icon 1 image', 'period' ),
+		'label'    => __( 'Custom icon 1 image', 'braillewright' ),
 		'section'  => 'ct_period_social_media_icons',
 		'settings' => 'social_icon_custom_1_image',
 		'priority' => $priority + 7
@@ -227,7 +227,7 @@ function ct_period_add_customizer_content( $wp_customize ) {
 		'sanitize_callback' => 'absint'
 	) );
 	$wp_customize->add_control( 'social_icon_custom_1_size', array(
-		'label'    => __('Custom icon 1 size (px)', 'period'),
+		'label'    => __('Custom icon 1 size (px)', 'braillewright'),
 		'section'  => 'ct_period_social_media_icons',
 		'settings' => 'social_icon_custom_1_size',
 		'type'     => 'number',
@@ -238,7 +238,7 @@ function ct_period_add_customizer_content( $wp_customize ) {
 		'sanitize_callback' => 'ct_period_sanitize_text'
 	) );
 	$wp_customize->add_control( 'social_icon_custom_2_name', array(
-		'label'    => __('Custom icon 2 Name', 'period'),
+		'label'    => __('Custom icon 2 Name', 'braillewright'),
 		'section'  => 'ct_period_social_media_icons',
 		'settings' => 'social_icon_custom_2_name',
 		'type'     => 'text',
@@ -248,7 +248,7 @@ function ct_period_add_customizer_content( $wp_customize ) {
 		'sanitize_callback' => 'esc_url_raw'
 	) );
 	$wp_customize->add_control( 'social_icon_custom_2', array(
-		'label'    => __('Custom icon 2 URL', 'period'),
+		'label'    => __('Custom icon 2 URL', 'braillewright'),
 		'section'  => 'ct_period_social_media_icons',
 		'settings' => 'social_icon_custom_2',
 		'type'     => 'url',
@@ -258,7 +258,7 @@ function ct_period_add_customizer_content( $wp_customize ) {
 		'sanitize_callback' => 'esc_url_raw'
 	) );
 	$wp_customize->add_control(new WP_Customize_Image_Control( $wp_customize, 'social_icon_custom_2_image', array(
-		'label'    => __( 'Custom icon 2 image', 'period' ),
+		'label'    => __( 'Custom icon 2 image', 'braillewright' ),
 		'section'  => 'ct_period_social_media_icons',
 		'settings' => 'social_icon_custom_2_image',
 		'priority' => $priority + 11
@@ -268,7 +268,7 @@ function ct_period_add_customizer_content( $wp_customize ) {
 		'sanitize_callback' => 'absint'
 	) );
 	$wp_customize->add_control( 'social_icon_custom_2_size', array(
-		'label'    => __('Custom icon 2 size (px)', 'period'),
+		'label'    => __('Custom icon 2 size (px)', 'braillewright'),
 		'section'  => 'ct_period_social_media_icons',
 		'settings' => 'social_icon_custom_2_size',
 		'type'     => 'number',
@@ -279,7 +279,7 @@ function ct_period_add_customizer_content( $wp_customize ) {
 		'sanitize_callback' => 'ct_period_sanitize_text'
 	) );
 	$wp_customize->add_control( 'social_icon_custom_3_name', array(
-		'label'    => __('Custom icon 3 Name', 'period'),
+		'label'    => __('Custom icon 3 Name', 'braillewright'),
 		'section'  => 'ct_period_social_media_icons',
 		'settings' => 'social_icon_custom_3_name',
 		'type'     => 'text',
@@ -289,7 +289,7 @@ function ct_period_add_customizer_content( $wp_customize ) {
 		'sanitize_callback' => 'esc_url_raw'
 	) );
 	$wp_customize->add_control( 'social_icon_custom_3', array(
-		'label'    => __('Custom icon 3 URL', 'period'),
+		'label'    => __('Custom icon 3 URL', 'braillewright'),
 		'section'  => 'ct_period_social_media_icons',
 		'settings' => 'social_icon_custom_3',
 		'type'     => 'url',
@@ -299,7 +299,7 @@ function ct_period_add_customizer_content( $wp_customize ) {
 		'sanitize_callback' => 'esc_url_raw'
 	) );
 	$wp_customize->add_control(new WP_Customize_Image_Control( $wp_customize, 'social_icon_custom_3_image', array(
-		'label'    => __( 'Custom icon 3 image', 'period' ),
+		'label'    => __( 'Custom icon 3 image', 'braillewright' ),
 		'section'  => 'ct_period_social_media_icons',
 		'settings' => 'social_icon_custom_3_image',
 		'priority' => $priority + 15
@@ -309,7 +309,7 @@ function ct_period_add_customizer_content( $wp_customize ) {
 		'sanitize_callback' => 'absint'
 	) );
 	$wp_customize->add_control( 'social_icon_custom_3_size', array(
-		'label'    => __('Custom icon 3 size (px)', 'period'),
+		'label'    => __('Custom icon 3 size (px)', 'braillewright'),
 		'section'  => 'ct_period_social_media_icons',
 		'settings' => 'social_icon_custom_3_size',
 		'type'     => 'number',
@@ -320,7 +320,7 @@ function ct_period_add_customizer_content( $wp_customize ) {
 
 	// section
 	$wp_customize->add_section( 'period_search_bar', array(
-		'title'    => __( 'Search Bar', 'period' ),
+		'title'    => __( 'Search Bar', 'braillewright' ),
 		'priority' => 37
 	) );
 	// setting
@@ -331,12 +331,12 @@ function ct_period_add_customizer_content( $wp_customize ) {
 	// control
 	$wp_customize->add_control( 'search_bar', array(
 		'type'    => 'radio',
-		'label'   => __( 'Show search bar at top of site?', 'period' ),
+		'label'   => __( 'Show search bar at top of site?', 'braillewright' ),
 		'section' => 'period_search_bar',
 		'setting' => 'search_bar',
 		'choices' => array(
-			'show' => __( 'Show', 'period' ),
-			'hide' => __( 'Hide', 'period' )
+			'show' => __( 'Show', 'braillewright' ),
+			'hide' => __( 'Hide', 'braillewright' )
 		),
 	) );
 
@@ -344,9 +344,9 @@ function ct_period_add_customizer_content( $wp_customize ) {
 
 	// section
 	$wp_customize->add_section( 'period_layout', array(
-		'title'       => __( 'Posts', 'period' ),
+		'title'       => __( 'Posts', 'braillewright' ),
 		'priority'    => 1,
-		'description' => sprintf( __( 'Want more layouts? Check out the <a target="_blank" href="%1$s">%2$s Pro plugin</a>.', 'period' ), 'https://www.competethemes.com/period-pro/', wp_get_theme( get_template() ) ),
+		'description' => sprintf( __( 'Want more layouts? Check out the <a target="_blank" href="%1$s">%2$s Pro plugin</a>.', 'braillewright' ), '#', wp_get_theme( get_template() ) ),
 		'panel'				=> 'ct_period_layout_panel'
 	) );
 	// setting
@@ -357,20 +357,20 @@ function ct_period_add_customizer_content( $wp_customize ) {
 	) );
 	// control
 	$wp_customize->add_control( 'layout', array(
-		'label'    => __( 'Choose your layout', 'period' ),
+		'label'    => __( 'Choose your layout', 'braillewright' ),
 		'section'  => 'period_layout',
 		'settings' => 'layout',
 		'type'     => 'radio',
 		'choices'  => array(
-			'right' => __( 'Right sidebar', 'period' ),
-			'left'  => __( 'Left sidebar', 'period' )
+			'right' => __( 'Right sidebar', 'braillewright' ),
+			'left'  => __( 'Left sidebar', 'braillewright' )
 		)
 	) );
 	// section
 	$wp_customize->add_section( 'period_layout_pages', array(
-		'title'       => __( 'Pages', 'period' ),
+		'title'       => __( 'Pages', 'braillewright' ),
 		'priority'    => 2,
-		'description' => sprintf( __( 'Want more layouts? Check out the <a target="_blank" href="%1$s">%2$s Pro plugin</a>.', 'period' ), 'https://www.competethemes.com/period-pro/', wp_get_theme( get_template() ) ),
+		'description' => sprintf( __( 'Want more layouts? Check out the <a target="_blank" href="%1$s">%2$s Pro plugin</a>.', 'braillewright' ), '#', wp_get_theme( get_template() ) ),
 		'panel'				=> 'ct_period_layout_panel'
 	) );
 	// setting
@@ -381,20 +381,20 @@ function ct_period_add_customizer_content( $wp_customize ) {
 	) );
 	// control
 	$wp_customize->add_control( 'layout_pages', array(
-		'label'    => __( 'Choose your layout', 'period' ),
+		'label'    => __( 'Choose your layout', 'braillewright' ),
 		'section'  => 'period_layout_pages',
 		'settings' => 'layout_pages',
 		'type'     => 'radio',
 		'choices'  => array(
-			'right' => __( 'Right sidebar', 'period' ),
-			'left'  => __( 'Left sidebar', 'period' )
+			'right' => __( 'Right sidebar', 'braillewright' ),
+			'left'  => __( 'Left sidebar', 'braillewright' )
 		)
 	) );
 	// section
 	$wp_customize->add_section( 'period_layout_blog', array(
-		'title'       => __( 'Blog', 'period' ),
+		'title'       => __( 'Blog', 'braillewright' ),
 		'priority'    => 3,
-		'description' => sprintf( __( 'Want more layouts? Check out the <a target="_blank" href="%1$s">%2$s Pro plugin</a>.', 'period' ), 'https://www.competethemes.com/period-pro/', wp_get_theme( get_template() ) ),
+		'description' => sprintf( __( 'Want more layouts? Check out the <a target="_blank" href="%1$s">%2$s Pro plugin</a>.', 'braillewright' ), '#', wp_get_theme( get_template() ) ),
 		'panel'				=> 'ct_period_layout_panel'
 	) );
 	// setting
@@ -405,20 +405,20 @@ function ct_period_add_customizer_content( $wp_customize ) {
 	) );
 	// control
 	$wp_customize->add_control( 'layout_blog', array(
-		'label'    => __( 'Choose your layout', 'period' ),
+		'label'    => __( 'Choose your layout', 'braillewright' ),
 		'section'  => 'period_layout_blog',
 		'settings' => 'layout_blog',
 		'type'     => 'radio',
 		'choices'  => array(
-			'right' => __( 'Right sidebar', 'period' ),
-			'left'  => __( 'Left sidebar', 'period' )
+			'right' => __( 'Right sidebar', 'braillewright' ),
+			'left'  => __( 'Left sidebar', 'braillewright' )
 		)
 	) );
 	// section
 	$wp_customize->add_section( 'period_layout_archives', array(
-		'title'       => __( 'Archives', 'period' ),
+		'title'       => __( 'Archives', 'braillewright' ),
 		'priority'    => 4,
-		'description' => sprintf( __( 'Want more layouts? Check out the <a target="_blank" href="%1$s">%2$s Pro plugin</a>.', 'period' ), 'https://www.competethemes.com/period-pro/', wp_get_theme( get_template() ) ),
+		'description' => sprintf( __( 'Want more layouts? Check out the <a target="_blank" href="%1$s">%2$s Pro plugin</a>.', 'braillewright' ), '#', wp_get_theme( get_template() ) ),
 		'panel'				=> 'ct_period_layout_panel'
 	) );
 	// setting
@@ -429,13 +429,13 @@ function ct_period_add_customizer_content( $wp_customize ) {
 	) );
 	// control
 	$wp_customize->add_control( 'layout_archives', array(
-		'label'    => __( 'Choose your layout', 'period' ),
+		'label'    => __( 'Choose your layout', 'braillewright' ),
 		'section'  => 'period_layout_archives',
 		'settings' => 'layout_archives',
 		'type'     => 'radio',
 		'choices'  => array(
-			'right' => __( 'Right sidebar', 'period' ),
-			'left'  => __( 'Left sidebar', 'period' )
+			'right' => __( 'Right sidebar', 'braillewright' ),
+			'left'  => __( 'Left sidebar', 'braillewright' )
 		)
 	) );
 
@@ -443,7 +443,7 @@ function ct_period_add_customizer_content( $wp_customize ) {
 
 	// section
 	$wp_customize->add_section( 'period_blog', array(
-		'title'    => _x( 'Blog', 'noun: blog section', 'period' ),
+		'title'    => _x( 'Blog', 'noun: blog section', 'braillewright' ),
 		'priority' => 45
 	) );
 	// setting
@@ -453,13 +453,13 @@ function ct_period_add_customizer_content( $wp_customize ) {
 	) );
 	// control
 	$wp_customize->add_control( 'full_post', array(
-		'label'    => __( 'Show full posts on blog?', 'period' ),
+		'label'    => __( 'Show full posts on blog?', 'braillewright' ),
 		'section'  => 'period_blog',
 		'settings' => 'full_post',
 		'type'     => 'radio',
 		'choices'  => array(
-			'yes' => __( 'Yes', 'period' ),
-			'no'  => __( 'No', 'period' )
+			'yes' => __( 'Yes', 'braillewright' ),
+			'no'  => __( 'No', 'braillewright' )
 		)
 	) );
 	// setting
@@ -469,19 +469,19 @@ function ct_period_add_customizer_content( $wp_customize ) {
 	) );
 	// control
 	$wp_customize->add_control( 'excerpt_length', array(
-		'label'    => __( 'Excerpt word count', 'period' ),
+		'label'    => __( 'Excerpt word count', 'braillewright' ),
 		'section'  => 'period_blog',
 		'settings' => 'excerpt_length',
 		'type'     => 'number'
 	) );
 	// Read More text - setting
 	$wp_customize->add_setting( 'read_more_text', array(
-		'default'           => __( 'Continue Reading', 'period' ),
+		'default'           => __( 'Continue Reading', 'braillewright' ),
 		'sanitize_callback' => 'ct_period_sanitize_text'
 	) );
 	// Read More text - control
 	$wp_customize->add_control( 'read_more_text', array(
-		'label'    => __( 'Read More button text', 'period' ),
+		'label'    => __( 'Read More button text', 'braillewright' ),
 		'section'  => 'period_blog',
 		'settings' => 'read_more_text',
 		'type'     => 'text'
@@ -491,9 +491,9 @@ function ct_period_add_customizer_content( $wp_customize ) {
 
 	// section
 	$wp_customize->add_section( 'period_display', array(
-		'title'       => __( 'Show/Hide Elements', 'period' ),
+		'title'       => __( 'Show/Hide Elements', 'braillewright' ),
 		'priority'    => 55,
-		'description' => sprintf( __( 'Want more options like these? Check out the <a target="_blank" href="%1$s">%2$s Pro plugin</a>.', 'period' ), 'https://www.competethemes.com/period-pro/', wp_get_theme( get_template() ) )
+		'description' => sprintf( __( 'Want more options like these? Check out the <a target="_blank" href="%1$s">%2$s Pro plugin</a>.', 'braillewright' ), '#', wp_get_theme( get_template() ) )
 	) );
 	// setting - post author
 	$wp_customize->add_setting( 'display_post_author', array(
@@ -503,12 +503,12 @@ function ct_period_add_customizer_content( $wp_customize ) {
 	// control - post author
 	$wp_customize->add_control( 'display_post_author', array(
 		'type'    => 'radio',
-		'label'   => __( 'Post author name in byline', 'period' ),
+		'label'   => __( 'Post author name in byline', 'braillewright' ),
 		'section' => 'period_display',
 		'setting' => 'display_post_author',
 		'choices' => array(
-			'show' => __( 'Show', 'period' ),
-			'hide' => __( 'Hide', 'period' )
+			'show' => __( 'Show', 'braillewright' ),
+			'hide' => __( 'Hide', 'braillewright' )
 		)
 	) );
 	// setting - post date
@@ -519,12 +519,12 @@ function ct_period_add_customizer_content( $wp_customize ) {
 	// control - post author
 	$wp_customize->add_control( 'display_post_date', array(
 		'type'    => 'radio',
-		'label'   => __( 'Post date in byline', 'period' ),
+		'label'   => __( 'Post date in byline', 'braillewright' ),
 		'section' => 'period_display',
 		'setting' => 'display_post_date',
 		'choices' => array(
-			'show' => __( 'Show', 'period' ),
-			'hide' => __( 'Hide', 'period' )
+			'show' => __( 'Show', 'braillewright' ),
+			'hide' => __( 'Hide', 'braillewright' )
 		)
 	) );
 
@@ -532,7 +532,7 @@ function ct_period_add_customizer_content( $wp_customize ) {
 
 	// section
 	$wp_customize->add_section( 'ct_period_additional_options', array(
-		'title'    => __( 'Additional Options', 'period' ),
+		'title'    => __( 'Additional Options', 'braillewright' ),
 		'priority' => 70
 	) );
 	// setting - scroll-to-top arrow
@@ -542,13 +542,13 @@ function ct_period_add_customizer_content( $wp_customize ) {
 	) );
 	// control - scroll-to-top arrow
 	$wp_customize->add_control( 'scroll_to_top', array(
-		'label'    => __( 'Display Scroll-to-top arrow?', 'period' ),
+		'label'    => __( 'Display Scroll-to-top arrow?', 'braillewright' ),
 		'section'  => 'ct_period_additional_options',
 		'settings' => 'scroll_to_top',
 		'type'     => 'radio',
 		'choices'  => array(
-			'yes' => __( 'Yes', 'period' ),
-			'no'  => __( 'No', 'period' )
+			'yes' => __( 'Yes', 'braillewright' ),
+			'no'  => __( 'No', 'braillewright' )
 		)
 	) );
 	// setting - last updated
@@ -558,13 +558,13 @@ function ct_period_add_customizer_content( $wp_customize ) {
 	) );
 	// control - last updated
 	$wp_customize->add_control( 'last_updated', array(
-		'label'    => __( 'Display the date each post was last updated?', 'period' ),
+		'label'    => __( 'Display the date each post was last updated?', 'braillewright' ),
 		'section'  => 'ct_period_additional_options',
 		'settings' => 'last_updated',
 		'type'     => 'radio',
 		'choices'  => array(
-			'yes' => __( 'Yes', 'period' ),
-			'no'  => __( 'No', 'period' )
+			'yes' => __( 'Yes', 'braillewright' ),
+			'no'  => __( 'No', 'braillewright' )
 		)
 	) );
 
@@ -584,7 +584,7 @@ function ct_period_add_customizer_content( $wp_customize ) {
 	} else {
 		// section
 		$wp_customize->add_section( 'period_custom_css', array(
-			'title'    => __( 'Custom CSS', 'period' ),
+			'title'    => __( 'Custom CSS', 'braillewright' ),
 			'priority' => 75
 		) );
 		// setting
@@ -595,7 +595,7 @@ function ct_period_add_customizer_content( $wp_customize ) {
 		// control
 		$wp_customize->add_control( 'custom_css', array(
 			'type'     => 'textarea',
-			'label'    => __( 'Add Custom CSS Here', 'period' ),
+			'label'    => __( 'Add Custom CSS Here', 'braillewright' ),
 			'section'  => 'period_custom_css',
 			'settings' => 'custom_css'
 		) );
@@ -611,8 +611,8 @@ function ct_period_add_customizer_content( $wp_customize ) {
 function ct_period_sanitize_all_show_hide_settings( $input ) {
 
 	$valid = array(
-		'show' => __( 'Show', 'period' ),
-		'hide' => __( 'Hide', 'period' )
+		'show' => __( 'Show', 'braillewright' ),
+		'hide' => __( 'Hide', 'braillewright' )
 	);
 
 	return array_key_exists( $input, $valid ) ? $input : '';
@@ -630,8 +630,8 @@ function ct_period_sanitize_email( $input ) {
 function ct_period_sanitize_yes_no_settings( $input ) {
 
 	$valid = array(
-		'yes' => __( 'Yes', 'period' ),
-		'no'  => __( 'No', 'period' )
+		'yes' => __( 'Yes', 'braillewright' ),
+		'no'  => __( 'No', 'braillewright' )
 	);
 
 	return array_key_exists( $input, $valid ) ? $input : '';
@@ -655,8 +655,8 @@ function ct_period_sanitize_css( $css ) {
 function ct_period_sanitize_show_hide( $input ) {
 
 	$valid = array(
-		'show' => __( 'Show', 'period' ),
-		'hide' => __( 'Hide', 'period' )
+		'show' => __( 'Show', 'braillewright' ),
+		'hide' => __( 'Hide', 'braillewright' )
 	);
 
 	return array_key_exists( $input, $valid ) ? $input : '';
@@ -670,14 +670,14 @@ function ct_period_sanitize_layout_settings( $input ) {
 	 * via get_setting()
 	 */
 	$valid = array(
-		'right'      => __( 'Right sidebar', 'period' ),
-		'left'       => __( 'Left sidebar', 'period' ),
-		'narrow'     => __( 'No sidebar - Narrow', 'period' ),
-		'wide'       => __( 'No sidebar - Wide', 'period' ),
-		'two-right'  => __( 'Two column - Right sidebar', 'period' ),
-		'two-left'   => __( 'Two column - Left sidebar', 'period' ),
-		'two-narrow' => __( 'Two column - No Sidebar - Narrow', 'period' ),
-		'two-wide'   => __( 'Two column - No Sidebar - Wide', 'period' )
+		'right'      => __( 'Right sidebar', 'braillewright' ),
+		'left'       => __( 'Left sidebar', 'braillewright' ),
+		'narrow'     => __( 'No sidebar - Narrow', 'braillewright' ),
+		'wide'       => __( 'No sidebar - Wide', 'braillewright' ),
+		'two-right'  => __( 'Two column - Right sidebar', 'braillewright' ),
+		'two-left'   => __( 'Two column - Left sidebar', 'braillewright' ),
+		'two-narrow' => __( 'Two column - No Sidebar - Narrow', 'braillewright' ),
+		'two-wide'   => __( 'Two column - No Sidebar - Wide', 'braillewright' )
 	);
 
 	return array_key_exists( $input, $valid ) ? $input : '';
@@ -694,8 +694,8 @@ function ct_period_sanitize_phone( $input ) {
 
 function ct_period_customize_preview_js() {
 	if ( !function_exists( 'ct_period_pro_init' ) && !(isset($_GET['mailoptin_optin_campaign_id']) || isset($_GET['mailoptin_email_campaign_id'])) ) {
-		$url = 'https://www.competethemes.com/period-pro/?utm_source=wp-dashboard&utm_medium=Customizer&utm_campaign=Period%20Pro%20-%20Customizer';
-		$content = "<script>jQuery('#customize-info').prepend('<div class=\"upgrades-ad\"><a href=\"". $url ."\" target=\"_blank\">Customize Colors with Period Pro <span>&rarr;</span></a></div>')</script>";
+		$url = '#?utm_source=wp-dashboard&utm_medium=Customizer&utm_campaign=Period%20Pro%20-%20Customizer';
+		$content = "<script>jQuery('#customize-info').prepend('<div class=\"upgrades-ad\"><a href=\"". $url ."\" target=\"_blank\">Customize Colors with Braillewright Pro <span>&rarr;</span></a></div>')</script>";
 		echo apply_filters('ct_period_customizer_ad', $content);
 	}
 }
