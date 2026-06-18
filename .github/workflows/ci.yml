@@ -127,8 +127,9 @@ jobs:
   # Accessibility: WordPress (wp-env, PHP 8.3) with the theme + plugin active,
   # scanned with axe + HTML_CodeSniffer (pa11y-ci) and Lighthouse. Gates the
   # THEME/PLUGIN template-level a11y; TTT content/widget defects are a separate,
-  # content-safety concern. Advisory until proven stable across several runs
-  # (first run: 0 errors across home + post + page).
+  # content-safety concern. pa11y-ci is BLOCKING as of 2026-06-18 — 0 errors
+  # across Phase 2 + PRs #2/#3/#4 (home + post + page). Lighthouse stays advisory
+  # (its a11y score can vary by environment/run).
   # ---------------------------------------------------------------------------
   accessibility:
     name: Accessibility (wp-env + axe/pa11y + Lighthouse)
@@ -148,8 +149,7 @@ jobs:
         run: |
           npx wp-env run cli wp theme activate braillewright
           npx wp-env run cli wp plugin activate braillewright-pro
-      - name: pa11y-ci (WCAG2AA — axe + HTML_CodeSniffer)
-        continue-on-error: true
+      - name: pa11y-ci (WCAG2AA — axe + HTML_CodeSniffer) [BLOCKING]
         run: npx pa11y-ci --json > pa11y-report.json
       - name: Lighthouse CI (accessibility category)
         continue-on-error: true

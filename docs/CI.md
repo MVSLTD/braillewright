@@ -15,7 +15,7 @@ compatibility/advisory drift.
 | **Coding standards (style)** | PHPCS `WordPress-Extra` | Advisory | ~4,900 cosmetic findings; `phpcs-report` artifact. |
 | **PHP 8.3+ compatibility** | PHPCompatibility (`testVersion 8.3-`) | **Blocking** | Verified 0 findings on 8.3 (2026-06-18). `phpcompat-report` artifact. |
 | **Static analysis** | PHPStan level 5 + WordPress stubs | **Blocking (new issues)** | 45 inherited findings in `phpstan-baseline.neon`; fails only on regressions. |
-| **Accessibility** | wp-env + pa11y-ci (axe + HTML_CodeSniffer) + Lighthouse CI | Advisory | Scans a clean WP install with the theme + plugin active. |
+| **Accessibility** | wp-env + pa11y-ci (axe + HTML_CodeSniffer) + Lighthouse CI | **pa11y Blocking**; Lighthouse advisory | Scans a clean WP install with the theme + plugin active. pa11y promoted to blocking 2026-06-18 (0 errors across Phase 2 + PRs #2–#4). |
 
 ## Why "advisory → blocking"
 
@@ -23,8 +23,9 @@ Braillewright is a fork of ~12,300 LOC of upstream code. Hard-gating everything 
 day one would just paint the pipeline red against inherited debt and hide real
 regressions. So jobs were introduced in report mode and promoted as their findings
 were understood. As of 2026-06-18: **php-lint, PHPCompatibility, PHPStan
-(baselined), and the PHPCS security sniffs are blocking**; the **full PHPCS
-style check and accessibility remain advisory** (`continue-on-error: true`) and
+(baselined), the PHPCS security sniffs, and the pa11y-ci accessibility check are
+blocking**; the **full PHPCS style check and Lighthouse remain advisory**
+(`continue-on-error: true`) and
 upload their full findings as artifacts to triage.
 
 ### The tightening path (status)
@@ -40,8 +41,10 @@ upload their full findings as artifacts to triage.
    three sniffs are now blocking (regression protection). The full WordPress-Extra
    **style** check stays advisory (~4,900 cosmetic findings); `composer lint:fix`
    (phpcbf) chips at the mechanically-fixable subset incrementally.
-4. **Accessibility — keep advisory** until stable across several runs (first run:
-   0 errors). Then drop `continue-on-error` from the pa11y / Lighthouse steps.
+4. **Accessibility — pa11y DONE (2026-06-18).** After 0 errors across Phase 2 +
+   PRs #2/#3/#4, `continue-on-error` was dropped from the pa11y-ci step, so the
+   axe + HTML_CodeSniffer WCAG2AA check now blocks. Lighthouse stays advisory
+   (its a11y score can vary by environment/run).
 
 ## Running it locally
 
