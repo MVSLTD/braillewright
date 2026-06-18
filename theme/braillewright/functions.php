@@ -590,7 +590,7 @@ if (! function_exists(('ct_period_reset_customizer_options'))) {
             return;
         }
 
-        if (! wp_verify_nonce($_POST['period_reset_customizer_nonce'], 'period_reset_customizer_nonce')) {
+        if (! isset($_POST['period_reset_customizer_nonce']) || ! wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['period_reset_customizer_nonce'])), 'period_reset_customizer_nonce')) {
             return;
         }
 

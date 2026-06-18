@@ -176,7 +176,7 @@ function ct_period_pro_video_save_data( $post_id ) {
 	if ( ! isset( $_POST['ct_period_pro_video_nonce'] ) ) {
 		return;
 	}
-	if ( ! wp_verify_nonce( $_POST['ct_period_pro_video_nonce'], 'ct_period_pro_video' ) ) {
+	if ( ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['ct_period_pro_video_nonce'] ) ), 'ct_period_pro_video' ) ) {
 		return;
 	}
 	if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
@@ -190,7 +190,7 @@ function ct_period_pro_video_save_data( $post_id ) {
 
 	if ( isset( $_POST['ct_period_pro_video_url'] ) ) {
 
-		$video_url = esc_url_raw( $_POST['ct_period_pro_video_url'] );
+		$video_url = esc_url_raw( wp_unslash( $_POST['ct_period_pro_video_url'] ) );
 
 		update_post_meta( $post_id, 'ct_period_pro_video_key', $video_url );
 
@@ -199,7 +199,7 @@ function ct_period_pro_video_save_data( $post_id ) {
 
 			if ( isset( $_POST['ct_period_pro_video_display'] ) ) {
 
-				$display_blog = esc_attr( $_POST['ct_period_pro_video_display'] );
+				$display_blog = sanitize_text_field( wp_unslash( $_POST['ct_period_pro_video_display'] ) );
 
 				if ( $display_blog == 'post' || $display_blog == 'blog' || $display_blog == 'both' ) {
 					update_post_meta( $post_id, 'ct_period_pro_video_display_key', $display_blog );
@@ -221,7 +221,7 @@ function ct_period_pro_video_save_data( $post_id ) {
 		if ( ! isset( $_POST[ $youtube_option ] ) ) {
 			$_POST[ $youtube_option ] = '0';
 		}
-		$youtube_option_data = $_POST[ $youtube_option ];
+		$youtube_option_data = sanitize_text_field( wp_unslash( $_POST[ $youtube_option ] ) );
 
 		if ( $youtube_option_data == '1' || $youtube_option_data == '0' ) {
 			update_post_meta( $post_id, $youtube_option, $youtube_option_data );

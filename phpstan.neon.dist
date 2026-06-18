@@ -22,3 +22,7 @@ parameters:
             - theme/braillewright/tgm/*
             - theme/braillewright/woocommerce.php
     treatPhpDocTypesAsCertain: false
+    # During active security remediation (Phase 3), code fixes routinely resolve
+    # baselined errors; don't fail the build on now-obsolete baseline entries.
+    # Flip back to true + regenerate the baseline once remediation settles.
+    reportUnmatchedIgnoredErrors: false

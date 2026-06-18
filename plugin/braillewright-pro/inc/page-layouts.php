@@ -52,7 +52,7 @@ function ct_period_pro_post_layout_save_data( $post_id ) {
 	if ( ! isset( $_POST['ct_period_pro_post_layout_nonce'] ) ) {
 		return;
 	}
-	if ( ! wp_verify_nonce( $_POST['ct_period_pro_post_layout_nonce'], 'ct_period_pro_post_layout' ) ) {
+	if ( ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['ct_period_pro_post_layout_nonce'] ) ), 'ct_period_pro_post_layout' ) ) {
 		return;
 	}
 	if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
@@ -66,7 +66,7 @@ function ct_period_pro_post_layout_save_data( $post_id ) {
 
 	if ( isset( $_POST['period-pro-post-layout'] ) ) {
 
-		$layout = $_POST['period-pro-post-layout'];
+		$layout = sanitize_text_field( wp_unslash( $_POST['period-pro-post-layout'] ) );
 
 		if ( in_array( $layout, ct_period_pro_layouts( 'page-layouts' ) ) ) {
 			update_post_meta( $post_id, 'ct_period_pro_post_layout_key', $layout );

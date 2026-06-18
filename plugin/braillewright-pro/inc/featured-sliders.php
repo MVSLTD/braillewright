@@ -113,7 +113,7 @@ function ct_period_pro_slider_save_data( $post_id ) {
 	if ( ! isset( $_POST['ct_period_pro_slider_nonce'] ) ) {
 		return;
 	}
-	if ( ! wp_verify_nonce( $_POST['ct_period_pro_slider_nonce'], 'ct_period_pro_slider' ) ) {
+	if ( ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['ct_period_pro_slider_nonce'] ) ), 'ct_period_pro_slider' ) ) {
 		return;
 	}
 	if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
@@ -136,7 +136,7 @@ function ct_period_pro_slider_save_data( $post_id ) {
 
 			if ( isset( $_POST['ct_period_pro_slider_display'] ) ) {
 
-				$display_blog = $_POST['ct_period_pro_slider_display'];
+				$display_blog = sanitize_text_field( wp_unslash( $_POST['ct_period_pro_slider_display'] ) );
 
 				if ( $display_blog == 'post' || $display_blog == 'blog' || $display_blog == 'both' ) {
 					update_post_meta( $post_id, 'ct_period_pro_slider_display_key', $display_blog );

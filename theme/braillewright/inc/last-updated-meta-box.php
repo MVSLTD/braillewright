@@ -45,7 +45,7 @@ function ct_period_last_updated_save_data( $post_id ) {
 	if ( ! isset( $_POST['ct_period_last_updated_nonce'] ) ) {
 		return;
 	}
-	if ( ! wp_verify_nonce( $_POST['ct_period_last_updated_nonce'], 'ct_period_last_updated' ) ) {
+	if ( ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['ct_period_last_updated_nonce'] ) ), 'ct_period_last_updated' ) ) {
 		return;
 	}
 	if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
@@ -59,7 +59,7 @@ function ct_period_last_updated_save_data( $post_id ) {
 
 	if ( isset( $_POST['period-last-updated'] ) ) {
 
-    $display = $_POST['period-last-updated'];
+    $display = sanitize_text_field( wp_unslash( $_POST['period-last-updated'] ) );
     $accepted_values = array('default', 'yes', 'no');
 
 		if ( in_array( $display, $accepted_values ) ) {

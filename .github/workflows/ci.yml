@@ -102,14 +102,14 @@ jobs:
           tools: composer:v2
       - name: Install Composer dependencies
         run: composer install --no-interaction --no-progress --prefer-dist
-      - name: Security sniffs (BLOCKING — output escaping + nonces)
-        # EscapeOutput (XSS) + NonceVerification (CSRF) are at 0 after the Phase 3
-        # pass and are enforced here. ValidatedSanitizedInput ($_POST unslashing
-        # across the save handlers) is the next hardening increment — see docs/CI.md.
+      - name: Security sniffs (BLOCKING — escaping, nonces, input validation)
+        # EscapeOutput (XSS), NonceVerification (CSRF), and ValidatedSanitizedInput
+        # ($_POST unslash + sanitize) are all at 0 after the Phase 3 passes and are
+        # enforced here to block any regression.
         run: |
           vendor/bin/phpcs theme/braillewright plugin/braillewright-pro tools \
             --standard=WordPress \
-            --sniffs=WordPress.Security.EscapeOutput,WordPress.Security.NonceVerification \
+            --sniffs=WordPress.Security.EscapeOutput,WordPress.Security.NonceVerification,WordPress.Security.ValidatedSanitizedInput \
             --extensions=php \
             --ignore=*/tgm/*,*/languages/*
       - name: Full coding standards (advisory)
