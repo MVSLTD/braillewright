@@ -29,7 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 defined( 'ABSPATH' ) OR exit;
 
-// Period not active
+// Braillewright theme not active
 if ( get_template() != 'braillewright' ) {
 
 	$period = wp_get_theme( 'braillewright' );
@@ -37,7 +37,7 @@ if ( get_template() != 'braillewright' ) {
 	// if installed, but not active
 	if ( $period->exists() ) {
 
-		// tell them to activate Period
+		// tell them to activate Braillewright
 		function ct_period_pro_needs_period() { ?>
 			<div class="update-nag">
 				<p>
@@ -78,10 +78,10 @@ if ( get_template() != 'braillewright' ) {
 		}
 		add_action( 'admin_footer', 'ct_period_pro_switch_themes_js' );
 	}
-	// Period not installed
+	// Braillewright theme not installed
 	else {
 
-		// tell them to install Period
+		// tell them to install Braillewright
 		function ct_period_pro_install_period() { ?>
 			<div class="update-nag">
 				<p>
@@ -89,7 +89,7 @@ if ( get_template() != 'braillewright' ) {
 					$link_period_search = add_query_arg(
 						'search', 'braillewright', admin_url( 'theme-install.php' )
 					);
-					echo wp_kses_post( sprintf( __( "Braillewright Pro needs the Braillewright theme to work. Please <a href='%s'>click here</a> to find and install Period from the Appearance menu.", "braillewright-pro" ), esc_url( $link_period_search ) ) )
+					echo wp_kses_post( sprintf( __( "Braillewright Pro needs the Braillewright theme to work. Please <a href='%s'>click here</a> to find and install Braillewright from the Appearance menu.", "braillewright-pro" ), esc_url( $link_period_search ) ) )
 					?>
 				</p>
 			</div>

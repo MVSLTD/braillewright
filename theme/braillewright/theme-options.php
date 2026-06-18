@@ -27,8 +27,8 @@ function ct_period_options_content()
 			<?php endif; ?>
 			<?php if (!function_exists('ct_period_pro_init')) : ?>
 			<div class="getting-started">
-				<h3>Get Started with Period</h3>
-				<p>Follow this step-by-step guide to customize your website with Period:</p>
+				<h3>Get Started with Braillewright</h3>
+				<p>Follow this step-by-step guide to customize your website with Braillewright:</p>
 				<a href="#" target="_blank">Read the Getting Started Guide</a>
 			</div>
 			<div class="pro">
@@ -179,12 +179,12 @@ function ct_period_options_content()
 			<div class="dashboard-widget">
 				<h4>More Amazing Resources</h4>
 				<ul>
-					<li><a href="#" target="_blank">Period Support Center</a></li>
-					<li><a href="https://wordpress.org/support/theme/period" target="_blank">Support Forum</a></li>
+					<li><a href="#" target="_blank">Support Center</a></li>
+					<li><a href="https://github.com/Osarusano/braillewright/issues" target="_blank">Support (GitHub Issues)</a></li>
 					<li><a href="#" target="_blank">Changelog</a></li>
 					<li><a href="#" target="_blank">CSS Snippets</a></li>
 					<li><a href="#" target="_blank">Starter child theme</a></li>
-					<li><a href="#" target="_blank">Period demo data</a></li>
+					<li><a href="#" target="_blank">Demo data</a></li>
 					<li><a href="<?php echo esc_url( $pro_url ); ?>" target="_blank">Braillewright Pro</a></li>
 				</ul>
 			</div>
@@ -209,7 +209,7 @@ function ct_period_options_content()
 			<div class="dashboard-widget">
 				<h4>User Reviews</h4>
 				<img src="<?php echo esc_url( trailingslashit(get_template_directory_uri()) . 'assets/images/reviews.png' ); ?>" />
-				<p>Users are loving Period! <a href="https://wordpress.org/support/theme/period/reviews/?filter=5#new-post" target="_blank">Click here</a> to leave your own review</p>
+				<p>Braillewright is maintained in-house. See the GitHub repository for the changelog and to file issues.</p>
 			</div>
 			<div class="dashboard-widget">
 				<h4>Reset Customizer Settings</h4>

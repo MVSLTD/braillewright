@@ -692,12 +692,6 @@ function ct_period_sanitize_phone( $input ) {
 }
 
 
-function ct_period_customize_preview_js() {
-	// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- isset() checks only, for a read-only Customizer upsell decision; values are not used.
-	if ( !function_exists( 'ct_period_pro_init' ) && !(isset($_GET['mailoptin_optin_campaign_id']) || isset($_GET['mailoptin_email_campaign_id'])) ) {
-		$url = '#?utm_source=wp-dashboard&utm_medium=Customizer&utm_campaign=Period%20Pro%20-%20Customizer';
-		$content = "<script>jQuery('#customize-info').prepend('<div class=\"upgrades-ad\"><a href=\"". $url ."\" target=\"_blank\">Customize Colors with Braillewright Pro <span>&rarr;</span></a></div>')</script>";
-		echo apply_filters('ct_period_customizer_ad', $content); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- literal admin-only Customizer upsell markup; no user input.
-	}
-}
-add_action('customize_controls_print_footer_scripts', 'ct_period_customize_preview_js');
+// The upstream Customizer "upgrade" upsell ad was removed during the de-brand:
+// it injected a dead "#" link and is unnecessary for the in-house build. If
+// Braillewright Pro is ever distributed separately, add a proper upsell here.
