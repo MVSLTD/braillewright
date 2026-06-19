@@ -188,24 +188,6 @@ function ct_period_options_content()
 					<li><a href="<?php echo esc_url( $pro_url ); ?>" target="_blank">Braillewright Pro</a></li>
 				</ul>
 			</div>
-			<div class="ad iawp">
-				<div class="logo-container">
-					<img width="308px" height="46px" src="<?php echo esc_url( trailingslashit(get_template_directory_uri()) . 'assets/images/iawp.svg' ); ?>" alt="Independent Analytics logo" />
-				</div>
-				<div class="features">
-					<div class="title">Free WordPress Analytics Plugin</div>
-					<ul>
-						<li>Beautiful analytics dashboard</li>
-						<li>Views & traffic sources</li>
-						<li>Easy setup</li>
-						<li>GDPR compliant</li>
-						<li>Google Analytics alternative</li>
-					</ul>
-				</div>
-				<div class="button">
-					<a href="https://independentwp.com" target="_blank" data-product-name="Independent Analytics">Learn More</a>
-				</div>
-			</div>
 			<div class="dashboard-widget">
 				<h4>User Reviews</h4>
 				<img src="<?php echo esc_url( trailingslashit(get_template_directory_uri()) . 'assets/images/reviews.png' ); ?>" />
