@@ -99,6 +99,31 @@ npm run env:stop
   `actions/checkout@v6`, `actions/setup-node@v6`, `actions/upload-artifact@v7`,
   `shivammathur/setup-php@v2`.
 
+## Screen-reader checks (separate workflow)
+
+Real screen-reader smoke tests (NVDA + VoiceOver) live in their own workflow,
+[`.github/workflows/screenreader.yml`](../.github/workflows/screenreader.yml),
+driven by [Guidepup](https://www.guidepup.dev/) via `@guidepup/playwright`. They
+are deliberately **not** part of `ci.yml` and **do not gate pull requests**:
+
+- NVDA needs a **Windows** runner and VoiceOver needs a **macOS** runner (macOS
+  bills at 10× Actions minutes), so they can't ride the Ubuntu `wp-env` matrix.
+- They test the **live TTT staging deploy** (real menus, widgets and issue
+  content) — not a PR's code diff. The `pa11y` job above already gates
+  theme/plugin code on every PR; this verifies what staging actually *announces*.
+
+**Trigger:** on demand (`workflow_dispatch`, with an optional `url` input) and
+nightly (`schedule`, 07:00 UTC). **Scope (starter smoke):** skip link → `#main`;
+the `banner` / `Primary` navigation / `main` / `contentinfo` landmarks; the
+mobile primary-nav expand/collapse state; and on an issue page the `Post`
+landmark + headings + the `Back to top` link labels. The header search control
+is checked but auto-skips (it does not render on the live TTT templates).
+
+The suite has its **own** `tests/screenreader/package.json` (Guidepup +
+Playwright) so it never affects the root a11y toolchain or PR-gating CI. See
+[`tests/screenreader/README.md`](../tests/screenreader/README.md) to run it
+locally on a Mac/Windows box.
+
 ## Scope reminder
 
 CI gates the **theme + plugin code we maintain**. The vendored

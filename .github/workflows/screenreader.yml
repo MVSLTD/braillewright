@@ -1,0 +1,81 @@
+name: Screen reader (NVDA + VoiceOver)
+
+# Automated screen-reader smoke tests for the Braillewright theme, driven by
+# Guidepup (@guidepup/playwright) against the LIVE TTT staging deploy.
+#
+# This is intentionally NOT a per-PR gate:
+#   * NVDA needs a Windows runner; VoiceOver needs a macOS runner (10x minutes).
+#     They can't ride ci.yml's Ubuntu wp-env matrix.
+#   * It verifies the DEPLOYED staging site (real menus + content), not a PR
+#     diff — ci.yml's pa11y job already gates theme/plugin CODE on every PR.
+# So it runs on demand + nightly. See docs/CI.md and tests/screenreader/README.md.
+
+on:
+  workflow_dispatch:
+    inputs:
+      url:
+        description: "Base URL to test (defaults to TTT staging)"
+        required: false
+        default: "https://staging-62a2-54d676bfb539fe3-eqtfw.wpcomstaging.com"
+  schedule:
+    # 07:00 UTC nightly (~03:00 ET). Cron is UTC; ET offset shifts with DST.
+    - cron: "0 7 * * *"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: screenreader-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  SR_BASE_URL: ${{ github.event.inputs.url || 'https://staging-62a2-54d676bfb539fe3-eqtfw.wpcomstaging.com' }}
+
+jobs:
+  screen-reader:
+    name: ${{ matrix.screenreader }}
+    timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - screenreader: nvda
+            os: windows-latest
+          - screenreader: voiceover
+            os: macos-latest
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        working-directory: tests/screenreader
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Set up Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: tests/screenreader/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright Chromium
+        run: npx playwright install chromium
+
+      # Installs portable NVDA on Windows / enables VoiceOver on macOS (TCC.db).
+      - name: Set up screen reader environment (Guidepup)
+        uses: guidepup/setup-action@0.20.0
+
+      - name: Run ${{ matrix.screenreader }} smoke tests
+        run: npx playwright test --project=${{ matrix.screenreader }}
+
+      - name: Upload report + spoken logs
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: screenreader-${{ matrix.screenreader }}
+          path: |
+            tests/screenreader/playwright-report/
+            tests/screenreader/test-results/
+          if-no-files-found: ignore

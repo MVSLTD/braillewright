@@ -1,0 +1,20 @@
+{
+    "name": "braillewright-screenreader-tests",
+    "version": "0.0.0",
+    "private": true,
+    "description": "Guidepup NVDA + VoiceOver screen-reader smoke suite for the Braillewright theme, run against the live TTT staging deploy. Isolated from the root a11y toolchain so it can never affect the PR-gating CI.",
+    "license": "GPL-2.0-or-later",
+    "engines": {
+        "node": ">=20"
+    },
+    "scripts": {
+        "test": "playwright test",
+        "test:nvda": "playwright test --project=nvda",
+        "test:voiceover": "playwright test --project=voiceover"
+    },
+    "devDependencies": {
+        "@guidepup/guidepup": "^0.25.1",
+        "@guidepup/playwright": "^0.16.1",
+        "@playwright/test": "^1.61.0"
+    }
+}
