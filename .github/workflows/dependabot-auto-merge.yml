@@ -1,0 +1,32 @@
+name: Dependabot auto-merge
+
+# Auto-merges Dependabot PATCH/MINOR updates once the required CI checks pass;
+# MAJOR updates are left for manual review.
+#
+# Safety: `main` is a protected branch that requires the five CI checks (see
+# ci.yml), and `gh pr merge --auto` only completes the merge AFTER those checks
+# pass — so a dependency update that breaks the build can never auto-merge.
+
+on: pull_request
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  auto-merge:
+    name: Auto-merge safe Dependabot updates
+    runs-on: ubuntu-latest
+    # Only act on Dependabot's own PRs.
+    if: ${{ github.actor == 'dependabot[bot]' }}
+    steps:
+      - name: Fetch Dependabot metadata
+        id: meta
+        uses: dependabot/fetch-metadata@v3
+
+      - name: Enable auto-merge for patch & minor updates
+        if: ${{ steps.meta.outputs.update-type == 'version-update:semver-patch' || steps.meta.outputs.update-type == 'version-update:semver-minor' }}
+        run: gh pr merge --auto --squash "$PR_URL"
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

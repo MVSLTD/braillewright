@@ -7,6 +7,11 @@ updates:
       interval: weekly
     open-pull-requests-limit: 5
     labels: [ "dependencies", "ci" ]
+    # Bundle minor + patch bumps into one PR; major updates stay separate for review.
+    groups:
+      minor-and-patch:
+        patterns: [ "*" ]
+        update-types: [ "minor", "patch" ]
 
   # Accessibility CI toolchain (wp-env, pa11y-ci, Lighthouse CI, axe).
   - package-ecosystem: npm
@@ -15,6 +20,10 @@ updates:
       interval: weekly
     open-pull-requests-limit: 5
     labels: [ "dependencies", "ci" ]
+    groups:
+      minor-and-patch:
+        patterns: [ "*" ]
+        update-types: [ "minor", "patch" ]
 
   # The GitHub Actions themselves (checkout, setup-php, setup-node, upload-artifact).
   - package-ecosystem: github-actions
@@ -23,3 +32,7 @@ updates:
       interval: weekly
     open-pull-requests-limit: 5
     labels: [ "dependencies", "ci" ]
+    groups:
+      minor-and-patch:
+        patterns: [ "*" ]
+        update-types: [ "minor", "patch" ]
