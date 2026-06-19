@@ -124,6 +124,20 @@ Playwright) so it never affects the root a11y toolchain or PR-gating CI. See
 [`tests/screenreader/README.md`](../tests/screenreader/README.md) to run it
 locally on a Mac/Windows box.
 
+## Dependency updates & auto-merge
+
+Dependabot opens **grouped** weekly PRs for the PHP toolchain (Composer), the
+accessibility toolchain (npm), and the GitHub Actions themselves — minor + patch
+bumps are bundled into one PR per ecosystem; **major** updates come separately.
+
+`main` is a **protected branch**: it requires all five CI checks above to pass
+before any merge (admin override on, so it never locks the maintainer out; no
+required human reviewer). The
+[`dependabot-auto-merge.yml`](../.github/workflows/dependabot-auto-merge.yml)
+workflow enables GitHub auto-merge on Dependabot **patch/minor** PRs, so they
+merge themselves *after* the required checks pass — a dependency update that
+breaks the build can never land. **Major** updates wait for manual review.
+
 ## Scope reminder
 
 CI gates the **theme + plugin code we maintain**. The vendored
