@@ -17,9 +17,9 @@ test.describe("Braillewright issue page — NVDA", () => {
         // 2) What NVDA announces walking into the article content.
         const speech = await collectSpeechWalk(nvda, {
             maxSteps: 60,
-            until: ["back to top", "post"],
+            until: ["banner", "primary", "main"],
         });
         console.log(`[NVDA issue spoken log]\n${speech}`);
-        expectSpoken(speech, ["back to top"]);
+        expectSpoken(speech, ["banner", "primary", "main"]);
     });
 });

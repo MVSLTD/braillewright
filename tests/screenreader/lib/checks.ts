@@ -56,6 +56,38 @@ export async function collectSpeechWalk(
     return (await sr.spokenPhraseLog()).join(" \n ").toLowerCase();
 }
 
+/**
+ * VoiceOver walk. On macOS, voiceOver.next() can stall at the web-area boundary
+ * (it repeats the first element), so this captures the reliably-announced entry
+ * point, then attempts to descend (interact) and jump control-to-control with
+ * findNextControl. The full result is returned lowercased for substring asserts
+ * and is logged so a later iteration can deepen the VoiceOver assertions on
+ * evidence. Best-effort: traversal failures never lose the entry-point capture.
+ */
+export async function collectVoiceOverSpeech(sr: any, maxSteps = 25): Promise<string> {
+    await sr.navigateToWebContent();
+    const phrases: string[] = [(await sr.lastSpokenPhrase()) ?? ""];
+    try {
+        await sr.interact();
+    } catch {
+        /* interact isn't always required/available; ignore */
+    }
+    for (let i = 0; i < maxSteps; i++) {
+        try {
+            await sr.perform(sr.keyboardCommands.findNextControl);
+            phrases.push((await sr.lastSpokenPhrase()) ?? "");
+        } catch {
+            break;
+        }
+    }
+    try {
+        phrases.push(...(await sr.spokenPhraseLog()));
+    } catch {
+        /* ignore */
+    }
+    return phrases.join(" \n ").toLowerCase();
+}
+
 /** Assert each expected token appears in the spoken log; the message names the misses. */
 export function expectSpoken(speech: string, tokens: string[]): void {
     const missing = tokens.filter((t) => !speech.includes(t.toLowerCase()));

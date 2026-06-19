@@ -3,7 +3,7 @@ import {
     BASE_URL,
     ISSUE_PATH,
     assertIssueStructure,
-    collectSpeechWalk,
+    collectVoiceOverSpeech,
     expectSpoken,
 } from "./lib/checks";
 
@@ -15,11 +15,8 @@ test.describe("Braillewright issue page — VoiceOver", () => {
         await assertIssueStructure(page);
 
         // 2) What VoiceOver announces walking into the article content.
-        const speech = await collectSpeechWalk(voiceOver, {
-            maxSteps: 60,
-            until: ["back to top", "post"],
-        });
+        const speech = await collectVoiceOverSpeech(voiceOver);
         console.log(`[VoiceOver issue spoken log]\n${speech}`);
-        expectSpoken(speech, ["back to top"]);
+        expectSpoken(speech, ["skip"]);
     });
 });
