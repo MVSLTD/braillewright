@@ -133,8 +133,10 @@ function ct_period_pro_add_oembed_callback() {
 		wp_die( '', '', array( 'response' => 403 ) );
 	}
 
+	// Verify the nonce localized to the admin JS (check_ajax_referer dies on failure).
+	check_ajax_referer( 'ct_period_pro_add_oembed', 'security' );
+
 	// get the video url passed from the JS (validate user input right away)
-	// phpcs:ignore WordPress.Security.NonceVerification.Missing -- read-only oembed preview for logged-in editors (capability-gated above); no state change; a nonce needs JS coordination (follow-up).
 	$video_url = isset( $_POST['videoURL'] ) ? esc_url_raw( (string) wp_unslash( $_POST['videoURL'] ) ) : '';
 
 	if ( strpos( $video_url, 'youtube-nocookie.com' ) !== false ) {

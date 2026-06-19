@@ -41,7 +41,7 @@ jQuery(document).ready(function($){
         var data = {
             action: 'add_oembed',
             videoURL: videoURL,
-            security: '<?php echo $ajax_nonce; ?>'
+            security: ct_period_pro_admin.nonce
         };
 
         // post data received from PHP responde
