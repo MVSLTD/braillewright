@@ -1,11 +1,12 @@
-name: Weekly security & compatibility scan
+name: Weekly security, compatibility & accessibility scan
 
 # Phase 2's "honest ownership" mitigation: not a 24/7 CVE-watcher, but a weekly
 # pass that re-runs the security/compat/static checks against the current PHP
-# toolchain and the WordPress advisory DB, and opens a GitHub issue when the
-# *world* changes underneath us (a new PHP release breaks compatibility, or a
-# CVE lands in the CI toolchain). Inherited code-quality debt is tracked by the
-# per-PR CI gates, not re-filed here every week.
+# toolchain and the WordPress advisory DB, AND re-runs the accessibility check
+# against the LATEST WordPress (catching a WordPress core release that regresses
+# the theme), opening a GitHub issue when the *world* changes underneath us (a
+# new PHP/WordPress release breaks us, or a CVE lands in the CI toolchain).
+# Inherited code-quality debt is tracked by the per-PR CI gates, not re-filed here.
 
 on:
   schedule:
@@ -72,3 +73,53 @@ jobs:
           body="The scheduled weekly scan flagged a drift signal. Outcomes — security:${{ steps.security.outcome }} compat:${{ steps.compat.outcome }} static-analysis:${{ steps.stan.outcome }} dependency-audit:${{ steps.audit.outcome }}. Full run: ${run_url}"
           gh issue create --title "$title" --body "$body" --label security --label automated \
             || gh issue create --title "$title" --body "$body"
+
+  # ---------------------------------------------------------------------------
+  # Catch a WordPress CORE release that regresses the theme: stand up the LATEST
+  # WordPress (wp-env) with the theme + plugin active and re-run the same axe/
+  # pa11y check the per-PR CI runs. Opens an issue if the world (WordPress) moved
+  # under us. Mirrors the accessibility job in ci.yml.
+  # ---------------------------------------------------------------------------
+  accessibility:
+    name: Accessibility against latest WordPress
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Set up Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - name: Install npm dependencies
+        run: npm ci
+      - name: Start wp-env (latest WordPress + PHP 8.3; theme + plugin mounted)
+        run: npx wp-env start
+      - name: Activate theme + plugin
+        run: |
+          npx wp-env run cli wp theme activate braillewright
+          npx wp-env run cli wp plugin activate braillewright-pro
+      - name: pa11y-ci (WCAG2AA — axe + HTML_CodeSniffer) on latest WordPress
+        id: pa11y
+        continue-on-error: true
+        run: npx pa11y-ci --json > pa11y-report.json
+      - name: Open an issue if the theme regresses on the latest WordPress
+        if: steps.pa11y.outcome == 'failure'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          run_url="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          title="Weekly scan: accessibility check failed on the latest WordPress ($(date -u +%Y-%m-%d))"
+          body="The scheduled weekly accessibility check (theme + plugin on the LATEST WordPress via wp-env) reported pa11y errors. A WordPress core update may have regressed template-level accessibility. Full run: ${run_url}"
+          gh issue create --title "$title" --body "$body" --label accessibility --label automated \
+            || gh issue create --title "$title" --body "$body"
+      - name: Upload pa11y report
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: weekly-pa11y-report
+          path: pa11y-report.json
+          if-no-files-found: ignore
+      - name: Stop wp-env
+        if: always()
+        run: npx wp-env stop
