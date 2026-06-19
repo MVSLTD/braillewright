@@ -33,6 +33,11 @@ function ct_period_pro_enqueue_admin_styles( $hook ) {
 			'jquery',
 			'fitvids'
 		), '', true );
+
+		// Nonce for the add_oembed AJAX video preview (consumed by admin.min.js as ct_period_pro_admin.nonce).
+		wp_localize_script( 'ct-period-pro-admin-js', 'ct_period_pro_admin', array(
+			'nonce' => wp_create_nonce( 'ct_period_pro_add_oembed' ),
+		) );
 	}
 	if ( $hook == 'appearance_page_period-options' ) {
 		// Admin CSS
