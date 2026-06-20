@@ -14,9 +14,9 @@ on:
   workflow_dispatch:
     inputs:
       url:
-        description: "Base URL to test (defaults to TTT staging)"
+        description: "Base URL to test (overrides the SR_BASE_URL repo variable)"
         required: false
-        default: "https://staging-62a2-54d676bfb539fe3-eqtfw.wpcomstaging.com"
+        default: ""
   schedule:
     # 07:00 UTC nightly (~03:00 ET). Cron is UTC; ET offset shifts with DST.
     - cron: "0 7 * * *"
@@ -29,7 +29,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  SR_BASE_URL: ${{ github.event.inputs.url || 'https://staging-62a2-54d676bfb539fe3-eqtfw.wpcomstaging.com' }}
+  SR_BASE_URL: ${{ github.event.inputs.url || vars.SR_BASE_URL }}
 
 jobs:
   screen-reader:
