@@ -17,7 +17,7 @@ if ( ! function_exists( 'elementor_theme_do_location' ) || ! elementor_theme_do_
         <span>
             <?php
             $footer_text = '';
-            $footer_text = apply_filters( 'ct_period_footer_text', $footer_text );
+            $footer_text = apply_filters( 'braillewright_footer_text', $footer_text );
             echo do_shortcode( wp_kses_post( $footer_text ) );
             ?>
         </span>

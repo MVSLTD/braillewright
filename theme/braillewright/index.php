@@ -9,12 +9,12 @@ do_action( 'after_archive_header' ); ?>
     if ( have_posts() ) :
         while ( have_posts() ) :
             the_post();
-            ct_period_get_content_template();
+            braillewright_get_content_template();
         endwhile;
     endif;
     ?>
 </div><?php
 
-ct_period_pagination();
+braillewright_pagination();
 
 get_footer();

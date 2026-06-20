@@ -4,7 +4,7 @@
     var body = $('body');
     var siteTitle = $('#site-title');
     var tagline = $( '.tagline' );
-    var inlineStyles = $('#ct-period-style-inline-css');
+    var inlineStyles = $('#braillewright-style-inline-css');
 
     // Site title
     wp.customize( 'blogname', function( value ) {
@@ -72,7 +72,7 @@
 
     var setting = 'custom_css';
     if ( panel.find('#sub-accordion-section-custom_css').length ) {
-        setting = 'custom_css[period]';
+        setting = 'custom_css[braillewright]';
     }
     // Custom CSS
     wp.customize( setting, function( value ) {

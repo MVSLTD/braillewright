@@ -7,19 +7,20 @@ require_once(trailingslashit(get_template_directory()) . 'theme-options.php');
 require_once(trailingslashit(get_template_directory()) . 'inc/customizer.php');
 require_once(trailingslashit(get_template_directory()) . 'inc/last-updated-meta-box.php');
 require_once(trailingslashit(get_template_directory()) . 'inc/scripts.php');
+require_once(trailingslashit(get_template_directory()) . 'features/bootstrap.php');
 
-if (! function_exists(('ct_period_set_content_width'))) {
-    function ct_period_set_content_width()
+if (! function_exists(('braillewright_set_content_width'))) {
+    function braillewright_set_content_width()
     {
         if (! isset($content_width)) {
             $content_width = 891;
         }
     }
 }
-add_action('after_setup_theme', 'ct_period_set_content_width', 0);
+add_action('after_setup_theme', 'braillewright_set_content_width', 0);
 
-if (! function_exists(('ct_period_theme_setup'))) {
-    function ct_period_theme_setup()
+if (! function_exists(('braillewright_theme_setup'))) {
+    function braillewright_theme_setup()
     {
         add_theme_support('post-thumbnails');
         add_theme_support('automatic-feed-links');
@@ -34,7 +35,7 @@ if (! function_exists(('ct_period_theme_setup'))) {
         add_theme_support('infinite-scroll', array(
             'container' => 'loop-container',
             'footer'    => 'overflow-container',
-            'render'    => 'ct_period_infinite_scroll_render'
+            'render'    => 'braillewright_infinite_scroll_render'
         ));
 
         // Gutenberg - wide & full images
@@ -85,21 +86,21 @@ if (! function_exists(('ct_period_theme_setup'))) {
         load_theme_textdomain('braillewright', get_template_directory() . '/languages');
     }
 }
-add_action('after_setup_theme', 'ct_period_theme_setup', 10);
+add_action('after_setup_theme', 'braillewright_theme_setup', 10);
 
 //-----------------------------------------------------------------------------
 // Load custom stylesheet for the post editor
 //-----------------------------------------------------------------------------
-if (! function_exists('ct_period_add_editor_styles')) {
-    function ct_period_add_editor_styles()
+if (! function_exists('braillewright_add_editor_styles')) {
+    function braillewright_add_editor_styles()
     {
         add_editor_style('styles/editor-style.css');
     }
 }
-add_action('admin_init', 'ct_period_add_editor_styles');
+add_action('admin_init', 'braillewright_add_editor_styles');
 
-if (! function_exists(('ct_period_register_widget_areas'))) {
-    function ct_period_register_widget_areas()
+if (! function_exists(('braillewright_register_widget_areas'))) {
+    function braillewright_register_widget_areas()
     {
         register_sidebar(array(
             'name'          => esc_html__('Primary Sidebar', 'braillewright'),
@@ -112,10 +113,10 @@ if (! function_exists(('ct_period_register_widget_areas'))) {
         ));
     }
 }
-add_action('widgets_init', 'ct_period_register_widget_areas');
+add_action('widgets_init', 'braillewright_register_widget_areas');
 
-if (! function_exists(('ct_period_customize_comments'))) {
-    function ct_period_customize_comments($comment, $args, $depth)
+if (! function_exists(('braillewright_customize_comments'))) {
+    function braillewright_customize_comments($comment, $args, $depth)
     {
         $GLOBALS['comment'] = $comment;
         global $post; ?>
@@ -150,8 +151,8 @@ if (! function_exists(('ct_period_customize_comments'))) {
     }
 }
 
-if (! function_exists('ct_period_update_fields')) {
-    function ct_period_update_fields($fields)
+if (! function_exists('braillewright_update_fields')) {
+    function braillewright_update_fields($fields)
     {
         $commenter = wp_get_current_commenter();
         $req       = get_option('require_name_email');
@@ -182,10 +183,10 @@ if (! function_exists('ct_period_update_fields')) {
         return $fields;
     }
 }
-add_filter('comment_form_default_fields', 'ct_period_update_fields');
+add_filter('comment_form_default_fields', 'braillewright_update_fields');
 
-if (! function_exists('ct_period_update_comment_field')) {
-    function ct_period_update_comment_field($comment_field)
+if (! function_exists('braillewright_update_comment_field')) {
+    function braillewright_update_comment_field($comment_field)
     {
 
         // don't filter the WooCommerce review form
@@ -204,19 +205,19 @@ if (! function_exists('ct_period_update_comment_field')) {
         return $comment_field;
     }
 }
-add_filter('comment_form_field_comment', 'ct_period_update_comment_field', 7);
+add_filter('comment_form_field_comment', 'braillewright_update_comment_field', 7);
 
-if (! function_exists('ct_period_remove_comments_notes_after')) {
-    function ct_period_remove_comments_notes_after($defaults)
+if (! function_exists('braillewright_remove_comments_notes_after')) {
+    function braillewright_remove_comments_notes_after($defaults)
     {
         $defaults['comment_notes_after'] = '';
         return $defaults;
     }
 }
-add_action('comment_form_defaults', 'ct_period_remove_comments_notes_after');
+add_action('comment_form_defaults', 'braillewright_remove_comments_notes_after');
 
-if (! function_exists('ct_period_filter_read_more_link')) {
-    function ct_period_filter_read_more_link($custom = false)
+if (! function_exists('braillewright_filter_read_more_link')) {
+    function braillewright_filter_read_more_link($custom = false)
     {
         if (is_feed()) {
             return;
@@ -241,24 +242,24 @@ if (! function_exists('ct_period_filter_read_more_link')) {
         return $output;
     }
 }
-add_filter('the_content_more_link', 'ct_period_filter_read_more_link'); // more tags
-add_filter('excerpt_more', 'ct_period_filter_read_more_link', 10); // automatic excerpts
+add_filter('the_content_more_link', 'braillewright_filter_read_more_link'); // more tags
+add_filter('excerpt_more', 'braillewright_filter_read_more_link', 10); // automatic excerpts
 
 // handle manual excerpts
-if (! function_exists('ct_period_filter_manual_excerpts')) {
-    function ct_period_filter_manual_excerpts($excerpt)
+if (! function_exists('braillewright_filter_manual_excerpts')) {
+    function braillewright_filter_manual_excerpts($excerpt)
     {
         $excerpt_more = '';
         if (has_excerpt()) {
-            $excerpt_more = ct_period_filter_read_more_link(true);
+            $excerpt_more = braillewright_filter_read_more_link(true);
         }
         return $excerpt . $excerpt_more;
     }
 }
-add_filter('get_the_excerpt', 'ct_period_filter_manual_excerpts');
+add_filter('get_the_excerpt', 'braillewright_filter_manual_excerpts');
 
-if (! function_exists('ct_period_excerpt')) {
-    function ct_period_excerpt()
+if (! function_exists('braillewright_excerpt')) {
+    function braillewright_excerpt()
     {
         global $post;
         $show_full_post = get_theme_mod('full_post');
@@ -272,8 +273,8 @@ if (! function_exists('ct_period_excerpt')) {
     }
 }
 
-if (! function_exists('ct_period_custom_excerpt_length')) {
-    function ct_period_custom_excerpt_length($length)
+if (! function_exists('braillewright_custom_excerpt_length')) {
+    function braillewright_custom_excerpt_length($length)
     {
         $new_excerpt_length = get_theme_mod('excerpt_length');
 
@@ -286,19 +287,19 @@ if (! function_exists('ct_period_custom_excerpt_length')) {
         }
     }
 }
-add_filter('excerpt_length', 'ct_period_custom_excerpt_length', 99);
+add_filter('excerpt_length', 'braillewright_custom_excerpt_length', 99);
 
-if (! function_exists('ct_period_remove_more_link_scroll')) {
-    function ct_period_remove_more_link_scroll($link)
+if (! function_exists('braillewright_remove_more_link_scroll')) {
+    function braillewright_remove_more_link_scroll($link)
     {
         $link = preg_replace('|#more-[0-9]+|', '', $link);
         return $link;
     }
 }
-add_filter('the_content_more_link', 'ct_period_remove_more_link_scroll');
+add_filter('the_content_more_link', 'braillewright_remove_more_link_scroll');
 
 // Yoast OG description has "Continue readingTitle of the Post" due to its use of get_the_excerpt(). This fixes that.
-function ct_period_update_yoast_og_description($ogdesc)
+function braillewright_update_yoast_og_description($ogdesc)
 {
     $read_more_text = get_theme_mod('read_more_text');
     if (empty($read_more_text)) {
@@ -308,10 +309,10 @@ function ct_period_update_yoast_og_description($ogdesc)
 
     return $ogdesc;
 }
-add_filter('wpseo_opengraph_desc', 'ct_period_update_yoast_og_description');
+add_filter('wpseo_opengraph_desc', 'braillewright_update_yoast_og_description');
 
-if (! function_exists('ct_period_featured_image')) {
-    function ct_period_featured_image()
+if (! function_exists('braillewright_featured_image')) {
+    function braillewright_featured_image()
     {
         global $post;
         $featured_image = '';
@@ -324,7 +325,7 @@ if (! function_exists('ct_period_featured_image')) {
             }
         }
 
-        $featured_image = apply_filters('ct_period_featured_image', $featured_image);
+        $featured_image = apply_filters('braillewright_featured_image', $featured_image);
 
         if ($featured_image) {
             echo wp_kses_post( (string) $featured_image );
@@ -332,105 +333,105 @@ if (! function_exists('ct_period_featured_image')) {
     }
 }
 
-if (! function_exists('ct_period_social_array')) {
-    function ct_period_social_array()
+if (! function_exists('braillewright_social_array')) {
+    function braillewright_social_array()
     {
         $social_sites = array(
-            'twitter'       => 'period_twitter_profile',
-            'facebook'      => 'period_facebook_profile',
-            'instagram'     => 'period_instagram_profile',
-            'tiktok'     	=> 'period_tiktok_profile',
-            'threads'     	=> 'period_threads_profile',
-            'linkedin'      => 'period_linkedin_profile',
-            'pinterest'     => 'period_pinterest_profile',
-            'youtube'       => 'period_youtube_profile',
-            'rss'           => 'period_rss_profile',
-            'email'         => 'period_email_profile',
-            'phone'			=> 'period_phone_profile',
-            'email-form'    => 'period_email_form_profile',
-            'amazon'        => 'period_amazon_profile',
-            'artstation'    => 'period_artstation_profile',
-            'bandcamp'      => 'period_bandcamp_profile',
-            'behance'       => 'period_behance_profile',
-            'bitbucket'     => 'period_bitbucket_profile',
-            'codepen'       => 'period_codepen_profile',
-            'delicious'     => 'period_delicious_profile',
-            'deviantart'    => 'period_deviantart_profile',
-            'diaspora'      => 'period_diaspora_profile',
-            'digg'          => 'period_digg_profile',
-            'discord'    	=> 'period_discord_profile',
-            'dribbble'      => 'period_dribbble_profile',
-            'etsy'          => 'period_etsy_profile',
-            'flickr'        => 'period_flickr_profile',
-            'foursquare'    => 'period_foursquare_profile',
-            'github'        => 'period_github_profile',
-            'goodreads'		=> 'period_goodreads_profile',
-            'google-wallet' => 'period_google_wallet_profile',
-            'hacker-news'   => 'period_hacker-news_profile',
-            'imdb'   		=> 'period_imdb_profile',
-            'mastodon'      => 'period_mastodon_profile',
-            'medium'        => 'period_medium_profile',
-            'meetup'        => 'period_meetup_profile',
-            'mixcloud'      => 'period_mixcloud_profile',
-            'ok-ru'         => 'period_ok_ru_profile',
-            'orcid'         => 'period_orcid_profile',
-            'patreon'       => 'period_patreon_profile',
-            'paypal'        => 'period_paypal_profile',
-            'pocket'        => 'period_pocket_profile',
-            'podcast'       => 'period_podcast_profile',
-            'qq'            => 'period_qq_profile',
-            'quora'         => 'period_quora_profile',
-            'ravelry'       => 'period_ravelry_profile',
-            'reddit'        => 'period_reddit_profile',
-            'researchgate'  => 'period_researchgate_profile',
-            'skype'         => 'period_skype_profile',
-            'slack'         => 'period_slack_profile',
-            'slideshare'    => 'period_slideshare_profile',
-            'soundcloud'    => 'period_soundcloud_profile',
-            'spotify'       => 'period_spotify_profile',
-            'snapchat'      => 'period_snapchat_profile',
-            'stack-overflow' => 'period_stack_overflow_profile',
-            'steam'         => 'period_steam_profile',
-            'strava'   		=> 'period_strava_profile',
-            'stumbleupon'   => 'period_stumbleupon_profile',
-            'telegram'      => 'period_telegram_profile',
-            'tencent-weibo' => 'period_tencent_weibo_profile',
-            'tumblr'        => 'period_tumblr_profile',
-            'twitch'        => 'period_twitch_profile',
-            'untappd'       => 'period_untappd_profile',
-            'vimeo'         => 'period_vimeo_profile',
-            'vine'          => 'period_vine_profile',
-            'vk'            => 'period_vk_profile',
-            'wechat'        => 'period_wechat_profile',
-            'weibo'         => 'period_weibo_profile',
-            'whatsapp'      => 'period_whatsapp_profile',
-            'xing'          => 'period_xing_profile',
-            'yahoo'         => 'period_yahoo_profile',
-            'yelp'          => 'period_yelp_profile',
-            '500px'         => 'period_500px_profile',
+            'twitter'       => 'braillewright_twitter_profile',
+            'facebook'      => 'braillewright_facebook_profile',
+            'instagram'     => 'braillewright_instagram_profile',
+            'tiktok'     	=> 'braillewright_tiktok_profile',
+            'threads'     	=> 'braillewright_threads_profile',
+            'linkedin'      => 'braillewright_linkedin_profile',
+            'pinterest'     => 'braillewright_pinterest_profile',
+            'youtube'       => 'braillewright_youtube_profile',
+            'rss'           => 'braillewright_rss_profile',
+            'email'         => 'braillewright_email_profile',
+            'phone'			=> 'braillewright_phone_profile',
+            'email-form'    => 'braillewright_email_form_profile',
+            'amazon'        => 'braillewright_amazon_profile',
+            'artstation'    => 'braillewright_artstation_profile',
+            'bandcamp'      => 'braillewright_bandcamp_profile',
+            'behance'       => 'braillewright_behance_profile',
+            'bitbucket'     => 'braillewright_bitbucket_profile',
+            'codepen'       => 'braillewright_codepen_profile',
+            'delicious'     => 'braillewright_delicious_profile',
+            'deviantart'    => 'braillewright_deviantart_profile',
+            'diaspora'      => 'braillewright_diaspora_profile',
+            'digg'          => 'braillewright_digg_profile',
+            'discord'    	=> 'braillewright_discord_profile',
+            'dribbble'      => 'braillewright_dribbble_profile',
+            'etsy'          => 'braillewright_etsy_profile',
+            'flickr'        => 'braillewright_flickr_profile',
+            'foursquare'    => 'braillewright_foursquare_profile',
+            'github'        => 'braillewright_github_profile',
+            'goodreads'		=> 'braillewright_goodreads_profile',
+            'google-wallet' => 'braillewright_google_wallet_profile',
+            'hacker-news'   => 'braillewright_hacker-news_profile',
+            'imdb'   		=> 'braillewright_imdb_profile',
+            'mastodon'      => 'braillewright_mastodon_profile',
+            'medium'        => 'braillewright_medium_profile',
+            'meetup'        => 'braillewright_meetup_profile',
+            'mixcloud'      => 'braillewright_mixcloud_profile',
+            'ok-ru'         => 'braillewright_ok_ru_profile',
+            'orcid'         => 'braillewright_orcid_profile',
+            'patreon'       => 'braillewright_patreon_profile',
+            'paypal'        => 'braillewright_paypal_profile',
+            'pocket'        => 'braillewright_pocket_profile',
+            'podcast'       => 'braillewright_podcast_profile',
+            'qq'            => 'braillewright_qq_profile',
+            'quora'         => 'braillewright_quora_profile',
+            'ravelry'       => 'braillewright_ravelry_profile',
+            'reddit'        => 'braillewright_reddit_profile',
+            'researchgate'  => 'braillewright_researchgate_profile',
+            'skype'         => 'braillewright_skype_profile',
+            'slack'         => 'braillewright_slack_profile',
+            'slideshare'    => 'braillewright_slideshare_profile',
+            'soundcloud'    => 'braillewright_soundcloud_profile',
+            'spotify'       => 'braillewright_spotify_profile',
+            'snapchat'      => 'braillewright_snapchat_profile',
+            'stack-overflow' => 'braillewright_stack_overflow_profile',
+            'steam'         => 'braillewright_steam_profile',
+            'strava'   		=> 'braillewright_strava_profile',
+            'stumbleupon'   => 'braillewright_stumbleupon_profile',
+            'telegram'      => 'braillewright_telegram_profile',
+            'tencent-weibo' => 'braillewright_tencent_weibo_profile',
+            'tumblr'        => 'braillewright_tumblr_profile',
+            'twitch'        => 'braillewright_twitch_profile',
+            'untappd'       => 'braillewright_untappd_profile',
+            'vimeo'         => 'braillewright_vimeo_profile',
+            'vine'          => 'braillewright_vine_profile',
+            'vk'            => 'braillewright_vk_profile',
+            'wechat'        => 'braillewright_wechat_profile',
+            'weibo'         => 'braillewright_weibo_profile',
+            'whatsapp'      => 'braillewright_whatsapp_profile',
+            'xing'          => 'braillewright_xing_profile',
+            'yahoo'         => 'braillewright_yahoo_profile',
+            'yelp'          => 'braillewright_yelp_profile',
+            '500px'         => 'braillewright_500px_profile',
             'social_icon_custom_1' => 'social_icon_custom_1_profile',
             'social_icon_custom_2' => 'social_icon_custom_2_profile',
             'social_icon_custom_3' => 'social_icon_custom_3_profile'
         );
 
-        return apply_filters('ct_period_social_array_filter', $social_sites);
+        return apply_filters('braillewright_social_array_filter', $social_sites);
     }
 }
 
 //----------------------------------------------------------------------------------
 //	Output the social media icons
 //----------------------------------------------------------------------------------
-if (! function_exists('ct_period_social_icons_output')) {
-    function ct_period_social_icons_output()
+if (! function_exists('braillewright_social_icons_output')) {
+    function braillewright_social_icons_output()
     {
         // Get the social icons array
-        $social_sites = ct_period_social_array();
+        $social_sites = braillewright_social_array();
         // Store only icons with URLs saved
         $saved = array();
 
         /* Store the site name and ID if saved
         /* name: twitter
-        /* id: period_twitter_profile */
+        /* id: braillewright_twitter_profile */
         foreach ($social_sites as $name => $id) {
             if (strlen(get_theme_mod($name)) > 0) {
                 $saved[ $name ] = $id;
@@ -510,8 +511,8 @@ if (! function_exists('ct_period_social_icons_output')) {
  * WP will apply the ".menu-primary-items" class & id to the containing <div> instead of <ul>
  * making styling difficult and confusing. Using this wrapper to add a unique class to make styling easier.
  */
-if (! function_exists(('ct_period_wp_page_menu'))) {
-    function ct_period_wp_page_menu()
+if (! function_exists(('braillewright_wp_page_menu'))) {
+    function braillewright_wp_page_menu()
     {
         wp_page_menu(
             array(
@@ -522,8 +523,8 @@ if (! function_exists(('ct_period_wp_page_menu'))) {
     }
 }
 
-if (! function_exists(('ct_period_nav_dropdown_buttons'))) {
-    function ct_period_nav_dropdown_buttons($item_output, $item, $depth, $args)
+if (! function_exists(('braillewright_nav_dropdown_buttons'))) {
+    function braillewright_nav_dropdown_buttons($item_output, $item, $depth, $args)
     {
         if ($args->theme_location == 'primary') {
             if (in_array('menu-item-has-children', $item->classes) || in_array('page_item_has_children', $item->classes)) {
@@ -534,26 +535,26 @@ if (! function_exists(('ct_period_nav_dropdown_buttons'))) {
         return $item_output;
     }
 }
-add_filter('walker_nav_menu_start_el', 'ct_period_nav_dropdown_buttons', 10, 4);
+add_filter('walker_nav_menu_start_el', 'braillewright_nav_dropdown_buttons', 10, 4);
 
-if (! function_exists(('ct_period_sticky_post_marker'))) {
-    function ct_period_sticky_post_marker()
+if (! function_exists(('braillewright_sticky_post_marker'))) {
+    function braillewright_sticky_post_marker()
     {
         if (is_sticky() && !is_archive() && !is_search()) {
             echo '<div class="sticky-status"><span>' . esc_html__("Featured", "braillewright") . '</span></div>';
         }
     }
 }
-add_action('sticky_post_status', 'ct_period_sticky_post_marker');
+add_action('sticky_post_status', 'braillewright_sticky_post_marker');
 
-if (! function_exists(('ct_period_reset_customizer_options'))) {
-    function ct_period_reset_customizer_options()
+if (! function_exists(('braillewright_reset_customizer_options'))) {
+    function braillewright_reset_customizer_options()
     {
-        if (empty($_POST['period_reset_customizer']) || 'period_reset_customizer_settings' !== $_POST['period_reset_customizer']) {
+        if (empty($_POST['braillewright_reset_customizer']) || 'braillewright_reset_customizer_settings' !== $_POST['braillewright_reset_customizer']) {
             return;
         }
 
-        if (! isset($_POST['period_reset_customizer_nonce']) || ! wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['period_reset_customizer_nonce'])), 'period_reset_customizer_nonce')) {
+        if (! isset($_POST['braillewright_reset_customizer_nonce']) || ! wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['braillewright_reset_customizer_nonce'])), 'braillewright_reset_customizer_nonce')) {
             return;
         }
 
@@ -577,36 +578,36 @@ if (! function_exists(('ct_period_reset_customizer_options'))) {
             'custom_css'
         );
 
-        $social_sites = ct_period_social_array();
+        $social_sites = braillewright_social_array();
 
         // add social site settings to mods array
         foreach ($social_sites as $social_site => $value) {
             $mods_array[] = $social_site;
         }
 
-        $mods_array = apply_filters('ct_period_mods_to_remove', $mods_array);
+        $mods_array = apply_filters('braillewright_mods_to_remove', $mods_array);
 
         foreach ($mods_array as $theme_mod) {
             remove_theme_mod($theme_mod);
         }
 
-        $redirect = admin_url('themes.php?page=period-options');
-        $redirect = add_query_arg('period_status', 'deleted', $redirect);
+        $redirect = admin_url('themes.php?page=braillewright-options');
+        $redirect = add_query_arg('braillewright_status', 'deleted', $redirect);
 
         // safely redirect
         wp_safe_redirect($redirect);
         exit;
     }
 }
-add_action('admin_init', 'ct_period_reset_customizer_options');
+add_action('admin_init', 'braillewright_reset_customizer_options');
 
-if (! function_exists(('ct_period_delete_settings_notice'))) {
-    function ct_period_delete_settings_notice()
+if (! function_exists(('braillewright_delete_settings_notice'))) {
+    function braillewright_delete_settings_notice()
     {
         // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only admin notice after the nonce-verified reset redirect; no state change.
-        if ( isset( $_GET['period_status'] ) ) {
+        if ( isset( $_GET['braillewright_status'] ) ) {
             // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only notice; compared to a string literal, no sanitization required.
-            if ( 'deleted' === $_GET['period_status'] ) {
+            if ( 'deleted' === $_GET['braillewright_status'] ) {
                 ?>
 				<div class="updated">
 					<p><?php esc_html_e('Customizer settings deleted.', 'braillewright'); ?></p>
@@ -616,10 +617,10 @@ if (! function_exists(('ct_period_delete_settings_notice'))) {
         }
     }
 }
-add_action('admin_notices', 'ct_period_delete_settings_notice');
+add_action('admin_notices', 'braillewright_delete_settings_notice');
 
-if (! function_exists(('ct_period_body_class'))) {
-    function ct_period_body_class($classes)
+if (! function_exists(('braillewright_body_class'))) {
+    function braillewright_body_class($classes)
     {
         global $post;
         $full_post 					= get_theme_mod('full_post');
@@ -647,20 +648,20 @@ if (! function_exists(('ct_period_body_class'))) {
         return $classes;
     }
 }
-add_filter('body_class', 'ct_period_body_class');
+add_filter('body_class', 'braillewright_body_class');
 
-if (! function_exists(('ct_period_post_class'))) {
-    function ct_period_post_class($classes)
+if (! function_exists(('braillewright_post_class'))) {
+    function braillewright_post_class($classes)
     {
         $classes[] = 'entry';
 
         return $classes;
     }
 }
-add_filter('post_class', 'ct_period_post_class');
+add_filter('post_class', 'braillewright_post_class');
 
-if (! function_exists(('ct_period_custom_css_output'))) {
-    function ct_period_custom_css_output()
+if (! function_exists(('braillewright_custom_css_output'))) {
+    function braillewright_custom_css_output()
     {
         if (function_exists('wp_get_custom_css')) {
             $custom_css = wp_get_custom_css();
@@ -683,17 +684,17 @@ if (! function_exists(('ct_period_custom_css_output'))) {
         }
 
         if (! empty($custom_css)) {
-            $custom_css = ct_period_sanitize_css($custom_css);
+            $custom_css = braillewright_sanitize_css($custom_css);
 
-            wp_add_inline_style('ct-period-style', $custom_css);
-            wp_add_inline_style('ct-period-style-rtl', $custom_css);
+            wp_add_inline_style('braillewright-style', $custom_css);
+            wp_add_inline_style('braillewright-style-rtl', $custom_css);
         }
     }
 }
-add_action('wp_enqueue_scripts', 'ct_period_custom_css_output', 20);
+add_action('wp_enqueue_scripts', 'braillewright_custom_css_output', 20);
 
-if (! function_exists(('ct_period_svg_output'))) {
-    function ct_period_svg_output($type)
+if (! function_exists(('braillewright_svg_output'))) {
+    function braillewright_svg_output($type)
     {
         $svg = '';
 
@@ -716,8 +717,8 @@ if (! function_exists(('ct_period_svg_output'))) {
     }
 }
 
-if (! function_exists(('ct_period_add_meta_elements'))) {
-    function ct_period_add_meta_elements()
+if (! function_exists(('braillewright_add_meta_elements'))) {
+    function braillewright_add_meta_elements()
     {
         $meta_elements = '';
 
@@ -731,10 +732,10 @@ if (! function_exists(('ct_period_add_meta_elements'))) {
         echo $meta_elements; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- composed of literal <meta> tags + esc_attr()'d values; wp_kses_post() would strip <meta>.
     }
 }
-add_action('wp_head', 'ct_period_add_meta_elements', 1);
+add_action('wp_head', 'braillewright_add_meta_elements', 1);
 
-if (! function_exists(('ct_period_infinite_scroll_render'))) {
-    function ct_period_infinite_scroll_render()
+if (! function_exists(('braillewright_infinite_scroll_render'))) {
+    function braillewright_infinite_scroll_render()
     {
         while (have_posts()) {
             the_post();
@@ -743,8 +744,8 @@ if (! function_exists(('ct_period_infinite_scroll_render'))) {
     }
 }
 
-if (! function_exists('ct_period_get_content_template')) {
-    function ct_period_get_content_template()
+if (! function_exists('braillewright_get_content_template')) {
+    function braillewright_get_content_template()
     {
 
         // Get bbpress.php for all bbpress pages
@@ -763,22 +764,22 @@ if (! function_exists('ct_period_get_content_template')) {
 }
 
 // allow skype URIs to be used
-if (! function_exists(('ct_period_allow_skype_protocol'))) {
-    function ct_period_allow_skype_protocol($protocols)
+if (! function_exists(('braillewright_allow_skype_protocol'))) {
+    function braillewright_allow_skype_protocol($protocols)
     {
         $protocols[] = 'skype';
 
         return $protocols;
     }
 }
-add_filter('kses_allowed_protocols', 'ct_period_allow_skype_protocol');
+add_filter('kses_allowed_protocols', 'braillewright_allow_skype_protocol');
 
 //----------------------------------------------------------------------------------
 // Add paragraph tags for author bio displayed in content/archive-header.php.
 // the_archive_description includes paragraph tags for tag and category descriptions, but not the author bio.
 //----------------------------------------------------------------------------------
-if (! function_exists('ct_period_modify_archive_descriptions')) {
-    function ct_period_modify_archive_descriptions($description)
+if (! function_exists('braillewright_modify_archive_descriptions')) {
+    function braillewright_modify_archive_descriptions($description)
     {
         if (is_author()) {
             $description = wpautop($description);
@@ -786,27 +787,27 @@ if (! function_exists('ct_period_modify_archive_descriptions')) {
         return $description;
     }
 }
-add_filter('get_the_archive_description', 'ct_period_modify_archive_descriptions');
+add_filter('get_the_archive_description', 'braillewright_modify_archive_descriptions');
 
 //----------------------------------------------------------------------------------
 // So existing users don't have certain templates revert to the left sidebar
 //----------------------------------------------------------------------------------
-function ct_period_set_default_layouts()
+function braillewright_set_default_layouts()
 {
-    if (get_option('period_layouts_set') == '') {
+    if (get_option('braillewright_layouts_set') == '') {
         $current_layout = get_theme_mod('layout');
         set_theme_mod('layout_pages', $current_layout);
         set_theme_mod('layout_blog', $current_layout);
         set_theme_mod('layout_archives', $current_layout);
-        update_option('period_layouts_set', 'yes');
+        update_option('braillewright_layouts_set', 'yes');
     }
 }
-add_action('after_setup_theme', 'ct_period_set_default_layouts');
+add_action('after_setup_theme', 'braillewright_set_default_layouts');
 
 //----------------------------------------------------------------------------------
 // Output the markup for the optional scroll-to-top arrow
 //----------------------------------------------------------------------------------
-function ct_period_scroll_to_top_arrow()
+function braillewright_scroll_to_top_arrow()
 {
     $setting = get_theme_mod('scroll_to_top');
     
@@ -814,17 +815,17 @@ function ct_period_scroll_to_top_arrow()
         echo '<button id="scroll-to-top" class="scroll-to-top"><span class="screen-reader-text">'. esc_html__('Scroll to the top', 'braillewright') .'</span><i class="fas fa-arrow-up"></i></button>';
     }
 }
-add_action('body_bottom', 'ct_period_scroll_to_top_arrow');
+add_action('body_bottom', 'braillewright_scroll_to_top_arrow');
 
 //----------------------------------------------------------------------------------
 // Output the "Last Updated" date on posts
 //----------------------------------------------------------------------------------
-function ct_period_output_last_updated_date()
+function braillewright_output_last_updated_date()
 {
     global $post;
 
     if (get_the_modified_date() != get_the_date()) {
-        $updated_post = get_post_meta($post->ID, 'ct_period_last_updated', true);
+        $updated_post = get_post_meta($post->ID, 'braillewright_last_updated', true);
         $updated_customizer = get_theme_mod('last_updated');
         if (
             ($updated_customizer == 'yes' && ($updated_post != 'no'))
@@ -838,8 +839,8 @@ function ct_period_output_last_updated_date()
 //----------------------------------------------------------------------------------
 // Output standard post pagination
 //----------------------------------------------------------------------------------
-if (! function_exists(('ct_period_pagination'))) {
-    function ct_period_pagination()
+if (! function_exists(('braillewright_pagination'))) {
+    function braillewright_pagination()
     {
 
     // Never output pagination on bbpress pages
@@ -866,9 +867,9 @@ if (! function_exists(('ct_period_pagination'))) {
 //----------------------------------------------------------------------------------
 // Add support for Elementor headers & footers
 //----------------------------------------------------------------------------------
-function ct_period_register_elementor_locations($elementor_theme_manager)
+function braillewright_register_elementor_locations($elementor_theme_manager)
 {
     $elementor_theme_manager->register_location('header');
     $elementor_theme_manager->register_location('footer');
 }
-add_action('elementor/theme/register_locations', 'ct_period_register_elementor_locations');
+add_action('elementor/theme/register_locations', 'braillewright_register_elementor_locations');

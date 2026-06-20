@@ -31,7 +31,7 @@ jobs:
       - name: Lint every PHP file
         run: |
           set -euo pipefail
-          find theme plugin tools -name '*.php' -print0 \
+          find theme tools -name '*.php' -print0 \
             | xargs -0 -P8 -n1 -- php -l
 
   # ---------------------------------------------------------------------------
@@ -107,7 +107,7 @@ jobs:
         # ($_POST unslash + sanitize) are all at 0 after the Phase 3 passes and are
         # enforced here to block any regression.
         run: |
-          vendor/bin/phpcs theme/braillewright plugin/braillewright-pro tools \
+          vendor/bin/phpcs theme/braillewright tools \
             --standard=WordPress \
             --sniffs=WordPress.Security.EscapeOutput,WordPress.Security.NonceVerification,WordPress.Security.ValidatedSanitizedInput \
             --extensions=php \
@@ -143,12 +143,10 @@ jobs:
           cache: 'npm'
       - name: Install npm dependencies
         run: npm ci
-      - name: Start wp-env (WordPress + PHP 8.3; theme + plugin mounted)
+      - name: Start wp-env (WordPress + PHP 8.3; theme mounted)
         run: npx wp-env start
-      - name: Activate theme + plugin
-        run: |
-          npx wp-env run cli wp theme activate braillewright
-          npx wp-env run cli wp plugin activate braillewright-pro
+      - name: Activate theme
+        run: npx wp-env run cli wp theme activate braillewright
       - name: pa11y-ci (WCAG2AA — axe + HTML_CodeSniffer) [BLOCKING]
         run: npx pa11y-ci --json > pa11y-report.json
       - name: Lighthouse CI (accessibility category)

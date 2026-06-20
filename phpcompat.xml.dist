@@ -3,7 +3,6 @@
     <description>Flags PHP 8.3+ incompatibilities in the Braillewright theme + plugin. WP.com Atomic runs PHP 8.3; WordPress core polyfills are accounted for by the PHPCompatibilityWP standard, so functions WP backfills are not false-flagged.</description>
 
     <file>theme/braillewright</file>
-    <file>plugin/braillewright-pro</file>
     <file>tools</file>
 
     <arg name="extensions" value="php"/>

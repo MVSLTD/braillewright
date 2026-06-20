@@ -1,10 +1,9 @@
 <?xml version="1.0"?>
 <ruleset name="Braillewright">
-    <description>Coding standards + security sniffs for the Braillewright theme and Braillewright Pro plugin (WordPress-Extra). Bundled third-party and generated assets are excluded.</description>
+    <description>Coding standards + security sniffs for the Braillewright theme (WordPress-Extra). Bundled third-party and generated assets are excluded.</description>
 
     <!-- What to scan (paths are relative to this file = repo root). -->
     <file>theme/braillewright</file>
-    <file>plugin/braillewright-pro</file>
     <file>tools</file>
 
     <!-- Only PHP; plus performance + readability args. -->
@@ -34,25 +33,19 @@
         <properties>
             <property name="text_domain" type="array">
                 <element value="braillewright"/>
-                <element value="braillewright-pro"/>
             </property>
         </properties>
     </rule>
 
     <!--
-        Global-prefix sniff. Phase 1 DELIBERATELY KEPT the upstream ct_period / period
-        prefixes because they are hook-coupled (the shared theme->plugin action
-        ct_period_mods_to_remove) and data-coupled (ct_period_pro_* options, period_*
-        Customizer ids, period-last-updated post-meta on the live TTT site). Whitelisting
-        them here ENCODES that decision instead of flagging ~hundreds of false positives.
-        See the master context, section 8 ("THE kept-prefix decision").
+        Global-prefix sniff. The fusion (2026-06-19) renamed the entire upstream
+        ct_period / period namespace to braillewright, so braillewright is the only
+        approved prefix (braillewright_features_* is covered by it).
     -->
     <rule ref="WordPress.NamingConventions.PrefixAllGlobals">
         <properties>
             <property name="prefixes" type="array">
                 <element value="braillewright"/>
-                <element value="ct_period"/>
-                <element value="period"/>
             </property>
         </properties>
     </rule>

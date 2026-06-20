@@ -11,7 +11,6 @@ parameters:
     phpVersion: 80300
     paths:
         - theme/braillewright
-        - plugin/braillewright-pro
         - tools
     excludePaths:
         # analyse = still scanned for symbols (so calls elsewhere resolve), but
@@ -26,3 +25,14 @@ parameters:
     # baselined errors; don't fail the build on now-obsolete baseline entries.
     # Flip back to true + regenerate the baseline once remediation settles.
     reportUnmatchedIgnoredErrors: false
+    ignoreErrors:
+        # Inherited upstream quirk: the Customizer passes a section-id string where
+        # PHPStan infers a fuller array shape for WP_Customize_Image_Control. Harmless.
+        # Matched on the stable message head because PHPStan truncates the section name
+        # to a width-dependent length, which made per-string baseline entries brittle
+        # across the fusion rename.
+        -
+            message: '#Parameter \#3 \$args of class WP_Customize_Image_Control constructor expects#'
+            paths:
+                - theme/braillewright/features/inc/customizer.php
+                - theme/braillewright/inc/customizer.php

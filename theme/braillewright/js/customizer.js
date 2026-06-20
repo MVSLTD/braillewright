@@ -1,7 +1,7 @@
 jQuery(document).ready(function($){
 
-    $('#accordion-section-period_display').find('.customize-section-description').appendTo('#customize-control-display_post_date');
-    $('#accordion-section-period_layout').find('.customize-section-description').appendTo('#customize-control-layout');
+    $('#accordion-section-braillewright_display').find('.customize-section-description').appendTo('#customize-control-display_post_date');
+    $('#accordion-section-braillewright_layout').find('.customize-section-description').appendTo('#customize-control-layout');
 
     // set context to customizer panel outside iframe site content is in
     var panel = $('html', window.parent.document);
@@ -16,7 +16,7 @@ jQuery(document).ready(function($){
 
         // add the appropriate image to each label
         layoutInputs.each( function() {
-            $(this).next().css('background-image', 'url("../wp-content/themes/period/assets/images/' + $(this).val() + '.png")');
+            $(this).next().css('background-image', 'url("../wp-content/themes/braillewright/assets/images/' + $(this).val() + '.png")');
 
             // add initial 'selected' class
             if ($(this).prop('checked')) {

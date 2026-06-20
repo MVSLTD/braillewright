@@ -10,7 +10,7 @@
     "scripts": {
         "env:start": "wp-env start",
         "env:stop": "wp-env stop",
-        "env:activate": "wp-env run cli wp theme activate braillewright && wp-env run cli wp plugin activate braillewright-pro",
+        "env:activate": "wp-env run cli wp theme activate braillewright",
         "a11y:pa11y": "pa11y-ci",
         "a11y:lighthouse": "lhci autorun",
         "a11y": "npm run a11y:pa11y && npm run a11y:lighthouse"

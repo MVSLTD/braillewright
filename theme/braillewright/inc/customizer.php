@@ -1,9 +1,9 @@
 <?php
 
 /* Add customizer panels, sections, settings, and controls */
-add_action( 'customize_register', 'ct_period_add_customizer_content' );
+add_action( 'customize_register', 'braillewright_add_customizer_content' );
 
-function ct_period_add_customizer_content( $wp_customize ) {
+function braillewright_add_customizer_content( $wp_customize ) {
 
 	/***** Reorder default sections *****/
 
@@ -24,7 +24,7 @@ function ct_period_add_customizer_content( $wp_customize ) {
 	// Add panel for colors
 	if ( method_exists( 'WP_Customize_Manager', 'add_panel' ) ) {
 
-		$wp_customize->add_panel( 'ct_period_layout_panel', array(
+		$wp_customize->add_panel( 'braillewright_layout_panel', array(
 			'priority'    => 40,
 			'title'       => __( 'Layout', 'braillewright' ),
 			'description' => __( 'Change your layouts across the site', 'braillewright' )
@@ -34,7 +34,7 @@ function ct_period_add_customizer_content( $wp_customize ) {
 	/***** Logo Upload *****/
 
 	// section
-	$wp_customize->add_section( 'ct_period_logo_upload', array(
+	$wp_customize->add_section( 'braillewright_logo_upload', array(
 		'title'    => __( 'Logo', 'braillewright' ),
 		'priority' => 20
 	) );
@@ -46,7 +46,7 @@ function ct_period_add_customizer_content( $wp_customize ) {
 	$wp_customize->add_control( new WP_Customize_Image_Control(
 		$wp_customize, 'logo_image', array(
 			'label'    => __( 'Upload a logo', 'braillewright' ),
-			'section'  => 'ct_period_logo_upload',
+			'section'  => 'braillewright_logo_upload',
 			'settings' => 'logo_upload'
 		)
 	) );
@@ -59,7 +59,7 @@ function ct_period_add_customizer_content( $wp_customize ) {
 	// Size - control
 	$wp_customize->add_control( 'logo_size', array(
 		'label'    => __( 'Adjust the size of the logo', 'braillewright' ),
-		'section'  => 'ct_period_logo_upload',
+		'section'  => 'braillewright_logo_upload',
 		'settings' => 'logo_size',
 		'type'     => 'range',
 		'input_attrs' => array(
@@ -72,13 +72,13 @@ function ct_period_add_customizer_content( $wp_customize ) {
 	/***** Social Media Icons *****/
 
 	// get the social sites array
-	$social_sites = ct_period_social_array();
+	$social_sites = braillewright_social_array();
 
 	// set a priority used to order the social sites
 	$priority = 5;
 
 	// section
-	$wp_customize->add_section( 'ct_period_social_media_icons', array(
+	$wp_customize->add_section( 'braillewright_social_media_icons', array(
 		'title'       => __( 'Social Media Icons', 'braillewright' ),
 		'priority'    => 25,
 		'description' => __( 'Add the URL for each of your social profiles.', 'braillewright' )
@@ -90,23 +90,23 @@ function ct_period_add_customizer_content( $wp_customize ) {
 		if ( $social_site == 'email' ) {
 			// setting
 			$wp_customize->add_setting( $social_site, array(
-				'sanitize_callback' => 'ct_period_sanitize_email'
+				'sanitize_callback' => 'braillewright_sanitize_email'
 			) );
 			// control
 			$wp_customize->add_control( $social_site, array(
 				'label'    => __( 'Email Address', 'braillewright' ),
-				'section'  => 'ct_period_social_media_icons',
+				'section'  => 'braillewright_social_media_icons',
 				'priority' => $priority
 			) );
 		} else if ( $social_site == 'phone' ) {
 			// setting
 			$wp_customize->add_setting( $social_site, array(
-				'sanitize_callback' => 'ct_period_sanitize_phone'
+				'sanitize_callback' => 'braillewright_sanitize_phone'
 			) );
 			// control
 			$wp_customize->add_control( $social_site, array(
 				'label'    => __( 'Phone', 'braillewright' ),
-				'section'     => 'ct_period_social_media_icons',
+				'section'     => 'braillewright_social_media_icons',
 				'priority'    => $priority,
 				'type'        => 'text'
 			) );
@@ -165,14 +165,14 @@ function ct_period_add_customizer_content( $wp_customize ) {
 			if ( $social_site == 'skype' ) {
 				// setting
 				$wp_customize->add_setting( $social_site, array(
-					'sanitize_callback' => 'ct_period_sanitize_skype'
+					'sanitize_callback' => 'braillewright_sanitize_skype'
 				) );
 				// control
 				$wp_customize->add_control( $social_site, array(
 					'type'        => 'url',
 					'label'       => $label,
 					'description' => sprintf( __( 'Accepts Skype link protocol (<a href="%s" target="_blank">learn more</a>)', 'braillewright' ), '#' ),
-					'section'     => 'ct_period_social_media_icons',
+					'section'     => 'braillewright_social_media_icons',
 					'priority'    => $priority
 				) );
 			} else {
@@ -184,7 +184,7 @@ function ct_period_add_customizer_content( $wp_customize ) {
 				$wp_customize->add_control( $social_site, array(
 					'type'     => 'url',
 					'label'    => $label,
-					'section'  => 'ct_period_social_media_icons',
+					'section'  => 'braillewright_social_media_icons',
 					'priority' => $priority
 				) );
 			}
@@ -194,11 +194,11 @@ function ct_period_add_customizer_content( $wp_customize ) {
 	}
 	// Custom icon 1
 	$wp_customize->add_setting( 'social_icon_custom_1_name', array(
-		'sanitize_callback' => 'ct_period_sanitize_text'
+		'sanitize_callback' => 'braillewright_sanitize_text'
 	) );
 	$wp_customize->add_control( 'social_icon_custom_1_name', array(
 		'label'    => __('Custom icon 1 Name', 'braillewright'),
-		'section'  => 'ct_period_social_media_icons',
+		'section'  => 'braillewright_social_media_icons',
 		'settings' => 'social_icon_custom_1_name',
 		'type'     => 'text',
 		'priority' => $priority + 5
@@ -208,7 +208,7 @@ function ct_period_add_customizer_content( $wp_customize ) {
 	) );
 	$wp_customize->add_control( 'social_icon_custom_1', array(
 		'label'    => __('Custom icon 1 URL', 'braillewright'),
-		'section'  => 'ct_period_social_media_icons',
+		'section'  => 'braillewright_social_media_icons',
 		'settings' => 'social_icon_custom_1',
 		'type'     => 'url',
 		'priority' => $priority + 6
@@ -218,7 +218,7 @@ function ct_period_add_customizer_content( $wp_customize ) {
 	) );
 	$wp_customize->add_control(new WP_Customize_Image_Control( $wp_customize, 'social_icon_custom_1_image', array(
 		'label'    => __( 'Custom icon 1 image', 'braillewright' ),
-		'section'  => 'ct_period_social_media_icons',
+		'section'  => 'braillewright_social_media_icons',
 		'settings' => 'social_icon_custom_1_image',
 		'priority' => $priority + 7
 	)));
@@ -228,18 +228,18 @@ function ct_period_add_customizer_content( $wp_customize ) {
 	) );
 	$wp_customize->add_control( 'social_icon_custom_1_size', array(
 		'label'    => __('Custom icon 1 size (px)', 'braillewright'),
-		'section'  => 'ct_period_social_media_icons',
+		'section'  => 'braillewright_social_media_icons',
 		'settings' => 'social_icon_custom_1_size',
 		'type'     => 'number',
 		'priority' => $priority + 8
 	) );
 	// Custom icon 2
 	$wp_customize->add_setting( 'social_icon_custom_2_name', array(
-		'sanitize_callback' => 'ct_period_sanitize_text'
+		'sanitize_callback' => 'braillewright_sanitize_text'
 	) );
 	$wp_customize->add_control( 'social_icon_custom_2_name', array(
 		'label'    => __('Custom icon 2 Name', 'braillewright'),
-		'section'  => 'ct_period_social_media_icons',
+		'section'  => 'braillewright_social_media_icons',
 		'settings' => 'social_icon_custom_2_name',
 		'type'     => 'text',
 		'priority' => $priority + 9
@@ -249,7 +249,7 @@ function ct_period_add_customizer_content( $wp_customize ) {
 	) );
 	$wp_customize->add_control( 'social_icon_custom_2', array(
 		'label'    => __('Custom icon 2 URL', 'braillewright'),
-		'section'  => 'ct_period_social_media_icons',
+		'section'  => 'braillewright_social_media_icons',
 		'settings' => 'social_icon_custom_2',
 		'type'     => 'url',
 		'priority' => $priority + 10
@@ -259,7 +259,7 @@ function ct_period_add_customizer_content( $wp_customize ) {
 	) );
 	$wp_customize->add_control(new WP_Customize_Image_Control( $wp_customize, 'social_icon_custom_2_image', array(
 		'label'    => __( 'Custom icon 2 image', 'braillewright' ),
-		'section'  => 'ct_period_social_media_icons',
+		'section'  => 'braillewright_social_media_icons',
 		'settings' => 'social_icon_custom_2_image',
 		'priority' => $priority + 11
 	)));
@@ -269,18 +269,18 @@ function ct_period_add_customizer_content( $wp_customize ) {
 	) );
 	$wp_customize->add_control( 'social_icon_custom_2_size', array(
 		'label'    => __('Custom icon 2 size (px)', 'braillewright'),
-		'section'  => 'ct_period_social_media_icons',
+		'section'  => 'braillewright_social_media_icons',
 		'settings' => 'social_icon_custom_2_size',
 		'type'     => 'number',
 		'priority' => $priority + 12
 	) );
 	// Custom icon 3
 	$wp_customize->add_setting( 'social_icon_custom_3_name', array(
-		'sanitize_callback' => 'ct_period_sanitize_text'
+		'sanitize_callback' => 'braillewright_sanitize_text'
 	) );
 	$wp_customize->add_control( 'social_icon_custom_3_name', array(
 		'label'    => __('Custom icon 3 Name', 'braillewright'),
-		'section'  => 'ct_period_social_media_icons',
+		'section'  => 'braillewright_social_media_icons',
 		'settings' => 'social_icon_custom_3_name',
 		'type'     => 'text',
 		'priority' => $priority + 13
@@ -290,7 +290,7 @@ function ct_period_add_customizer_content( $wp_customize ) {
 	) );
 	$wp_customize->add_control( 'social_icon_custom_3', array(
 		'label'    => __('Custom icon 3 URL', 'braillewright'),
-		'section'  => 'ct_period_social_media_icons',
+		'section'  => 'braillewright_social_media_icons',
 		'settings' => 'social_icon_custom_3',
 		'type'     => 'url',
 		'priority' => $priority + 14
@@ -300,7 +300,7 @@ function ct_period_add_customizer_content( $wp_customize ) {
 	) );
 	$wp_customize->add_control(new WP_Customize_Image_Control( $wp_customize, 'social_icon_custom_3_image', array(
 		'label'    => __( 'Custom icon 3 image', 'braillewright' ),
-		'section'  => 'ct_period_social_media_icons',
+		'section'  => 'braillewright_social_media_icons',
 		'settings' => 'social_icon_custom_3_image',
 		'priority' => $priority + 15
 	)));
@@ -310,7 +310,7 @@ function ct_period_add_customizer_content( $wp_customize ) {
 	) );
 	$wp_customize->add_control( 'social_icon_custom_3_size', array(
 		'label'    => __('Custom icon 3 size (px)', 'braillewright'),
-		'section'  => 'ct_period_social_media_icons',
+		'section'  => 'braillewright_social_media_icons',
 		'settings' => 'social_icon_custom_3_size',
 		'type'     => 'number',
 		'priority' => $priority + 16
@@ -319,20 +319,20 @@ function ct_period_add_customizer_content( $wp_customize ) {
 	/***** Search Bar *****/
 
 	// section
-	$wp_customize->add_section( 'period_search_bar', array(
+	$wp_customize->add_section( 'braillewright_search_bar', array(
 		'title'    => __( 'Search Bar', 'braillewright' ),
 		'priority' => 37
 	) );
 	// setting
 	$wp_customize->add_setting( 'search_bar', array(
 		'default'           => 'hide',
-		'sanitize_callback' => 'ct_period_sanitize_all_show_hide_settings'
+		'sanitize_callback' => 'braillewright_sanitize_all_show_hide_settings'
 	) );
 	// control
 	$wp_customize->add_control( 'search_bar', array(
 		'type'    => 'radio',
 		'label'   => __( 'Show search bar at top of site?', 'braillewright' ),
-		'section' => 'period_search_bar',
+		'section' => 'braillewright_search_bar',
 		'setting' => 'search_bar',
 		'choices' => array(
 			'show' => __( 'Show', 'braillewright' ),
@@ -343,22 +343,22 @@ function ct_period_add_customizer_content( $wp_customize ) {
 	/***** Layout *****/
 
 	// section
-	$wp_customize->add_section( 'period_layout', array(
+	$wp_customize->add_section( 'braillewright_layout', array(
 		'title'       => __( 'Posts', 'braillewright' ),
 		'priority'    => 1,
 		'description' => sprintf( __( 'Want more layouts? Check out the <a target="_blank" href="%1$s">%2$s Pro plugin</a>.', 'braillewright' ), '#', wp_get_theme( get_template() ) ),
-		'panel'				=> 'ct_period_layout_panel'
+		'panel'				=> 'braillewright_layout_panel'
 	) );
 	// setting
 	$wp_customize->add_setting( 'layout', array(
 		'default'           => 'right',
-		'sanitize_callback' => 'ct_period_sanitize_layout_settings',
+		'sanitize_callback' => 'braillewright_sanitize_layout_settings',
 		'transport'         => 'postMessage'
 	) );
 	// control
 	$wp_customize->add_control( 'layout', array(
 		'label'    => __( 'Choose your layout', 'braillewright' ),
-		'section'  => 'period_layout',
+		'section'  => 'braillewright_layout',
 		'settings' => 'layout',
 		'type'     => 'radio',
 		'choices'  => array(
@@ -367,22 +367,22 @@ function ct_period_add_customizer_content( $wp_customize ) {
 		)
 	) );
 	// section
-	$wp_customize->add_section( 'period_layout_pages', array(
+	$wp_customize->add_section( 'braillewright_layout_pages', array(
 		'title'       => __( 'Pages', 'braillewright' ),
 		'priority'    => 2,
 		'description' => sprintf( __( 'Want more layouts? Check out the <a target="_blank" href="%1$s">%2$s Pro plugin</a>.', 'braillewright' ), '#', wp_get_theme( get_template() ) ),
-		'panel'				=> 'ct_period_layout_panel'
+		'panel'				=> 'braillewright_layout_panel'
 	) );
 	// setting
 	$wp_customize->add_setting( 'layout_pages', array(
 		'default'           => 'right',
-		'sanitize_callback' => 'ct_period_sanitize_layout_settings',
+		'sanitize_callback' => 'braillewright_sanitize_layout_settings',
 		'transport'         => 'postMessage'
 	) );
 	// control
 	$wp_customize->add_control( 'layout_pages', array(
 		'label'    => __( 'Choose your layout', 'braillewright' ),
-		'section'  => 'period_layout_pages',
+		'section'  => 'braillewright_layout_pages',
 		'settings' => 'layout_pages',
 		'type'     => 'radio',
 		'choices'  => array(
@@ -391,22 +391,22 @@ function ct_period_add_customizer_content( $wp_customize ) {
 		)
 	) );
 	// section
-	$wp_customize->add_section( 'period_layout_blog', array(
+	$wp_customize->add_section( 'braillewright_layout_blog', array(
 		'title'       => __( 'Blog', 'braillewright' ),
 		'priority'    => 3,
 		'description' => sprintf( __( 'Want more layouts? Check out the <a target="_blank" href="%1$s">%2$s Pro plugin</a>.', 'braillewright' ), '#', wp_get_theme( get_template() ) ),
-		'panel'				=> 'ct_period_layout_panel'
+		'panel'				=> 'braillewright_layout_panel'
 	) );
 	// setting
 	$wp_customize->add_setting( 'layout_blog', array(
 		'default'           => 'right',
-		'sanitize_callback' => 'ct_period_sanitize_layout_settings',
+		'sanitize_callback' => 'braillewright_sanitize_layout_settings',
 		'transport'         => 'postMessage'
 	) );
 	// control
 	$wp_customize->add_control( 'layout_blog', array(
 		'label'    => __( 'Choose your layout', 'braillewright' ),
-		'section'  => 'period_layout_blog',
+		'section'  => 'braillewright_layout_blog',
 		'settings' => 'layout_blog',
 		'type'     => 'radio',
 		'choices'  => array(
@@ -415,22 +415,22 @@ function ct_period_add_customizer_content( $wp_customize ) {
 		)
 	) );
 	// section
-	$wp_customize->add_section( 'period_layout_archives', array(
+	$wp_customize->add_section( 'braillewright_layout_archives', array(
 		'title'       => __( 'Archives', 'braillewright' ),
 		'priority'    => 4,
 		'description' => sprintf( __( 'Want more layouts? Check out the <a target="_blank" href="%1$s">%2$s Pro plugin</a>.', 'braillewright' ), '#', wp_get_theme( get_template() ) ),
-		'panel'				=> 'ct_period_layout_panel'
+		'panel'				=> 'braillewright_layout_panel'
 	) );
 	// setting
 	$wp_customize->add_setting( 'layout_archives', array(
 		'default'           => 'right',
-		'sanitize_callback' => 'ct_period_sanitize_layout_settings',
+		'sanitize_callback' => 'braillewright_sanitize_layout_settings',
 		'transport'         => 'postMessage'
 	) );
 	// control
 	$wp_customize->add_control( 'layout_archives', array(
 		'label'    => __( 'Choose your layout', 'braillewright' ),
-		'section'  => 'period_layout_archives',
+		'section'  => 'braillewright_layout_archives',
 		'settings' => 'layout_archives',
 		'type'     => 'radio',
 		'choices'  => array(
@@ -442,19 +442,19 @@ function ct_period_add_customizer_content( $wp_customize ) {
 	/***** Blog *****/
 
 	// section
-	$wp_customize->add_section( 'period_blog', array(
+	$wp_customize->add_section( 'braillewright_blog', array(
 		'title'    => _x( 'Blog', 'noun: blog section', 'braillewright' ),
 		'priority' => 45
 	) );
 	// setting
 	$wp_customize->add_setting( 'full_post', array(
 		'default'           => 'no',
-		'sanitize_callback' => 'ct_period_sanitize_yes_no_settings'
+		'sanitize_callback' => 'braillewright_sanitize_yes_no_settings'
 	) );
 	// control
 	$wp_customize->add_control( 'full_post', array(
 		'label'    => __( 'Show full posts on blog?', 'braillewright' ),
-		'section'  => 'period_blog',
+		'section'  => 'braillewright_blog',
 		'settings' => 'full_post',
 		'type'     => 'radio',
 		'choices'  => array(
@@ -470,19 +470,19 @@ function ct_period_add_customizer_content( $wp_customize ) {
 	// control
 	$wp_customize->add_control( 'excerpt_length', array(
 		'label'    => __( 'Excerpt word count', 'braillewright' ),
-		'section'  => 'period_blog',
+		'section'  => 'braillewright_blog',
 		'settings' => 'excerpt_length',
 		'type'     => 'number'
 	) );
 	// Read More text - setting
 	$wp_customize->add_setting( 'read_more_text', array(
 		'default'           => __( 'Continue Reading', 'braillewright' ),
-		'sanitize_callback' => 'ct_period_sanitize_text'
+		'sanitize_callback' => 'braillewright_sanitize_text'
 	) );
 	// Read More text - control
 	$wp_customize->add_control( 'read_more_text', array(
 		'label'    => __( 'Read More button text', 'braillewright' ),
-		'section'  => 'period_blog',
+		'section'  => 'braillewright_blog',
 		'settings' => 'read_more_text',
 		'type'     => 'text'
 	) );
@@ -490,7 +490,7 @@ function ct_period_add_customizer_content( $wp_customize ) {
 	/***** Display Controls *****/
 
 	// section
-	$wp_customize->add_section( 'period_display', array(
+	$wp_customize->add_section( 'braillewright_display', array(
 		'title'       => __( 'Show/Hide Elements', 'braillewright' ),
 		'priority'    => 55,
 		'description' => sprintf( __( 'Want more options like these? Check out the <a target="_blank" href="%1$s">%2$s Pro plugin</a>.', 'braillewright' ), '#', wp_get_theme( get_template() ) )
@@ -498,13 +498,13 @@ function ct_period_add_customizer_content( $wp_customize ) {
 	// setting - post author
 	$wp_customize->add_setting( 'display_post_author', array(
 		'default'           => 'show',
-		'sanitize_callback' => 'ct_period_sanitize_show_hide'
+		'sanitize_callback' => 'braillewright_sanitize_show_hide'
 	) );
 	// control - post author
 	$wp_customize->add_control( 'display_post_author', array(
 		'type'    => 'radio',
 		'label'   => __( 'Post author name in byline', 'braillewright' ),
-		'section' => 'period_display',
+		'section' => 'braillewright_display',
 		'setting' => 'display_post_author',
 		'choices' => array(
 			'show' => __( 'Show', 'braillewright' ),
@@ -514,13 +514,13 @@ function ct_period_add_customizer_content( $wp_customize ) {
 	// setting - post date
 	$wp_customize->add_setting( 'display_post_date', array(
 		'default'           => 'show',
-		'sanitize_callback' => 'ct_period_sanitize_show_hide'
+		'sanitize_callback' => 'braillewright_sanitize_show_hide'
 	) );
 	// control - post author
 	$wp_customize->add_control( 'display_post_date', array(
 		'type'    => 'radio',
 		'label'   => __( 'Post date in byline', 'braillewright' ),
-		'section' => 'period_display',
+		'section' => 'braillewright_display',
 		'setting' => 'display_post_date',
 		'choices' => array(
 			'show' => __( 'Show', 'braillewright' ),
@@ -531,19 +531,19 @@ function ct_period_add_customizer_content( $wp_customize ) {
 	/***** Additional Options  *****/
 
 	// section
-	$wp_customize->add_section( 'ct_period_additional_options', array(
+	$wp_customize->add_section( 'braillewright_additional_options', array(
 		'title'    => __( 'Additional Options', 'braillewright' ),
 		'priority' => 70
 	) );
 	// setting - scroll-to-top arrow
 	$wp_customize->add_setting( 'scroll_to_top', array(
 		'default'           => 'no',
-		'sanitize_callback' => 'ct_period_sanitize_yes_no_settings'
+		'sanitize_callback' => 'braillewright_sanitize_yes_no_settings'
 	) );
 	// control - scroll-to-top arrow
 	$wp_customize->add_control( 'scroll_to_top', array(
 		'label'    => __( 'Display Scroll-to-top arrow?', 'braillewright' ),
-		'section'  => 'ct_period_additional_options',
+		'section'  => 'braillewright_additional_options',
 		'settings' => 'scroll_to_top',
 		'type'     => 'radio',
 		'choices'  => array(
@@ -554,12 +554,12 @@ function ct_period_add_customizer_content( $wp_customize ) {
 	// setting - last updated
 	$wp_customize->add_setting( 'last_updated', array(
 		'default'           => 'no',
-		'sanitize_callback' => 'ct_period_sanitize_yes_no_settings'
+		'sanitize_callback' => 'braillewright_sanitize_yes_no_settings'
 	) );
 	// control - last updated
 	$wp_customize->add_control( 'last_updated', array(
 		'label'    => __( 'Display the date each post was last updated?', 'braillewright' ),
-		'section'  => 'ct_period_additional_options',
+		'section'  => 'braillewright_additional_options',
 		'settings' => 'last_updated',
 		'type'     => 'radio',
 		'choices'  => array(
@@ -583,20 +583,20 @@ function ct_period_add_customizer_content( $wp_customize ) {
 		}
 	} else {
 		// section
-		$wp_customize->add_section( 'period_custom_css', array(
+		$wp_customize->add_section( 'braillewright_custom_css', array(
 			'title'    => __( 'Custom CSS', 'braillewright' ),
 			'priority' => 75
 		) );
 		// setting
 		$wp_customize->add_setting( 'custom_css', array(
-			'sanitize_callback' => 'ct_period_sanitize_css',
+			'sanitize_callback' => 'braillewright_sanitize_css',
 			'transport'         => 'postMessage'
 		) );
 		// control
 		$wp_customize->add_control( 'custom_css', array(
 			'type'     => 'textarea',
 			'label'    => __( 'Add Custom CSS Here', 'braillewright' ),
-			'section'  => 'period_custom_css',
+			'section'  => 'braillewright_custom_css',
 			'settings' => 'custom_css'
 		) );
 	}
@@ -608,7 +608,7 @@ function ct_period_add_customizer_content( $wp_customize ) {
  * Sanitize settings with show/hide as options
  * Used in: search bar
  */
-function ct_period_sanitize_all_show_hide_settings( $input ) {
+function braillewright_sanitize_all_show_hide_settings( $input ) {
 
 	$valid = array(
 		'show' => __( 'Show', 'braillewright' ),
@@ -622,12 +622,12 @@ function ct_period_sanitize_all_show_hide_settings( $input ) {
  * sanitize email address
  * Used in: Social Media Icons
  */
-function ct_period_sanitize_email( $input ) {
+function braillewright_sanitize_email( $input ) {
 	return sanitize_email( $input );
 }
 
 // sanitize yes/no settings
-function ct_period_sanitize_yes_no_settings( $input ) {
+function braillewright_sanitize_yes_no_settings( $input ) {
 
 	$valid = array(
 		'yes' => __( 'Yes', 'braillewright' ),
@@ -637,22 +637,22 @@ function ct_period_sanitize_yes_no_settings( $input ) {
 	return array_key_exists( $input, $valid ) ? $input : '';
 }
 
-function ct_period_sanitize_text( $input ) {
+function braillewright_sanitize_text( $input ) {
 	return wp_kses_post( force_balance_tags( $input ) );
 }
 
-function ct_period_sanitize_skype( $input ) {
+function braillewright_sanitize_skype( $input ) {
 	return esc_url_raw( $input, array( 'http', 'https', 'skype' ) );
 }
 
-function ct_period_sanitize_css( $css ) {
+function braillewright_sanitize_css( $css ) {
 	$css = wp_kses( $css, array( '\'', '\"' ) );
 	$css = str_replace( '&gt;', '>', $css );
 
 	return $css;
 }
 
-function ct_period_sanitize_show_hide( $input ) {
+function braillewright_sanitize_show_hide( $input ) {
 
 	$valid = array(
 		'show' => __( 'Show', 'braillewright' ),
@@ -662,7 +662,7 @@ function ct_period_sanitize_show_hide( $input ) {
 	return array_key_exists( $input, $valid ) ? $input : '';
 }
 
-function ct_period_sanitize_layout_settings( $input ) {
+function braillewright_sanitize_layout_settings( $input ) {
 
 	/*
 	 * Also allow layouts only included in the premium plugin.
@@ -683,7 +683,7 @@ function ct_period_sanitize_layout_settings( $input ) {
 	return array_key_exists( $input, $valid ) ? $input : '';
 }
 
-function ct_period_sanitize_phone( $input ) {
+function braillewright_sanitize_phone( $input ) {
 	if ( $input != '' ) {
 		return esc_url_raw( 'tel:' . $input, array( 'tel' ) );
 	} else {
@@ -694,4 +694,4 @@ function ct_period_sanitize_phone( $input ) {
 
 // The upstream Customizer "upgrade" upsell ad was removed during the de-brand:
 // it injected a dead "#" link and is unnecessary for the in-house build. If
-// Braillewright Pro is ever distributed separately, add a proper upsell here.
+// Braillewright is ever distributed separately, add a proper upsell here.

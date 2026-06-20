@@ -37,7 +37,7 @@ jobs:
         id: security
         continue-on-error: true
         run: |
-          vendor/bin/phpcs theme/braillewright plugin/braillewright-pro tools \
+          vendor/bin/phpcs theme/braillewright tools \
             --standard=WordPress \
             --sniffs=WordPress.Security.EscapeOutput,WordPress.Security.ValidatedSanitizedInput,WordPress.Security.NonceVerification \
             --extensions=php \
@@ -92,12 +92,10 @@ jobs:
           cache: 'npm'
       - name: Install npm dependencies
         run: npm ci
-      - name: Start wp-env (latest WordPress + PHP 8.3; theme + plugin mounted)
+      - name: Start wp-env (latest WordPress + PHP 8.3; theme mounted)
         run: npx wp-env start
-      - name: Activate theme + plugin
-        run: |
-          npx wp-env run cli wp theme activate braillewright
-          npx wp-env run cli wp plugin activate braillewright-pro
+      - name: Activate theme
+        run: npx wp-env run cli wp theme activate braillewright
       - name: pa11y-ci (WCAG2AA — axe + HTML_CodeSniffer) on latest WordPress
         id: pa11y
         continue-on-error: true

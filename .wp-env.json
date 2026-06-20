@@ -3,7 +3,7 @@
     "core": null,
     "phpVersion": "8.3",
     "themes": [ "./theme/braillewright" ],
-    "plugins": [ "./plugin/braillewright-pro" ],
+    "plugins": [],
     "config": {
         "WP_DEBUG": true,
         "WP_DEBUG_DISPLAY": false,

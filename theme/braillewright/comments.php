@@ -12,7 +12,7 @@ if ( post_password_required() || ( !have_comments() && !comments_open() && !ping
     </div>
   <?php endif; ?>
   <ol class="comment-list">
-    <?php wp_list_comments( array( 'callback' => 'ct_period_customize_comments' ) ); ?>
+    <?php wp_list_comments( array( 'callback' => 'braillewright_customize_comments' ) ); ?>
   </ol>
   <?php if ( ( get_option( 'page_comments' ) == 1 ) && ( get_comment_pages_count() > 1 ) ) : ?>
     <nav class="comment-pagination">

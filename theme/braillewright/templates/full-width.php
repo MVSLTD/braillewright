@@ -11,7 +11,7 @@ get_header(); ?>
 			<div <?php post_class(); ?>>
 				<article>
 					<?php do_action( 'page_before' ); ?>
-					<?php ct_period_featured_image(); ?>
+					<?php braillewright_featured_image(); ?>
 					<div class="post-container">
 						<div class='post-header'>
 							<h1 class='post-title'><?php the_title(); ?></h1>

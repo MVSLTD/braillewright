@@ -31,11 +31,11 @@ if ( function_exists( 'wp_body_open' ) ) {
 			</div>
 			<button id="toggle-navigation" class="toggle-navigation" name="toggle-navigation" aria-expanded="false">
 				<span class="screen-reader-text"><?php echo esc_html_x( 'open menu', 'verb: open the menu', 'braillewright' ); ?></span>
-				<?php echo ct_period_svg_output( 'toggle-navigation' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- returns a hardcoded literal SVG; no user data. ?>
+				<?php echo braillewright_svg_output( 'toggle-navigation' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- returns a hardcoded literal SVG; no user data. ?>
 			</button>
 			<div id="menu-primary-container" class="menu-primary-container">
 				<div class="icon-container">
-					<?php ct_period_social_icons_output(); ?>
+					<?php braillewright_social_icons_output(); ?>
 					<?php get_template_part( 'content/search-bar' ); ?>
 				</div>
 				<?php get_template_part( 'menu', 'primary' ); ?>
