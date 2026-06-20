@@ -15,10 +15,15 @@ import { expect, type Page } from "@playwright/test";
  * shows exactly what each screen reader said — use that to tighten assertions.
  */
 
-/** Base URL of the deployment under test. CI sets SR_BASE_URL; default = TTT staging. */
+/** Base URL of the deployment under test. Set SR_BASE_URL (CI sources it from the SR_BASE_URL repo variable). */
 export const BASE_URL =
     process.env.SR_BASE_URL ??
-    "https://staging.example.invalid";
+    (() => {
+        throw new Error(
+            "SR_BASE_URL is required: the base URL of the site under test. " +
+            "In CI it comes from the SR_BASE_URL repository variable; locally, export it before running.",
+        );
+    })();
 
 /** A recent TTT issue that exists on the staging clone (verified reachable 2026-06-19). */
 export const ISSUE_PATH = "/newsletter-06-11-2026/";
