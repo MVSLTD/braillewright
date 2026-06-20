@@ -164,3 +164,28 @@ jobs:
       - name: Stop wp-env
         if: always()
         run: npx wp-env stop
+
+  # ---------------------------------------------------------------------------
+  # DEPLOY ARTIFACT (native WordPress.com GitHub Deployments).
+  # Packages theme/braillewright/ as the artifact named `wpcom` that WordPress.com
+  # advanced deployments look for. Gated so it runs ONLY after every test gate
+  # above passes (needs:) AND only on a push to main (if:) — so the native
+  # auto-deploy to TTT staging can never ship code that failed CI, and PRs never
+  # produce a deploy artifact. WordPress.com (Advanced mode, pointed at this
+  # workflow) deploys this artifact's contents into the configured destination
+  # /wp-content/themes/braillewright. Artifact root = the theme's contents
+  # (style.css at the root), verified against the live deploy.
+  # ---------------------------------------------------------------------------
+  package-theme:
+    name: Package theme for WordPress.com (wpcom artifact)
+    needs: [php-lint, php-compatibility, static-analysis, coding-standards, accessibility]
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Upload theme/braillewright as the wpcom artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: wpcom
+          path: theme/braillewright
+          retention-days: 1
