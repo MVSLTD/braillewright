@@ -64,7 +64,7 @@ function braillewright_auto_update_notice() {
  */
 if (
 	is_admin()
-	|| ( defined( 'DOING_CRON' ) && DOING_CRON )
+	|| wp_doing_cron()
 	|| ( defined( 'WP_CLI' ) && WP_CLI )
 ) {
 	require_once trailingslashit( get_template_directory() ) . 'lib/plugin-update-checker/plugin-update-checker.php';
