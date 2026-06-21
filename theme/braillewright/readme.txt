@@ -1,7 +1,7 @@
 === Braillewright ===
 Requires at least: 5.2
 Tested up to: 6.7
-Stable tag: 1.750
+Stable tag: 2.0.0
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: accessibility-ready, custom-logo, custom-menu, featured-images, two-columns, left-sidebar, right-sidebar
@@ -17,6 +17,13 @@ Braillewright is an accessibility-first WordPress theme maintained in-house by A
 Forked from Period 1.750 (GPLv2-or-later) Source integrity hashes and full attribution are in docs/PROVENANCE.md in the Braillewright repository. "Period" and "Compete Themes" are the upstream author's marks and are not used in Braillewright's branding.
 
 == Changelog ==
+
+= 2.0.0 =
+* First self-maintained versioned release of Braillewright.
+* Built-in automatic updates: the theme keeps itself updated for your security and ongoing accessibility (self-hosted update channel, no third-party phone-home).
+* Single fused theme - the former Pro feature set (layouts, colors, fonts, header image, display controls) is built in; no companion plugin.
+* WCAG 2.2 AA remediation: landmark labels, visible focus indicators, accessible search and navigation, and ongoing fixes.
+* Continuously verified by automated screen-reader (NVDA + VoiceOver) and accessibility checks.
 
 = Fork - 2026 =
 * Forked from Period 1.750 and Period Pro 1.16 (the Pro feature set is merged into the theme).
