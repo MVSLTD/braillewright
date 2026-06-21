@@ -47,11 +47,45 @@ export interface ScreenReader {
  * next() traversal, which proved flaky on BOTH screen readers in CI — it is a
  * discrete, reliable jump. Stops as soon as a jump stops advancing (the same
  * phrase twice = wrapped past the last heading). Returns the speech lowercased.
+ *
+ * Resilience: on a cold CI runner the screen reader's virtual buffer is
+ * occasionally not ready when navigateToWebContent() fires, so the heading
+ * quick-key falls through as a literal keystroke and the walk comes back empty
+ * (observed on the 2026-06-21 staging run: the entire spoken log was an echoed
+ * "h", while prod, on identical content, announced every heading). A walk that
+ * engaged browse mode always announces at least one "heading"; if none appears
+ * we settle briefly and retry the walk before giving up. The happy path (browse
+ * mode ready on the first try) returns immediately with no added wait, and a
+ * genuinely missing heading still fails honestly after the retries -- the
+ * assertion is never relaxed.
  */
 export async function collectHeadingWalk(
     sr: any,
     headingCommand: any,
-    maxSteps = 30
+    maxSteps = 30,
+    { attempts = 3, settleMs = 1500 }: { attempts?: number; settleMs?: number } = {},
+): Promise<string> {
+    let speech = "";
+    for (let attempt = 1; attempt <= attempts; attempt++) {
+        speech = await walkHeadingsOnce(sr, headingCommand, maxSteps);
+        // "heading" present => browse-mode heading nav actually engaged, so judge
+        // the content as-is. Absent => the virtual buffer was not ready (the known
+        // CI flake); settle and retry rather than report a false a11y failure.
+        if (speech.includes("heading")) {
+            break;
+        }
+        if (attempt < attempts) {
+            await new Promise((resolve) => setTimeout(resolve, settleMs));
+        }
+    }
+    return speech;
+}
+
+/** A single heading-navigation pass; returns the joined speech, lowercased. */
+async function walkHeadingsOnce(
+    sr: any,
+    headingCommand: any,
+    maxSteps: number,
 ): Promise<string> {
     await sr.navigateToWebContent();
     const phrases: string[] = [(await sr.lastSpokenPhrase()) ?? ""];
