@@ -11,6 +11,7 @@
     <arg value="sp"/>
 
     <exclude-pattern>*/tgm/*</exclude-pattern>
+    <exclude-pattern>*/lib/plugin-update-checker/*</exclude-pattern><!-- vendored PUC; php-lint still syntax-checks it on 8.3 -->
     <exclude-pattern>*/languages/*</exclude-pattern>
     <exclude-pattern>*/node_modules/*</exclude-pattern>
     <exclude-pattern>*/vendor/*</exclude-pattern>

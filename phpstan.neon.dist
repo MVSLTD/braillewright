@@ -16,10 +16,13 @@ parameters:
         # analyse = still scanned for symbols (so calls elsewhere resolve), but
         # not error-reported. tgm/ is the vendored TGM Plugin Activation library;
         # woocommerce.php is a WooCommerce template (WC functions aren't stubbed
-        # here, and TTT does not depend on it).
+        # here, and TTT does not depend on it); lib/plugin-update-checker/ is the
+        # vendored YahnisElsts PUC — keep it scanned so PucFactory resolves in
+        # inc/auto-update.php, but don't report findings inside the library.
         analyse:
             - theme/braillewright/tgm/*
             - theme/braillewright/woocommerce.php
+            - theme/braillewright/lib/plugin-update-checker/*
     treatPhpDocTypesAsCertain: false
     # During active security remediation (Phase 3), code fixes routinely resolve
     # baselined errors; don't fail the build on now-obsolete baseline entries.

@@ -41,7 +41,7 @@ jobs:
             --standard=WordPress \
             --sniffs=WordPress.Security.EscapeOutput,WordPress.Security.ValidatedSanitizedInput,WordPress.Security.NonceVerification \
             --extensions=php \
-            --ignore=*/tgm/*,*/languages/* \
+            --ignore=*/tgm/*,*/languages/*,*/lib/plugin-update-checker/* \
             --report-full
 
       - name: PHP 8.3+ compatibility
