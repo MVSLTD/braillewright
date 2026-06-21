@@ -10,7 +10,7 @@ compatibility/advisory drift.
 
 | Job | Tool | Gate | Notes |
 |---|---|---|---|
-| **PHP syntax lint** | `php -l` on PHP 8.3 | **Blocking** | All 56 PHP files must parse on the Atomic runtime. |
+| **PHP syntax lint** | `php -l` on PHP 8.3 | **Blocking** | Every PHP file in `theme/` + `tools/` must parse on the Atomic runtime (includes the vendored PUC). |
 | **Security sniffs** | PHPCS `EscapeOutput` + `NonceVerification` + `ValidatedSanitizedInput` | **Blocking** | 0 after the Phase 3 passes (2026-06-18). |
 | **Coding standards (style)** | PHPCS `WordPress-Extra` | Advisory | ~4,900 cosmetic findings; `phpcs-report` artifact. |
 | **PHP 8.3+ compatibility** | PHPCompatibility (`testVersion 8.3-`) | **Blocking** | Verified 0 findings on 8.3 (2026-06-18). `phpcompat-report` artifact. |
@@ -73,9 +73,9 @@ npm run env:stop
 | File | Purpose |
 |---|---|
 | `composer.json` | Dev-only PHP toolchain + convenience scripts. The theme/plugin have **no runtime Composer deps**. |
-| `phpcs.xml.dist` | PHPCS ruleset: WordPress-Extra + security; text domains + kept prefixes whitelisted; `tgm/`, `languages/`, min assets excluded. |
-| `phpcompat.xml.dist` | PHPCompatibility ruleset, `testVersion 8.3-`. |
-| `phpstan.neon.dist` | PHPStan level 5; WP stubs via `szepeviktor/phpstan-wordpress`; `tgm/` + `woocommerce.php` excluded; baseline enabled. |
+| `phpcs.xml.dist` | PHPCS ruleset: WordPress-Extra + security; text domains + kept prefixes whitelisted; `tgm/`, `lib/plugin-update-checker/` (vendored PUC), `languages/`, min assets excluded. |
+| `phpcompat.xml.dist` | PHPCompatibility ruleset, `testVersion 8.3-`; `tgm/` + `lib/plugin-update-checker/` excluded (php-lint still covers PUC syntax). |
+| `phpstan.neon.dist` | PHPStan level 5; WP stubs via `szepeviktor/phpstan-wordpress`; `tgm/`, `woocommerce.php` + `lib/plugin-update-checker/` excluded from analysis (still scanned for symbols, so `PucFactory` resolves); baseline enabled. |
 | `phpstan-baseline.neon` | The 45 inherited PHPStan findings, so analysis blocks only on regressions. |
 | `package.json` | Node a11y toolchain (`@wordpress/env`, `pa11y-ci`, `@lhci/cli`, `@axe-core/cli`). |
 | `.wp-env.json` | wp-env: latest WP, **PHP 8.3**, theme + plugin mounted. |
@@ -141,8 +141,10 @@ breaks the build can never land. **Major** updates wait for manual review.
 ## Scope reminder
 
 CI gates the **theme + plugin code we maintain**. The vendored
-`theme/braillewright/tgm/` (TGM Plugin Activation) is excluded from our linting;
-keep it updated from upstream TGMPA separately. The accessibility job validates
+`theme/braillewright/tgm/` (TGM Plugin Activation) and
+`theme/braillewright/lib/plugin-update-checker/` (the YahnisElsts PUC self-update
+library) are excluded from our linting; keep them updated from upstream
+separately. The accessibility job validates
 template-level a11y on a clean WordPress install — it is **not** a substitute for
 the manual AT testing in
 [`a11y-audit-ttt-2026-06.md`](a11y-audit-ttt-2026-06.md), and it does not see

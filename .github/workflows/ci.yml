@@ -111,7 +111,7 @@ jobs:
             --standard=WordPress \
             --sniffs=WordPress.Security.EscapeOutput,WordPress.Security.NonceVerification,WordPress.Security.ValidatedSanitizedInput \
             --extensions=php \
-            --ignore=*/tgm/*,*/languages/*
+            --ignore=*/tgm/*,*/languages/*,*/lib/plugin-update-checker/*
       - name: Full coding standards (advisory)
         continue-on-error: true
         run: composer lint -- --report-full --report-checkstyle=phpcs-report.xml

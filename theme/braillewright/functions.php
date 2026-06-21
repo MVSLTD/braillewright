@@ -8,6 +8,7 @@ require_once(trailingslashit(get_template_directory()) . 'inc/customizer.php');
 require_once(trailingslashit(get_template_directory()) . 'inc/last-updated-meta-box.php');
 require_once(trailingslashit(get_template_directory()) . 'inc/scripts.php');
 require_once(trailingslashit(get_template_directory()) . 'features/bootstrap.php');
+require_once(trailingslashit(get_template_directory()) . 'inc/auto-update.php');
 
 if (! function_exists(('braillewright_set_content_width'))) {
     function braillewright_set_content_width()

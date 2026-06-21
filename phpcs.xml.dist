@@ -15,6 +15,7 @@
 
     <!-- Exclusions: bundled third-party libs, compiled translations, vendor/build output. -->
     <exclude-pattern>*/tgm/*</exclude-pattern><!-- TGM Plugin Activation (vendored, not ours to restyle) -->
+    <exclude-pattern>*/lib/plugin-update-checker/*</exclude-pattern><!-- YahnisElsts Plugin Update Checker (vendored GPL self-update lib; not ours to restyle) -->
     <exclude-pattern>*/languages/*</exclude-pattern><!-- .po/.mo/.pot data files -->
     <exclude-pattern>*/node_modules/*</exclude-pattern>
     <exclude-pattern>*/vendor/*</exclude-pattern>
