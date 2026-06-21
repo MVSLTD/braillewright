@@ -13,27 +13,18 @@
  * tells the site owner. This is GPL software on the owner's own server, so it is
  * not an absolute lock — a developer can change this file — but it is the default
  * for everyone who installs the theme as shipped.
+ *
+ * The checker is wired up ONLY in the contexts that actually manage updates —
+ * wp-admin, WP-Cron (the scheduled check + auto-apply) and WP-CLI. It is
+ * deliberately not loaded on ordinary front-end page views: a public request
+ * never manages updates, so running the third-party library there adds nothing
+ * and keeps its admin/update machinery (and any failure in it) away from site
+ * visitors.
  */
 
 defined( 'ABSPATH' ) OR exit;
 
-require_once trailingslashit( get_template_directory() ) . 'lib/plugin-update-checker/plugin-update-checker.php';
-
 use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
-
-/*
- * Build the update checker. The manifest URL is filterable so a staging/dev site
- * can point at a test endpoint via the 'braillewright_update_manifest_url' filter
- * without editing this file.
- */
-PucFactory::buildUpdateChecker(
-	apply_filters(
-		'braillewright_update_manifest_url',
-		'https://toptechtidbits.com/wp-content/uploads/braillewright/details.json'
-	),
-	__FILE__,        // Any file in the theme dir; PUC detects the theme + reads style.css.
-	'braillewright'
-);
 
 /*
  * Force automatic updates ON for Braillewright, overriding the per-theme toggle,
@@ -48,7 +39,6 @@ function braillewright_force_auto_update( $update, $item ) {
 	}
 	return ( 'braillewright' === $slug ) ? true : $update;
 }
-add_filter( 'auto_update_theme', 'braillewright_force_auto_update', 10, 2 );
 
 /*
  * Transparent notice: WordPress does not reflect a forced auto-update in the UI,
@@ -66,4 +56,37 @@ function braillewright_auto_update_notice() {
 		. esc_html__( 'This theme keeps itself updated for your security and ongoing accessibility.', 'braillewright' )
 		. '</p></div>';
 }
-add_action( 'admin_notices', 'braillewright_auto_update_notice' );
+
+/*
+ * Only load + wire the update checker where updates are actually managed:
+ * wp-admin, WP-Cron and WP-CLI. A normal front-end request never manages
+ * updates, so the third-party library is not loaded there at all.
+ */
+if (
+	is_admin()
+	|| ( defined( 'DOING_CRON' ) && DOING_CRON )
+	|| ( defined( 'WP_CLI' ) && WP_CLI )
+) {
+	require_once trailingslashit( get_template_directory() ) . 'lib/plugin-update-checker/plugin-update-checker.php';
+
+	/*
+	 * Build the update checker. The second argument must point at a file in the
+	 * theme ROOT — PUC reads the adjacent style.css to identify the theme and its
+	 * version — so we pass the theme's style.css. (Passing __FILE__ would fail:
+	 * this file lives in inc/, and PUC only looks for style.css in that same
+	 * directory.) The manifest URL is filterable so a staging/dev site can point
+	 * at a test endpoint via the 'braillewright_update_manifest_url' filter
+	 * without editing this file.
+	 */
+	PucFactory::buildUpdateChecker(
+		apply_filters(
+			'braillewright_update_manifest_url',
+			'https://toptechtidbits.com/wp-content/uploads/braillewright/details.json'
+		),
+		get_template_directory() . '/style.css',
+		'braillewright'
+	);
+
+	add_filter( 'auto_update_theme', 'braillewright_force_auto_update', 10, 2 );
+	add_action( 'admin_notices', 'braillewright_auto_update_notice' );
+}
