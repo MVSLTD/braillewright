@@ -182,7 +182,7 @@ function braillewright_options_content()
 				<h4>More Amazing Resources</h4>
 				<ul>
 					<li><a href="#" target="_blank">Support Center</a></li>
-					<li><a href="https://github.com/Osarusano/braillewright/issues" target="_blank">Support (GitHub Issues)</a></li>
+					<li><a href="https://github.com/MVSLTD/braillewright/issues" target="_blank">Support (GitHub Issues)</a></li>
 					<li><a href="#" target="_blank">Changelog</a></li>
 					<li><a href="#" target="_blank">CSS Snippets</a></li>
 					<li><a href="#" target="_blank">Starter child theme</a></li>
