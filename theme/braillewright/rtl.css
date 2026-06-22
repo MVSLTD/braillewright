@@ -3,7 +3,7 @@
 Theme Name: Braillewright
 Author: Aaron Di Blasi
 Description: Accessibility-first WordPress theme, maintained in-house. Forked from the GPL Period theme
-Version: 2.0.0
+Version: 2.0.1
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: two-columns, left-sidebar, right-sidebar, accessibility-ready, custom-logo, custom-menu, featured-images, full-width-template, rtl-language-support, sticky-post, theme-options, threaded-comments, translation-ready, blog, education, news
@@ -14,6 +14,8 @@ Requires PHP: 5.4
 Period WordPress Theme, Copyright 2024 Compete Themes
 Braillewright is a fork of Period 1.750; modifications Copyright 2026 Aaron Di Blasi, GNU GPL v2 or later.
 Distributed under the terms of the GNU GPL
+
+Braillewright is created and maintained by Aaron Di Blasi of Mind Vault Solutions, Ltd. on behalf of Top Tech Tidbits, with engineering support from Claude Code.
 */
 /*===== Variables =====*/
 /* Theme Colors */

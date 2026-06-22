@@ -1,7 +1,7 @@
 === Braillewright ===
 Requires at least: 5.2
 Tested up to: 6.7
-Stable tag: 2.0.0
+Stable tag: 2.0.1
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: accessibility-ready, custom-logo, custom-menu, featured-images, two-columns, left-sidebar, right-sidebar
@@ -16,7 +16,14 @@ Braillewright is an accessibility-first WordPress theme maintained in-house by A
 
 Forked from Period 1.750 (GPLv2-or-later) Source integrity hashes and full attribution are in docs/PROVENANCE.md in the Braillewright repository. "Period" and "Compete Themes" are the upstream author's marks and are not used in Braillewright's branding.
 
+== Credits ==
+
+Braillewright is created and maintained by Aaron Di Blasi of Mind Vault Solutions, Ltd. on behalf of Top Tech Tidbits, with engineering support from Claude Code.
+
 == Changelog ==
+
+= 2.0.1 =
+* Added the project authorship/credit line (no functional change).
 
 = 2.0.0 =
 * First self-maintained versioned release of Braillewright.

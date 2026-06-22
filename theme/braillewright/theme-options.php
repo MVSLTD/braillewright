@@ -17,6 +17,7 @@ function braillewright_options_content()
     $pro_url = '#'; ?>
 	<div id="braillewright-dashboard-wrap" class="wrap braillewright-dashboard-wrap">
 		<h2><?php printf(esc_html__('%s Dashboard', 'braillewright'), esc_html( (string) wp_get_theme() )); ?></h2>
+		<p class="braillewright-credit"><?php esc_html_e( 'Braillewright is created and maintained by Aaron Di Blasi of Mind Vault Solutions, Ltd. on behalf of Top Tech Tidbits, with engineering support from Claude Code.', 'braillewright' ); ?></p>
 		<?php do_action('theme_options_before'); ?>
 		<div class="main">
 			<?php if (function_exists('braillewright_features_init')) : ?>
