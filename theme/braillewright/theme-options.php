@@ -16,6 +16,7 @@ function braillewright_options_content()
 {
     $pro_url = '#'; ?>
 	<div id="braillewright-dashboard-wrap" class="wrap braillewright-dashboard-wrap">
+		<img class="braillewright-logo" src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/braillewright-logo.png' ); ?>" alt="<?php echo esc_attr__( 'Logo for the Braillewright WordPress Theme featuring a stylized black fountain pen with a gold nib, wrapped in a looping gold flourish with sparkles, dancing above the word Braillewright in large black serif lettering on a white background.', 'braillewright' ); ?>" style="max-width:220px;height:auto;display:block;margin:0 0 16px;">
 		<h2><?php printf(esc_html__('%s Dashboard', 'braillewright'), esc_html( (string) wp_get_theme() )); ?></h2>
 		<p class="braillewright-credit"><?php esc_html_e( 'Braillewright is created and maintained by Aaron Di Blasi of Mind Vault Solutions, Ltd. on behalf of Top Tech Tidbits, with engineering support from Claude Code.', 'braillewright' ); ?></p>
 		<?php do_action('theme_options_before'); ?>
