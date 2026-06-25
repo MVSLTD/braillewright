@@ -16,9 +16,9 @@
         "a11y": "npm run a11y:pa11y && npm run a11y:lighthouse"
     },
     "devDependencies": {
-        "@axe-core/cli": "^4.11.3",
+        "@axe-core/cli": "^4.12.1",
         "@lhci/cli": "^0.15.1",
-        "@wordpress/env": "^11.8.1",
+        "@wordpress/env": "^11.9.0",
         "pa11y-ci": "^4.1.1"
     }
 }
