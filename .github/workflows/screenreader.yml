@@ -67,7 +67,7 @@ jobs:
 
       # Installs portable NVDA on Windows / enables VoiceOver on macOS (TCC.db).
       - name: Set up screen reader environment (Guidepup)
-        uses: guidepup/setup-action@0.20.0
+        uses: guidepup/setup-action@0.21.0
 
       - name: Run ${{ matrix.screenreader }} smoke tests
         run: npx playwright test --project=${{ matrix.screenreader }}
@@ -123,7 +123,7 @@ jobs:
 
       # Installs portable NVDA on Windows / enables VoiceOver on macOS (TCC.db).
       - name: Set up screen reader environment (Guidepup)
-        uses: guidepup/setup-action@0.20.0
+        uses: guidepup/setup-action@0.21.0
 
       - name: Run ${{ matrix.screenreader }} smoke tests
         run: npx playwright test --project=${{ matrix.screenreader }}
