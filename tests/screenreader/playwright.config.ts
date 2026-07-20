@@ -26,8 +26,11 @@ export default defineConfig({
         // NVDA passes on the first attempt; the top-level 2 retries applies here.
         { name: "nvda", testMatch: /.*\.nvda\.spec\.ts/ },
         // VoiceOver runs on macos-14 (see the workflow matrix) to dodge the macOS 15+/26 AppleScript
-        // automation regression (actions/runner-images#11257). A few retries still cover the
-        // occasional slow VoiceOver start; matches the retry budget guidepup's own CI uses.
-        { name: "voiceover", testMatch: /.*\.voiceover\.spec\.ts/, retries: 5 },
+        // automation regression (actions/runner-images#11257). That fixes the fatal, retry-proof
+        // "-1743 Not authorized to send Apple events" error, but a milder guidepup flake remains:
+        // ~half of VoiceOver *start* attempts hit "Timed out waiting for VoiceOver to be running" and
+        // succeed on a later try. Retry generously so an unlucky streak doesn't fail the job (a
+        // failed start fast-fails in ~12s).
+        { name: "voiceover", testMatch: /.*\.voiceover\.spec\.ts/, retries: 10 },
     ],
 });
