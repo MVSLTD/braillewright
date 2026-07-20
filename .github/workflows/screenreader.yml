@@ -44,7 +44,13 @@ jobs:
           - screenreader: nvda
             os: windows-latest
           - screenreader: voiceover
-            os: macos-latest
+            # macos-14, NOT macos-latest: macOS 15 (Sequoia) and later — which includes the current
+            # macos-latest (macos-26) — moved VoiceOver's preferences into a sandboxed container,
+            # breaking AppleScript automation of VoiceOver and Apple Events to the browser on GitHub
+            # runners (intermittent "VoiceOver not running" / "-1743 Not authorized to send Apple
+            # events"). See actions/runner-images#11257; macOS 12/13/14 are unaffected. Revisit when
+            # that runner issue is fixed and guidepup handles the relocated prefs.
+            os: macos-14
     runs-on: ${{ matrix.os }}
     defaults:
       run:
@@ -111,7 +117,13 @@ jobs:
           - screenreader: nvda
             os: windows-latest
           - screenreader: voiceover
-            os: macos-latest
+            # macos-14, NOT macos-latest: macOS 15 (Sequoia) and later — which includes the current
+            # macos-latest (macos-26) — moved VoiceOver's preferences into a sandboxed container,
+            # breaking AppleScript automation of VoiceOver and Apple Events to the browser on GitHub
+            # runners (intermittent "VoiceOver not running" / "-1743 Not authorized to send Apple
+            # events"). See actions/runner-images#11257; macOS 12/13/14 are unaffected. Revisit when
+            # that runner issue is fixed and guidepup handles the relocated prefs.
+            os: macos-14
     runs-on: ${{ matrix.os }}
     defaults:
       run:

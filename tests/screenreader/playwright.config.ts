@@ -25,11 +25,9 @@ export default defineConfig({
     projects: [
         // NVDA passes on the first attempt; the top-level 2 retries applies here.
         { name: "nvda", testMatch: /.*\.nvda\.spec\.ts/ },
-        // VoiceOver startup under @guidepup/guidepup 0.29.0 is genuinely flaky on the macos-26 runner
-        // ("Timed out waiting for VoiceOver to be running") — measured ~58% of start attempts time out
-        // and only succeed on a later one (a known guidepup VoiceOver start/teardown issue; even
-        // guidepup's own CI leans on retries). Give VoiceOver many retries so a slow start is absorbed
-        // rather than failing the job. Failed attempts fast-fail in ~12s, well inside the 25-min budget.
-        { name: "voiceover", testMatch: /.*\.voiceover\.spec\.ts/, retries: 10 },
+        // VoiceOver runs on macos-14 (see the workflow matrix) to dodge the macOS 15+/26 AppleScript
+        // automation regression (actions/runner-images#11257). A few retries still cover the
+        // occasional slow VoiceOver start; matches the retry budget guidepup's own CI uses.
+        { name: "voiceover", testMatch: /.*\.voiceover\.spec\.ts/, retries: 5 },
     ],
 });
