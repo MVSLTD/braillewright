@@ -55,19 +55,30 @@ jobs:
       - name: Set up Node
         uses: actions/setup-node@v6
         with:
-          node-version: '20'
+          node-version: '24'
           cache: 'npm'
           cache-dependency-path: tests/screenreader/package-lock.json
+
+      # Machine-level screen-reader setup: enables NVDA automation on Windows / VoiceOver (TCC.db) on
+      # macOS. As of @guidepup/guidepup 0.29.0 this is the @guidepup/setup CLI, NOT the old
+      # guidepup/setup-action@0.21.0 — the released action never runs the manifest asset `install`
+      # step below, so the lockfile's guidepup could not find NVDA ("NVDA not installed"). This
+      # mirrors guidepup's own 0.29.0 e2e CI. Pin @guidepup/setup to the version whose manifest matches
+      # the @guidepup/guidepup pinned in tests/screenreader/package-lock.json.
+      - name: Set up screen reader machine (Guidepup)
+        run: npx -y @guidepup/setup@0.24.0 setup
 
       - name: Install dependencies
         run: npm ci
 
+      # Manifest-driven assets: reads the manifest bundled in the just-installed @guidepup/guidepup and
+      # downloads the matching NVDA build into the project. Must run AFTER `npm ci` (needs guidepup in
+      # node_modules) and in tests/screenreader (this job's default working-directory).
+      - name: Install screen reader assets (Guidepup)
+        run: npx -y @guidepup/setup@0.24.0 install
+
       - name: Install Playwright Chromium
         run: npx playwright install chromium
-
-      # Installs portable NVDA on Windows / enables VoiceOver on macOS (TCC.db).
-      - name: Set up screen reader environment (Guidepup)
-        uses: guidepup/setup-action@0.21.0
 
       - name: Run ${{ matrix.screenreader }} smoke tests
         run: npx playwright test --project=${{ matrix.screenreader }}
@@ -111,19 +122,30 @@ jobs:
       - name: Set up Node
         uses: actions/setup-node@v6
         with:
-          node-version: '20'
+          node-version: '24'
           cache: 'npm'
           cache-dependency-path: tests/screenreader/package-lock.json
+
+      # Machine-level screen-reader setup: enables NVDA automation on Windows / VoiceOver (TCC.db) on
+      # macOS. As of @guidepup/guidepup 0.29.0 this is the @guidepup/setup CLI, NOT the old
+      # guidepup/setup-action@0.21.0 — the released action never runs the manifest asset `install`
+      # step below, so the lockfile's guidepup could not find NVDA ("NVDA not installed"). This
+      # mirrors guidepup's own 0.29.0 e2e CI. Pin @guidepup/setup to the version whose manifest matches
+      # the @guidepup/guidepup pinned in tests/screenreader/package-lock.json.
+      - name: Set up screen reader machine (Guidepup)
+        run: npx -y @guidepup/setup@0.24.0 setup
 
       - name: Install dependencies
         run: npm ci
 
+      # Manifest-driven assets: reads the manifest bundled in the just-installed @guidepup/guidepup and
+      # downloads the matching NVDA build into the project. Must run AFTER `npm ci` (needs guidepup in
+      # node_modules) and in tests/screenreader (this job's default working-directory).
+      - name: Install screen reader assets (Guidepup)
+        run: npx -y @guidepup/setup@0.24.0 install
+
       - name: Install Playwright Chromium
         run: npx playwright install chromium
-
-      # Installs portable NVDA on Windows / enables VoiceOver on macOS (TCC.db).
-      - name: Set up screen reader environment (Guidepup)
-        uses: guidepup/setup-action@0.21.0
 
       - name: Run ${{ matrix.screenreader }} smoke tests
         run: npx playwright test --project=${{ matrix.screenreader }}
