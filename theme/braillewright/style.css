@@ -595,16 +595,23 @@ a img {
 }
 
 /* No-results search: show the message in the page body (light area) instead of
-   stranded on the dark masthead. WordPress adds the body.search-no-results class. */
+   stranded on the dark masthead.
+
+   WordPress puts `search-no-results` on the BODY, so that name must never be used
+   for one of our own elements -- a bare `.search-no-results { padding-top: ... }`
+   also matches <body> and shifts the whole page. Measured on staging 2026-08-14:
+   body picked up padding-top 24px and margin-bottom 32px on every no-results
+   search. Our block is therefore scoped with the theme's own bw- prefix; only the
+   rule that deliberately targets the WordPress body class still uses that name. */
 body.search-no-results .primary-container {
   margin-top: 0;
 }
-.search-no-results {
+.bw-search-empty {
   padding-top: 1.5em;
   margin-bottom: 2em;
   color: #333333;
 }
-.search-no-results-title {
+.bw-search-empty-title {
   color: #333333;
   margin-bottom: 0.5em;
 }
