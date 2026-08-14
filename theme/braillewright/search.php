@@ -20,8 +20,8 @@
             endwhile;
         else :
             ?>
-            <div class="search-no-results">
-                <h1 class="post-title search-no-results-title">
+            <div class="bw-search-empty">
+                <h1 class="post-title bw-search-empty-title">
                     <?php printf( esc_html__( 'No search results for "%s"', 'braillewright' ), esc_html( $s ) ); ?>
                 </h1>
                 <p><?php esc_html_e( "We couldn't find anything matching that search. Try a different or more general term:", 'braillewright' ); ?></p>
