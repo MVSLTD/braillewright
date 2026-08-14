@@ -1,7 +1,7 @@
 === Braillewright ===
 Requires at least: 5.2
 Tested up to: 6.7
-Stable tag: 2.0.4
+Stable tag: 2.0.5
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: accessibility-ready, custom-logo, custom-menu, featured-images, two-columns, left-sidebar, right-sidebar
@@ -21,6 +21,12 @@ Forked from Period 1.750 (GPLv2-or-later) Source integrity hashes and full attri
 Braillewright is created and maintained by Aaron Di Blasi of Mind Vault Solutions, Ltd. on behalf of Top Tech Tidbits, with engineering support from Claude Code.
 
 == Changelog ==
+
+= 2.0.5 =
+* Fixed a missing stylesheet on right-to-left sites. The theme asked for features/styles/rtl.min.css on every right-to-left page and that file did not exist, so those sites lost a whole layer of styling. It has been missing since the June feature merge.
+* Rebuilt every minified stylesheet from its source. Several had drifted: the root style.min.css was two months stale and still carried an old focus-outline defect, and the features stylesheet was missing a line-height its source specifies.
+* Removed five dead links from the Braillewright dashboard in WordPress admin and pointed the Changelog link at the GitHub releases page. They led nowhere and opened in a new tab.
+* Added two build checks so neither problem can return quietly: minified stylesheets are now verified against their sources, and every enqueued asset is verified to exist.
 
 = 2.0.4 =
 * Fixed the "no search results" message rendering on the dark masthead instead of in the page body, and added a search form so a visitor can retry without going back.
