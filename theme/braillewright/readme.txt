@@ -1,7 +1,7 @@
 === Braillewright ===
 Requires at least: 5.2
 Tested up to: 6.7
-Stable tag: 2.0.3
+Stable tag: 2.0.4
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: accessibility-ready, custom-logo, custom-menu, featured-images, two-columns, left-sidebar, right-sidebar
@@ -21,6 +21,10 @@ Forked from Period 1.750 (GPLv2-or-later) Source integrity hashes and full attri
 Braillewright is created and maintained by Aaron Di Blasi of Mind Vault Solutions, Ltd. on behalf of Top Tech Tidbits, with engineering support from Claude Code.
 
 == Changelog ==
+
+= 2.0.4 =
+* Fixed the "no search results" message rendering on the dark masthead instead of in the page body, and added a search form so a visitor can retry without going back.
+* Fixed a class-name collision with WordPress' own body class that added unintended padding and margin to every no-results search page.
 
 = 2.0.3 =
 * Updated the dashboard Support link to the renamed GitHub organization (MVSLTD).
