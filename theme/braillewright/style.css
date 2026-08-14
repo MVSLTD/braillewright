@@ -585,6 +585,30 @@ a img {
   padding: 6px 14px 6px 14px;
 }
 
+/* Keep the search / archive heading readable on its dark chip even when a
+   site's heading color (h1..h6) is set dark in the Customizer. */
+.archive-header h1,
+.archive-header h1 a,
+.archive-header h2,
+.archive-header h2 a {
+  color: #ffffff;
+}
+
+/* No-results search: show the message in the page body (light area) instead of
+   stranded on the dark masthead. WordPress adds the body.search-no-results class. */
+body.search-no-results .primary-container {
+  margin-top: 0;
+}
+.search-no-results {
+  padding-top: 1.5em;
+  margin-bottom: 2em;
+  color: #333333;
+}
+.search-no-results-title {
+  color: #333333;
+  margin-bottom: 0.5em;
+}
+
 .more-link,
 .comments-link {
   display: inline-block;
