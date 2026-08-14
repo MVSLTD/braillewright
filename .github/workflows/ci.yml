@@ -143,6 +143,17 @@ jobs:
           cache: 'npm'
       - name: Install npm dependencies
         run: npm ci
+      # Fast structural gates. Both run BEFORE wp-env so a drifted or missing
+      # asset fails in seconds rather than after a full WordPress boot.
+      # Added 2026-08-14 after two defects that no existing gate could catch:
+      #   * features/styles/rtl.min.css was enqueued for RTL sites but did not
+      #     exist -- invisible to pa11y, which only ever loads an LTR page.
+      #   * style.min.css was two months stale and still carried the
+      #     `outline:0` focus defect that was fixed in the source back in June.
+      - name: Minified stylesheets match their sources [BLOCKING]
+        run: node tools/build-css.js --check
+      - name: Every enqueued asset exists on disk [BLOCKING]
+        run: python -X utf8 tools/check-enqueued-assets.py
       - name: Start wp-env (WordPress + PHP 8.3; theme mounted)
         run: npx wp-env start
       - name: Activate theme

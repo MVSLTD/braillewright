@@ -181,13 +181,8 @@ function braillewright_options_content()
 			<div class="dashboard-widget">
 				<h4>More Amazing Resources</h4>
 				<ul>
-					<li><a href="#" target="_blank">Support Center</a></li>
-					<li><a href="https://github.com/MVSLTD/braillewright/issues" target="_blank">Support (GitHub Issues)</a></li>
-					<li><a href="#" target="_blank">Changelog</a></li>
-					<li><a href="#" target="_blank">CSS Snippets</a></li>
-					<li><a href="#" target="_blank">Starter child theme</a></li>
-					<li><a href="#" target="_blank">Demo data</a></li>
-					<li><a href="<?php echo esc_url( $pro_url ); ?>" target="_blank">Braillewright</a></li>
+					<li><a href="https://github.com/MVSLTD/braillewright/issues" target="_blank" rel="noopener noreferrer">Support (GitHub Issues)</a></li>
+					<li><a href="https://github.com/MVSLTD/braillewright/releases" target="_blank" rel="noopener noreferrer">Changelog (GitHub Releases)</a></li>
 				</ul>
 			</div>
 			<div class="dashboard-widget">

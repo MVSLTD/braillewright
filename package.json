@@ -13,12 +13,17 @@
         "env:activate": "wp-env run cli wp theme activate braillewright",
         "a11y:pa11y": "pa11y-ci",
         "a11y:lighthouse": "lhci autorun",
-        "a11y": "npm run a11y:pa11y && npm run a11y:lighthouse"
+        "a11y": "npm run a11y:pa11y && npm run a11y:lighthouse",
+        "build:css": "node tools/build-css.js",
+        "check:css": "node tools/build-css.js --check",
+        "check:assets": "python -X utf8 tools/check-enqueued-assets.py",
+        "check": "npm run check:css && npm run check:assets"
     },
     "devDependencies": {
         "@axe-core/cli": "^4.12.1",
         "@lhci/cli": "^0.15.1",
         "@wordpress/env": "^11.12.0",
+        "clean-css-cli": "^5.6.3",
         "pa11y-ci": "^4.1.1"
     }
 }
