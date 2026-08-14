@@ -14,7 +14,7 @@ on:
   workflow_dispatch:
     inputs:
       url:
-        description: "Base URL to test (overrides the SR_BASE_URL repo variable)"
+        description: "Base URL to test (overrides the SR_BASE_URL repo secret)"
         required: false
         default: ""
   schedule:
@@ -29,7 +29,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  SR_BASE_URL: ${{ github.event.inputs.url || vars.SR_BASE_URL }}
+  SR_BASE_URL: ${{ github.event.inputs.url || secrets.SR_BASE_URL }}
 
 jobs:
   # ── Canary: STAGING (gets native auto-deploys first, so it regresses first) ──
@@ -102,7 +102,7 @@ jobs:
   # ── Production: toptechtidbits.com ───────────────────────────────────────────
   # Mirror of the staging job with the base URL pinned to PRODUCTION. The prod
   # URL is public, so it is a literal here; the staging URL is NEVER hardcoded —
-  # it stays solely in the SR_BASE_URL repo variable so it can't re-enter the
+  # it stays solely in the SR_BASE_URL repo SECRET so it can't re-enter the
   # public repo's history. A manual `url` dispatch input still overrides both.
   # Free on a public repo (unlimited standard-runner minutes).
   screen-reader-prod:
