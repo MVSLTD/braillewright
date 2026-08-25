@@ -672,7 +672,6 @@ function braillewright_features_custom_colors_css() {
 
 	$custom_css = braillewright_features_sanitize_css( $custom_css );
 
-	wp_add_inline_style( 'braillewright-style-rtl', $custom_css );
-	wp_add_inline_style( 'braillewright-style', $custom_css );
+	wp_add_inline_style( braillewright_customizer_style_handle(), $custom_css );
 }
 add_action( 'wp_enqueue_scripts', 'braillewright_features_custom_colors_css', 99 );
