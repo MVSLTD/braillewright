@@ -765,6 +765,59 @@ if (! function_exists(('braillewright_infinite_scroll_render'))) {
     }
 }
 
+/*
+ * Link the theme name in Jetpack's Infinite Scroll credit.
+ *
+ * Jetpack builds that line as:
+ *     <a href="https://wordpress.org/" ...>Proudly powered by WordPress</a> Theme: Braillewright.
+ * so "Proudly powered by WordPress" is a link and the theme name is plain text.
+ * This points the theme name at Braillewright's own page, using Jetpack's
+ * documented `infinite_scroll_credit` filter -- no plugin file is touched.
+ */
+if (! function_exists('braillewright_link_credit_theme_name')) {
+    function braillewright_link_credit_theme_name($credits)
+    {
+        // Only when Braillewright is actually the theme in play. get_template()
+        // rather than a name comparison, so a child theme still qualifies.
+        if (get_template() !== 'braillewright') {
+            return $credits;
+        }
+
+        $name = wp_get_theme()->get('Name');
+        if (! is_string($credits) || '' === $name || false === strpos($credits, $name)) {
+            return $credits;
+        }
+
+        $url = apply_filters(
+            'braillewright_credit_url',
+            'https://toptechtidbits.com/braillewright/'
+        );
+        if (empty($url)) {
+            return $credits;
+        }
+
+        // Replace the LAST occurrence only. Jetpack appends the theme name at
+        // the end, and anything earlier in the string belongs to the privacy
+        // policy link it optionally prepends -- which must not be rewritten.
+        $pos = strrpos($credits, $name);
+        if (false === $pos) {
+            return $credits;
+        }
+
+        // Deliberately no target="_blank": this is a same-site link, and opening
+        // a new window without warning is the kind of thing this theme exists to
+        // avoid. The adjacent WordPress.org link is Jetpack's and keeps its own.
+        $link = sprintf(
+            '<a href="%1$s">%2$s</a>',
+            esc_url($url),
+            esc_html($name)
+        );
+
+        return substr_replace($credits, $link, $pos, strlen($name));
+    }
+}
+add_filter('infinite_scroll_credit', 'braillewright_link_credit_theme_name');
+
 if (! function_exists('braillewright_get_content_template')) {
     function braillewright_get_content_template()
     {
