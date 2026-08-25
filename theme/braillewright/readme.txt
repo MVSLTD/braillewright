@@ -1,7 +1,7 @@
 === Braillewright ===
 Requires at least: 5.2
 Tested up to: 6.7
-Stable tag: 2.0.5
+Stable tag: 2.0.6
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: accessibility-ready, custom-logo, custom-menu, featured-images, two-columns, left-sidebar, right-sidebar
@@ -21,6 +21,10 @@ Forked from Period 1.750 (GPLv2-or-later) Source integrity hashes and full attri
 Braillewright is created and maintained by Aaron Di Blasi of Mind Vault Solutions, Ltd. on behalf of Top Tech Tidbits, with engineering support from Claude Code.
 
 == Changelog ==
+
+= 2.0.6 =
+* Added a second LinkedIn slot, so a site can show a company page and a personal profile side by side. Only one LinkedIn icon was available before.
+* Screen readers now announce the two LinkedIn icons as LinkedIn Business Page and LinkedIn Personal Profile instead of both reading as linkedin.
 
 = 2.0.5 =
 * Fixed a missing stylesheet on right-to-left sites. The theme asked for features/styles/rtl.min.css on every right-to-left page and that file did not exist, so those sites lost a whole layer of styling. It has been missing since the June feature merge.
