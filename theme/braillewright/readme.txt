@@ -24,6 +24,7 @@ Braillewright is created and maintained by Aaron Di Blasi of Mind Vault Solution
 
 = 2.0.7 =
 * The scroll-to-top arrow no longer covers the credit line in the Infinite Scroll footer bar. At a 1280px window the text ran 40px underneath the button and the theme name was unreadable. Room is now reserved for the arrow, and only when the arrow is switched on.
+* The arrow no longer covers the theme's own footer credit either. That line is centred, so it only reached the arrow once it grew long enough: at a 790px window it ran 14px underneath the button. Room is now reserved on both sides, which keeps the line centred and works the same way on right-to-left sites.
 * Raised the contrast of that credit line. It shipped at #888 on a near-white bar, which measures 3.43 to 1 and fails the 4.5 to 1 that 12px text needs. It is now 15 to 1, and the WordPress link is underlined so it is still recognisable as a link.
 
 = 2.0.6 =

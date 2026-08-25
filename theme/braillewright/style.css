@@ -894,6 +894,23 @@ li.pingback > article {
 }
 
 /*
+ * The theme's OWN footer credit has the same collision. It is centred rather
+ * than floated, so it only reaches the arrow once the line grows long enough --
+ * measured at a 790px viewport, the credit ran 14px underneath the button.
+ *
+ * Reserve on BOTH sides so the line stays centred, and because this one rule
+ * then works unchanged in right-to-left (where the arrow is pinned left).
+ * Clearance works out at padding minus the 60px button, so 80px leaves 20px.
+ * The unprefixed values are a fallback for anything without CSS max().
+ */
+.has-scroll-to-top .design-credit {
+  padding-left: 80px;
+  padding-right: 80px;
+  padding-left: max(5.5556%, 80px);
+  padding-right: max(5.5556%, 80px);
+}
+
+/*
  * Jetpack ships this credit at #888 on a near-white bar, which measures
  * 3.43:1 -- below the 4.5:1 that 12px text needs. Raising it to the theme's own
  * dark makes it 15:1. That leaves the WordPress link the same colour as the text

@@ -853,6 +853,19 @@ li.pingback > article {
 }
 
 /*
+ * The theme's own footer credit is centred, so reserving on both sides keeps it
+ * centred AND clears the arrow whichever edge the arrow is pinned to. That makes
+ * this rule identical to the left-to-right sheet on purpose -- there is nothing
+ * to mirror. Clearance is padding minus the 60px button, so 80px leaves 20px.
+ */
+.has-scroll-to-top .design-credit {
+  padding-left: 80px;
+  padding-right: 80px;
+  padding-left: max(5.5556%, 80px);
+  padding-right: max(5.5556%, 80px);
+}
+
+/*
  * Same contrast fix as the LTR sheet: Jetpack's #888 credit measures 3.43:1 on
  * the near-white bar, below the 4.5:1 needed at 12px.
  */
