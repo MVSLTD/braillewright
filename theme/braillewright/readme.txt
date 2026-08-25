@@ -1,7 +1,7 @@
 === Braillewright ===
 Requires at least: 5.2
 Tested up to: 6.7
-Stable tag: 2.0.7
+Stable tag: 2.0.8
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: accessibility-ready, custom-logo, custom-menu, featured-images, two-columns, left-sidebar, right-sidebar
@@ -21,6 +21,9 @@ Forked from Period 1.750 (GPLv2-or-later) Source integrity hashes and full attri
 Braillewright is created and maintained by Aaron Di Blasi of Mind Vault Solutions, Ltd. on behalf of Top Tech Tidbits, with engineering support from Claude Code.
 
 == Changelog ==
+
+= 2.0.8 =
+* The theme name in the Infinite Scroll footer credit is now a link to the Braillewright page at https://toptechtidbits.com/braillewright/. Only the words Proudly powered by WordPress were linked before. It opens in the same tab rather than a new window.
 
 = 2.0.7 =
 * The scroll-to-top arrow no longer covers the credit line in the Infinite Scroll footer bar. At a 1280px window the text ran 40px underneath the button and the theme name was unreadable. Room is now reserved for the arrow, and only when the arrow is switched on.
