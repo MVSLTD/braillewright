@@ -343,6 +343,7 @@ if (! function_exists('braillewright_social_array')) {
             'instagram'     => 'braillewright_instagram_profile',
             'tiktok'     	=> 'braillewright_tiktok_profile',
             'threads'     	=> 'braillewright_threads_profile',
+            'linkedin_personal' => 'braillewright_linkedin_personal_profile',
             'linkedin'      => 'braillewright_linkedin_profile',
             'pinterest'     => 'braillewright_pinterest_profile',
             'youtube'       => 'braillewright_youtube_profile',
@@ -463,6 +464,10 @@ if (! function_exists('braillewright_social_icons_output')) {
                     $class = 'fas fa-phone';
                 } elseif ($name == 'twitter') {
                     $class = 'fab fa-x-twitter';
+                } elseif ($name == 'linkedin_personal') {
+                    // Both LinkedIn slots share one brand glyph; only the
+                    // accessible name distinguishes them.
+                    $class = 'fab fa-linkedin';
                 } else {
                     $class = 'fab fa-' . $name;
                 }
@@ -479,6 +484,14 @@ if (! function_exists('braillewright_social_icons_output')) {
                 } elseif ($name == 'phone') {
                     $href = esc_url($url, array( 'tel' ));
                     $title = esc_url($url, array( 'tel' ));
+                } elseif ($name == 'linkedin') {
+                    // Two LinkedIn icons can sit side by side, so "linkedin"
+                    // twice would be ambiguous to a screen reader.
+                    $title = __('LinkedIn Business Page', 'braillewright');
+                    $href = esc_url($url);
+                } elseif ($name == 'linkedin_personal') {
+                    $title = __('LinkedIn Personal Profile', 'braillewright');
+                    $href = esc_url($url);
                 } else {
                     $href = esc_url($url);
                 }
