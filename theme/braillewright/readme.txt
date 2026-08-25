@@ -1,7 +1,7 @@
 === Braillewright ===
 Requires at least: 5.2
 Tested up to: 6.7
-Stable tag: 2.0.6
+Stable tag: 2.0.7
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: accessibility-ready, custom-logo, custom-menu, featured-images, two-columns, left-sidebar, right-sidebar
@@ -21,6 +21,10 @@ Forked from Period 1.750 (GPLv2-or-later) Source integrity hashes and full attri
 Braillewright is created and maintained by Aaron Di Blasi of Mind Vault Solutions, Ltd. on behalf of Top Tech Tidbits, with engineering support from Claude Code.
 
 == Changelog ==
+
+= 2.0.7 =
+* The scroll-to-top arrow no longer covers the credit line in the Infinite Scroll footer bar. At a 1280px window the text ran 40px underneath the button and the theme name was unreadable. Room is now reserved for the arrow, and only when the arrow is switched on.
+* Raised the contrast of that credit line. It shipped at #888 on a near-white bar, which measures 3.43 to 1 and fails the 4.5 to 1 that 12px text needs. It is now 15 to 1, and the WordPress link is underlined so it is still recognisable as a link.
 
 = 2.0.6 =
 * Added a second LinkedIn slot, so a site can show a company page and a personal profile side by side. Only one LinkedIn icon was available before.

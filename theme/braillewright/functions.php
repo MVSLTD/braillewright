@@ -658,6 +658,14 @@ if (! function_exists(('braillewright_body_class'))) {
         if (!empty($archives_layout) && is_archive()) {
             $classes[] = $archives_layout . '-sidebar';
         }
+        // The scroll-to-top arrow is position:fixed in the bottom corner, so it
+        // sits on top of anything else fixed there -- notably Jetpack's Infinite
+        // Scroll footer bar, whose credit line it clips. Expose whether the
+        // arrow is switched on so the stylesheet can reserve room for it, and
+        // reserve NOTHING when it is off.
+        if (get_theme_mod('scroll_to_top')) {
+            $classes[] = 'has-scroll-to-top';
+        }
 
         return $classes;
     }
