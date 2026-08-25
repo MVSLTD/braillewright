@@ -1,5 +1,27 @@
 <?php
 
+/**
+ * The style handle that Customizer-generated CSS has to be attached to.
+ *
+ * On a right-to-left site braillewright-style-rtl is enqueued after, and depends on,
+ * braillewright-style -- so inline CSS must ride the RTL handle to be printed after
+ * rtl.css rather than before it. On a left-to-right site that handle is never
+ * registered and the main handle is the correct target.
+ *
+ * Testing registration rather than is_rtl() keeps this right for any locale that has
+ * its own stylesheet, and means the two can never drift apart: whatever
+ * braillewright_load_scripts_styles() actually enqueued is what gets used.
+ *
+ * @return string A registered style handle, always safe for wp_add_inline_style().
+ */
+if ( ! function_exists( 'braillewright_customizer_style_handle' ) ) {
+	function braillewright_customizer_style_handle() {
+		return wp_style_is( 'braillewright-style-rtl', 'registered' )
+			? 'braillewright-style-rtl'
+			: 'braillewright-style';
+	}
+}
+
 // Front-end scripts
 function braillewright_load_scripts_styles() {
 
@@ -23,6 +45,39 @@ function braillewright_load_scripts_styles() {
 	wp_enqueue_style( 'braillewright-font-awesome', get_template_directory_uri() . '/assets/font-awesome/css/all.min.css' );
 
 	wp_enqueue_style( 'braillewright-style', get_stylesheet_uri() );
+
+	/*
+	 * WordPress core already loads this theme's rtl.css by itself: locale_stylesheet()
+	 * is hooked to wp_head at priority 10 and prints get_locale_stylesheet_uri(), which
+	 * resolves to <stylesheet dir>/rtl.css whenever the locale is right-to-left. The file
+	 * is therefore NOT dead -- but core prints it at priority 10 while wp_print_styles()
+	 * runs at priority 8, so core's <link> lands AFTER every Customizer <style> block and
+	 * silently overrides the site owner's own settings.
+	 *
+	 * Measured on an Arabic-locale page load on 2026-08-25: 30 of 31 colliding Customizer
+	 * declarations lost to rtl.css, including the link colour (#0000cc -> #333333, which
+	 * makes links the same colour as body text) and the focus colour on .site-title and
+	 * .social-media-icons links (#ffcc00 -> #D4D4D4).
+	 *
+	 * Enqueueing the same URI core would have printed, as a real handle that depends on
+	 * braillewright-style, puts it back in the styles queue where the cascade is
+	 * predictable -- and gives the wp_add_inline_style( 'braillewright-style-rtl', ... )
+	 * calls a handle that actually exists. Core's duplicate is then removed.
+	 *
+	 * get_locale_stylesheet_uri() is used rather than a hard-coded '/rtl.css' so a child
+	 * theme's own rtl.css, a locale-specific <locale>.css, and the locale_stylesheet_uri
+	 * filter all keep working exactly as core intends.
+	 */
+	$braillewright_locale_stylesheet = get_locale_stylesheet_uri();
+
+	if ( $braillewright_locale_stylesheet ) {
+		wp_enqueue_style(
+			'braillewright-style-rtl',
+			$braillewright_locale_stylesheet,
+			array( 'braillewright-style' )
+		);
+		remove_action( 'wp_head', 'locale_stylesheet' );
+	}
 
 	// enqueue comment-reply script only on posts & pages with comments open ( included in WP core )
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {

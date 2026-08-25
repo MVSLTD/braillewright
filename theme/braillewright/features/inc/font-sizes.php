@@ -305,8 +305,7 @@ function braillewright_features_font_size_css() {
 
     $css = braillewright_features_sanitize_css( $css );
 
-    wp_add_inline_style( 'braillewright-style', $css );
-    wp_add_inline_style( 'braillewright-style-rtl', $css );
+    wp_add_inline_style( braillewright_customizer_style_handle(), $css );
   }
 }
 add_action( 'wp_enqueue_scripts', 'braillewright_features_font_size_css', 99 );

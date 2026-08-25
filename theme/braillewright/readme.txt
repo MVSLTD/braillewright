@@ -1,7 +1,7 @@
 === Braillewright ===
 Requires at least: 5.2
 Tested up to: 6.7
-Stable tag: 2.0.8
+Stable tag: 2.0.9
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: accessibility-ready, custom-logo, custom-menu, featured-images, two-columns, left-sidebar, right-sidebar
@@ -21,6 +21,10 @@ Forked from Period 1.750 (GPLv2-or-later) Source integrity hashes and full attri
 Braillewright is created and maintained by Aaron Di Blasi of Mind Vault Solutions, Ltd. on behalf of Top Tech Tidbits, with engineering support from Claude Code.
 
 == Changelog ==
+
+= 2.0.9 =
+* Fixed the theme's own right-to-left stylesheet cancelling the settings you chose in the Customizer. On a right-to-left site WordPress loaded rtl.css AFTER the Customizer's own styles, so 30 of 31 overlapping settings lost - including the link colour, which fell back to the same colour as body text. The stylesheet is now loaded in the proper place in the queue so your settings win.
+* Added a build check that fails if theme code ever attaches Customizer styles to a stylesheet handle that was never registered. That is what let this go unnoticed: doing so fails silently, with no notice and no error anywhere.
 
 = 2.0.8 =
 * The theme name in the Infinite Scroll footer credit is now a link to the Braillewright page at https://toptechtidbits.com/braillewright/. Only the words Proudly powered by WordPress were linked before. It opens in the same tab rather than a new window.

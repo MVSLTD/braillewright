@@ -154,6 +154,14 @@ jobs:
         run: node tools/build-css.js --check
       - name: Every enqueued asset exists on disk [BLOCKING]
         run: python -X utf8 tools/check-enqueued-assets.py
+      # Added 2026-08-25. The check above asks "does every enqueued FILE exist?";
+      # this one asks the inverse -- "is every handle we attach inline CSS to actually
+      # registered?" -- which is what was missing. braillewright-style-rtl was a
+      # wp_add_inline_style() target in seven files and was never enqueued anywhere.
+      # wp_add_inline_style() does nothing at all on an unregistered handle: no notice,
+      # no warning, no error, even with WP_DEBUG on.
+      - name: Every inline-style handle is registered [BLOCKING]
+        run: python -X utf8 tools/check-inline-style-handles.py
       - name: Start wp-env (WordPress + PHP 8.3; theme mounted)
         run: npx wp-env start
       - name: Activate theme
