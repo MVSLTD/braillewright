@@ -49,6 +49,25 @@ export const ISSUE_PATH = process.env.SR_ISSUE_PATH || "/newsletter-06-11-2026/"
  * site: a screen reader will never announce "top tech tidbits" on a site that is not Top
  * Tech Tidbits, so leaving it would fail every spec for a reason that has nothing to do
  * with accessibility.
+ *
+ * ⚠️⚠️ IT MUST BE A PHRASE THE **HEADING WALK** REACHES -- NOT JUST TEXT ON THE PAGE, AND
+ * NOT NECESSARILY THE SITE NAME. Learned the hard way 2026-08-26 on the first cross-site
+ * run: `SR_BRAND=sterling` against https://sterlingcreations.ca/ failed, and the site was
+ * fine. NVDA's walk announced:
+ *
+ *     main landmark, welcome!, heading, level 1
+ *     blog:, heading, level 2
+ *     complementary landmark, sidebar, heading, level 2
+ *     recent posts, heading, level 2
+ *
+ * The h1 is "Welcome!" -- the PAGE title -- because that site's front page is a STATIC
+ * PAGE. Top Tech Tidbits' front page is the blog index, so there the SITE title is the h1
+ * and "top tech tidbits" is announced. sterlingcreations.ca's site title is perfectly
+ * accessible (a `screen-reader-text` span inside the masthead link); it is simply not a
+ * heading, which is correct on a static front page.
+ *
+ * 👉 So: check `show_on_front`. If it is `page`, use a word from THAT PAGE'S TITLE.
+ *    Measured 2026-08-26 -- sterlingcreations.com: "Home"; sterlingcreations.ca: "Welcome!".
  */
 // Same `||` reasoning as ISSUE_PATH above.
 export const BRAND = (process.env.SR_BRAND || "top tech tidbits").toLowerCase();
