@@ -17,6 +17,14 @@ on:
         description: "Base URL to test (overrides the SR_BASE_URL repo secret)"
         required: false
         default: ""
+      issue_path:
+        description: "Single-post path on that site (default: a TTT newsletter). REQUIRED when testing a non-TTT site."
+        required: false
+        default: ""
+      brand:
+        description: "Lowercase phrase the screen reader must announce (default: top tech tidbits). REQUIRED when testing a non-TTT site."
+        required: false
+        default: ""
   schedule:
     # 07:00 UTC nightly (~03:00 ET). Cron is UTC; ET offset shifts with DST.
     - cron: "0 7 * * *"
@@ -30,6 +38,11 @@ concurrency:
 
 env:
   SR_BASE_URL: ${{ github.event.inputs.url || secrets.SR_BASE_URL }}
+  # These arrive as "" on a scheduled run and whenever the input is left blank.
+  # lib/checks.ts uses `||` (not `??`) precisely so an empty string falls back to the
+  # TTT defaults -- see the comment there. Do not "tidy" that to `??`.
+  SR_ISSUE_PATH: ${{ github.event.inputs.issue_path }}
+  SR_BRAND: ${{ github.event.inputs.brand }}
 
 jobs:
   # ── Canary: STAGING (gets native auto-deploys first, so it regresses first) ──
@@ -110,6 +123,8 @@ jobs:
     timeout-minutes: 25
     env:
       SR_BASE_URL: ${{ github.event.inputs.url || 'https://toptechtidbits.com' }}
+      SR_ISSUE_PATH: ${{ github.event.inputs.issue_path }}
+      SR_BRAND: ${{ github.event.inputs.brand }}
     strategy:
       fail-fast: false
       matrix:

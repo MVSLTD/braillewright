@@ -25,8 +25,33 @@ export const BASE_URL =
         );
     })();
 
-/** A recent TTT issue that exists on the staging clone (verified reachable 2026-06-19). */
-export const ISSUE_PATH = "/newsletter-06-11-2026/";
+/**
+ * A single-post address on the site under test.
+ *
+ * Defaults to a TTT issue verified reachable 2026-06-19, so the nightly TTT run is
+ * unchanged. Override with SR_ISSUE_PATH when pointing this suite at another
+ * Braillewright site -- a TTT newsletter URL 404s everywhere else, and
+ * assertIssueStructure would then fail on a missing page rather than on anything
+ * about the theme.
+ */
+// ⛔ `||`, NOT `??`. A workflow_dispatch input left blank arrives as an EMPTY STRING, and
+// a scheduled run supplies none at all. `??` only falls back on null/undefined, so `??`
+// here would let "" through, the issue spec would load the HOME page, and every nightly
+// TTT run would fail on a missing h1.post-title. `||` catches the empty string too.
+export const ISSUE_PATH = process.env.SR_ISSUE_PATH || "/newsletter-06-11-2026/";
+
+/**
+ * A lowercase phrase the screen reader must actually announce on this site -- proof that
+ * speech is flowing and the heading walk reached real content, not just that the DOM
+ * looked right.
+ *
+ * ⛔ Defaults to "top tech tidbits". It MUST be overridden with SR_BRAND for any other
+ * site: a screen reader will never announce "top tech tidbits" on a site that is not Top
+ * Tech Tidbits, so leaving it would fail every spec for a reason that has nothing to do
+ * with accessibility.
+ */
+// Same `||` reasoning as ISSUE_PATH above.
+export const BRAND = (process.env.SR_BRAND || "top tech tidbits").toLowerCase();
 
 /**
  * The symmetric subset of Guidepup's `nvda` / `voiceOver` fixture APIs that this
