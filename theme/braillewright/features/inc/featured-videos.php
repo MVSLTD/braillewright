@@ -42,7 +42,7 @@ function braillewright_features_video_callback( $post ) {
 			esc_html_e( 'Video Preview', 'braillewright' );
 		echo '</label> ';
 		if ( $video_url ) {
-			if ( strpos( $video_url, 'youtube-nocookie.com' ) !== false ) {
+			if ( braillewright_features_is_youtube_nocookie( $video_url ) ) {
 				echo '<iframe src="'. esc_url( $video_url ) .'" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
 			} else {
 				echo braillewright_features_output_video( $video_url ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- WP oembed/shortcode HTML (iframe/video) from an esc_url_raw'd URL; admin-only meta box.
@@ -139,7 +139,7 @@ function braillewright_features_add_oembed_callback() {
 	// get the video url passed from the JS (validate user input right away)
 	$video_url = isset( $_POST['videoURL'] ) ? esc_url_raw( (string) wp_unslash( $_POST['videoURL'] ) ) : '';
 
-	if ( strpos( $video_url, 'youtube-nocookie.com' ) !== false ) {
+	if ( braillewright_features_is_youtube_nocookie( $video_url ) ) {
 		$video = '<iframe src="'. esc_url( $video_url ) .'" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
 	} else {
 		$video = braillewright_features_output_video( $video_url );
@@ -156,15 +156,51 @@ add_action( 'wp_ajax_add_oembed', 'braillewright_features_add_oembed_callback' )
 //----------------------------------------------------------------------------------
 // Output the video in the back-end
 //----------------------------------------------------------------------------------
+/**
+ * Is this URL served by YouTube's privacy-enhanced host?
+ *
+ * ⛔⛔ THIS REPLACES A SUBSTRING TEST THAT WAS A REAL HOLE.
+ * Three call sites used `strpos( $url, 'youtube-nocookie.com' ) !== false`, which
+ * matches the string ANYWHERE — host, path, query or fragment. All of these passed,
+ * and all survive esc_url() unchanged:
+ *
+ *     https://youtube-nocookie.com.attacker.example/phish
+ *     https://attacker.example/p?ref=youtube-nocookie.com
+ *     https://attacker.example/x#youtube-nocookie.com
+ *
+ * The value is author input: `braillewright_features_video_save_data()` gates only on
+ * `current_user_can( 'edit_post' )` — a capability Contributors and Authors hold and
+ * which deliberately does NOT carry `unfiltered_html` — and writes the raw field
+ * through `esc_url_raw()`, which normalises characters and performs no host check.
+ *
+ * ⚠️ It was inert only by accident: `wp_kses_post()` in functions.php was deleting the
+ * <iframe> before it reached a browser. Allowing <iframe> in that slot (which is what
+ * makes featured videos work at all) turns a dormant bug into a live one, so the two
+ * changes belong in the same commit. wp_kses cannot help here — it validates a URL's
+ * PROTOCOL and has no concept of an allowed host.
+ *
+ * @param string $url URL to test.
+ * @return bool True only when the HOST is youtube-nocookie.com.
+ */
+function braillewright_features_is_youtube_nocookie( $url ) {
+
+	$host = strtolower( (string) wp_parse_url( (string) $url, PHP_URL_HOST ) );
+
+	return ( 'youtube-nocookie.com' === $host || 'www.youtube-nocookie.com' === $host );
+}
+
 function braillewright_features_output_video( $video_url ) {
-	
+
 	if ( $video_url ) {
 		$filetype = wp_check_filetype( $video_url );
 		$filetype = $filetype['type'];
 		if ( $filetype == 'audio/mpeg' ) {
-			return do_shortcode('[audio mp3=' . $video_url . ']');
+			// ⚠️ QUOTED and escaped. Unquoted, an author-supplied URL containing a space
+			// injects further shortcode attributes: `[audio mp3=' . $url . ']` with a URL
+			// of `x.mp3 loop=on` becomes two attributes rather than one value.
+			return do_shortcode( '[audio mp3="' . esc_url( $video_url ) . '"]' );
 		} else if ( $filetype == 'video/mp4' ) {
-			return do_shortcode('[video mp4=' . $video_url . ']');
+			return do_shortcode( '[video mp4="' . esc_url( $video_url ) . '"]' );
 		} else {
 			return wp_oembed_get( esc_url( $video_url ) );
 		}
@@ -272,8 +308,11 @@ function braillewright_features_output_featured_video( $featured_image ) {
 			|| ( ( is_home() || is_archive() || is_search() ) && ( $display_blog == 'blog' || $display_blog == 'both' ) )
 			|| is_singular( 'page' )
 		) {
-			if ( strpos( $featured_video, 'youtube-nocookie.com' ) !== false ) {
-				$featured_image = '<div class="featured-video"><iframe src="'. esc_url( $featured_video ) .'" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe></div>';
+			if ( braillewright_features_is_youtube_nocookie( $featured_video ) ) {
+				// The oEmbed branch below gets its title from the provider; this branch
+				// builds its own markup, so name it from the post or it reaches a screen
+				// reader as an unlabelled frame.
+				$featured_image = '<div class="featured-video"><iframe title="' . esc_attr( get_the_title( $post ) ) . '" src="' . esc_url( $featured_video ) . '" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe></div>';
 			} else {
 				$featured_image = '<div class="featured-video">' . braillewright_features_output_video( $featured_video ) . '</div>';
 			}
@@ -341,9 +380,18 @@ function braillewright_features_add_youtube_parameters( $html, $url, $args ) {
 				);
 
 				if ( $youtube_loop == 1 ) {
-					$video_id = explode( 'v=', $featured_video );
-					$video_id = $video_id[1];
-					$youtube_parameters['playlist'] = $video_id;
+					// ⚠️ This was `explode( 'v=', $url )` then `[1]`, which raises
+					// "Undefined array key 1" on every youtu.be/<id> URL -- they carry no
+					// 'v='. A YouTube loop needs `playlist=<id>` to work at all, so on
+					// those URLs looping silently did nothing AND logged a warning on
+					// every page view. Match the id in all three shapes instead.
+					$video_id = '';
+					if ( preg_match( '#(?:youtu\.be/|[?&]v=|/embed/)([A-Za-z0-9_-]{6,})#', $featured_video, $bw_m ) ) {
+						$video_id = $bw_m[1];
+					}
+					if ( '' !== $video_id ) {
+						$youtube_parameters['playlist'] = $video_id;
+					}
 				}
 
 				$args       = is_array( $args ) ? array_merge( $args, $youtube_parameters ) : $youtube_parameters;
@@ -357,4 +405,10 @@ function braillewright_features_add_youtube_parameters( $html, $url, $args ) {
 }
 add_filter( 'oembed_result', 'braillewright_features_add_youtube_parameters', 10, 3 );
 
-wp_oembed_add_provider( '/https?:\/\/(.+)?(wistia.com|wi.st)\/(medias|embed)\/.*/', 'http://fast.wistia.com/oembed', true);
+// ⚠️ Tightened 2026-08-25. The previous pattern was
+//     '/https?:\/\/(.+)?(wistia.com|wi.st)\/(medias|embed)\/.*/'
+// whose '(.+)?' allowed ANY prefix and whose unescaped dots matched any character,
+// so https://attacker.example/wistia-com/medias/x qualified as a Wistia URL. It also
+// fetched the oEmbed endpoint over plaintext http://. Now anchored to the real hosts
+// and https only.
+wp_oembed_add_provider( '#^https?://([a-z0-9-]+\.)?(wistia\.com|wi\.st)/(medias|embed)/.+#i', 'https://fast.wistia.com/oembed', true );

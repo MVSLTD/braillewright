@@ -1,7 +1,7 @@
 === Braillewright ===
 Requires at least: 5.2
 Tested up to: 6.7
-Stable tag: 2.0.9
+Stable tag: 2.0.10
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: accessibility-ready, custom-logo, custom-menu, featured-images, two-columns, left-sidebar, right-sidebar
@@ -21,6 +21,11 @@ Forked from Period 1.750 (GPLv2-or-later) Source integrity hashes and full attri
 Braillewright is created and maintained by Aaron Di Blasi of Mind Vault Solutions, Ltd. on behalf of Top Tech Tidbits, with engineering support from Claude Code.
 
 == Changelog ==
+
+= 2.0.10 =
+* Featured videos render again. The featured-image slot ran through wp_kses_post(), which does not allow iframe, so every featured video shipped as an empty div. Measured on WordPress 7.1: 448 bytes in, 218 out. The slot now uses wp_kses() with an allowlist that adds iframe and source; script is still not allowed.
+* Migration tools: theme mods are read from the active stylesheet instead of a hardcoded theme_mods_period, a destination holding only the theme's first-boot keys is no longer mistaken for an already-migrated site, and a refusal now exits non-zero instead of reading as success.
+* New tools to carry per-post settings and editor panel positions across a Period to Braillewright cutover.
 
 = 2.0.9 =
 * Fixed the theme's own right-to-left stylesheet cancelling the settings you chose in the Customizer. On a right-to-left site WordPress loaded rtl.css AFTER the Customizer's own styles, so 30 of 31 overlapping settings lost - including the link colour, which fell back to the same colour as body text. The stylesheet is now loaded in the proper place in the queue so your settings win.

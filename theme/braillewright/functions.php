@@ -312,6 +312,91 @@ function braillewright_update_yoast_og_description($ogdesc)
 }
 add_filter('wpseo_opengraph_desc', 'braillewright_update_yoast_og_description');
 
+/**
+ * Allowed HTML for the featured-image slot.
+ *
+ * ⛔⛔ WHY THIS EXISTS — a security pass silently deleted a whole feature.
+ *
+ * Commit 5733366 ("Phase 3: pre-ship security pass — escape output + nonce review")
+ * changed `echo $featured_image;` to `echo wp_kses_post( ... )`. That was the right
+ * instinct and the wrong allowlist: `wp_kses_post()` does NOT permit <iframe>, and the
+ * featured-VIDEO feature renders exactly that. Measured on WordPress 7.1, 2026-08-25:
+ *
+ *     before wp_kses_post()  448 bytes, '<div class="featured-video"><iframe … youtube …>'
+ *     after                  218 bytes, the iframe gone
+ *
+ * The live page therefore shipped `<div class="featured-video"></div>` — an empty box,
+ * no error anywhere. It had been that way on every Braillewright site since the fork's
+ * first security pass, and nobody saw it because Top Tech Tidbits and Access Information
+ * News have never used a featured video. drkirkadams.com was the first site that had
+ * any: 44 of them.
+ *
+ * ⚠️ `source` is added for the same reason — `braillewright_features_output_video()`
+ * falls back to `[video mp4=…]` / `[audio mp3=…]` for self-hosted media, and
+ * `wp_kses_post()` allows <video> and <audio> but NOT their <source> children.
+ *
+ * ⛔ `script` is deliberately NOT added, even though the featured-SLIDER path
+ * (features/inc/featured-sliders.php:168-173) runs Meta Slider's shortcode through here
+ * and Meta Slider emits inline script. Allowing <script> in this slot would be a real
+ * security regression, and it would re-open exactly what commit 5733366 set out to
+ * close. Meta Slider is not active on any fleet site; if it is ever wanted, give the
+ * slider its own narrowly-scoped output path rather than widening this one.
+ *
+ * ⚠️ THE IFRAME src IS NOT ALWAYS oEMBED-DERIVED, AND AN EARLIER DRAFT OF THIS COMMENT
+ * CLAIMED IT WAS. Most of the time it comes from `wp_oembed_get()`, which only returns
+ * markup built from a REGISTERED provider's response. But
+ * `features/inc/featured-videos.php` has a branch that builds its own <iframe> for
+ * youtube-nocookie.com URLs and never reaches wp_oembed_get() at all. That branch used
+ * to decide with `strpos( $url, 'youtube-nocookie.com' ) !== false` — a substring test
+ * that matched the string anywhere in the URL, so an author-supplied
+ * `https://attacker.example/p?ref=youtube-nocookie.com` produced an iframe pointing
+ * wherever they liked. Allowing <iframe> here is exactly what would have taken that
+ * from dormant to live, so it was replaced with a real host check
+ * (`braillewright_features_is_youtube_nocookie()`) in the same commit as this map.
+ *
+ * ⚠️ wp_kses cannot substitute for that check: it validates a URL's PROTOCOL and has no
+ * concept of an allowed host. If another branch is ever added that composes an <iframe>
+ * from author input, it needs its own host check too — widening this map is not enough.
+ *
+ * @return array Tag/attribute map for wp_kses().
+ */
+if (! function_exists('braillewright_featured_image_allowed_html')) {
+    function braillewright_featured_image_allowed_html()
+    {
+        $allowed = wp_kses_allowed_html('post');
+
+        $allowed['iframe'] = array(
+            'src'             => true,
+            'title'           => true,
+            'width'           => true,
+            'height'          => true,
+            'frameborder'     => true,
+            'allow'           => true,
+            'allowfullscreen' => true,
+            'referrerpolicy'  => true,
+            'loading'         => true,
+            'sandbox'         => true,
+            'name'            => true,
+            'class'           => true,
+            'id'              => true,
+            'style'           => true,
+            'aria-label'      => true,
+        );
+
+        $allowed['source'] = array(
+            'src'     => true,
+            'type'    => true,
+            'srcset'  => true,
+            'sizes'   => true,
+            'media'   => true,
+            'class'   => true,
+            'id'      => true,
+        );
+
+        return $allowed;
+    }
+}
+
 if (! function_exists('braillewright_featured_image')) {
     function braillewright_featured_image()
     {
@@ -329,7 +414,33 @@ if (! function_exists('braillewright_featured_image')) {
         $featured_image = apply_filters('braillewright_featured_image', $featured_image);
 
         if ($featured_image) {
-            echo wp_kses_post( (string) $featured_image );
+            /*
+             * TWO changes here, and BOTH are needed. Measured on the live host 2026-08-25.
+             *
+             * 1. NOT wp_kses_post(). It does not allow <iframe>, so it deleted the
+             *    featured video outright. See braillewright_featured_image_allowed_html().
+             *
+             * 2. do_shortcode() AROUND the result. On a Jetpack/WordPress.com site the
+             *    filter `jetpack_youtube_embed_to_short_code` is hooked to `pre_kses` at
+             *    priority 10, so wp_kses() rewrites a YouTube <iframe> into a literal
+             *    [youtube ...] shortcode BEFORE it ever consults the tag allowlist. That
+             *    is Jetpack working as designed -- it assumes do_shortcode() runs
+             *    afterwards, which in this slot it never did. Widening the allowlist alone
+             *    changed nothing at all:
+             *
+             *      raw markup                              448 bytes, iframe present
+             *      wp_kses_post()                          218 bytes, iframe gone
+             *      wp_kses() + iframe allowed              218 bytes, iframe STILL gone
+             *      wp_kses() with pre_kses filters off     262 bytes, iframe present
+             *      do_shortcode( wp_kses(...) )            511 bytes, working player
+             *
+             *    The allowlist covers sites WITHOUT those filters (and the
+             *    youtube-nocookie branch, which builds its own iframe and is never
+             *    reversed); do_shortcode() covers sites with them.
+             *
+             * footer.php already uses exactly this shape: do_shortcode( wp_kses_post( ... ) ).
+             */
+            echo do_shortcode( wp_kses( (string) $featured_image, braillewright_featured_image_allowed_html() ) );
         }
     }
 }
