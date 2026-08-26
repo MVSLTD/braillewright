@@ -21,7 +21,7 @@
  * ⚠️ Nothing published changes. This is an editor-screen-only repair.
  *
  * Measured across the fleet 2026-08-25: donnajodhan.com has TWO affected rows, both
- * belonging to a single user — closedpostboxes_post holding ct_period_pro_slider, and
+ * belonging to a single user -- closedpostboxes_post holding ct_period_pro_slider, and
  * meta-box-order_post holding ct_period_pro_fi_size, ct_period_pro_post_layout and
  * ct_period_last_updated. drkirkadams.com, toptechtidbits.com and
  * accessinformationnews.com have ZERO.
@@ -42,9 +42,53 @@
  *   wp eval "define('BW_METABOX_APPLY', true); require 'tools/migrate-metabox-ids.php';"
  *
  * Map file defaults to /tmp/bw-metabox-map.json; override with BW_METABOX_MAP.
+ *
+ * phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped -- every echo below is
+ * CLI diagnostic text written to a terminal, never rendered as HTML. Escaping it turns
+ * the quotes in ids and JSON dumps into &#039; and makes the report unreadable without
+ * making anything safer.
  */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
+}
+
+/**
+ * Replace legacy meta-box ids anywhere inside a stored value, whatever its shape.
+ * Values are arrays of ids, or arrays of column => comma-joined id string.
+ *
+ * @param mixed $value Stored value.
+ * @param array $map   legacy id => new id.
+ * @param bool  $hit   Set true when anything was replaced.
+ * @return mixed The value with ids replaced.
+ */
+if ( ! function_exists( 'braillewright_metabox_replace' ) ) {
+	function braillewright_metabox_replace( $value, array $map, &$hit ) {
+
+		if ( is_array( $value ) ) {
+			$out = array();
+			foreach ( $value as $k => $v ) {
+				$out[ $k ] = braillewright_metabox_replace( $v, $map, $hit );
+			}
+			return $out;
+		}
+
+		if ( ! is_string( $value ) ) {
+			return $value;
+		}
+
+		// Split on commas so a replacement can only ever match a WHOLE id, never a
+		// substring of a longer one.
+		$parts = explode( ',', $value );
+		foreach ( $parts as $i => $part ) {
+			$trimmed = trim( $part );
+			if ( isset( $map[ $trimmed ] ) ) {
+				$parts[ $i ] = $map[ $trimmed ];
+				$hit         = true;
+			}
+		}
+
+		return implode( ',', $parts );
+	}
 }
 
 $bw_apply    = defined( 'BW_METABOX_APPLY' ) && BW_METABOX_APPLY;
@@ -55,14 +99,15 @@ echo $bw_apply
 	: "=== Braillewright meta-box ID migration: DRY-RUN (no writes) ===\n";
 
 if ( ! is_readable( $bw_map_file ) ) {
-	echo esc_html( "ABORT: map not readable at $bw_map_file" ) . "\n";
-	return;
+	echo "ABORT: map not readable at $bw_map_file\n";
+	exit( 1 );
 }
 
-$bw_map = json_decode( file_get_contents( $bw_map_file ), true );
+$bw_map = json_decode( (string) file_get_contents( $bw_map_file ), true );
+
 if ( ! is_array( $bw_map ) || ! $bw_map ) {
-	echo esc_html( "ABORT: map at $bw_map_file did not decode to a non-empty array" ) . "\n";
-	return;
+	echo "ABORT: map at $bw_map_file did not decode to a non-empty array\n";
+	exit( 1 );
 }
 
 echo 'Map: ' . count( $bw_map ) . " id pair(s)\n\n";
@@ -79,55 +124,29 @@ $bw_rows = $wpdb->get_results(
 
 $bw_changed = 0;
 
-/**
- * Replace legacy ids anywhere inside a stored value, whatever its shape.
- * These values are arrays of ids, or arrays of column => comma-joined id string.
- */
-function bw_metabox_replace( $value, array $map, &$hit ) {
-	if ( is_array( $value ) ) {
-		$out = array();
-		foreach ( $value as $k => $v ) {
-			$out[ $k ] = bw_metabox_replace( $v, $map, $hit );
+if ( is_array( $bw_rows ) ) {
+	foreach ( $bw_rows as $bw_row ) {
+
+		$bw_value = maybe_unserialize( $bw_row->meta_value );
+		$bw_hit   = false;
+		$bw_new   = braillewright_metabox_replace( $bw_value, $bw_map, $bw_hit );
+
+		if ( ! $bw_hit ) {
+			continue;
 		}
-		return $out;
-	}
-	if ( ! is_string( $value ) ) {
-		return $value;
-	}
-	// Split on commas so a replacement can only ever match a WHOLE id, never a
-	// substring of a longer one.
-	$parts = explode( ',', $value );
-	foreach ( $parts as $i => $part ) {
-		$trimmed = trim( $part );
-		if ( isset( $map[ $trimmed ] ) ) {
-			$parts[ $i ] = $map[ $trimmed ];
-			$hit         = true;
+
+		++$bw_changed;
+		echo "  user {$bw_row->user_id}  {$bw_row->meta_key}\n";
+		echo '      before: ' . substr( (string) wp_json_encode( $bw_value ), 0, 200 ) . "\n";
+		echo '      after : ' . substr( (string) wp_json_encode( $bw_new ), 0, 200 ) . "\n";
+
+		if ( $bw_apply ) {
+			update_user_meta( (int) $bw_row->user_id, $bw_row->meta_key, $bw_new );
 		}
-	}
-	return implode( ',', $parts );
-}
-
-foreach ( $bw_rows as $bw_row ) {
-
-	$bw_value = maybe_unserialize( $bw_row->meta_value );
-	$bw_hit   = false;
-	$bw_new   = bw_metabox_replace( $bw_value, $bw_map, $bw_hit );
-
-	if ( ! $bw_hit ) {
-		continue;
-	}
-
-	++$bw_changed;
-	echo esc_html( "  user {$bw_row->user_id}  {$bw_row->meta_key}" ) . "\n";
-	echo esc_html( '      before: ' . substr( wp_json_encode( $bw_value ), 0, 200 ) ) . "\n";
-	echo esc_html( '      after : ' . substr( wp_json_encode( $bw_new ), 0, 200 ) ) . "\n";
-
-	if ( $bw_apply ) {
-		update_user_meta( (int) $bw_row->user_id, $bw_row->meta_key, $bw_new );
 	}
 }
 
 echo "\n";
 echo $bw_apply
-	? esc_html( "Done (applied). $bw_changed row(s) rewritten." ) . "\n"
-	: esc_html( "Dry-run complete; $bw_changed row(s) would be rewritten." ) . "\n";
+	? "Done (applied). $bw_changed row(s) rewritten.\n"
+	: "Dry-run complete; $bw_changed row(s) would be rewritten.\n";
