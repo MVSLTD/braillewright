@@ -110,7 +110,23 @@ if ( ! is_array( $bw_map ) || ! $bw_map ) {
 	exit( 1 );
 }
 
-echo 'Map: ' . count( $bw_map ) . " id pair(s)\n\n";
+// ⛔ NAME THE MAP FILE ON THE SUCCESS PATH, exactly as migrate-postmeta-keys.php:84 does.
+// Until 2026-08-26 this line printed the COUNT only, and $bw_map_file appeared nowhere but
+// the two ABORT branches above -- which exit(1), so a caller checking the exit code never
+// reaches the banner. ops/sc_com_install.py and ops/sc_ca_install.py both pass
+// must_name=METABOX_MAP_REMOTE to their evalphp() helper, which raises unless the path
+// appears in this tool's stdout. That assertion was therefore UNSATISFIABLE: it could only
+// ever produce a false failure, and its error text ("it may have fallen back to its default
+// map path") pointed the operator at a problem that had not happened.
+//
+// ⚠️ It never fired because it has never run. Both sterlingcreations.com and
+// sterlingcreations.ca measure an EMPTY meta-box map, so the `if mb_map:` branch guarding it
+// is dormant on each; and donnajodhan.com -- the one fleet site with a non-empty map, TWO
+// rows, recorded in this file's own header -- was migrated by ops/djj_install.py, which has
+// no evalphp() and no must_name at all. One collapsed editor panel on any site about to be
+// cut over would have aborted that cutover mid-migration, after the theme mods and post meta
+// had already been written.
+echo 'Map: ' . count( $bw_map ) . " id pair(s) from {$bw_map_file}\n\n";
 
 global $wpdb;
 
