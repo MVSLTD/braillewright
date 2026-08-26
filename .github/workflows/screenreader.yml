@@ -29,6 +29,10 @@ on:
         description: "1 (default) if this site's posts carry editorial 'Back to top' section jumpers; 0 for an ordinary blog."
         required: false
         default: ""
+      issue_brand:
+        description: "Phrase the screen reader must announce on the POST page (default: same as brand). A post's h1 is its own title, not the site's."
+        required: false
+        default: ""
   schedule:
     # 07:00 UTC nightly (~03:00 ET). Cron is UTC; ET offset shifts with DST.
     - cron: "0 7 * * *"
@@ -48,6 +52,7 @@ env:
   SR_ISSUE_PATH: ${{ github.event.inputs.issue_path }}
   SR_BRAND: ${{ github.event.inputs.brand }}
   SR_EXPECT_BACKTOTOP: ${{ github.event.inputs.expect_backtotop }}
+  SR_ISSUE_BRAND: ${{ github.event.inputs.issue_brand }}
 
 jobs:
   # ── Canary: STAGING (gets native auto-deploys first, so it regresses first) ──
@@ -131,6 +136,7 @@ jobs:
       SR_ISSUE_PATH: ${{ github.event.inputs.issue_path }}
       SR_BRAND: ${{ github.event.inputs.brand }}
       SR_EXPECT_BACKTOTOP: ${{ github.event.inputs.expect_backtotop }}
+      SR_ISSUE_BRAND: ${{ github.event.inputs.issue_brand }}
     strategy:
       fail-fast: false
       matrix:

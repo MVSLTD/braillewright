@@ -82,6 +82,23 @@ export const BRAND = (process.env.SR_BRAND || "top tech tidbits").toLowerCase();
 export const EXPECT_BACKTOTOP = (process.env.SR_EXPECT_BACKTOTOP || "1") !== "0";
 
 /**
+ * The token the ISSUE (single-post) spec expects to hear. Defaults to BRAND.
+ *
+ * ⚠️ ONE TOKEN CANNOT SERVE BOTH PAGES on every site. The home page's h1 and a single
+ * post's h1 are different things, and only sometimes share a word:
+ *
+ *   toptechtidbits.com  home h1 = the site title "Top Tech Tidbits"; and its newsletter
+ *                       posts also carry "Top Tech Tidbits" in headings -- so one token
+ *                       happens to work, which is why this was never noticed.
+ *   sterlingcreations.ca  home h1 = "Welcome!" (a static front page); post h1 = the post
+ *                       title. "welcome" is announced on the home page and NEVER on a post.
+ *
+ * Measured 2026-08-26: SR_BRAND=welcome passed the home spec and failed the issue spec on
+ * exactly that. Set SR_ISSUE_BRAND to a word from the post at SR_ISSUE_PATH.
+ */
+export const ISSUE_BRAND = (process.env.SR_ISSUE_BRAND || BRAND).toLowerCase();
+
+/**
  * The symmetric subset of Guidepup's `nvda` / `voiceOver` fixture APIs that this
  * suite uses. Keeping it minimal lets the same walk drive either screen reader.
  */

@@ -1,7 +1,7 @@
 import { voiceOverTest as test } from "@guidepup/playwright";
 import {
     BASE_URL,
-    BRAND,
+    ISSUE_BRAND,
     ISSUE_PATH,
     assertIssueStructure,
     collectHeadingWalk,
@@ -18,6 +18,6 @@ test.describe("Braillewright issue page — VoiceOver", () => {
         // 2) What VoiceOver announces walking into the article content.
         const speech = await collectHeadingWalk(voiceOver, voiceOver.keyboardCommands.findNextHeading);
         console.log(`[VoiceOver issue spoken log]\n${speech}`);
-        expectSpoken(speech, ["heading", BRAND]);
+        expectSpoken(speech, ["heading", ISSUE_BRAND]);
     });
 });
