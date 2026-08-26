@@ -73,6 +73,15 @@ export const ISSUE_PATH = process.env.SR_ISSUE_PATH || "/newsletter-06-11-2026/"
 export const BRAND = (process.env.SR_BRAND || "top tech tidbits").toLowerCase();
 
 /**
+ * Whether this site's POSTS are expected to carry editorial "Back to top" section-jumper
+ * links. True for Top Tech Tidbits newsletters; false for an ordinary blog.
+ *
+ * `||` for the same empty-string reason as ISSUE_PATH. Compared against "0" so that any
+ * other value keeps the check ON -- a typo must not silently disable an assertion.
+ */
+export const EXPECT_BACKTOTOP = (process.env.SR_EXPECT_BACKTOTOP || "1") !== "0";
+
+/**
  * The symmetric subset of Guidepup's `nvda` / `voiceOver` fixture APIs that this
  * suite uses. Keeping it minimal lets the same walk drive either screen reader.
  */
@@ -188,11 +197,25 @@ export async function assertIssueStructure(page: Page): Promise<void> {
     await expect(page.locator("h1.post-title")).toBeVisible();
     await expect(page.locator("h2").first()).toBeVisible();
 
-    // The editorial-pass fix: every "Back to top" section-jumper link now carries
-    // an accessible name (previously an emoji-only link with no name).
-    const backToTop = page.getByLabel("Back to top");
-    await expect(backToTop.first()).toBeVisible();
-    expect(await backToTop.count()).toBeGreaterThan(0);
+    // The editorial-pass fix: every "Back to top" section-jumper link carries an
+    // accessible name (previously an emoji-only link with no name).
+    //
+    // ⚠️⚠️ THIS ONE IS NOT A THEME CHECK -- IT TESTS TTT NEWSLETTER *CONTENT*.
+    // Measured 2026-08-26: a TTT issue has 12 `<a aria-label="Back to top">` section
+    // jumpers, which Aaron adds editorially; sterlingcreations.ca's ordinary blog post has
+    // ZERO, because a blog post has no sections to jump between. Asserting it on such a
+    // site fails for a reason that has nothing to do with accessibility.
+    //
+    // ⛔ Do NOT confuse it with the theme's floating arrow. BOTH sites render
+    // `<button id="scroll-to-top" class="scroll-to-top">`; that IS a theme feature and is
+    // not what this locator matches.
+    //
+    // Defaults ON so the TTT nightly keeps the regression test the editorial pass earned.
+    if (EXPECT_BACKTOTOP) {
+        const backToTop = page.getByLabel("Back to top");
+        await expect(backToTop.first()).toBeVisible();
+        expect(await backToTop.count()).toBeGreaterThan(0);
+    }
 
     // The post-navigation landmark is distinctly labelled.
     await expect(page.getByRole("navigation", { name: "Post" })).toBeVisible();
