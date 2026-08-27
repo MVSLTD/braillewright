@@ -15,18 +15,99 @@ import { expect, type Page } from "@playwright/test";
  * shows exactly what each screen reader said — use that to tighten assertions.
  */
 
-/** Base URL of the deployment under test. Set SR_BASE_URL (CI sources it from the SR_BASE_URL repo variable). */
+/**
+ * Base URL of the site under test.
+ *
+ * ⚠️ CI sources this from the SR_BASE_URL repo **SECRET**, never a repo variable. GitHub
+ * masks secrets in logs and does NOT mask variables, and this repo is public -- while it
+ * was a variable the staging hostname appeared in plaintext 16 times in a single nightly
+ * run's log. Changed to a secret 2026-08-14. Do not move it back.
+ *
+ * ⛔ `||`, not `??` -- the same empty-string reasoning as the four settings below. Under
+ * `??` an SR_BASE_URL of "" passed straight through as "", so the error here could never
+ * fire and a required-value guard was unreachable.
+ */
 export const BASE_URL =
-    process.env.SR_BASE_URL ??
+    process.env.SR_BASE_URL ||
     (() => {
         throw new Error(
             "SR_BASE_URL is required: the base URL of the site under test. " +
-            "In CI it comes from the SR_BASE_URL repository variable; locally, export it before running.",
+            "In CI it comes from the SR_BASE_URL repository SECRET; locally, export it before running.",
         );
     })();
 
-/** A recent TTT issue that exists on the staging clone (verified reachable 2026-06-19). */
-export const ISSUE_PATH = "/newsletter-06-11-2026/";
+/**
+ * A single-post address on the site under test.
+ *
+ * Defaults to a TTT issue verified reachable 2026-06-19, so the nightly TTT run is
+ * unchanged. Override with SR_ISSUE_PATH when pointing this suite at another
+ * Braillewright site -- a TTT newsletter URL 404s everywhere else, and
+ * assertIssueStructure would then fail on a missing page rather than on anything
+ * about the theme.
+ */
+// ⛔ `||`, NOT `??`. A workflow_dispatch input left blank arrives as an EMPTY STRING, and
+// a scheduled run supplies none at all. `??` only falls back on null/undefined, so `??`
+// here would let "" through, the issue spec would load the HOME page, and every nightly
+// TTT run would fail on a missing h1.post-title. `||` catches the empty string too.
+export const ISSUE_PATH = process.env.SR_ISSUE_PATH || "/newsletter-06-11-2026/";
+
+/**
+ * A lowercase phrase the screen reader must actually announce on this site -- proof that
+ * speech is flowing and the heading walk reached real content, not just that the DOM
+ * looked right.
+ *
+ * ⛔ Defaults to "top tech tidbits". It MUST be overridden with SR_BRAND for any other
+ * site: a screen reader will never announce "top tech tidbits" on a site that is not Top
+ * Tech Tidbits, so leaving it would fail every spec for a reason that has nothing to do
+ * with accessibility.
+ *
+ * ⚠️⚠️ IT MUST BE A PHRASE THE **HEADING WALK** REACHES -- NOT JUST TEXT ON THE PAGE, AND
+ * NOT NECESSARILY THE SITE NAME. Learned the hard way 2026-08-26 on the first cross-site
+ * run: `SR_BRAND=sterling` against https://sterlingcreations.ca/ failed, and the site was
+ * fine. NVDA's walk announced:
+ *
+ *     main landmark, welcome!, heading, level 1
+ *     blog:, heading, level 2
+ *     complementary landmark, sidebar, heading, level 2
+ *     recent posts, heading, level 2
+ *
+ * The h1 is "Welcome!" -- the PAGE title -- because that site's front page is a STATIC
+ * PAGE. Top Tech Tidbits' front page is the blog index, so there the SITE title is the h1
+ * and "top tech tidbits" is announced. sterlingcreations.ca's site title is perfectly
+ * accessible (a `screen-reader-text` span inside the masthead link); it is simply not a
+ * heading, which is correct on a static front page.
+ *
+ * 👉 So: check `show_on_front`. If it is `page`, use a word from THAT PAGE'S TITLE.
+ *    Measured 2026-08-26 -- sterlingcreations.com: "Home"; sterlingcreations.ca: "Welcome!".
+ */
+// Same `||` reasoning as ISSUE_PATH above.
+export const BRAND = (process.env.SR_BRAND || "top tech tidbits").toLowerCase();
+
+/**
+ * Whether this site's POSTS are expected to carry editorial "Back to top" section-jumper
+ * links. True for Top Tech Tidbits newsletters; false for an ordinary blog.
+ *
+ * `||` for the same empty-string reason as ISSUE_PATH. Compared against "0" so that any
+ * other value keeps the check ON -- a typo must not silently disable an assertion.
+ */
+export const EXPECT_BACKTOTOP = (process.env.SR_EXPECT_BACKTOTOP || "1") !== "0";
+
+/**
+ * The token the ISSUE (single-post) spec expects to hear. Defaults to BRAND.
+ *
+ * ⚠️ ONE TOKEN CANNOT SERVE BOTH PAGES on every site. The home page's h1 and a single
+ * post's h1 are different things, and only sometimes share a word:
+ *
+ *   toptechtidbits.com  home h1 = the site title "Top Tech Tidbits"; and its newsletter
+ *                       posts also carry "Top Tech Tidbits" in headings -- so one token
+ *                       happens to work, which is why this was never noticed.
+ *   sterlingcreations.ca  home h1 = "Welcome!" (a static front page); post h1 = the post
+ *                       title. "welcome" is announced on the home page and NEVER on a post.
+ *
+ * Measured 2026-08-26: SR_BRAND=welcome passed the home spec and failed the issue spec on
+ * exactly that. Set SR_ISSUE_BRAND to a word from the post at SR_ISSUE_PATH.
+ */
+export const ISSUE_BRAND = (process.env.SR_ISSUE_BRAND || BRAND).toLowerCase();
 
 /**
  * The symmetric subset of Guidepup's `nvda` / `voiceOver` fixture APIs that this
@@ -144,11 +225,25 @@ export async function assertIssueStructure(page: Page): Promise<void> {
     await expect(page.locator("h1.post-title")).toBeVisible();
     await expect(page.locator("h2").first()).toBeVisible();
 
-    // The editorial-pass fix: every "Back to top" section-jumper link now carries
-    // an accessible name (previously an emoji-only link with no name).
-    const backToTop = page.getByLabel("Back to top");
-    await expect(backToTop.first()).toBeVisible();
-    expect(await backToTop.count()).toBeGreaterThan(0);
+    // The editorial-pass fix: every "Back to top" section-jumper link carries an
+    // accessible name (previously an emoji-only link with no name).
+    //
+    // ⚠️⚠️ THIS ONE IS NOT A THEME CHECK -- IT TESTS TTT NEWSLETTER *CONTENT*.
+    // Measured 2026-08-26: a TTT issue has 12 `<a aria-label="Back to top">` section
+    // jumpers, which Aaron adds editorially; sterlingcreations.ca's ordinary blog post has
+    // ZERO, because a blog post has no sections to jump between. Asserting it on such a
+    // site fails for a reason that has nothing to do with accessibility.
+    //
+    // ⛔ Do NOT confuse it with the theme's floating arrow. BOTH sites render
+    // `<button id="scroll-to-top" class="scroll-to-top">`; that IS a theme feature and is
+    // not what this locator matches.
+    //
+    // Defaults ON so the TTT nightly keeps the regression test the editorial pass earned.
+    if (EXPECT_BACKTOTOP) {
+        const backToTop = page.getByLabel("Back to top");
+        await expect(backToTop.first()).toBeVisible();
+        expect(await backToTop.count()).toBeGreaterThan(0);
+    }
 
     // The post-navigation landmark is distinctly labelled.
     await expect(page.getByRole("navigation", { name: "Post" })).toBeVisible();

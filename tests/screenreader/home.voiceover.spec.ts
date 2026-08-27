@@ -2,6 +2,7 @@ import { voiceOverTest as test } from "@guidepup/playwright";
 import { expect } from "@playwright/test";
 import {
     BASE_URL,
+    BRAND,
     assertHomeStructure,
     collectHeadingWalk,
     expectSpoken,
@@ -19,7 +20,7 @@ test.describe("Braillewright home — VoiceOver", () => {
         console.log(`[VoiceOver home spoken log]\n${speech}`);
         // VoiceOver navigates the heading structure (VO-Command-H) — the primary
         // screen-reader navigation method. Landmarks are verified deterministically above.
-        expectSpoken(speech, ["heading", "top tech tidbits"]);
+        expectSpoken(speech, ["heading", BRAND]);
     });
 
     test("primary nav toggle exposes expanded/collapsed state (mobile)", async ({ page, voiceOver }) => {

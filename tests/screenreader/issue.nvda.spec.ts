@@ -1,6 +1,7 @@
 import { nvdaTest as test } from "@guidepup/playwright";
 import {
     BASE_URL,
+    ISSUE_BRAND,
     ISSUE_PATH,
     assertIssueStructure,
     collectHeadingWalk,
@@ -17,6 +18,6 @@ test.describe("Braillewright issue page — NVDA", () => {
         // 2) What NVDA announces walking into the article content.
         const speech = await collectHeadingWalk(nvda, nvda.keyboardCommands.moveToNextHeading);
         console.log(`[NVDA issue spoken log]\n${speech}`);
-        expectSpoken(speech, ["heading", "top tech tidbits"]);
+        expectSpoken(speech, ["heading", ISSUE_BRAND]);
     });
 });

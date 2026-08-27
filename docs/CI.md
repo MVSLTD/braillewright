@@ -108,16 +108,40 @@ are deliberately **not** part of `ci.yml` and **do not gate pull requests**:
 
 - NVDA needs a **Windows** runner and VoiceOver needs a **macOS** runner (macOS
   bills at 10× Actions minutes), so they can't ride the Ubuntu `wp-env` matrix.
-- They test the **live TTT staging deploy** (real menus, widgets and issue
-  content) — not a PR's code diff. The `pa11y` job above already gates
-  theme/plugin code on every PR; this verifies what staging actually *announces*.
+- They test a **live deploy** (real menus, widgets and issue content) — not a
+  PR's code diff. By default that is TTT staging in one job and TTT production in
+  the other. The `pa11y` job above already gates theme/plugin code on every PR;
+  this verifies what a deployed site actually *announces*.
 
-**Trigger:** on demand (`workflow_dispatch`, with an optional `url` input) and
-nightly (`schedule`, 07:00 UTC). **Scope (starter smoke):** skip link → `#main`;
-the `banner` / `Primary` navigation / `main` / `contentinfo` landmarks; the
-mobile primary-nav expand/collapse state; and on an issue page the `Post`
-landmark + headings + the `Back to top` link labels. The header search control
-is checked but auto-skips (it does not render on the live TTT templates).
+**Trigger:** on demand (`workflow_dispatch`) and nightly (`schedule`, 07:00 UTC).
+**Scope (starter smoke):** skip link → `#main`; the `banner` / `Primary`
+navigation / `main` / `contentinfo` landmarks; the mobile primary-nav
+expand/collapse state; and on an issue page the `Post` landmark + headings + the
+`Back to top` link labels. The header search control is checked but auto-skips
+(it does not render on the live TTT templates).
+
+**Since 2026-08-26 the suite can target any Braillewright site, not just TTT.**
+It takes five optional dispatch inputs — `url`, `issue_path`, `brand`,
+`issue_brand` and `expect_backtotop` — and **every default is the Top Tech
+Tidbits value, so a scheduled run or a dispatch with everything blank reproduces
+the nightly run byte-for-byte.** Full table and the two traps that cost a run
+(the brand token must be a phrase the HEADING WALK reaches, and one token cannot
+serve both the home page and a post) are in
+[`tests/screenreader/README.md`](../tests/screenreader/README.md).
+
+⚠️ **The `Back to top` assertion above is NOT a theme check — it tests TTT
+newsletter CONTENT**, and `expect_backtotop=0` turns it off for an ordinary blog.
+Measured 2026-08-26: a TTT issue carries 12 such section-jumper links, added
+editorially; an ordinary blog post carries zero. It is not the theme's floating
+`#scroll-to-top` arrow, which every site renders.
+
+⚠️ **`SR_BASE_URL` is a repository SECRET, not a repository variable.** GitHub
+masks secrets in logs and does **not** mask variables, and this repo is public —
+while it was a variable the staging hostname appeared in plaintext 16 times in a
+single nightly run's log. Changed 2026-08-14; do not move it back.
+
+⛔ **`concurrency` is keyed to the ref with `cancel-in-progress: true`**, so two
+dispatches against the same ref cancel each other. Run them sequentially.
 
 The suite has its **own** `tests/screenreader/package.json` (Guidepup +
 Playwright) so it never affects the root a11y toolchain or PR-gating CI. See

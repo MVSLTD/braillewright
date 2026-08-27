@@ -17,6 +17,22 @@ on:
         description: "Base URL to test (overrides the SR_BASE_URL repo secret)"
         required: false
         default: ""
+      issue_path:
+        description: "Single-post path on that site (default: a TTT newsletter). REQUIRED when testing a non-TTT site."
+        required: false
+        default: ""
+      brand:
+        description: "Lowercase phrase the screen reader must announce (default: top tech tidbits). REQUIRED when testing a non-TTT site."
+        required: false
+        default: ""
+      expect_backtotop:
+        description: "1 (default) if this site's posts carry editorial 'Back to top' section jumpers; 0 for an ordinary blog."
+        required: false
+        default: ""
+      issue_brand:
+        description: "Phrase the screen reader must announce on the POST page (default: same as brand). A post's h1 is its own title, not the site's."
+        required: false
+        default: ""
   schedule:
     # 07:00 UTC nightly (~03:00 ET). Cron is UTC; ET offset shifts with DST.
     - cron: "0 7 * * *"
@@ -30,6 +46,13 @@ concurrency:
 
 env:
   SR_BASE_URL: ${{ github.event.inputs.url || secrets.SR_BASE_URL }}
+  # These arrive as "" on a scheduled run and whenever the input is left blank.
+  # lib/checks.ts uses `||` (not `??`) precisely so an empty string falls back to the
+  # TTT defaults -- see the comment there. Do not "tidy" that to `??`.
+  SR_ISSUE_PATH: ${{ github.event.inputs.issue_path }}
+  SR_BRAND: ${{ github.event.inputs.brand }}
+  SR_EXPECT_BACKTOTOP: ${{ github.event.inputs.expect_backtotop }}
+  SR_ISSUE_BRAND: ${{ github.event.inputs.issue_brand }}
 
 jobs:
   # ── Canary: STAGING (gets native auto-deploys first, so it regresses first) ──
@@ -110,6 +133,10 @@ jobs:
     timeout-minutes: 25
     env:
       SR_BASE_URL: ${{ github.event.inputs.url || 'https://toptechtidbits.com' }}
+      SR_ISSUE_PATH: ${{ github.event.inputs.issue_path }}
+      SR_BRAND: ${{ github.event.inputs.brand }}
+      SR_EXPECT_BACKTOTOP: ${{ github.event.inputs.expect_backtotop }}
+      SR_ISSUE_BRAND: ${{ github.event.inputs.issue_brand }}
     strategy:
       fail-fast: false
       matrix:

@@ -2,6 +2,7 @@ import { nvdaTest as test } from "@guidepup/playwright";
 import { expect } from "@playwright/test";
 import {
     BASE_URL,
+    BRAND,
     assertHomeStructure,
     collectHeadingWalk,
     expectSpoken,
@@ -19,7 +20,7 @@ test.describe("Braillewright home — NVDA", () => {
         console.log(`[NVDA home spoken log]\n${speech}`);
         // Heading navigation is reliable where linear next() was flaky; the landmark
         // structure is verified deterministically in assertHomeStructure above.
-        expectSpoken(speech, ["heading", "top tech tidbits"]);
+        expectSpoken(speech, ["heading", BRAND]);
     });
 
     test("primary nav toggle exposes expanded/collapsed state (mobile)", async ({ page, nvda }) => {
