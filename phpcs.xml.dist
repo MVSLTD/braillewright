@@ -84,12 +84,18 @@
                     Added 2026-08-27. The four migration scripts under tools/ prefix their
                     file-scope variables `bw_` rather than spelling out `braillewright_`
                     (commit 1204320 renamed them from bare $from / $to). They are genuine
-                    globals and the sniff was right to fire, but `bw` is a real project
-                    prefix - so this one line clears 40 findings that would otherwise
-                    have been 40 renames. It does NOT weaken the sniff: an unprefixed
-                    global still fails.
+                    globals and the sniff was right to fire, so this names `bw_` as a
+                    second approved prefix rather than renaming 40 variables. It does NOT
+                    weaken the sniff: an unprefixed global still fails.
+
+                    ⚠️ IT MUST BE `bw_`, NOT `bw`. WPCS enforces a MINIMUM PREFIX LENGTH
+                    of 3 characters. Measured on CI run 33109149953: `bw` was rejected with
+                    "The \"bw\" prefix is too short. Short prefixes are not unique"
+                    (PrefixAllGlobals.ShortPrefixPassed), which cleared NOTHING and added
+                    8 new findings, one per file the sniff visits. The trailing underscore
+                    is what makes it three characters.
                 -->
-                <element value="bw"/>
+                <element value="bw_"/>
             </property>
         </properties>
     </rule>
