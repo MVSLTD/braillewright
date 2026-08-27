@@ -156,11 +156,45 @@ bumps are bundled into one PR per ecosystem; **major** updates come separately.
 
 `main` is a **protected branch**: it requires all five CI checks above to pass
 before any merge (admin override on, so it never locks the maintainer out; no
-required human reviewer). The
-[`dependabot-auto-merge.yml`](../.github/workflows/dependabot-auto-merge.yml)
-workflow enables GitHub auto-merge on Dependabot **patch/minor** PRs, so they
-merge themselves *after* the required checks pass — a dependency update that
-breaks the build can never land. **Major** updates wait for manual review.
+required human reviewer).
+
+### ⛔ Auto-merge was REMOVED on 2026-08-27 — every Dependabot PR is merged by a human
+
+There used to be a `dependabot-auto-merge.yml` workflow that enabled GitHub
+auto-merge on Dependabot **patch/minor** PRs. **It was deleted**, because of a
+defect that only surfaced the first time it actually fired:
+
+> **A merge performed with the built-in `GITHUB_TOKEN` does not create new
+> workflow runs.** GitHub suppresses that deliberately, to prevent a workflow
+> from re-triggering itself.
+
+The workflow ran `gh pr merge --auto --squash` with `GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}`,
+so when its merge landed on `main`, **`ci.yml` never ran** — and `ci.yml` is where
+the `package-theme` job lives, which publishes the `wpcom` artifact that
+WordPress.com deploys the staging site from. So a Dependabot merge that touched
+theme code would have put `main` ahead of staging **silently**: no error, no log
+line, and simply no new row in the Deployments tab.
+
+**Proven as a differential on 2026-08-27**, same repo, same workflow, same
+`on: push: branches: [main]` trigger — only the merging identity differed:
+
+| Merge | Merged by | Workflow runs on `main` |
+|---|---|---|
+| `0f271d2` (Dependabot PR #37) | `app/github-actions` | **0** |
+| `d634d8b` (PR #44) | a real user account | **1** (`33041868922`, event `push`) |
+
+So the trigger configuration was never wrong. **Any merge a human performs
+behaves correctly; only the token-driven auto-merge was invisible to Actions.**
+
+👉 **What happens now.** Dependabot still opens its grouped weekly PRs and the
+five required checks still gate them — nothing about safety changed. A human
+merges each one once those checks are green, which starts `ci.yml` on `main`
+normally and therefore keeps staging in step. **Major** updates were always
+manual and still are.
+
+⚠️ **If auto-merge is ever wanted back, it must NOT use `GITHUB_TOKEN`** — it
+needs a fine-grained PAT or a GitHub App installation token, or the same silent
+staging drift returns.
 
 ## Scope reminder
 
