@@ -24,7 +24,37 @@
     <exclude-pattern>*.min.css</exclude-pattern>
 
     <!-- Base standard: WordPress-Extra = WordPress-Core + best practices + the WordPress.Security.* sniffs. -->
-    <rule ref="WordPress-Extra"/>
+    <rule ref="WordPress-Extra">
+
+        <!--
+            RETIRED BY DECISION 2026-08-27 (Aaron, round 2026-08-27-braillewright-codestyle-A).
+            These two are switched OFF, visibly, with the reason recorded here. That is
+            deliberately NOT the same as a baseline: a baseline leaves a rule switched on
+            and hides its findings, so the gate claims to enforce something it does not.
+            An excluded rule is honest - anyone reading this file can see it is off.
+
+            1. Universal.Operators.StrictComparisons - 332 findings.
+               phpcbf marks ALL of them auto-fixable and would rewrite == to ===, which is
+               a BEHAVIOUR change, not a style change. Measured 2026-08-27: 70 findings at
+               37 source lines across 5 files would have changed what the theme does,
+               because WordPress returns bool false for an unset setting and the string
+               '1' from a TEXT column. The worst would have put <a href="">Visit Page</a>
+               on the front page of three live sites. Those 37 lines were repaired in the
+               same change that added this exclusion; the remaining 295 are correct under
+               both operators. Enforcing strict comparisons across a WordPress theme that
+               reads options, theme mods and post meta is a trap, not a standard.
+        -->
+        <exclude name="Universal.Operators.StrictComparisons"/>
+
+        <!--
+            2. WordPress.PHP.YodaConditions - 308 findings.
+               Pure house style with no correctness content, and no fixer exists, so every
+               one would be a hand edit. Braillewright does not write Yoda conditions.
+               Recorded as a style decision rather than carried as permanent noise.
+        -->
+        <exclude name="WordPress.PHP.YodaConditions"/>
+
+    </rule>
 
     <!-- Target a recent-but-stable WP for the deprecated-function checks. -->
     <config name="minimum_supported_wp_version" value="6.5"/>
@@ -40,13 +70,26 @@
 
     <!--
         Global-prefix sniff. The fusion (2026-06-19) renamed the entire upstream
-        ct_period / period namespace to braillewright, so braillewright is the only
-        approved prefix (braillewright_features_* is covered by it).
+        ct_period / period namespace to braillewright (braillewright_features_* is
+        covered by it). Two prefixes are approved: braillewright for the theme, and
+        bw for the migration scripts under tools/ - see the note beside that element.
+        This paragraph said "braillewright is the ONLY approved prefix" until
+        2026-08-27; it is kept accurate rather than left to contradict the rule below.
     -->
     <rule ref="WordPress.NamingConventions.PrefixAllGlobals">
         <properties>
             <property name="prefixes" type="array">
                 <element value="braillewright"/>
+                <!--
+                    Added 2026-08-27. The four migration scripts under tools/ prefix their
+                    file-scope variables `bw_` rather than spelling out `braillewright_`
+                    (commit 1204320 renamed them from bare $from / $to). They are genuine
+                    globals and the sniff was right to fire, but `bw` is a real project
+                    prefix - so this one line clears 40 findings that would otherwise
+                    have been 40 renames. It does NOT weaken the sniff: an unprefixed
+                    global still fails.
+                -->
+                <element value="bw"/>
             </property>
         </properties>
     </rule>
