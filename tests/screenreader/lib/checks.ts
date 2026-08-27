@@ -15,13 +15,24 @@ import { expect, type Page } from "@playwright/test";
  * shows exactly what each screen reader said — use that to tighten assertions.
  */
 
-/** Base URL of the deployment under test. Set SR_BASE_URL (CI sources it from the SR_BASE_URL repo variable). */
+/**
+ * Base URL of the site under test.
+ *
+ * ⚠️ CI sources this from the SR_BASE_URL repo **SECRET**, never a repo variable. GitHub
+ * masks secrets in logs and does NOT mask variables, and this repo is public -- while it
+ * was a variable the staging hostname appeared in plaintext 16 times in a single nightly
+ * run's log. Changed to a secret 2026-08-14. Do not move it back.
+ *
+ * ⛔ `||`, not `??` -- the same empty-string reasoning as the four settings below. Under
+ * `??` an SR_BASE_URL of "" passed straight through as "", so the error here could never
+ * fire and a required-value guard was unreachable.
+ */
 export const BASE_URL =
-    process.env.SR_BASE_URL ??
+    process.env.SR_BASE_URL ||
     (() => {
         throw new Error(
             "SR_BASE_URL is required: the base URL of the site under test. " +
-            "In CI it comes from the SR_BASE_URL repository variable; locally, export it before running.",
+            "In CI it comes from the SR_BASE_URL repository SECRET; locally, export it before running.",
         );
     })();
 
