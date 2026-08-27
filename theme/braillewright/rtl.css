@@ -3,7 +3,7 @@
 Theme Name: Braillewright
 Author: Aaron Di Blasi
 Description: Accessibility-first WordPress theme, maintained in-house. Forked from the GPL Period theme
-Version: 2.0.5
+Version: 2.0.10
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: two-columns, left-sidebar, right-sidebar, accessibility-ready, custom-logo, custom-menu, featured-images, full-width-template, rtl-language-support, sticky-post, theme-options, threaded-comments, translation-ready, blog, education, news
@@ -837,6 +837,44 @@ li.pingback > article {
   font-size: 21px;
   -webkit-transition: -webkit-transform 0.2s;
           transition: transform 0.2s;
+}
+
+/**
+ * 14.1.1 Jetpack Infinite Scroll footer
+ *
+ * Mirror of the LTR rule. In right-to-left the scroll-to-top arrow is pinned to
+ * left: 0 (see .scroll-to-top above), so the room reserved for it in Jetpack's
+ * fixed footer bar has to be on the LEFT, not the right. Reserving it on the
+ * right here would leave the collision exactly as it was and add dead space on
+ * the wrong side.
+ */
+.has-scroll-to-top #infinite-footer .container {
+  padding-left: 80px;
+}
+
+/*
+ * The theme's own footer credit is centred, so reserving on both sides keeps it
+ * centred AND clears the arrow whichever edge the arrow is pinned to. That makes
+ * this rule identical to the left-to-right sheet on purpose -- there is nothing
+ * to mirror. Clearance is padding minus the 60px button, so 80px leaves 20px.
+ */
+.has-scroll-to-top .design-credit {
+  padding-left: 80px;
+  padding-right: 80px;
+  padding-left: max(5.5556%, 80px);
+  padding-right: max(5.5556%, 80px);
+}
+
+/*
+ * Same contrast fix as the LTR sheet: Jetpack's #888 credit measures 3.43:1 on
+ * the near-white bar, below the 4.5:1 needed at 12px.
+ */
+#infinite-footer .blog-credits,
+#infinite-footer .blog-credits a {
+  color: #242424;
+}
+#infinite-footer .blog-credits a {
+  text-decoration: underline;
 }
 
 /**

@@ -3,7 +3,7 @@
 Theme Name: Braillewright
 Author: Aaron Di Blasi
 Description: Accessibility-first WordPress theme, maintained in-house. Forked from the GPL Period theme
-Version: 2.0.5
+Version: 2.0.10
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: two-columns, left-sidebar, right-sidebar, accessibility-ready, custom-logo, custom-menu, featured-images, full-width-template, rtl-language-support, sticky-post, theme-options, threaded-comments, translation-ready, blog, education, news
@@ -872,6 +872,57 @@ li.pingback > article {
   font-size: 21px;
   -webkit-transition: -webkit-transform 0.2s;
           transition: transform 0.2s;
+}
+
+/**
+ * 14.1.1 Jetpack Infinite Scroll footer
+ *
+ * The theme opts into Infinite Scroll (add_theme_support in functions.php), so
+ * Jetpack renders a fixed bar across the bottom of the viewport containing the
+ * site name and the "Proudly powered by WordPress Theme: Braillewright." credit.
+ * The scroll-to-top arrow is ALSO position:fixed in that same bottom corner, and
+ * it wins, clipping the end of the credit line. Measured at a 1280px viewport:
+ * the credit text ran 40px underneath the button and "Braillewright." was
+ * unreadable.
+ *
+ * Reserve the arrow's width (60px) plus the container's own 20px gutter, and
+ * only when the arrow is actually switched on -- the body class comes from
+ * braillewright_body_class().
+ */
+.has-scroll-to-top #infinite-footer .container {
+  padding-right: 80px;
+}
+
+/*
+ * The theme's OWN footer credit has the same collision. It is centred rather
+ * than floated, so it only reaches the arrow once the line grows long enough --
+ * measured at a 790px viewport, the credit ran 14px underneath the button.
+ *
+ * Reserve on BOTH sides so the line stays centred, and because this one rule
+ * then works unchanged in right-to-left (where the arrow is pinned left).
+ * Clearance works out at padding minus the 60px button, so 80px leaves 20px.
+ * The unprefixed values are a fallback for anything without CSS max().
+ */
+.has-scroll-to-top .design-credit {
+  padding-left: 80px;
+  padding-right: 80px;
+  padding-left: max(5.5556%, 80px);
+  padding-right: max(5.5556%, 80px);
+}
+
+/*
+ * Jetpack ships this credit at #888 on a near-white bar, which measures
+ * 3.43:1 -- below the 4.5:1 that 12px text needs. Raising it to the theme's own
+ * dark makes it 15:1. That leaves the WordPress link the same colour as the text
+ * around it, so it gets an underline rather than relying on colour alone to be
+ * recognisable as a link.
+ */
+#infinite-footer .blog-credits,
+#infinite-footer .blog-credits a {
+  color: #242424;
+}
+#infinite-footer .blog-credits a {
+  text-decoration: underline;
 }
 
 /**

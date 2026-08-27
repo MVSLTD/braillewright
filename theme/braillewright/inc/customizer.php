@@ -160,6 +160,12 @@ function braillewright_add_customizer_content( $wp_customize ) {
 				$label = __('TikTok', 'braillewright');
 			} elseif ( $social_site == 'twitter' ) {
 				$label = __('X (Twitter)', 'braillewright');
+			} elseif ( $social_site == 'linkedin' ) {
+				$label = __('LinkedIn Business Page', 'braillewright');
+			} elseif ( $social_site == 'linkedin_personal' ) {
+				// Without this the control would read "Linkedin_personal",
+				// because the default label is just ucfirst() of the key.
+				$label = __('LinkedIn Personal Profile', 'braillewright');
 			}
 
 			if ( $social_site == 'skype' ) {

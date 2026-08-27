@@ -312,6 +312,91 @@ function braillewright_update_yoast_og_description($ogdesc)
 }
 add_filter('wpseo_opengraph_desc', 'braillewright_update_yoast_og_description');
 
+/**
+ * Allowed HTML for the featured-image slot.
+ *
+ * ⛔⛔ WHY THIS EXISTS — a security pass silently deleted a whole feature.
+ *
+ * Commit 5733366 ("Phase 3: pre-ship security pass — escape output + nonce review")
+ * changed `echo $featured_image;` to `echo wp_kses_post( ... )`. That was the right
+ * instinct and the wrong allowlist: `wp_kses_post()` does NOT permit <iframe>, and the
+ * featured-VIDEO feature renders exactly that. Measured on WordPress 7.1, 2026-08-25:
+ *
+ *     before wp_kses_post()  448 bytes, '<div class="featured-video"><iframe … youtube …>'
+ *     after                  218 bytes, the iframe gone
+ *
+ * The live page therefore shipped `<div class="featured-video"></div>` — an empty box,
+ * no error anywhere. It had been that way on every Braillewright site since the fork's
+ * first security pass, and nobody saw it because Top Tech Tidbits and Access Information
+ * News have never used a featured video. drkirkadams.com was the first site that had
+ * any: 44 of them.
+ *
+ * ⚠️ `source` is added for the same reason — `braillewright_features_output_video()`
+ * falls back to `[video mp4=…]` / `[audio mp3=…]` for self-hosted media, and
+ * `wp_kses_post()` allows <video> and <audio> but NOT their <source> children.
+ *
+ * ⛔ `script` is deliberately NOT added, even though the featured-SLIDER path
+ * (features/inc/featured-sliders.php:168-173) runs Meta Slider's shortcode through here
+ * and Meta Slider emits inline script. Allowing <script> in this slot would be a real
+ * security regression, and it would re-open exactly what commit 5733366 set out to
+ * close. Meta Slider is not active on any fleet site; if it is ever wanted, give the
+ * slider its own narrowly-scoped output path rather than widening this one.
+ *
+ * ⚠️ THE IFRAME src IS NOT ALWAYS oEMBED-DERIVED, AND AN EARLIER DRAFT OF THIS COMMENT
+ * CLAIMED IT WAS. Most of the time it comes from `wp_oembed_get()`, which only returns
+ * markup built from a REGISTERED provider's response. But
+ * `features/inc/featured-videos.php` has a branch that builds its own <iframe> for
+ * youtube-nocookie.com URLs and never reaches wp_oembed_get() at all. That branch used
+ * to decide with `strpos( $url, 'youtube-nocookie.com' ) !== false` — a substring test
+ * that matched the string anywhere in the URL, so an author-supplied
+ * `https://attacker.example/p?ref=youtube-nocookie.com` produced an iframe pointing
+ * wherever they liked. Allowing <iframe> here is exactly what would have taken that
+ * from dormant to live, so it was replaced with a real host check
+ * (`braillewright_features_is_youtube_nocookie()`) in the same commit as this map.
+ *
+ * ⚠️ wp_kses cannot substitute for that check: it validates a URL's PROTOCOL and has no
+ * concept of an allowed host. If another branch is ever added that composes an <iframe>
+ * from author input, it needs its own host check too — widening this map is not enough.
+ *
+ * @return array Tag/attribute map for wp_kses().
+ */
+if (! function_exists('braillewright_featured_image_allowed_html')) {
+    function braillewright_featured_image_allowed_html()
+    {
+        $allowed = wp_kses_allowed_html('post');
+
+        $allowed['iframe'] = array(
+            'src'             => true,
+            'title'           => true,
+            'width'           => true,
+            'height'          => true,
+            'frameborder'     => true,
+            'allow'           => true,
+            'allowfullscreen' => true,
+            'referrerpolicy'  => true,
+            'loading'         => true,
+            'sandbox'         => true,
+            'name'            => true,
+            'class'           => true,
+            'id'              => true,
+            'style'           => true,
+            'aria-label'      => true,
+        );
+
+        $allowed['source'] = array(
+            'src'     => true,
+            'type'    => true,
+            'srcset'  => true,
+            'sizes'   => true,
+            'media'   => true,
+            'class'   => true,
+            'id'      => true,
+        );
+
+        return $allowed;
+    }
+}
+
 if (! function_exists('braillewright_featured_image')) {
     function braillewright_featured_image()
     {
@@ -329,7 +414,33 @@ if (! function_exists('braillewright_featured_image')) {
         $featured_image = apply_filters('braillewright_featured_image', $featured_image);
 
         if ($featured_image) {
-            echo wp_kses_post( (string) $featured_image );
+            /*
+             * TWO changes here, and BOTH are needed. Measured on the live host 2026-08-25.
+             *
+             * 1. NOT wp_kses_post(). It does not allow <iframe>, so it deleted the
+             *    featured video outright. See braillewright_featured_image_allowed_html().
+             *
+             * 2. do_shortcode() AROUND the result. On a Jetpack/WordPress.com site the
+             *    filter `jetpack_youtube_embed_to_short_code` is hooked to `pre_kses` at
+             *    priority 10, so wp_kses() rewrites a YouTube <iframe> into a literal
+             *    [youtube ...] shortcode BEFORE it ever consults the tag allowlist. That
+             *    is Jetpack working as designed -- it assumes do_shortcode() runs
+             *    afterwards, which in this slot it never did. Widening the allowlist alone
+             *    changed nothing at all:
+             *
+             *      raw markup                              448 bytes, iframe present
+             *      wp_kses_post()                          218 bytes, iframe gone
+             *      wp_kses() + iframe allowed              218 bytes, iframe STILL gone
+             *      wp_kses() with pre_kses filters off     262 bytes, iframe present
+             *      do_shortcode( wp_kses(...) )            511 bytes, working player
+             *
+             *    The allowlist covers sites WITHOUT those filters (and the
+             *    youtube-nocookie branch, which builds its own iframe and is never
+             *    reversed); do_shortcode() covers sites with them.
+             *
+             * footer.php already uses exactly this shape: do_shortcode( wp_kses_post( ... ) ).
+             */
+            echo do_shortcode( wp_kses( (string) $featured_image, braillewright_featured_image_allowed_html() ) );
         }
     }
 }
@@ -343,6 +454,7 @@ if (! function_exists('braillewright_social_array')) {
             'instagram'     => 'braillewright_instagram_profile',
             'tiktok'     	=> 'braillewright_tiktok_profile',
             'threads'     	=> 'braillewright_threads_profile',
+            'linkedin_personal' => 'braillewright_linkedin_personal_profile',
             'linkedin'      => 'braillewright_linkedin_profile',
             'pinterest'     => 'braillewright_pinterest_profile',
             'youtube'       => 'braillewright_youtube_profile',
@@ -463,6 +575,10 @@ if (! function_exists('braillewright_social_icons_output')) {
                     $class = 'fas fa-phone';
                 } elseif ($name == 'twitter') {
                     $class = 'fab fa-x-twitter';
+                } elseif ($name == 'linkedin_personal') {
+                    // Both LinkedIn slots share one brand glyph; only the
+                    // accessible name distinguishes them.
+                    $class = 'fab fa-linkedin';
                 } else {
                     $class = 'fab fa-' . $name;
                 }
@@ -479,6 +595,14 @@ if (! function_exists('braillewright_social_icons_output')) {
                 } elseif ($name == 'phone') {
                     $href = esc_url($url, array( 'tel' ));
                     $title = esc_url($url, array( 'tel' ));
+                } elseif ($name == 'linkedin') {
+                    // Two LinkedIn icons can sit side by side, so "linkedin"
+                    // twice would be ambiguous to a screen reader.
+                    $title = __('LinkedIn Business Page', 'braillewright');
+                    $href = esc_url($url);
+                } elseif ($name == 'linkedin_personal') {
+                    $title = __('LinkedIn Personal Profile', 'braillewright');
+                    $href = esc_url($url);
                 } else {
                     $href = esc_url($url);
                 }
@@ -645,6 +769,14 @@ if (! function_exists(('braillewright_body_class'))) {
         if (!empty($archives_layout) && is_archive()) {
             $classes[] = $archives_layout . '-sidebar';
         }
+        // The scroll-to-top arrow is position:fixed in the bottom corner, so it
+        // sits on top of anything else fixed there -- notably Jetpack's Infinite
+        // Scroll footer bar, whose credit line it clips. Expose whether the
+        // arrow is switched on so the stylesheet can reserve room for it, and
+        // reserve NOTHING when it is off.
+        if (get_theme_mod('scroll_to_top')) {
+            $classes[] = 'has-scroll-to-top';
+        }
 
         return $classes;
     }
@@ -687,8 +819,7 @@ if (! function_exists(('braillewright_custom_css_output'))) {
         if (! empty($custom_css)) {
             $custom_css = braillewright_sanitize_css($custom_css);
 
-            wp_add_inline_style('braillewright-style', $custom_css);
-            wp_add_inline_style('braillewright-style-rtl', $custom_css);
+            wp_add_inline_style(braillewright_customizer_style_handle(), $custom_css);
         }
     }
 }
@@ -744,6 +875,59 @@ if (! function_exists(('braillewright_infinite_scroll_render'))) {
         }
     }
 }
+
+/*
+ * Link the theme name in Jetpack's Infinite Scroll credit.
+ *
+ * Jetpack builds that line as:
+ *     <a href="https://wordpress.org/" ...>Proudly powered by WordPress</a> Theme: Braillewright.
+ * so "Proudly powered by WordPress" is a link and the theme name is plain text.
+ * This points the theme name at Braillewright's own page, using Jetpack's
+ * documented `infinite_scroll_credit` filter -- no plugin file is touched.
+ */
+if (! function_exists('braillewright_link_credit_theme_name')) {
+    function braillewright_link_credit_theme_name($credits)
+    {
+        // Only when Braillewright is actually the theme in play. get_template()
+        // rather than a name comparison, so a child theme still qualifies.
+        if (get_template() !== 'braillewright') {
+            return $credits;
+        }
+
+        $name = wp_get_theme()->get('Name');
+        if (! is_string($credits) || '' === $name || false === strpos($credits, $name)) {
+            return $credits;
+        }
+
+        $url = apply_filters(
+            'braillewright_credit_url',
+            'https://toptechtidbits.com/braillewright/'
+        );
+        if (empty($url)) {
+            return $credits;
+        }
+
+        // Replace the LAST occurrence only. Jetpack appends the theme name at
+        // the end, and anything earlier in the string belongs to the privacy
+        // policy link it optionally prepends -- which must not be rewritten.
+        $pos = strrpos($credits, $name);
+        if (false === $pos) {
+            return $credits;
+        }
+
+        // Deliberately no target="_blank": this is a same-site link, and opening
+        // a new window without warning is the kind of thing this theme exists to
+        // avoid. The adjacent WordPress.org link is Jetpack's and keeps its own.
+        $link = sprintf(
+            '<a href="%1$s">%2$s</a>',
+            esc_url($url),
+            esc_html($name)
+        );
+
+        return substr_replace($credits, $link, $pos, strlen($name));
+    }
+}
+add_filter('infinite_scroll_credit', 'braillewright_link_credit_theme_name');
 
 if (! function_exists('braillewright_get_content_template')) {
     function braillewright_get_content_template()

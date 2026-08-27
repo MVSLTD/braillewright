@@ -1,7 +1,7 @@
 === Braillewright ===
 Requires at least: 5.2
 Tested up to: 6.7
-Stable tag: 2.0.5
+Stable tag: 2.0.10
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: accessibility-ready, custom-logo, custom-menu, featured-images, two-columns, left-sidebar, right-sidebar
@@ -21,6 +21,27 @@ Forked from Period 1.750 (GPLv2-or-later) Source integrity hashes and full attri
 Braillewright is created and maintained by Aaron Di Blasi of Mind Vault Solutions, Ltd. on behalf of Top Tech Tidbits, with engineering support from Claude Code.
 
 == Changelog ==
+
+= 2.0.10 =
+* Featured videos render again. The featured-image slot ran through wp_kses_post(), which does not allow iframe, so every featured video shipped as an empty div. Measured on WordPress 7.1: 448 bytes in, 218 out. The slot now uses wp_kses() with an allowlist that adds iframe and source; script is still not allowed.
+* Migration tools: theme mods are read from the active stylesheet instead of a hardcoded theme_mods_period, a destination holding only the theme's first-boot keys is no longer mistaken for an already-migrated site, and a refusal now exits non-zero instead of reading as success.
+* New tools to carry per-post settings and editor panel positions across a Period to Braillewright cutover.
+
+= 2.0.9 =
+* Fixed the theme's own right-to-left stylesheet cancelling the settings you chose in the Customizer. On a right-to-left site WordPress loaded rtl.css AFTER the Customizer's own styles, so 30 of 31 overlapping settings lost - including the link colour, which fell back to the same colour as body text. The stylesheet is now loaded in the proper place in the queue so your settings win.
+* Added a build check that fails if theme code ever attaches Customizer styles to a stylesheet handle that was never registered. That is what let this go unnoticed: doing so fails silently, with no notice and no error anywhere.
+
+= 2.0.8 =
+* The theme name in the Infinite Scroll footer credit is now a link to the Braillewright page at https://toptechtidbits.com/braillewright/. Only the words Proudly powered by WordPress were linked before. It opens in the same tab rather than a new window.
+
+= 2.0.7 =
+* The scroll-to-top arrow no longer covers the credit line in the Infinite Scroll footer bar. At a 1280px window the text ran 40px underneath the button and the theme name was unreadable. Room is now reserved for the arrow, and only when the arrow is switched on.
+* The arrow no longer covers the theme's own footer credit either. That line is centred, so it only reached the arrow once it grew long enough: at a 790px window it ran 14px underneath the button. Room is now reserved on both sides, which keeps the line centred and works the same way on right-to-left sites.
+* Raised the contrast of that credit line. It shipped at #888 on a near-white bar, which measures 3.43 to 1 and fails the 4.5 to 1 that 12px text needs. It is now 15 to 1, and the WordPress link is underlined so it is still recognisable as a link.
+
+= 2.0.6 =
+* Added a second LinkedIn slot, so a site can show a company page and a personal profile side by side. Only one LinkedIn icon was available before.
+* Screen readers now announce the two LinkedIn icons as LinkedIn Business Page and LinkedIn Personal Profile instead of both reading as linkedin.
 
 = 2.0.5 =
 * Fixed a missing stylesheet on right-to-left sites. The theme asked for features/styles/rtl.min.css on every right-to-left page and that file did not exist, so those sites lost a whole layer of styling. It has been missing since the June feature merge.
