@@ -979,7 +979,7 @@ add_filter('get_the_archive_description', 'braillewright_modify_archive_descript
 //----------------------------------------------------------------------------------
 function braillewright_set_default_layouts()
 {
-    if (empty(get_option('braillewright_layouts_set'))) {
+    if (get_option('braillewright_layouts_set') === false) {
         $current_layout = get_theme_mod('layout');
         set_theme_mod('layout_pages', $current_layout);
         set_theme_mod('layout_blog', $current_layout);
