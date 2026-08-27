@@ -379,7 +379,7 @@ function braillewright_features_add_youtube_parameters( $html, $url, $args ) {
 					'mute'           => $youtube_mute
 				);
 
-				if ( $youtube_loop == 1 ) {
+				if ( 1 === (int) $youtube_loop ) {
 					// ⚠️ This was `explode( 'v=', $url )` then `[1]`, which raises
 					// "Undefined array key 1" on every youtu.be/<id> URL -- they carry no
 					// 'v='. A YouTube loop needs `playlist=<id>` to work at all, so on

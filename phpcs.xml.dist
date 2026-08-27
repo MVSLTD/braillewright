@@ -24,7 +24,37 @@
     <exclude-pattern>*.min.css</exclude-pattern>
 
     <!-- Base standard: WordPress-Extra = WordPress-Core + best practices + the WordPress.Security.* sniffs. -->
-    <rule ref="WordPress-Extra"/>
+    <rule ref="WordPress-Extra">
+
+        <!--
+            RETIRED BY DECISION 2026-08-27 (Aaron, round 2026-08-27-braillewright-codestyle-A).
+            These two are switched OFF, visibly, with the reason recorded here. That is
+            deliberately NOT the same as a baseline: a baseline leaves a rule switched on
+            and hides its findings, so the gate claims to enforce something it does not.
+            An excluded rule is honest - anyone reading this file can see it is off.
+
+            1. Universal.Operators.StrictComparisons - 332 findings.
+               phpcbf marks ALL of them auto-fixable and would rewrite == to ===, which is
+               a BEHAVIOUR change, not a style change. Measured 2026-08-27: 70 findings at
+               37 source lines across 5 files would have changed what the theme does,
+               because WordPress returns bool false for an unset setting and the string
+               '1' from a TEXT column. The worst would have put <a href="">Visit Page</a>
+               on the front page of three live sites. Those 37 lines were repaired in the
+               same change that added this exclusion; the remaining 295 are correct under
+               both operators. Enforcing strict comparisons across a WordPress theme that
+               reads options, theme mods and post meta is a trap, not a standard.
+        -->
+        <exclude name="Universal.Operators.StrictComparisons"/>
+
+        <!--
+            2. WordPress.PHP.YodaConditions - 308 findings.
+               Pure house style with no correctness content, and no fixer exists, so every
+               one would be a hand edit. Braillewright does not write Yoda conditions.
+               Recorded as a style decision rather than carried as permanent noise.
+        -->
+        <exclude name="WordPress.PHP.YodaConditions"/>
+
+    </rule>
 
     <!-- Target a recent-but-stable WP for the deprecated-function checks. -->
     <config name="minimum_supported_wp_version" value="6.5"/>
@@ -41,12 +71,36 @@
     <!--
         Global-prefix sniff. The fusion (2026-06-19) renamed the entire upstream
         ct_period / period namespace to braillewright, so braillewright is the only
-        approved prefix (braillewright_features_* is covered by it).
+        approved prefix (braillewright_features_* is covered by it). Adding a second,
+        shorter one was tried on 2026-08-27 and is not possible - see the note inside
+        the prefixes list for the measured reason.
     -->
     <rule ref="WordPress.NamingConventions.PrefixAllGlobals">
         <properties>
             <property name="prefixes" type="array">
                 <element value="braillewright"/>
+                <!--
+                    ⛔ THE `bw` PREFIX CANNOT BE ADDED HERE. Tried and measured 2026-08-27.
+
+                    The four migration scripts under tools/ prefix their file-scope
+                    variables `bw_` (commit 1204320 renamed them from bare $from / $to),
+                    which produces 40 NonPrefixedVariableFound findings. Naming `bw` as a
+                    second approved prefix looks like a one-line fix. It is not:
+
+                      run 33109149953  <element value="bw"/>   ->  "The \"bw\" prefix is
+                                                                   too short."
+                      run 33109511822  <element value="bw_"/>  ->  "The \"bw_\" prefix is
+                                                                   too short."
+
+                    WPCS enforces a minimum prefix length of three characters and does not
+                    count the trailing underscore. BOTH attempts cleared ZERO of the 40 and
+                    each ADDED 8 new PrefixAllGlobals.ShortPrefixPassed findings, one per
+                    file the sniff visits - a net-negative change that reads as a tidy
+                    one-liner.
+
+                    The 40 are real globals in procedural scripts, so the sniff is correct.
+                    They are Stage 5 work: rename them to braillewright_*.
+                -->
             </property>
         </properties>
     </rule>

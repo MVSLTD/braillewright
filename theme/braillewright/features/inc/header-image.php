@@ -30,7 +30,7 @@ function braillewright_features_output_header_image() {
 				style="background-image: url(\'' . esc_url( $header_image ) . '\')" 
 			>';
 		}
-			if ( $link != '' ) {
+			if ( ! empty( $link ) ) {
 				echo '<a href="'. esc_url( $link ) .'">'. esc_html__( "Visit Page", "braillewright" ) .'</a>';
 			}
 		echo '</span>';

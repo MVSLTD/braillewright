@@ -14,7 +14,7 @@ if ( post_password_required() || ( !have_comments() && !comments_open() && !ping
   <ol class="comment-list">
     <?php wp_list_comments( array( 'callback' => 'braillewright_customize_comments' ) ); ?>
   </ol>
-  <?php if ( ( get_option( 'page_comments' ) == 1 ) && ( get_comment_pages_count() > 1 ) ) : ?>
+  <?php if ( ( 1 === (int) get_option( 'page_comments' ) ) && ( get_comment_pages_count() > 1 ) ) : ?>
     <nav class="comment-pagination">
       <p class="previous-comment"><?php previous_comments_link(); ?></p>
       <p class="next-comment"><?php next_comments_link(); ?></p>
