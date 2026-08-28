@@ -57,40 +57,40 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$bw_apply = defined( 'BW_FUSION_APPLY' ) && BW_FUSION_APPLY;
+$braillewright_apply = defined( 'BW_FUSION_APPLY' ) && BW_FUSION_APPLY;
 
-echo $bw_apply
+echo $braillewright_apply
 	? "=== Braillewright fusion OPTION migration: APPLY ===\n"
 	: "=== Braillewright fusion OPTION migration: DRY-RUN (no writes) ===\n";
 
-$bw_option_map = array(
+$braillewright_option_map = array(
 	'period_layouts_set'                    => 'braillewright_layouts_set',
 	'ct_period_pro_header_image_link_check' => 'braillewright_features_header_image_link_check',
 );
 
-$bw_problems = 0;
+$braillewright_problems = 0;
 
-foreach ( $bw_option_map as $bw_old => $bw_new ) {
+foreach ( $braillewright_option_map as $braillewright_old => $braillewright_new ) {
 
-	$bw_old_val = get_option( $bw_old, null );
+	$braillewright_old_val = get_option( $braillewright_old, null );
 
-	if ( null === $bw_old_val ) {
-		echo "  option  skip      '$bw_old' is not set\n";
+	if ( null === $braillewright_old_val ) {
+		echo "  option  skip      '$braillewright_old' is not set\n";
 		continue;
 	}
 
-	$bw_new_val = get_option( $bw_new, null );
+	$braillewright_new_val = get_option( $braillewright_new, null );
 
-	if ( null === $bw_new_val ) {
-		echo "  option  copy      '$bw_old' -> '$bw_new'\n";
-		if ( $bw_apply ) {
-			update_option( $bw_new, $bw_old_val );
+	if ( null === $braillewright_new_val ) {
+		echo "  option  copy      '$braillewright_old' -> '$braillewright_new'\n";
+		if ( $braillewright_apply ) {
+			update_option( $braillewright_new, $braillewright_old_val );
 			// ⚠️ update_option() returns false BOTH when the write fails and when the
 			// value was already identical, so its return value cannot be read as a
 			// result. Read the option back instead.
-			if ( get_option( $bw_new, null ) !== $bw_old_val ) {
-				echo "  option  FAILED    '$bw_new' did not read back as written\n";
-				++$bw_problems;
+			if ( get_option( $braillewright_new, null ) !== $braillewright_old_val ) {
+				echo "  option  FAILED    '$braillewright_new' did not read back as written\n";
+				++$braillewright_problems;
 			}
 		}
 		continue;
@@ -98,17 +98,17 @@ foreach ( $bw_option_map as $bw_old => $bw_new ) {
 
 	// Present already. That is only harmless when the values AGREE -- otherwise the
 	// theme's own first-boot write has landed on top of a real migrated value.
-	if ( $bw_new_val === $bw_old_val ) {
-		echo "  option  in step   '$bw_new' already holds the same value\n";
+	if ( $braillewright_new_val === $braillewright_old_val ) {
+		echo "  option  in step   '$braillewright_new' already holds the same value\n";
 		continue;
 	}
 
-	++$bw_problems;
-	echo "  option  CONFLICT  '$bw_new' exists and DIFFERS from '$bw_old'\n";
+	++$braillewright_problems;
+	echo "  option  CONFLICT  '$braillewright_new' exists and DIFFERS from '$braillewright_old'\n";
 	// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_var_export -- WP-CLI migration transcript, never shipped: the release zip and the wpcom artifact are theme/braillewright alone.
-	echo '           old=' . var_export( $bw_old_val, true ) . "\n";
+	echo '           old=' . var_export( $braillewright_old_val, true ) . "\n";
 	// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_var_export -- Pair of the line above; phpcs:ignore covers ONE line only.
-	echo '           new=' . var_export( $bw_new_val, true ) . "\n";
+	echo '           new=' . var_export( $braillewright_new_val, true ) . "\n";
 	echo "           Most likely the theme wrote it on first boot BEFORE this ran.\n";
 	echo "           Migrate BEFORE activating braillewright. Not overwriting.\n";
 }
@@ -117,11 +117,11 @@ echo "\n";
 echo "  post meta: NOT handled here. Run tools/migrate-postmeta-keys.php\n";
 echo "             (driver: ops/backfill_postmeta.py) -- see the header of this file.\n\n";
 
-if ( $bw_problems ) {
-	echo "FAILED: $bw_problems option problem(s). Nothing was overwritten.\n";
+if ( $braillewright_problems ) {
+	echo "FAILED: $braillewright_problems option problem(s). Nothing was overwritten.\n";
 	exit( 1 );
 }
 
-echo $bw_apply
+echo $braillewright_apply
 	? "Done (applied).\n"
 	: "Dry-run complete; re-run with BW_FUSION_APPLY defined to write.\n";

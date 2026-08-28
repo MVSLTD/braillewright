@@ -91,23 +91,23 @@ if ( ! function_exists( 'braillewright_metabox_replace' ) ) {
 	}
 }
 
-$bw_apply    = defined( 'BW_METABOX_APPLY' ) && BW_METABOX_APPLY;
-$bw_map_file = defined( 'BW_METABOX_MAP' ) ? BW_METABOX_MAP : '/tmp/bw-metabox-map.json';
+$braillewright_apply    = defined( 'BW_METABOX_APPLY' ) && BW_METABOX_APPLY;
+$braillewright_map_file = defined( 'BW_METABOX_MAP' ) ? BW_METABOX_MAP : '/tmp/bw-metabox-map.json';
 
-echo $bw_apply
+echo $braillewright_apply
 	? "=== Braillewright meta-box ID migration: APPLY ===\n"
 	: "=== Braillewright meta-box ID migration: DRY-RUN (no writes) ===\n";
 
-if ( ! is_readable( $bw_map_file ) ) {
-	echo "ABORT: map not readable at $bw_map_file\n";
+if ( ! is_readable( $braillewright_map_file ) ) {
+	echo "ABORT: map not readable at $braillewright_map_file\n";
 	exit( 1 );
 }
 
 // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- Local map file written by the installer moments earlier; wp_remote_get is for URLs.
-$bw_map = json_decode( (string) file_get_contents( $bw_map_file ), true );
+$braillewright_map = json_decode( (string) file_get_contents( $braillewright_map_file ), true );
 
-if ( ! is_array( $bw_map ) || ! $bw_map ) {
-	echo "ABORT: map at $bw_map_file did not decode to a non-empty array\n";
+if ( ! is_array( $braillewright_map ) || ! $braillewright_map ) {
+	echo "ABORT: map at $braillewright_map_file did not decode to a non-empty array\n";
 	exit( 1 );
 }
 
@@ -127,11 +127,11 @@ if ( ! is_array( $bw_map ) || ! $bw_map ) {
 // no evalphp() and no must_name at all. One collapsed editor panel on any site about to be
 // cut over would have aborted that cutover mid-migration, after the theme mods and post meta
 // had already been written.
-echo 'Map: ' . count( $bw_map ) . " id pair(s) from {$bw_map_file}\n\n";
+echo 'Map: ' . count( $braillewright_map ) . " id pair(s) from {$braillewright_map_file}\n\n";
 
 global $wpdb;
 
-$bw_rows = $wpdb->get_results(
+$braillewright_rows = $wpdb->get_results(
 	"SELECT umeta_id, user_id, meta_key, meta_value
 	   FROM {$wpdb->usermeta}
 	  WHERE meta_key LIKE 'closedpostboxes\\_%'
@@ -139,31 +139,31 @@ $bw_rows = $wpdb->get_results(
 	     OR meta_key LIKE 'meta-box-order\\_%'"
 );
 
-$bw_changed = 0;
+$braillewright_changed = 0;
 
-if ( is_array( $bw_rows ) ) {
-	foreach ( $bw_rows as $bw_row ) {
+if ( is_array( $braillewright_rows ) ) {
+	foreach ( $braillewright_rows as $braillewright_row ) {
 
-		$bw_value = maybe_unserialize( $bw_row->meta_value );
-		$bw_hit   = false;
-		$bw_new   = braillewright_metabox_replace( $bw_value, $bw_map, $bw_hit );
+		$braillewright_value = maybe_unserialize( $braillewright_row->meta_value );
+		$braillewright_hit   = false;
+		$braillewright_new   = braillewright_metabox_replace( $braillewright_value, $braillewright_map, $braillewright_hit );
 
-		if ( ! $bw_hit ) {
+		if ( ! $braillewright_hit ) {
 			continue;
 		}
 
-		++$bw_changed;
-		echo "  user {$bw_row->user_id}  {$bw_row->meta_key}\n";
-		echo '      before: ' . substr( (string) wp_json_encode( $bw_value ), 0, 200 ) . "\n";
-		echo '      after : ' . substr( (string) wp_json_encode( $bw_new ), 0, 200 ) . "\n";
+		++$braillewright_changed;
+		echo "  user {$braillewright_row->user_id}  {$braillewright_row->meta_key}\n";
+		echo '      before: ' . substr( (string) wp_json_encode( $braillewright_value ), 0, 200 ) . "\n";
+		echo '      after : ' . substr( (string) wp_json_encode( $braillewright_new ), 0, 200 ) . "\n";
 
-		if ( $bw_apply ) {
-			update_user_meta( (int) $bw_row->user_id, $bw_row->meta_key, $bw_new );
+		if ( $braillewright_apply ) {
+			update_user_meta( (int) $braillewright_row->user_id, $braillewright_row->meta_key, $braillewright_new );
 		}
 	}
 }
 
 echo "\n";
-echo $bw_apply
-	? "Done (applied). $bw_changed row(s) rewritten.\n"
-	: "Dry-run complete; $bw_changed row(s) would be rewritten.\n";
+echo $braillewright_apply
+	? "Done (applied). $braillewright_changed row(s) rewritten.\n"
+	: "Dry-run complete; $braillewright_changed row(s) would be rewritten.\n";

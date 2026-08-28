@@ -99,6 +99,17 @@
     "5": {
       "name": "manual, needs a judgement call",
       "autofix": false,
+      "token_contract": "classified",
+      "_token_classes_note": "Stage 5 is the only stage that is not wholly inert, and the contract says so out loud. VARIABLE_RENAME and COMMENT_ADDED are inert - a renamed local is invisible to the engine and a comment never executes - but VARIABLE_RENAME is NOT safe token by token: validateRenames() checks the whole file for an inconsistent rename, a COLLISION with a name that already existed (two variables silently becoming one), and any attempt to rename a superglobal or a variable the file declares with `global`. IN_ARRAY_STRICT is different in kind and is listed in token_classes_behaviour_affecting: loose comparison becoming strict IS observable, and whether it changes anything depends on runtime types no token gate can see. The gate still proves the edit is exactly 'append , true to a call to in_array' and nothing else, then prints a banner refusing to let that pass quietly. Measured 2026-08-28: at all 9 sites the needle is either a string literal or sanitize_text_field() output and the haystack is string literals, so strict and loose agree - and on PHP 8, 0 == 'string' is already false, which removes the classic divergence.",
+      "token_classes": [
+        "VARIABLE_RENAME",
+        "COMMENT_ADDED",
+        "COMMENT_MOVED",
+        "IN_ARRAY_STRICT"
+      ],
+      "token_classes_behaviour_affecting": [
+        "IN_ARRAY_STRICT"
+      ],
       "sniffs": [
         "Generic.CodeAnalysis.UnusedFunctionParameter.Found",
         "Squiz.ControlStructures.ControlSignature.SpaceAfterCloseBrace",

@@ -148,7 +148,7 @@ function braillewright_features_fi_size_save_data( $post_id ) {
 
 		$ratio = sanitize_text_field( wp_unslash( $_POST['braillewright-pro-fi-size'] ) );
 
-		if ( in_array( $ratio, braillewright_features_fi_size_array() ) ) {
+		if ( in_array( $ratio, braillewright_features_fi_size_array(), true ) ) {
 			update_post_meta( $post_id, 'braillewright_features_fi_size_key', $ratio );
 		}
 	}

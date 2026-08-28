@@ -451,6 +451,180 @@ const PRECEDENCE_HAZARDS = [
 const PRECEDENCE_HAZARD_CHARS = ['=', '?'];
 
 /**
+ * Given the index of a closing `)`, name the function being called, or null.
+ * Used to prove an edit belongs to the call it claims to.
+ */
+function calleeOfCloser(array $S, int $closerIdx): ?string
+{
+    $depth = 0;
+    for ($k = $closerIdx; $k >= 0; $k--) {
+        $t = $S[$k];
+        if ($t['name'] !== 'CHAR') {
+            continue;
+        }
+        if ($t['text'] === ')') {
+            $depth++;
+        } elseif ($t['text'] === '(') {
+            $depth--;
+            if ($depth === 0) {
+                $callee = at($S, $k - 1);
+                return ($callee !== null && $callee['name'] === 'T_STRING')
+                    ? strtolower($callee['text'])
+                    : null;
+            }
+        }
+    }
+    return null;
+}
+
+/**
+ * Whole-file validation of the renames the walk observed.
+ *
+ * ⛔ A RENAME IS NOT SAFE TOKEN BY TOKEN. Three things can only be checked across the
+ * whole file, and each of them is a real bug this catches:
+ *
+ *   INCONSISTENT  $output became $braillewright_output on one line and stayed $output
+ *                 on another. The file now has two variables where it had one.
+ *   COLLISION     $a was renamed to $b while $b ALREADY EXISTED. Two distinct variables
+ *                 silently merge into one - the worst outcome of the three, because the
+ *                 code still runs.
+ *   NOT LOCAL     the variable is a superglobal, $this, or one the file declares with
+ *                 `global $x;`. Renaming those does not rename what they point at; it
+ *                 silently detaches the code from WordPress state.
+ *
+ * @return array<int,string> problems, empty when the renames are sound
+ */
+function validateRenames(array $A, array $B, array $renames): array
+{
+    if (!$renames) {
+        return [];
+    }
+    $problems = [];
+
+    $superglobals = ['$GLOBALS', '$_SERVER', '$_GET', '$_POST', '$_FILES',
+                     '$_COOKIE', '$_SESSION', '$_REQUEST', '$_ENV', '$this'];
+
+    // Every variable the file explicitly binds to global scope.
+    $declaredGlobal = [];
+    foreach ($A as $idx => $t) {
+        if ($t['name'] !== 'T_GLOBAL') {
+            continue;
+        }
+        for ($k = $idx + 1; $k < count($A); $k++) {
+            if ($A[$k]['name'] === 'T_VARIABLE') {
+                $declaredGlobal[$A[$k]['text']] = true;
+                continue;
+            }
+            if ($A[$k]['name'] === 'CHAR' && $A[$k]['text'] === ',') {
+                continue;
+            }
+            break;
+        }
+    }
+
+    $forward = [];
+    $backward = [];
+    foreach ($renames as [$old, $new]) {
+        $forward[$old][$new] = true;
+        $backward[$new][$old] = true;
+    }
+
+    $countIn = static function (array $S, string $text): int {
+        $n = 0;
+        foreach ($S as $t) {
+            if ($t['name'] === 'T_VARIABLE' && $t['text'] === $text) {
+                $n++;
+            }
+        }
+        return $n;
+    };
+
+    foreach ($forward as $old => $news) {
+        if (count($news) > 1) {
+            $problems[] = "INCONSISTENT rename: {$old} became " . implode(' and ', array_keys($news));
+            continue;
+        }
+        $new = array_key_first($news);
+
+        if (in_array($old, $superglobals, true)) {
+            $problems[] = "REFUSED: {$old} is a superglobal and must not be renamed";
+            continue;
+        }
+        if (isset($declaredGlobal[$old])) {
+            $problems[] = "REFUSED: {$old} is declared with `global` in this file; "
+                . 'renaming it detaches the code from the global it referred to';
+            continue;
+        }
+        if ($countIn($A, $new) > 0) {
+            $problems[] = "COLLISION: {$new} already exists in the file, so renaming "
+                . "{$old} to it merges two distinct variables into one";
+            continue;
+        }
+        if ($countIn($B, $old) > 0) {
+            $problems[] = "INCOMPLETE rename: {$old} still appears after the change";
+            continue;
+        }
+        if ($countIn($A, $old) !== $countIn($B, $new)) {
+            $problems[] = sprintf(
+                'COUNT MISMATCH: %s appears %d time(s) before but %s appears %d time(s) after',
+                $old, $countIn($A, $old), $new, $countIn($B, $new)
+            );
+        }
+    }
+
+    foreach ($backward as $new => $olds) {
+        if (count($olds) > 1) {
+            $problems[] = "MERGE: " . implode(' and ', array_keys($olds))
+                . " were both renamed to {$new}, merging distinct variables";
+        }
+    }
+
+    return $problems;
+}
+
+/**
+ * A comment may MOVE freely - it never executes - but it may not VANISH.
+ *
+ * COMMENT_MOVED consumes a comment on the before side without a matching one on the
+ * after side at that position. That is exactly what a relocation looks like locally, and
+ * exactly what a DELETION looks like too. The difference is only visible across the
+ * whole file: after a move the comment is still somewhere; after a deletion it is gone.
+ *
+ * Losing a comment matters even though it changes no behaviour - it can delete a
+ * phpcs:ignore (silently un-suppressing a finding, or worse, silently suppressing
+ * nothing while reading as handled) or a translators: note that a translator relies on.
+ *
+ * @return array<int,string>
+ */
+function validateComments(array $A, array $B): array
+{
+    $collect = static function (array $S): array {
+        $out = [];
+        foreach ($S as $t) {
+            if (in_array($t['name'], ['T_COMMENT', 'T_DOC_COMMENT'], true)) {
+                $key = collapse($t['text']);
+                $out[$key] = ($out[$key] ?? 0) + 1;
+            }
+        }
+        return $out;
+    };
+    $before = $collect($A);
+    $after = $collect($B);
+
+    $problems = [];
+    foreach ($before as $text => $n) {
+        $have = $after[$text] ?? 0;
+        if ($have < $n) {
+            $problems[] = sprintf(
+                'COMMENT LOST: %s appeared %d time(s) before and %d after',
+                '"' . substr($text, 0, 60) . '"', $n, $have
+            );
+        }
+    }
+    return $problems;
+}
+
+/**
  * Bounds of the statement containing token $idx, as [start, endExclusive].
  *
  * Returns null when the boundaries cannot be established confidently - in which case
@@ -566,6 +740,76 @@ function tryRules(array $A, int $i, array $B, int $j): ?array
 {
     $a = at($A, $i);
     $b = at($B, $j);
+
+    // --- IN_ARRAY_STRICT: in_array( X, Y ) -> in_array( X, Y, true ).
+    //
+    // ⛔⛔ THIS CLASS IS A BEHAVIOUR CHANGE AND IS LABELLED AS ONE. Every other class in
+    // this gate is inert; this one is not. Loose comparison becomes strict, and whether
+    // that changes the result depends entirely on the runtime TYPES at each call site -
+    // which no token-level gate can see. It is listed in the stage map's
+    // token_classes_behaviour_affecting so the gate cannot pass it QUIETLY: the summary
+    // prints a banner naming every occurrence, and a human has to have argued each site.
+    //
+    // What the rule DOES prove is that the edit is exactly "append , true before the
+    // closer of a call to in_array" and nothing else - not a changed needle, not a
+    // different third argument, not a different function.
+    if ($b !== null && isChar($b, ',') && $a !== null && isChar($a, ')')) {
+        $b1 = at($B, $j + 1);
+        $b2 = at($B, $j + 2);
+        if ($b1 !== null && $b1['name'] === 'T_STRING' && strtolower($b1['text']) === 'true'
+            && $b2 !== null && same($a, $b2)
+            && calleeOfCloser($A, $i) === 'in_array') {
+            // Consume the closer on BOTH sides: 1 from before ( `)` ), 3 from after
+            // ( `,` `true` `)` ). Returning [0,3] instead left the before-stream still
+            // sitting on its `)` while the after-stream had moved past its own, so
+            // every token after the call was compared against its neighbour and the
+            // whole rest of the file diverged. The self-test caught it as a must-pass
+            // failure - which is the entire reason the must-pass half exists.
+            return [1, 3, 'IN_ARRAY_STRICT'];
+        }
+    }
+
+    // --- COMMENT_ADDED: a comment appears in AFTER that was not in BEFORE.
+    //
+    // Inert without qualification: a comment is never executed. Stage 5 adds
+    // "translators:" comments and phpcs:ignore annotations, both of which are pure
+    // insertions. ⚠️ REMOVAL is deliberately NOT accepted - deleting a comment can
+    // delete a phpcs:ignore or a translator note, which is a real loss even though it
+    // changes no behaviour.
+    if ($b !== null && in_array($b['name'], ['T_COMMENT', 'T_DOC_COMMENT'], true)
+        && ($a === null || !same($a, $b))) {
+        return [0, 1, 'COMMENT_ADDED'];
+    }
+
+    // --- COMMENT_MOVED: a comment leaves this position. Also inert - a comment never
+    //     executes, wherever it sits - but only if it REAPPEARS. validateComments()
+    //     checks at file level that no comment text was lost, which is what separates a
+    //     move from a deletion.
+    //
+    // Stage 5 needs this because Squiz.ControlStructures.ControlSignature is not the
+    // whitespace fix it looks like: features/inc/colors.php has a section divider
+    // between the brace and the keyword -
+    //     }
+    //     /***** Header *****/
+    //     elseif ( ... ) {
+    // - so satisfying "} elseif" means RELOCATING that comment, not re-spacing. That is
+    // also why phpcbf declines to fix it, which matches the measured zero [x] markers.
+    if ($a !== null && in_array($a['name'], ['T_COMMENT', 'T_DOC_COMMENT'], true)
+        && ($b === null || !same($a, $b))) {
+        return [1, 0, 'COMMENT_MOVED'];
+    }
+
+    // --- VARIABLE_RENAME: $old -> $new.
+    //
+    // The token-level match is trivial; the SAFETY is a whole-file property and is
+    // checked separately in validateRenames() after the walk - consistency, no
+    // collision with an existing name, and never a variable the file declares global.
+    // Matching here only records the pair.
+    if ($a !== null && $b !== null
+        && $a['name'] === 'T_VARIABLE' && $b['name'] === 'T_VARIABLE'
+        && $a['text'] !== $b['text']) {
+        return [1, 1, 'VARIABLE_RENAME'];
+    }
 
     // --- TRAILING_COMMA: a `,` appears in AFTER, immediately before the closer
     //     that BEFORE is already sitting on. A pure insertion; nothing else moves.
@@ -770,6 +1014,7 @@ function compareStreams(array $A, array $B): array
 {
     $classes = [];
     $problems = [];
+    $renames = [];
     $i = 0;
     $j = 0;
     $na = count($A);
@@ -786,6 +1031,9 @@ function compareStreams(array $A, array $B): array
         if ($hit !== null) {
             [$di, $dj, $class] = $hit;
             $classes[$class] = ($classes[$class] ?? 0) + 1;
+            if ($class === 'VARIABLE_RENAME') {
+                $renames[] = [$A[$i]['text'], $B[$j]['text']];
+            }
             $i += $di;
             $j += $dj;
             continue;
@@ -841,7 +1089,14 @@ function compareStreams(array $A, array $B): array
         }
     }
 
-    return ['classes' => $classes, 'problems' => $problems];
+    // A rename is only safe as a whole-file property, so it is checked once here rather
+    // than pretended to be checked token by token.
+    $problems = array_merge($problems, validateRenames($A, $B, $renames));
+    if (isset($classes['COMMENT_MOVED'])) {
+        $problems = array_merge($problems, validateComments($A, $B));
+    }
+
+    return ['classes' => $classes, 'problems' => $problems, 'renames' => $renames];
 }
 
 // ---------------------------------------------------------------------------
@@ -864,6 +1119,19 @@ if (!is_array($map) || !isset($map['stages'][$stage])) {
 }
 $stageDef = $map['stages'][$stage];
 $allowed = $stageDef['token_classes'] ?? null;
+
+// ⛔ CLASSES THAT ARE NOT INERT. Every other class this gate knows is a change the PHP
+// engine cannot observe. A class named here IS observable - the stage declares it, the
+// gate permits it, and the report REFUSES TO BE QUIET ABOUT IT: each one is marked "B"
+// in the census and listed again in a banner at the end. The point is that "the gate
+// passed" must never come to mean "nothing changed" for a stage that deliberately
+// changes something.
+$behaviourAffecting = $stageDef['token_classes_behaviour_affecting'] ?? [];
+$notAllowed = array_diff($behaviourAffecting, $allowed ?? []);
+if ($notAllowed) {
+    fail('stage ' . $stage . ' lists ' . implode(', ', $notAllowed)
+        . ' as behaviour-affecting but not in token_classes - it could never be reached');
+}
 if (!is_array($allowed)) {
     fail(
         "stage {$stage} declares no token_classes in .github/phpcbf-stages.json. "
@@ -1007,6 +1275,9 @@ ksort($totals);
 $grand = 0;
 foreach ($totals as $class => $n) {
     $mark = in_array($class, $allowed, true) ? ' ' : '!';
+    if (in_array($class, $behaviourAffecting, true)) {
+        $mark = 'B';
+    }
     printf("  %s %-22s %6d\n", $mark, $class, $n);
     $grand += $n;
 }
@@ -1019,6 +1290,18 @@ if ($filesWithHtmlMove) {
     foreach ($filesWithHtmlMove as $f) {
         echo "      {$f}\n";
     }
+}
+
+$behaviourSeen = array_intersect(array_keys($totals), $behaviourAffecting);
+if ($behaviourSeen) {
+    echo "\n⛔ BEHAVIOUR-AFFECTING CHANGES ARE PRESENT, and this gate CANNOT judge them.\n";
+    foreach ($behaviourSeen as $class) {
+        echo "     {$class} x{$totals[$class]}\n";
+    }
+    echo "   These are permitted by the stage's contract, and the edit really is the one\n";
+    echo "   it claims to be - but whether it is CORRECT depends on runtime types, which\n";
+    echo "   no token comparison can see. Each site needs a written argument and a test.\n";
+    echo "   A pass here is NOT a statement that behaviour is unchanged.\n";
 }
 
 if ($failures > 0) {

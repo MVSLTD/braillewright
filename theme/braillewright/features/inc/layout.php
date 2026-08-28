@@ -53,16 +53,16 @@ function braillewright_features_remove_primary_sidebar( $sidebars_widgets ) {
 	$archives_layout = get_theme_mod( 'layout_archives' );
 
 	// if it's a non-sidebar layout, remove the primary sidebar
-	if ( in_array( $post_layout, braillewright_features_layouts( 'no-sidebar' ) ) && is_singular( 'post' ) ) {
+	if ( in_array( $post_layout, braillewright_features_layouts( 'no-sidebar' ), true ) && is_singular( 'post' ) ) {
 		$sidebars_widgets['primary'] = false;
 	}
-	if ( in_array( $page_layout, braillewright_features_layouts( 'no-sidebar' ) ) && is_singular( 'page' ) ) {
+	if ( in_array( $page_layout, braillewright_features_layouts( 'no-sidebar' ), true ) && is_singular( 'page' ) ) {
 		$sidebars_widgets['primary'] = false;
 	}
-	if ( in_array( $blog_layout, braillewright_features_layouts( 'no-sidebar' ) ) && is_home() ) {
+	if ( in_array( $blog_layout, braillewright_features_layouts( 'no-sidebar' ), true ) && is_home() ) {
 		$sidebars_widgets['primary'] = false;
 	}
-	if ( in_array( $archives_layout, braillewright_features_layouts( 'no-sidebar' ) ) && is_archive() ) {
+	if ( in_array( $archives_layout, braillewright_features_layouts( 'no-sidebar' ), true ) && is_archive() ) {
 		$sidebars_widgets['primary'] = false;
 	}
 

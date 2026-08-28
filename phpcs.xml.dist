@@ -134,6 +134,55 @@
         <severity>0</severity>
     </rule>
 
+    <!--
+        ⛔ NonPrefixedVariableFound IS SCOPED OFF FOR TEMPLATE PARTIALS ONLY, 2026-08-28,
+        because in those files THE SNIFF'S PREMISE IS FACTUALLY FALSE.
+
+        The sniff assumes "top of file = global scope". That is true of a plugin bootstrap
+        and it is NOT true of a WordPress template partial. Measured against WordPress
+        core on the live host:
+
+          wp-includes/template.php load_template() is a FUNCTION and the require happens
+          INSIDE it. It declares exactly these globals and no others:
+              $posts, $post, $wp_did_header, $wp_query, $wp_rewrite, $wpdb,
+              $wp_version, $wp, $id, $comment, $user_ID
+          get_template_part() -> locate_template($t, true, false) -> load_template()
+          get_header()/get_footer() -> locate_template($t, true, true) -> load_template()
+
+        So a top-level variable in any of the files below is a FUNCTION-LOCAL of
+        load_template(), invisible outside that one require. The two widget-area partials
+        are plainer still: features/inc/widget-areas.php:75 and :81 `include` them from
+        inside a function, so they inherit that function's scope with no load_template and
+        no extract() involved at all.
+
+        ⭐ WHY SCOPE IT OFF RATHER THAN RENAME. Renaming the 43 would silence the finding
+        without making it true - it would encode, in ten files forever, the claim that
+        these are globals. Zero of them can produce the collision the sniff exists to
+        prevent (verified by grep: every flagged name is confined to its own file). The
+        cost was measured too, and it is not small: ~96 token edits, because every READ
+        moves as well as every assignment, plus ~10 assignment blocks needing
+        re-alignment since the approved prefix is 13 characters. That lands a large diff
+        on precisely the files a site owner is most likely to copy into a child theme.
+
+        ⚠️ search.php IS DELIBERATELY NOT LISTED. It is a MAIN template, reached by
+        wp-includes/template-loader.php's bare `include $template;` at global scope, so
+        its $total_results really was $GLOBALS['total_results']. That one is REAL and was
+        fixed by renaming, not excluded. It is the only main template in the theme with
+        any top-level assignment - index.php, 404.php, templates/full-width.php,
+        templates/landing-page.php, templates/landing-page-header.php and woocommerce.php
+        all have none, which is exactly why the report flagged only this one.
+
+        The sniff stays ACTIVE everywhere its premise holds: tools/, functions.php,
+        features/inc/*.php, inc/*.php and search.php.
+    -->
+    <rule ref="WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound">
+        <exclude-pattern>*/theme/braillewright/content/*\.php$</exclude-pattern>
+        <exclude-pattern>*/theme/braillewright/content-attachment\.php$</exclude-pattern>
+        <exclude-pattern>*/theme/braillewright/footer\.php$</exclude-pattern>
+        <exclude-pattern>*/theme/braillewright/logo\.php$</exclude-pattern>
+        <exclude-pattern>*/theme/braillewright/features/inc/widget-areas/*\.php$</exclude-pattern>
+    </rule>
+
     <rule ref="WordPress.NamingConventions.PrefixAllGlobals">
         <properties>
             <property name="prefixes" type="array">

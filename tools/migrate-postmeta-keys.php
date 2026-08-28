@@ -62,45 +62,45 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$bw_apply    = defined( 'BW_POSTMETA_APPLY' ) && BW_POSTMETA_APPLY;
-$bw_map_file = defined( 'BW_POSTMETA_MAP' ) ? BW_POSTMETA_MAP : '/tmp/bw-postmeta-map.json';
+$braillewright_apply    = defined( 'BW_POSTMETA_APPLY' ) && BW_POSTMETA_APPLY;
+$braillewright_map_file = defined( 'BW_POSTMETA_MAP' ) ? BW_POSTMETA_MAP : '/tmp/bw-postmeta-map.json';
 
-echo $bw_apply
+echo $braillewright_apply
 	? "=== Braillewright post-meta migration: APPLY ===\n"
 	: "=== Braillewright post-meta migration: DRY-RUN (no writes) ===\n";
 
-if ( ! is_readable( $bw_map_file ) ) {
-	echo "ABORT: key map not readable at {$bw_map_file}\n";
+if ( ! is_readable( $braillewright_map_file ) ) {
+	echo "ABORT: key map not readable at {$braillewright_map_file}\n";
 	exit( 1 );
 }
 
 // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- Local map file written by the installer moments earlier; wp_remote_get is for URLs.
-$bw_map = json_decode( (string) file_get_contents( $bw_map_file ), true );
+$braillewright_map = json_decode( (string) file_get_contents( $braillewright_map_file ), true );
 
-if ( ! is_array( $bw_map ) || ! $bw_map ) {
-	echo "ABORT: key map at {$bw_map_file} did not decode to a non-empty array\n";
+if ( ! is_array( $braillewright_map ) || ! $braillewright_map ) {
+	echo "ABORT: key map at {$braillewright_map_file} did not decode to a non-empty array\n";
 	exit( 1 );
 }
 
-echo 'Map: ' . count( $bw_map ) . " key pair(s) from {$bw_map_file}\n\n";
+echo 'Map: ' . count( $braillewright_map ) . " key pair(s) from {$braillewright_map_file}\n\n";
 
 global $wpdb;
 
-$bw_total_moved = 0;
-$bw_failures    = 0;
+$braillewright_total_moved = 0;
+$braillewright_failures    = 0;
 
-foreach ( $bw_map as $bw_old => $bw_new ) {
+foreach ( $braillewright_map as $braillewright_old => $braillewright_new ) {
 
-	if ( ! is_string( $bw_old ) || ! is_string( $bw_new ) || '' === $bw_old || '' === $bw_new ) {
+	if ( ! is_string( $braillewright_old ) || ! is_string( $braillewright_new ) || '' === $braillewright_old || '' === $braillewright_new ) {
 		echo "  skip  malformed map entry\n";
-		++$bw_failures;
+		++$braillewright_failures;
 		continue;
 	}
 
 	// Every post carrying a NON-EMPTY legacy value that does not already carry a
 	// NON-EMPTY new value. Post status is deliberately not filtered: a draft or a
 	// scheduled post keeps its setting too.
-	$bw_rows = $wpdb->get_results(
+	$braillewright_rows = $wpdb->get_results(
 		$wpdb->prepare(
 			"SELECT o.post_id, o.meta_value
 			   FROM {$wpdb->postmeta} o
@@ -114,40 +114,40 @@ foreach ( $bw_map as $bw_old => $bw_new ) {
 			           AND n.meta_value IS NOT NULL
 			           AND n.meta_value <> ''
 			    )",
-			$bw_old,
-			$bw_new
+			$braillewright_old,
+			$braillewright_new
 		)
 	);
 
-	$bw_n = is_array( $bw_rows ) ? count( $bw_rows ) : 0;
-	printf( "  %-44s -> %-46s %d post(s)\n", $bw_old, $bw_new, $bw_n );
-	$bw_total_moved += $bw_n;
+	$braillewright_n = is_array( $braillewright_rows ) ? count( $braillewright_rows ) : 0;
+	printf( "  %-44s -> %-46s %d post(s)\n", $braillewright_old, $braillewright_new, $braillewright_n );
+	$braillewright_total_moved += $braillewright_n;
 
-	if ( ! $bw_apply || ! $bw_n ) {
+	if ( ! $braillewright_apply || ! $braillewright_n ) {
 		continue;
 	}
 
-	foreach ( $bw_rows as $bw_row ) {
-		update_post_meta( (int) $bw_row->post_id, $bw_new, $bw_row->meta_value );
+	foreach ( $braillewright_rows as $braillewright_row ) {
+		update_post_meta( (int) $braillewright_row->post_id, $braillewright_new, $braillewright_row->meta_value );
 
 		// ⚠️ update_post_meta() returns false BOTH on failure and when the value was
 		// already identical, so its return value is not a result. Read it back.
-		$bw_readback = get_post_meta( (int) $bw_row->post_id, $bw_new, true );
-		if ( (string) $bw_readback !== (string) $bw_row->meta_value ) {
-			echo "      FAILED post {$bw_row->post_id}: {$bw_new} did not read back as written\n";
-			++$bw_failures;
+		$braillewright_readback = get_post_meta( (int) $braillewright_row->post_id, $braillewright_new, true );
+		if ( (string) $braillewright_readback !== (string) $braillewright_row->meta_value ) {
+			echo "      FAILED post {$braillewright_row->post_id}: {$braillewright_new} did not read back as written\n";
+			++$braillewright_failures;
 		}
 	}
 }
 
 echo "\n";
 
-if ( $bw_failures ) {
-	echo "FAILED: {$bw_failures} problem(s). Inspect before continuing.\n";
+if ( $braillewright_failures ) {
+	echo "FAILED: {$braillewright_failures} problem(s). Inspect before continuing.\n";
 	exit( 1 );
 }
 
-echo $bw_apply
-	? "Done (applied). {$bw_total_moved} post-meta value(s) written and verified.\n"
-	: "Dry-run complete; {$bw_total_moved} value(s) would be written. "
+echo $braillewright_apply
+	? "Done (applied). {$braillewright_total_moved} post-meta value(s) written and verified.\n"
+	: "Dry-run complete; {$braillewright_total_moved} value(s) would be written. "
 		. "Re-run with BW_POSTMETA_APPLY defined.\n";
