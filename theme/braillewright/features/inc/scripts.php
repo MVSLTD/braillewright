@@ -5,9 +5,9 @@ defined( 'ABSPATH' ) OR exit;
 function braillewright_features_enqueue_front_end_styles() {
 
 	if ( is_rtl() ) {
-		wp_enqueue_style( 'braillewright-features-style-rtl', BRAILLEWRIGHT_FEATURES_URL . 'styles/rtl.min.css' );
+		wp_enqueue_style( 'braillewright-features-style-rtl', BRAILLEWRIGHT_FEATURES_URL . 'styles/rtl.min.css', array(), BRAILLEWRIGHT_VERSION );
 	} else {
-		wp_enqueue_style( 'braillewright-features-style', BRAILLEWRIGHT_FEATURES_URL . 'styles/style.min.css' );
+		wp_enqueue_style( 'braillewright-features-style', BRAILLEWRIGHT_FEATURES_URL . 'styles/style.min.css', array(), BRAILLEWRIGHT_VERSION );
 	}
 	// main JS file (braillewright-js dependency contains fitvids)
 	wp_enqueue_script(
@@ -17,7 +17,7 @@ function braillewright_features_enqueue_front_end_styles() {
 			'jquery',
 			'braillewright-js'
 		),
-		'',
+		BRAILLEWRIGHT_VERSION,
 		true
 	);
 }
@@ -29,10 +29,10 @@ function braillewright_features_enqueue_admin_styles( $hook ) {
 	if ( $hook == 'post.php' || $hook == 'post-new.php' ) {
 
 		// Admin CSS
-		wp_enqueue_style( 'braillewright-features-admin-style', BRAILLEWRIGHT_FEATURES_URL . 'styles/admin.min.css' );
+		wp_enqueue_style( 'braillewright-features-admin-style', BRAILLEWRIGHT_FEATURES_URL . 'styles/admin.min.css', array(), BRAILLEWRIGHT_VERSION );
 
 		// Fitvids JS
-		wp_enqueue_script( 'fitvids', BRAILLEWRIGHT_FEATURES_URL . 'js/fitvids.js', array( 'jquery' ), '', true );
+		wp_enqueue_script( 'fitvids', BRAILLEWRIGHT_FEATURES_URL . 'js/fitvids.js', array( 'jquery' ), BRAILLEWRIGHT_VERSION, true );
 
 		// Admin JS
 		wp_enqueue_script(
@@ -42,7 +42,7 @@ function braillewright_features_enqueue_admin_styles( $hook ) {
 				'jquery',
 				'fitvids'
 			),
-			'',
+			BRAILLEWRIGHT_VERSION,
 			true
 		);
 
@@ -57,15 +57,15 @@ function braillewright_features_enqueue_admin_styles( $hook ) {
 	}
 	if ( $hook == 'appearance_page_braillewright-options' ) {
 		// Admin CSS
-		wp_enqueue_style( 'braillewright-features-admin-style', BRAILLEWRIGHT_FEATURES_URL . 'styles/admin.min.css' );
+		wp_enqueue_style( 'braillewright-features-admin-style', BRAILLEWRIGHT_FEATURES_URL . 'styles/admin.min.css', array(), BRAILLEWRIGHT_VERSION );
 	}
 }
 add_action( 'admin_enqueue_scripts', 'braillewright_features_enqueue_admin_styles' );
 
 // Customizer
 function braillewright_features_enqueue_customizer_scripts() {
-	wp_enqueue_script( 'braillewright-features-customizer-js', BRAILLEWRIGHT_FEATURES_URL . 'js/build/customizer.min.js', array( 'jquery' ), '', true );
-	wp_enqueue_style( 'braillewright-features-customizer-css', BRAILLEWRIGHT_FEATURES_URL . 'styles/customizer.min.css' );
+	wp_enqueue_script( 'braillewright-features-customizer-js', BRAILLEWRIGHT_FEATURES_URL . 'js/build/customizer.min.js', array( 'jquery' ), BRAILLEWRIGHT_VERSION, true );
+	wp_enqueue_style( 'braillewright-features-customizer-css', BRAILLEWRIGHT_FEATURES_URL . 'styles/customizer.min.css', array(), BRAILLEWRIGHT_VERSION );
 
 	wp_localize_script(
 		'braillewright-features-customizer-js',
@@ -82,7 +82,7 @@ add_action( 'customize_controls_enqueue_scripts', 'braillewright_features_enqueu
  * transport => postMessage
  */
 function braillewright_features_enqueue_customizer_post_message_scripts() {
-	wp_enqueue_script( 'braillewright-features-post-message-js', BRAILLEWRIGHT_FEATURES_URL . 'js/build/postMessage.min.js', array( 'jquery' ), '', true );
+	wp_enqueue_script( 'braillewright-features-post-message-js', BRAILLEWRIGHT_FEATURES_URL . 'js/build/postMessage.min.js', array( 'jquery' ), BRAILLEWRIGHT_VERSION, true );
 
 	wp_localize_script(
 		'braillewright-features-post-message-js',

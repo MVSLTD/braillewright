@@ -288,7 +288,8 @@ function braillewright_features_register_new_font() {
 			// Format the GF request URL
 			$font_url = add_query_arg( $font_args, '//fonts.googleapis.com/css' );
 			// Register and enqueue the new stylesheet
-			wp_register_style( 'braillewright-features-' . $element . '-google-fonts', $font_url );
+			// External CDN URL - null is the explicit "no version".
+			wp_register_style( 'braillewright-features-' . $element . '-google-fonts', $font_url, array(), null );
 			wp_enqueue_style( 'braillewright-features-' . $element . '-google-fonts' );
 		}
 	};
