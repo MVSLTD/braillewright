@@ -85,7 +85,7 @@ function braillewright_features_post_layout_save_data( $post_id ) {
 
 		$layout = sanitize_text_field( wp_unslash( $_POST['braillewright-pro-post-layout'] ) );
 
-		if ( in_array( $layout, braillewright_features_layouts( 'page-layouts' ) ) ) {
+		if ( in_array( $layout, braillewright_features_layouts( 'page-layouts' ), true ) ) {
 			update_post_meta( $post_id, 'braillewright_features_post_layout_key', $layout );
 		}
 	}

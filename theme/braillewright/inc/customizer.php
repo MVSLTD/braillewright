@@ -216,6 +216,7 @@ function braillewright_add_customizer_content( $wp_customize ) {
 					array(
 						'type'        => 'url',
 						'label'       => $label,
+						/* translators: %s: URL of the Skype link protocol documentation. */
 						'description' => sprintf( __( 'Accepts Skype link protocol (<a href="%s" target="_blank">learn more</a>)', 'braillewright' ), '#' ),
 						'section'     => 'braillewright_social_media_icons',
 						'priority'    => $priority,
@@ -490,6 +491,7 @@ function braillewright_add_customizer_content( $wp_customize ) {
 		array(
 			'title'       => __( 'Posts', 'braillewright' ),
 			'priority'    => 1,
+			/* translators: 1: URL of the Pro plugin page, 2: theme name. */
 			'description' => sprintf( __( 'Want more layouts? Check out the <a target="_blank" href="%1$s">%2$s Pro plugin</a>.', 'braillewright' ), '#', wp_get_theme( get_template() ) ),
 			'panel'       => 'braillewright_layout_panel',
 		)
@@ -523,6 +525,7 @@ function braillewright_add_customizer_content( $wp_customize ) {
 		array(
 			'title'       => __( 'Pages', 'braillewright' ),
 			'priority'    => 2,
+			/* translators: 1: URL of the Pro plugin page, 2: theme name. */
 			'description' => sprintf( __( 'Want more layouts? Check out the <a target="_blank" href="%1$s">%2$s Pro plugin</a>.', 'braillewright' ), '#', wp_get_theme( get_template() ) ),
 			'panel'       => 'braillewright_layout_panel',
 		)
@@ -556,6 +559,7 @@ function braillewright_add_customizer_content( $wp_customize ) {
 		array(
 			'title'       => __( 'Blog', 'braillewright' ),
 			'priority'    => 3,
+			/* translators: 1: URL of the Pro plugin page, 2: theme name. */
 			'description' => sprintf( __( 'Want more layouts? Check out the <a target="_blank" href="%1$s">%2$s Pro plugin</a>.', 'braillewright' ), '#', wp_get_theme( get_template() ) ),
 			'panel'       => 'braillewright_layout_panel',
 		)
@@ -589,6 +593,7 @@ function braillewright_add_customizer_content( $wp_customize ) {
 		array(
 			'title'       => __( 'Archives', 'braillewright' ),
 			'priority'    => 4,
+			/* translators: 1: URL of the Pro plugin page, 2: theme name. */
 			'description' => sprintf( __( 'Want more layouts? Check out the <a target="_blank" href="%1$s">%2$s Pro plugin</a>.', 'braillewright' ), '#', wp_get_theme( get_template() ) ),
 			'panel'       => 'braillewright_layout_panel',
 		)
@@ -694,6 +699,7 @@ function braillewright_add_customizer_content( $wp_customize ) {
 		array(
 			'title'       => __( 'Show/Hide Elements', 'braillewright' ),
 			'priority'    => 55,
+			/* translators: 1: URL of the Pro plugin page, 2: theme name. */
 			'description' => sprintf( __( 'Want more options like these? Check out the <a target="_blank" href="%1$s">%2$s Pro plugin</a>.', 'braillewright' ), '#', wp_get_theme( get_template() ) ),
 		)
 	);

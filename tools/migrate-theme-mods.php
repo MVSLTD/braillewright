@@ -62,16 +62,16 @@ if ( ! defined( 'ABSPATH' ) ) {
  * nothing but these (plus WordPress's own numeric placeholder) is a bootstrap artefact,
  * not a migration.
  */
-$bw_bootstrap_keys = array( 'layout_pages', 'layout_blog', 'layout_archives' );
+$braillewright_bootstrap_keys = array( 'layout_pages', 'layout_blog', 'layout_archives' );
 
-$bw_stylesheet = (string) get_option( 'stylesheet' );
-$bw_template   = (string) get_option( 'template' );
+$braillewright_stylesheet = (string) get_option( 'stylesheet' );
+$braillewright_template   = (string) get_option( 'template' );
 
 if ( defined( 'BW_MIGRATE_FROM' ) && BW_MIGRATE_FROM ) {
-	$bw_from_slug = (string) BW_MIGRATE_FROM;
-	echo "Source theme given explicitly: $bw_from_slug\n";
-} elseif ( 'braillewright' !== $bw_stylesheet && '' !== $bw_stylesheet ) {
-	$bw_from_slug = $bw_stylesheet;
+	$braillewright_from_slug = (string) BW_MIGRATE_FROM;
+	echo "Source theme given explicitly: $braillewright_from_slug\n";
+} elseif ( 'braillewright' !== $braillewright_stylesheet && '' !== $braillewright_stylesheet ) {
+	$braillewright_from_slug = $braillewright_stylesheet;
 } else {
 	echo "ABORT: braillewright is already the active theme, so the live stylesheet can no\n";
 	echo "       longer name the theme being migrated FROM, and this script will not guess.\n";
@@ -80,63 +80,63 @@ if ( defined( 'BW_MIGRATE_FROM' ) && BW_MIGRATE_FROM ) {
 	exit( 1 );
 }
 
-$bw_from_option = 'theme_mods_' . $bw_from_slug;
+$braillewright_from_option = 'theme_mods_' . $braillewright_from_slug;
 
-echo "Source option: $bw_from_option   (stylesheet=$bw_stylesheet, template=$bw_template)\n";
+echo "Source option: $braillewright_from_option   (stylesheet=$braillewright_stylesheet, template=$braillewright_template)\n";
 
-$bw_from = get_option( $bw_from_option );
-$bw_to   = get_option( 'theme_mods_braillewright' );
+$braillewright_from = get_option( $braillewright_from_option );
+$braillewright_to   = get_option( 'theme_mods_braillewright' );
 
-if ( ! is_array( $bw_from ) || ! $bw_from ) {
-	echo "ABORT: $bw_from_option not found, not an array, or empty. Nothing to migrate.\n";
+if ( ! is_array( $braillewright_from ) || ! $braillewright_from ) {
+	echo "ABORT: $braillewright_from_option not found, not an array, or empty. Nothing to migrate.\n";
 	exit( 1 );
 }
 
-if ( is_array( $bw_to ) && $bw_to === $bw_from ) {
-	echo 'Already migrated: theme_mods_braillewright is identical to ' . $bw_from_option
-		. ' (' . count( $bw_from ) . " keys). Nothing to do.\n";
+if ( is_array( $braillewright_to ) && $braillewright_to === $braillewright_from ) {
+	echo 'Already migrated: theme_mods_braillewright is identical to ' . $braillewright_from_option
+		. ' (' . count( $braillewright_from ) . " keys). Nothing to do.\n";
 	return;
 }
 
-if ( is_array( $bw_to ) && ! empty( $bw_to ) && ! defined( 'BW_MIGRATE_FORCE' ) ) {
+if ( is_array( $braillewright_to ) && ! empty( $braillewright_to ) && ! defined( 'BW_MIGRATE_FORCE' ) ) {
 
 	// ⚠️ PHP casts a numeric string key to an int, so WordPress's own '0' placeholder
 	// arrives here as int 0 and array_diff against a list of strings never removes it.
 	// That alone left one "real" key behind and made the bootstrap check inert.
-	$bw_real_keys = array();
-	foreach ( array_keys( $bw_to ) as $bw_k ) {
-		if ( is_int( $bw_k ) ) {
+	$braillewright_real_keys = array();
+	foreach ( array_keys( $braillewright_to ) as $braillewright_k ) {
+		if ( is_int( $braillewright_k ) ) {
 			continue;
 		}
-		if ( in_array( $bw_k, $bw_bootstrap_keys, true ) ) {
+		if ( in_array( $braillewright_k, $braillewright_bootstrap_keys, true ) ) {
 			continue;
 		}
-		$bw_real_keys[] = $bw_k;
+		$braillewright_real_keys[] = $braillewright_k;
 	}
 
-	if ( empty( $bw_real_keys ) ) {
+	if ( empty( $braillewright_real_keys ) ) {
 		echo "theme_mods_braillewright holds only the keys the theme writes on its first boot\n";
-		echo '(' . implode( ', ', $bw_bootstrap_keys ) . "). That is a bootstrap artefact, not a\n";
+		echo '(' . implode( ', ', $braillewright_bootstrap_keys ) . "). That is a bootstrap artefact, not a\n";
 		echo "migration -- overwriting it.\n";
 	} else {
-		echo 'REFUSED: theme_mods_braillewright is genuinely populated (' . count( $bw_real_keys )
+		echo 'REFUSED: theme_mods_braillewright is genuinely populated (' . count( $braillewright_real_keys )
 			. " key(s) beyond the bootstrap set). Nothing was copied.\n";
 		echo "Define BW_MIGRATE_FORCE to overwrite it deliberately.\n";
 		exit( 1 );
 	}
 }
 
-update_option( 'theme_mods_braillewright', $bw_from );
+update_option( 'theme_mods_braillewright', $braillewright_from );
 
 // Prove the write, by VALUE and not merely by key count -- a count check passes on a
 // wholesale corruption that happens to preserve the number of keys.
-$bw_check = get_option( 'theme_mods_braillewright' );
+$braillewright_check = get_option( 'theme_mods_braillewright' );
 
-if ( ! is_array( $bw_check ) || $bw_check !== $bw_from ) {
+if ( ! is_array( $braillewright_check ) || $braillewright_check !== $braillewright_from ) {
 	echo "ABORT: the write did not read back identical to the source. Nothing can be\n";
 	echo "       assumed about the destination -- inspect it before continuing.\n";
 	exit( 1 );
 }
 
-echo 'Copied ' . count( $bw_check ) . " theme mod(s): $bw_from_option -> theme_mods_braillewright"
+echo 'Copied ' . count( $braillewright_check ) . " theme mod(s): $braillewright_from_option -> theme_mods_braillewright"
 	. " (verified identical).\n";

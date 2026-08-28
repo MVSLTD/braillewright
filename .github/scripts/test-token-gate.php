@@ -252,6 +252,88 @@ $stage4Cases[] = ['a requote riding along with the operator swap', 'FAIL',
     "<?php\ndefined( 'ABSPATH' ) || exit;\n"];
 
 // ---------------------------------------------------------------------------
+// STAGE 5 - variable renames, added comments, and in_array strictness.
+// Added 2026-08-28.
+//
+// ⛔ VARIABLE_RENAME is the first class in this gate whose safety is NOT a token-level
+// property. The must-fail cases below are the three ways a rename goes wrong, and the
+// third one is the dangerous one because the code still runs afterwards.
+// ---------------------------------------------------------------------------
+
+/** Cases run against stage 5. */
+$stage5Cases = [];
+
+$stage5Cases[] = ['a consistent rename of a template-local', 'PASS',
+    "<?php\n\$output = '';\n\$output .= 'a';\necho \$output;\n",
+    "<?php\n\$braillewright_output = '';\n\$braillewright_output .= 'a';\necho \$braillewright_output;\n"];
+
+$stage5Cases[] = ['a translators comment added above an i18n call', 'PASS',
+    "<?php\nprintf( __( 'Published %s', 'braillewright' ), \$d );\n",
+    "<?php\n/* translators: %s: the publication date. */\nprintf( __( 'Published %s', 'braillewright' ), \$d );\n"];
+
+$stage5Cases[] = ['a phpcs:ignore annotation added', 'PASS',
+    "<?php\n\$GLOBALS['comment'] = \$comment;\n",
+    "<?php\n// phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited -- required by core.\n\$GLOBALS['comment'] = \$comment;\n"];
+
+$stage5Cases[] = ['in_array gains the strict flag', 'PASS',
+    "<?php\nif ( in_array( \$v, \$list ) ) {\n\techo 1;\n}\n",
+    "<?php\nif ( in_array( \$v, \$list, true ) ) {\n\techo 1;\n}\n"];
+
+// The real Squiz.ControlSignature shape in features/inc/colors.php: a section-divider
+// comment sits between the brace and the keyword, so satisfying "} elseif" RELOCATES the
+// comment. Inert - a comment never executes wherever it sits.
+$stage5Cases[] = ['a section-divider comment relocated past a closing brace', 'PASS',
+    "<?php\nif ( \$a ) {\n\techo 1;\n}\n/***** Header *****/\nelseif ( \$b ) {\n\techo 2;\n}\n",
+    "<?php\nif ( \$a ) {\n\techo 1;\n/***** Header *****/\n} elseif ( \$b ) {\n\techo 2;\n}\n"];
+
+// ⛔ A move and a deletion are token-identical LOCALLY. Only the whole file tells them
+// apart, and losing a comment can lose a phpcs:ignore or a translators note.
+$stage5Cases[] = ['a comment that vanishes rather than moving', 'FAIL',
+    "<?php\nif ( \$a ) {\n\techo 1;\n}\n/***** Header *****/\nelseif ( \$b ) {\n\techo 2;\n}\n",
+    "<?php\nif ( \$a ) {\n\techo 1;\n} elseif ( \$b ) {\n\techo 2;\n}\n"];
+
+// ⛔ INCONSISTENT: one occurrence left behind, so the file now has TWO variables.
+$stage5Cases[] = ['a rename that misses an occurrence', 'FAIL',
+    "<?php\n\$output = '';\n\$output .= 'a';\necho \$output;\n",
+    "<?php\n\$braillewright_output = '';\n\$output .= 'a';\necho \$braillewright_output;\n"];
+
+// ⛔ COLLISION: the worst of the three, because the result still runs. Two distinct
+// variables silently become one.
+$stage5Cases[] = ['a rename onto a name that already exists', 'FAIL',
+    "<?php\n\$a = 1;\n\$b = 2;\necho \$a . \$b;\n",
+    "<?php\n\$b = 1;\n\$b = 2;\necho \$b . \$b;\n"];
+
+// ⛔ NOT LOCAL: renaming a variable the file binds to global scope detaches the code
+// from the global it referred to, while still running.
+$stage5Cases[] = ['renaming a variable declared global', 'FAIL',
+    "<?php\nfunction f() {\n\tglobal \$post;\n\treturn \$post->ID;\n}\n",
+    "<?php\nfunction f() {\n\tglobal \$post;\n\treturn \$braillewright_post->ID;\n}\n"];
+
+// ⛔ A comment REMOVAL is not a comment addition - it can delete a phpcs:ignore.
+$stage5Cases[] = ['a comment removed rather than added', 'FAIL',
+    "<?php\n/* translators: %s: the date. */\nprintf( __( 'x %s', 'braillewright' ), \$d );\n",
+    "<?php\nprintf( __( 'x %s', 'braillewright' ), \$d );\n"];
+
+// ⛔ The strict flag belongs to in_array, not to whatever call happens to be there.
+$stage5Cases[] = ['a third argument added to a different function', 'FAIL',
+    "<?php\n\$x = str_replace( \$a, \$b );\n",
+    "<?php\n\$x = str_replace( \$a, \$b, true );\n"];
+
+// ⛔ The strict flag must be the ONLY change to the call. Here the haystack is swapped
+// for a DIFFERENT VARIABLE THAT ALREADY EXISTS, which is the dangerous real-world shape:
+// the code still runs and searches the wrong array.
+//
+// ⚠️ HONEST LIMITATION, recorded rather than papered over. If the haystack were swapped
+// for a name that appears NOWHERE ELSE, this gate cannot tell that apart from a genuine
+// one-occurrence rename - the two are token-identical. That case is caught by a
+// different layer: `Static analysis (PHPStan + WordPress stubs)` is a required check and
+// flags the undefined variable. Layered guards, not one guard pretending to see
+// everything.
+$stage5Cases[] = ['in_array haystack swapped for another existing variable', 'FAIL',
+    "<?php\n\$list = a();\n\$other = b();\nif ( in_array( \$v, \$list ) ) {\n\techo 1;\n}\n",
+    "<?php\n\$list = a();\n\$other = b();\nif ( in_array( \$v, \$other, true ) ) {\n\techo 1;\n}\n"];
+
+// ---------------------------------------------------------------------------
 
 // Tag each case with the stage it must be graded against, then run one list. A case is
 // only meaningful against its own stage's allow-list: LOGICAL_OPERATOR is permitted in
@@ -263,6 +345,9 @@ foreach ($cases as $c) {
 }
 foreach ($stage4Cases as $c) {
     $all[] = [4, $c[0], $c[1], $c[2], $c[3]];
+}
+foreach ($stage5Cases as $c) {
+    $all[] = [5, $c[0], $c[1], $c[2], $c[3]];
 }
 
 $pass = 0;

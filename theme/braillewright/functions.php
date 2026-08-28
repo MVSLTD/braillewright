@@ -143,6 +143,11 @@ add_action( 'widgets_init', 'braillewright_register_widget_areas' );
 
 if ( ! function_exists( ( 'braillewright_customize_comments' ) ) ) {
 	function braillewright_customize_comments( $comment, $args, $depth ) {
+		// This is the wp_list_comments() callback (registered at comments.php:15), and
+		// the comment template tags below - comment_class(), comment_ID(),
+		// get_comment_author_email() - all read this global via get_comment().
+		// WordPress core's own class-walker-comment.php:179 sets it identically.
+		// phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited -- required.
 		$GLOBALS['comment'] = $comment;
 		global $post; ?>
 		<li <?php comment_class(); ?> id="li-comment-<?php comment_ID(); ?>">
@@ -301,6 +306,7 @@ if ( ! function_exists( 'braillewright_excerpt' ) ) {
 }
 
 if ( ! function_exists( 'braillewright_custom_excerpt_length' ) ) {
+	// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found -- filter signature.
 	function braillewright_custom_excerpt_length( $length ) {
 		$new_excerpt_length = get_theme_mod( 'excerpt_length' );
 
@@ -674,7 +680,7 @@ if ( ! function_exists( ( 'braillewright_wp_page_menu' ) ) ) {
 if ( ! function_exists( ( 'braillewright_nav_dropdown_buttons' ) ) ) {
 	function braillewright_nav_dropdown_buttons( $item_output, $item, $depth, $args ) {
 		if ( $args->theme_location == 'primary' ) {
-			if ( in_array( 'menu-item-has-children', $item->classes ) || in_array( 'page_item_has_children', $item->classes ) ) {
+			if ( in_array( 'menu-item-has-children', $item->classes, true ) || in_array( 'page_item_has_children', $item->classes, true ) ) {
 				$item_output = str_replace( $args->link_after . '</a>', $args->link_after . '</a><button class="toggle-dropdown" aria-expanded="false" name="toggle-dropdown"><span class="screen-reader-text">' . esc_html_x( 'open dropdown menu', 'verb: open the dropdown menu', 'braillewright' ) . '</span><span class="arrow"></span></button>', $item_output );
 			}
 		}

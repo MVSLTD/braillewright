@@ -71,7 +71,7 @@ function braillewright_last_updated_save_data( $post_id ) {
 		$display         = sanitize_text_field( wp_unslash( $_POST['braillewright-last-updated'] ) );
 		$accepted_values = array( 'default', 'yes', 'no' );
 
-		if ( in_array( $display, $accepted_values ) ) {
+		if ( in_array( $display, $accepted_values, true ) ) {
 			update_post_meta( $post_id, 'braillewright_last_updated', $display );
 		}
 	}

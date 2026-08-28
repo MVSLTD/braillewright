@@ -14,6 +14,7 @@ if ( $categories ) {
 			$output  = rtrim( $output, ', ' ); // remove trailing comma
 			$output .= ' ' . esc_html_x( 'and', 'category, category, AND category', 'braillewright' ) . ' ';
 		}
+		/* translators: %s: category name. */
 		$output .= '<a href="' . esc_url( get_category_link( $category->term_id ) ) . '" title="' . esc_attr( sprintf( esc_html_x( 'View all posts in %s', 'View all posts in post category', 'braillewright' ), $category->name ) ) . '">' . esc_html( $category->cat_name ) . '</a>' . $separator;
 	}
 		echo wp_kses_post( trim( $output, $separator ) );
