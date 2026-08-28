@@ -306,6 +306,7 @@ if ( ! function_exists( 'braillewright_excerpt' ) ) {
 }
 
 if ( ! function_exists( 'braillewright_custom_excerpt_length' ) ) {
+	// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found -- filter signature.
 	function braillewright_custom_excerpt_length( $length ) {
 		$new_excerpt_length = get_theme_mod( 'excerpt_length' );
 

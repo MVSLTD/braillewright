@@ -1210,7 +1210,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		array(
 			'title'       => __( 'Global', 'braillewright' ),
 			/* translators: %s: URL of the Google Fonts website. */
-			'description' => sprintf( __( '<i>All fonts can be previewed at <a href="%s" target="_blank">Google Fonts</a>.</i>', 'braillewright' ), 'https://fonts.google.com/' ),
+			'description' => '<i>' . sprintf( __( 'All fonts can be previewed at <a href="%s" target="_blank">Google Fonts</a>.', 'braillewright' ), 'https://fonts.google.com/' ) . '</i>',
 			'panel'       => 'braillewright_features_fonts_panel',
 		)
 	);
@@ -1384,7 +1384,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		array(
 			'title'       => __( 'Individual Elements', 'braillewright' ),
 			/* translators: %s: URL of the Google Fonts website. */
-			'description' => sprintf( __( '<i>All fonts can be previewed at <a href="%s" target="_blank">Google Fonts</a>.</i>', 'braillewright' ), 'https://fonts.google.com/' ),
+			'description' => '<i>' . sprintf( __( 'All fonts can be previewed at <a href="%s" target="_blank">Google Fonts</a>.', 'braillewright' ), 'https://fonts.google.com/' ) . '</i>',
 			'panel'       => 'braillewright_features_fonts_panel',
 		)
 	);
@@ -2483,6 +2483,7 @@ function braillewright_features_sanitize_font_language( $input ) {
 //  Remove Customizer ad
 //----------------------------------------------------------------------------------
 
+// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found -- filter signature.
 function braillewright_features_remove_customizer_ad( $content ) {
 	return '';
 }

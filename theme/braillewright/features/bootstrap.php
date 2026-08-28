@@ -55,7 +55,7 @@ require_once BRAILLEWRIGHT_FEATURES_PATH . 'inc/menus.php';
 // loads after all plugins, so it runs on after_setup_theme instead.
 function braillewright_features_init() {
 	if ( class_exists( 'MetaSliderPlugin' ) ) {
-		define( 'META_SLIDER_ACTIVE', true );
+		define( 'BRAILLEWRIGHT_META_SLIDER_ACTIVE', true );
 	}
 }
 add_action( 'after_setup_theme', 'braillewright_features_init' );

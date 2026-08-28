@@ -13,6 +13,7 @@ function braillewright_features_output_backgrounds() {
 
 	$custom_css = '';
 
+	// phpcs:ignore Squiz.PHP.CommentedOutCode.Found -- explains the foreach below.
 	// $key = id, $customization = url
 	foreach ( $customizations as $key => $customization ) {
 

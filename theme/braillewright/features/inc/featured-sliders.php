@@ -25,7 +25,7 @@ function braillewright_features_slider_callback( $post ) {
 
 	$slider_id = get_post_meta( $post->ID, 'braillewright_features_slider_key', true );
 
-	if ( defined( 'META_SLIDER_ACTIVE' ) ) {
+	if ( defined( 'BRAILLEWRIGHT_META_SLIDER_ACTIVE' ) ) {
 
 		// get all the meta sliders user has made
 		$sliders = get_posts(
@@ -162,7 +162,7 @@ add_action( 'pre_post_update', 'braillewright_features_slider_save_data' );
 
 function braillewright_features_output_featured_slider( $featured_image ) {
 
-	if ( defined( 'META_SLIDER_ACTIVE' ) ) {
+	if ( defined( 'BRAILLEWRIGHT_META_SLIDER_ACTIVE' ) ) {
 
 		global $post;
 
