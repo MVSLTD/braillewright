@@ -1,5 +1,5 @@
 <?php
-defined( 'ABSPATH' ) OR exit;
+defined( 'ABSPATH' ) or exit;
 
 function braillewright_last_updated_meta_box() {
 
@@ -20,23 +20,32 @@ add_action( 'add_meta_boxes', 'braillewright_last_updated_meta_box' );
 
 function braillewright_last_updated_callback( $post ) {
 
-  wp_nonce_field( 'braillewright_last_updated', 'braillewright_last_updated_nonce' );
-  $display = get_post_meta( $post->ID, 'braillewright_last_updated', true );
+	wp_nonce_field( 'braillewright_last_updated', 'braillewright_last_updated_nonce' );
+	$display = get_post_meta( $post->ID, 'braillewright_last_updated', true );
 
-  ?>
+	?>
 	<p>
 		<select name="braillewright-last-updated" id="braillewright-last-updated" style="box-sizing: border-box; width: 100%;">
 			<option value="default"><?php esc_html_e( 'Use Customizer setting', 'braillewright' ); ?></option>
-			<option value="yes" <?php if ( $display == 'yes' ) {
+			<option value="yes" 
+			<?php
+			if ( $display == 'yes' ) {
 				echo 'selected';
-			} ?>><?php esc_html_e( 'Show the date', 'braillewright' ); ?>
+			}
+			?>
+			><?php esc_html_e( 'Show the date', 'braillewright' ); ?>
 			</option>
-			<option value="no" <?php if ( $display == 'no' ) {
+			<option value="no" 
+			<?php
+			if ( $display == 'no' ) {
 				echo 'selected';
-			} ?>><?php esc_html_e( "Don't show the date", 'braillewright' ); ?>
+			}
+			?>
+			><?php esc_html_e( "Don't show the date", 'braillewright' ); ?>
 			</option>
 		</select>
-	</p> <?php
+	</p> 
+	<?php
 }
 function braillewright_last_updated_save_data( $post_id ) {
 
@@ -59,8 +68,8 @@ function braillewright_last_updated_save_data( $post_id ) {
 
 	if ( isset( $_POST['braillewright-last-updated'] ) ) {
 
-    $display = sanitize_text_field( wp_unslash( $_POST['braillewright-last-updated'] ) );
-    $accepted_values = array('default', 'yes', 'no');
+		$display         = sanitize_text_field( wp_unslash( $_POST['braillewright-last-updated'] ) );
+		$accepted_values = array( 'default', 'yes', 'no' );
 
 		if ( in_array( $display, $accepted_values ) ) {
 			update_post_meta( $post_id, 'braillewright_last_updated', $display );

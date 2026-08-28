@@ -10,12 +10,14 @@
 			<div class="post-content">
 				<?php braillewright_output_last_updated_date(); ?>
 				<?php the_content(); ?>
-				<?php wp_link_pages(
+				<?php
+				wp_link_pages(
 					array(
 						'before' => '<p class="singular-pagination">' . esc_html__( 'Pages:', 'braillewright' ),
 						'after'  => '</p>',
 					)
-				); ?>
+				);
+				?>
 				<?php do_action( 'post_after' ); ?>
 			</div>
 			<div class="post-meta">

@@ -22,7 +22,7 @@
  * visitors.
  */
 
-defined( 'ABSPATH' ) OR exit;
+defined( 'ABSPATH' ) or exit;
 
 use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
 

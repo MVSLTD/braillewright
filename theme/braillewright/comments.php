@@ -19,15 +19,17 @@ if ( post_password_required() || ( ! have_comments() && ! comments_open() && ! p
 		<p class="previous-comment"><?php previous_comments_link(); ?></p>
 		<p class="next-comment"><?php next_comments_link(); ?></p>
 	</nav>
-	<?php endif;
+		<?php
+	endif;
 	if ( comments_open() ) {
 		comment_form(
 			array(
 				'title_reply_before' => '<div id="reply-title" class="comment-reply-title">',
-				'title_reply_after'  => '</div>'
+				'title_reply_after'  => '</div>',
 			)
 		);
-	} elseif ( ! comments_open() && pings_open() && is_singular( 'post' ) ) { ?>
+	} elseif ( ! comments_open() && pings_open() && is_singular( 'post' ) ) {
+		?>
 	<p class="comments-closed pings-open">
 		<?php
 		// translators: placeholder is link to the trackback URL

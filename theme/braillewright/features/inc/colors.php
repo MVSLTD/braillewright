@@ -1,5 +1,5 @@
 <?php
-defined( 'ABSPATH' ) OR exit;
+defined( 'ABSPATH' ) or exit;
 
 function braillewright_features_custom_colors_data() {
 
@@ -14,73 +14,73 @@ function braillewright_features_custom_colors_data() {
 			array(
 				'setting_id'      => 'colors_base_background',
 				'setting_default' => '#ededed',
-				'control_label'   => esc_html__( 'Background', 'braillewright' )
+				'control_label'   => esc_html__( 'Background', 'braillewright' ),
 			),
 			array(
 				'setting_id'      => 'colors_base_content_bg',
 				'setting_default' => '#ffffff',
-				'control_label'   => esc_html__( 'Content Background', 'braillewright' )
+				'control_label'   => esc_html__( 'Content Background', 'braillewright' ),
 			),
 			array(
 				'setting_id'      => 'colors_base_headings',
 				'setting_default' => '#333333',
-				'control_label'   => esc_html__( 'Headings', 'braillewright' )
+				'control_label'   => esc_html__( 'Headings', 'braillewright' ),
 			),
 			array(
 				'setting_id'      => 'colors_base_links',
 				'setting_default' => '#333333',
-				'control_label'   => esc_html__( 'Links', 'braillewright' )
+				'control_label'   => esc_html__( 'Links', 'braillewright' ),
 			),
 			array(
 				'setting_id'      => 'colors_base_links_hover',
 				'setting_default' => '#757575',
-				'control_label'   => esc_html__( 'Links (hover)', 'braillewright' )
+				'control_label'   => esc_html__( 'Links (hover)', 'braillewright' ),
 			),
 			array(
 				'setting_id'      => 'colors_base_content',
 				'setting_default' => '#333333',
-				'control_label'   => esc_html__( 'Text', 'braillewright' )
+				'control_label'   => esc_html__( 'Text', 'braillewright' ),
 			),
 			array(
 				'setting_id'      => 'colors_base_inputs',
 				'setting_default' => '#333333',
-				'control_label'   => esc_html__( 'Inputs', 'braillewright' )
+				'control_label'   => esc_html__( 'Inputs', 'braillewright' ),
 			),
 			array(
 				'setting_id'      => 'colors_base_inputs_bg',
 				'setting_default' => '#f7f7f7',
-				'control_label'   => esc_html__( 'Inputs Background', 'braillewright' )
+				'control_label'   => esc_html__( 'Inputs Background', 'braillewright' ),
 			),
 			array(
 				'setting_id'      => 'colors_base_inputs_bg_focus',
 				'setting_default' => '#ffffff',
-				'control_label'   => esc_html__( 'Inputs Background (focus)', 'braillewright' )
+				'control_label'   => esc_html__( 'Inputs Background (focus)', 'braillewright' ),
 			),
 			array(
 				'setting_id'      => 'colors_base_inputs_border',
 				'setting_default' => '#d4d4d4',
-				'control_label'   => esc_html__( 'Inputs Border', 'braillewright' )
+				'control_label'   => esc_html__( 'Inputs Border', 'braillewright' ),
 			),
 			array(
 				'setting_id'      => 'colors_base_buttons',
 				'setting_default' => '#333333',
-				'control_label'   => esc_html__( 'Buttons', 'braillewright' )
+				'control_label'   => esc_html__( 'Buttons', 'braillewright' ),
 			),
 			array(
 				'setting_id'      => 'colors_base_buttons_hover',
 				'setting_default' => '#ffffff',
-				'control_label'   => esc_html__( 'Buttons (hover)', 'braillewright' )
+				'control_label'   => esc_html__( 'Buttons (hover)', 'braillewright' ),
 			),
 			array(
 				'setting_id'      => 'colors_base_buttons_bg',
 				'setting_default' => '#ffffff',
-				'control_label'   => esc_html__( 'Buttons Background', 'braillewright' )
+				'control_label'   => esc_html__( 'Buttons Background', 'braillewright' ),
 			),
 			array(
 				'setting_id'      => 'colors_base_buttons_bg_hover',
 				'setting_default' => '#333333',
-				'control_label'   => esc_html__( 'Buttons Background (hover)', 'braillewright' )
-			)
+				'control_label'   => esc_html__( 'Buttons Background (hover)', 'braillewright' ),
+			),
 		),
 		/***** Header *****/
 
@@ -91,33 +91,33 @@ function braillewright_features_custom_colors_data() {
 			array(
 				'setting_id'      => 'colors_header_bg',
 				'setting_default' => '#333333',
-				'control_label'   => esc_html__( 'Background', 'braillewright' )
+				'control_label'   => esc_html__( 'Background', 'braillewright' ),
 			),
 			array(
 				'setting_id'      => 'colors_header_site_title',
 				'setting_default' => '#ffffff',
-				'control_label'   => esc_html__( 'Site Title', 'braillewright' )
+				'control_label'   => esc_html__( 'Site Title', 'braillewright' ),
 			),
 			array(
 				'setting_id'      => 'colors_header_site_title_hover',
 				'setting_default' => '#666666',
-				'control_label'   => esc_html__( 'Site Title (hover)', 'braillewright' )
+				'control_label'   => esc_html__( 'Site Title (hover)', 'braillewright' ),
 			),
 			array(
 				'setting_id'      => 'colors_header_tagline',
 				'setting_default' => '#d4d4d4',
-				'control_label'   => esc_html__( 'Tagline', 'braillewright' )
+				'control_label'   => esc_html__( 'Tagline', 'braillewright' ),
 			),
 			array(
 				'setting_id'      => 'colors_header_social_icons',
 				'setting_default' => '#ffffff',
-				'control_label'   => esc_html__( 'Social Icons', 'braillewright' )
+				'control_label'   => esc_html__( 'Social Icons', 'braillewright' ),
 			),
 			array(
 				'setting_id'      => 'colors_header_social_icons_hover',
 				'setting_default' => '#d4d4d4',
-				'control_label'   => esc_html__( 'Social Icons (hover)', 'braillewright' )
-			)
+				'control_label'   => esc_html__( 'Social Icons (hover)', 'braillewright' ),
+			),
 
 		),
 		/***** Menus *****/
@@ -128,57 +128,57 @@ function braillewright_features_custom_colors_data() {
 			array(
 				'setting_id'      => 'colors_header_menu_links',
 				'setting_default' => '#ffffff',
-				'control_label'   => esc_html__( 'Primary Menu Links', 'braillewright' )
+				'control_label'   => esc_html__( 'Primary Menu Links', 'braillewright' ),
 			),
 			array(
 				'setting_id'      => 'colors_header_menu_links_hover',
 				'setting_default' => '#333333',
-				'control_label'   => esc_html__( 'Primary Menu Links (hover)', 'braillewright' )
+				'control_label'   => esc_html__( 'Primary Menu Links (hover)', 'braillewright' ),
 			),
 			array(
 				'setting_id'      => 'colors_header_menu_links_bg_hover',
 				'setting_default' => '#ffffff',
-				'control_label'   => esc_html__( 'Primary Menu Links Background (hover)', 'braillewright' )
+				'control_label'   => esc_html__( 'Primary Menu Links Background (hover)', 'braillewright' ),
 			),
 			array(
 				'setting_id'      => 'colors_header_menu_links_bg_current',
 				'setting_default' => '#242424',
-				'control_label'   => esc_html__( 'Primary Menu Links Background (current)', 'braillewright' )
+				'control_label'   => esc_html__( 'Primary Menu Links Background (current)', 'braillewright' ),
 			),
 			array(
 				'setting_id'      => 'colors_header_submenu_links',
 				'setting_default' => '#333333',
-				'control_label'   => esc_html__( 'Submenu links', 'braillewright' )
+				'control_label'   => esc_html__( 'Submenu links', 'braillewright' ),
 			),
 			array(
 				'setting_id'      => 'colors_header_submenu_bg',
 				'setting_default' => '#ffffff',
-				'control_label'   => esc_html__( 'Submenu Background', 'braillewright' )
+				'control_label'   => esc_html__( 'Submenu Background', 'braillewright' ),
 			),
 			array(
 				'setting_id'      => 'colors_header_mobile_menu_button',
 				'setting_default' => '#ffffff',
-				'control_label'   => esc_html__( 'Primary Mobile Menu Button', 'braillewright' )
+				'control_label'   => esc_html__( 'Primary Mobile Menu Button', 'braillewright' ),
 			),
 			array(
 				'setting_id'      => 'colors_header_secondary_menu_links',
 				'setting_default' => '#ffffff',
-				'control_label'   => esc_html__( 'Secondary Menu Links', 'braillewright' )
+				'control_label'   => esc_html__( 'Secondary Menu Links', 'braillewright' ),
 			),
 			array(
 				'setting_id'      => 'colors_header_secondary_menu_links_hover',
 				'setting_default' => '#d4d4d4',
-				'control_label'   => esc_html__( 'Secondary Menu Links (hover)', 'braillewright' )
+				'control_label'   => esc_html__( 'Secondary Menu Links (hover)', 'braillewright' ),
 			),
 			array(
 				'setting_id'      => 'colors_header_secondary_menu_bg',
 				'setting_default' => '#242424',
-				'control_label'   => esc_html__( 'Secondary Menu Background', 'braillewright' )
+				'control_label'   => esc_html__( 'Secondary Menu Background', 'braillewright' ),
 			),
 			array(
 				'setting_id'      => 'colors_header_secondary_menu_button',
 				'setting_default' => '#ffffff',
-				'control_label'   => esc_html__( 'Secondary Mobile Menu Button', 'braillewright' )
+				'control_label'   => esc_html__( 'Secondary Mobile Menu Button', 'braillewright' ),
 			),
 		),
 		/***** Post *****/
@@ -189,68 +189,68 @@ function braillewright_features_custom_colors_data() {
 			array(
 				'setting_id'      => 'colors_post_title',
 				'setting_default' => '#333333',
-				'control_label'   => esc_html__( 'Title', 'braillewright' )
+				'control_label'   => esc_html__( 'Title', 'braillewright' ),
 			),
 			array(
 				'setting_id'      => 'colors_post_title_hover',
 				'setting_default' => '#757575',
-				'control_label'   => esc_html__( 'Title (hover)', 'braillewright' )
+				'control_label'   => esc_html__( 'Title (hover)', 'braillewright' ),
 			),
 			array(
 				'setting_id'      => 'colors_post_content',
 				'setting_default' => '#333333',
-				'control_label'   => esc_html__( 'Text', 'braillewright' )
+				'control_label'   => esc_html__( 'Text', 'braillewright' ),
 			),
 			array(
 				'setting_id'      => 'colors_post_links',
 				'setting_default' => '#333333',
-				'control_label'   => esc_html__( 'Links', 'braillewright' )
+				'control_label'   => esc_html__( 'Links', 'braillewright' ),
 			),
 			array(
 				'setting_id'      => 'colors_post_links_hover',
 				'setting_default' => '#757575',
-				'control_label'   => esc_html__( 'Links (hover)', 'braillewright' )
+				'control_label'   => esc_html__( 'Links (hover)', 'braillewright' ),
 			),
 			array(
 				'setting_id'      => 'colors_post_more_button',
 				'setting_default' => '#333333',
-				'control_label'   => esc_html__( 'More Button', 'braillewright' )
+				'control_label'   => esc_html__( 'More Button', 'braillewright' ),
 			),
 			array(
 				'setting_id'      => 'colors_post_more_button_hover',
 				'setting_default' => '#ffffff',
-				'control_label'   => esc_html__( 'More Button (hover)', 'braillewright' )
+				'control_label'   => esc_html__( 'More Button (hover)', 'braillewright' ),
 			),
 			array(
 				'setting_id'      => 'colors_post_more_button_bg',
 				'setting_default' => '#ffffff',
-				'control_label'   => esc_html__( 'More Button Background', 'braillewright' )
+				'control_label'   => esc_html__( 'More Button Background', 'braillewright' ),
 			),
 			array(
 				'setting_id'      => 'colors_post_more_button_bg_hover',
 				'setting_default' => '#333333',
-				'control_label'   => esc_html__( 'More Button Background (hover)', 'braillewright' )
+				'control_label'   => esc_html__( 'More Button Background (hover)', 'braillewright' ),
 			),
 			array(
 				'setting_id'      => 'colors_post_more_button_border',
 				'setting_default' => '#333333',
-				'control_label'   => esc_html__( 'More Button Border', 'braillewright' )
+				'control_label'   => esc_html__( 'More Button Border', 'braillewright' ),
 			),
 			array(
 				'setting_id'      => 'colors_post_more_button_border_hover',
 				'setting_default' => '#333333',
-				'control_label'   => esc_html__( 'More Button Border (hover)', 'braillewright' )
+				'control_label'   => esc_html__( 'More Button Border (hover)', 'braillewright' ),
 			),
 			array(
 				'setting_id'      => 'colors_post_comments_link',
 				'setting_default' => '#333333',
-				'control_label'   => esc_html__( 'Comments Link', 'braillewright' )
+				'control_label'   => esc_html__( 'Comments Link', 'braillewright' ),
 			),
 			array(
 				'setting_id'      => 'colors_post_comments_link_hover',
 				'setting_default' => '#757575',
-				'control_label'   => esc_html__( 'Comments Link (hover)', 'braillewright' )
-			)
+				'control_label'   => esc_html__( 'Comments Link (hover)', 'braillewright' ),
+			),
 		),
 		/***** Comments *****/
 
@@ -261,18 +261,18 @@ function braillewright_features_custom_colors_data() {
 			array(
 				'setting_id'      => 'colors_comments_content',
 				'setting_default' => '#333333',
-				'control_label'   => esc_html__( 'Text', 'braillewright' )
+				'control_label'   => esc_html__( 'Text', 'braillewright' ),
 			),
 			array(
 				'setting_id'      => 'colors_comments_links',
 				'setting_default' => '#333333',
-				'control_label'   => esc_html__( 'Links', 'braillewright' )
+				'control_label'   => esc_html__( 'Links', 'braillewright' ),
 			),
 			array(
 				'setting_id'      => 'colors_comments_links_hover',
 				'setting_default' => '#757575',
-				'control_label'   => esc_html__( 'Links (hover)', 'braillewright' )
-			)
+				'control_label'   => esc_html__( 'Links (hover)', 'braillewright' ),
+			),
 		),
 		/***** Widgets *****/
 
@@ -283,23 +283,23 @@ function braillewright_features_custom_colors_data() {
 			array(
 				'setting_id'      => 'colors_widgets_headings',
 				'setting_default' => '#333333',
-				'control_label'   => esc_html__( 'Headings', 'braillewright' )
+				'control_label'   => esc_html__( 'Headings', 'braillewright' ),
 			),
 			array(
 				'setting_id'      => 'colors_widgets_content',
 				'setting_default' => '#333333',
-				'control_label'   => esc_html__( 'Content', 'braillewright' )
+				'control_label'   => esc_html__( 'Content', 'braillewright' ),
 			),
 			array(
 				'setting_id'      => 'colors_widgets_links',
 				'setting_default' => '#333333',
-				'control_label'   => esc_html__( 'Links', 'braillewright' )
+				'control_label'   => esc_html__( 'Links', 'braillewright' ),
 			),
 			array(
 				'setting_id'      => 'colors_widgets_links_hover',
 				'setting_default' => '#757575',
-				'control_label'   => esc_html__( 'Links (hover)', 'braillewright' )
-			)
+				'control_label'   => esc_html__( 'Links (hover)', 'braillewright' ),
+			),
 		),
 		/***** Archives *****/
 
@@ -310,23 +310,23 @@ function braillewright_features_custom_colors_data() {
 			array(
 				'setting_id'      => 'colors_archives_header',
 				'setting_default' => '#ffffff',
-				'control_label'   => esc_html__( 'Archive Header', 'braillewright' )
+				'control_label'   => esc_html__( 'Archive Header', 'braillewright' ),
 			),
 			array(
 				'setting_id'      => 'colors_archives_header_bg',
 				'setting_default' => '#242424',
-				'control_label'   => esc_html__( 'Archive Header Background', 'braillewright' )
+				'control_label'   => esc_html__( 'Archive Header Background', 'braillewright' ),
 			),
 			array(
 				'setting_id'      => 'colors_archives_pagination',
 				'setting_default' => '#333333',
-				'control_label'   => esc_html__( 'Pagination Links', 'braillewright' )
+				'control_label'   => esc_html__( 'Pagination Links', 'braillewright' ),
 			),
 			array(
 				'setting_id'      => 'colors_archives_pagination_current',
 				'setting_default' => '#ededed',
-				'control_label'   => esc_html__( 'Pagination - Current Page Background', 'braillewright' )
-			)
+				'control_label'   => esc_html__( 'Pagination - Current Page Background', 'braillewright' ),
+			),
 		),
 		/***** Footer *****/
 
@@ -337,29 +337,29 @@ function braillewright_features_custom_colors_data() {
 			array(
 				'setting_id'      => 'colors_footer_bg',
 				'setting_default' => '#242424',
-				'control_label'   => esc_html__( 'Background', 'braillewright' )
+				'control_label'   => esc_html__( 'Background', 'braillewright' ),
 			),
 			array(
 				'setting_id'      => 'colors_footer_content',
 				'setting_default' => '#d4d4d4',
-				'control_label'   => esc_html__( 'Text', 'braillewright' )
+				'control_label'   => esc_html__( 'Text', 'braillewright' ),
 			),
 			array(
 				'setting_id'      => 'colors_footer_links',
 				'setting_default' => '#ffffff',
-				'control_label'   => esc_html__( 'Links', 'braillewright' )
+				'control_label'   => esc_html__( 'Links', 'braillewright' ),
 			),
 			array(
 				'setting_id'      => 'colors_footer_links_hover',
 				'setting_default' => '#d4d4d4',
-				'control_label'   => esc_html__( 'Links (hover)', 'braillewright' )
+				'control_label'   => esc_html__( 'Links (hover)', 'braillewright' ),
 			),
 			array(
 				'setting_id'      => 'colors_footer_widgets_bg',
 				'setting_default' => '#333333',
-				'control_label'   => esc_html__( 'Widget Area Background', 'braillewright' )
-			)
-		)
+				'control_label'   => esc_html__( 'Widget Area Background', 'braillewright' ),
+			),
+		),
 	);
 
 	return $color_sections;

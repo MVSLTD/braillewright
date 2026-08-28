@@ -8,12 +8,14 @@
 			</div>
 			<div class="post-content">
 				<?php the_content(); ?>
-				<?php wp_link_pages(
+				<?php
+				wp_link_pages(
 					array(
 						'before' => '<p class="singular-pagination">' . esc_html__( 'Pages:', 'braillewright' ),
 						'after'  => '</p>',
 					)
-				); ?>
+				);
+				?>
 				<?php do_action( 'page_after' ); ?>
 			</div>
 		</div>

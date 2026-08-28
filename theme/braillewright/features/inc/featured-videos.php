@@ -1,5 +1,5 @@
 <?php
-defined( 'ABSPATH' ) OR exit;
+defined( 'ABSPATH' ) or exit;
 
 //----------------------------------------------------------------------------------
 // Add the Featured Video meta box
@@ -68,21 +68,21 @@ function braillewright_features_video_callback( $post ) {
 		$display_blog = get_post_meta( $post->ID, 'braillewright_features_video_display_key', true );
 
 		if ( empty( $display_blog ) ) {
-			$display_blog = "post";
+			$display_blog = 'post';
 		}
 
 		echo '<div class="braillewright_features_video_display_container">';
 			echo '<p>' . esc_html__( 'Choose where to display the video:', 'braillewright' ) . '</p>';
 			echo '<label for="braillewright_features_video_display_post">';
-				echo '<input type="radio" name="braillewright_features_video_display" id="braillewright_features_video_display_post" value="post" ' . checked( $display_blog, "post", false ) . '>';
+				echo '<input type="radio" name="braillewright_features_video_display" id="braillewright_features_video_display_post" value="post" ' . checked( $display_blog, 'post', false ) . '>';
 				esc_html_e( 'Post', 'braillewright' );
 			echo '</label> ';
 			echo '<label for="braillewright_features_video_display_blog">';
-				echo '<input type="radio" name="braillewright_features_video_display" id="braillewright_features_video_display_blog" value="blog" ' . checked( $display_blog, "blog", false ) . '>';
+				echo '<input type="radio" name="braillewright_features_video_display" id="braillewright_features_video_display_blog" value="blog" ' . checked( $display_blog, 'blog', false ) . '>';
 				esc_html_e( 'Blog', 'braillewright' );
 			echo '</label> ';
 			echo '<label for="braillewright_features_video_display_both">';
-				echo '<input type="radio" name="braillewright_features_video_display" id="braillewright_features_video_display_both" value="both" ' . checked( $display_blog, "both", false ) . '>';
+				echo '<input type="radio" name="braillewright_features_video_display" id="braillewright_features_video_display_both" value="both" ' . checked( $display_blog, 'both', false ) . '>';
 				esc_html_e( 'Post & Blog', 'braillewright' );
 			echo '</label> ';
 		echo '</div>';
@@ -199,7 +199,7 @@ function braillewright_features_output_video( $video_url ) {
 			// injects further shortcode attributes: `[audio mp3=' . $url . ']` with a URL
 			// of `x.mp3 loop=on` becomes two attributes rather than one value.
 			return do_shortcode( '[audio mp3="' . esc_url( $video_url ) . '"]' );
-		} else if ( $filetype == 'video/mp4' ) {
+		} elseif ( $filetype == 'video/mp4' ) {
 			return do_shortcode( '[video mp4="' . esc_url( $video_url ) . '"]' );
 		} else {
 			return wp_oembed_get( esc_url( $video_url ) );
@@ -251,7 +251,7 @@ function braillewright_features_video_save_data( $post_id ) {
 		'braillewright_features_video_youtube_captions',
 		'braillewright_features_video_youtube_autoplay',
 		'braillewright_features_video_youtube_loop',
-		'braillewright_features_video_youtube_mute'
+		'braillewright_features_video_youtube_mute',
 	);
 
 	foreach ( $youtube_ids as $youtube_option ) {
@@ -376,7 +376,7 @@ function braillewright_features_add_youtube_parameters( $html, $url, $args ) {
 					'cc_load_policy' => $youtube_captions,
 					'autoplay'       => $youtube_autoplay,
 					'loop'           => $youtube_loop,
-					'mute'           => $youtube_mute
+					'mute'           => $youtube_mute,
 				);
 
 				if ( 1 === (int) $youtube_loop ) {

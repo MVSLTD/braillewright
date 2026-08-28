@@ -1,5 +1,5 @@
 <?php
-defined( 'ABSPATH' ) OR exit;
+defined( 'ABSPATH' ) or exit;
 
 function braillewright_features_output_header_image() {
 
@@ -31,7 +31,7 @@ function braillewright_features_output_header_image() {
 			>';
 		}
 		if ( ! empty( $link ) ) {
-			echo '<a href="' . esc_url( $link ) . '">' . esc_html__( "Visit Page", "braillewright" ) . '</a>';
+			echo '<a href="' . esc_url( $link ) . '">' . esc_html__( 'Visit Page', 'braillewright' ) . '</a>';
 		}
 		echo '</span>';
 	} elseif ( $header_video && $header_image_type == 'video' ) {
@@ -68,12 +68,12 @@ function braillewright_features_header_image_css() {
 	if ( $header_image_type == 'video' ) {
 		$filetype = wp_check_filetype( $header_video );
 		if ( $filetype['type'] == 'video/mp4' ) {
-			$custom_css = "#header-image { padding-bottom: " . $height . "%;}";
+			$custom_css = '#header-image { padding-bottom: ' . $height . '%;}';
 		} else {
 			return;
 		}
 	} elseif ( $height_type == 'fixed' ) {
-		$custom_css = "#header-image { height: " . $height * 5 . "px; padding-bottom: 0; }";
+		$custom_css = '#header-image { height: ' . $height * 5 . 'px; padding-bottom: 0; }';
 	} else {
 		$custom_css = "#header-image { padding-bottom: $height%; }";
 	}

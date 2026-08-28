@@ -1,5 +1,5 @@
 <?php
-defined( 'ABSPATH' ) OR exit;
+defined( 'ABSPATH' ) or exit;
 
 function braillewright_features_display_controls_css() {
 

@@ -1,5 +1,5 @@
 <?php
-defined( 'ABSPATH' ) OR exit;
+defined( 'ABSPATH' ) or exit;
 
 function braillewright_features_output_backgrounds() {
 
@@ -8,7 +8,7 @@ function braillewright_features_output_backgrounds() {
 		'header_image'   => get_theme_mod( 'background_image_header' ),
 		'main_image'     => get_theme_mod( 'background_image_main' ),
 		'header_texture' => get_theme_mod( 'background_texture_header' ),
-		'main_texture'   => get_theme_mod( 'background_texture_main' )
+		'main_texture'   => get_theme_mod( 'background_texture_main' ),
 	);
 
 	$custom_css = '';
@@ -70,23 +70,23 @@ function braillewright_features_background_textures_data() {
 		array(
 			'setting_id' => 'background_texture_header_show',
 			'label'      => esc_html__( 'Show a texture in the header?', 'braillewright' ),
-			'type'       => 'show'
+			'type'       => 'show',
 		),
 		array(
 			'setting_id' => 'background_texture_header',
 			'label'      => esc_html__( 'Choose a texture for the header:', 'braillewright' ),
-			'type'       => 'textures'
+			'type'       => 'textures',
 		),
 		array(
 			'setting_id' => 'background_texture_main_show',
 			'label'      => esc_html__( 'Show a texture in the body?', 'braillewright' ),
-			'type'       => 'show'
+			'type'       => 'show',
 		),
 		array(
 			'setting_id' => 'background_texture_main',
 			'label'      => esc_html__( 'Choose a texture for the body:', 'braillewright' ),
-			'type'       => 'textures'
-		)
+			'type'       => 'textures',
+		),
 	);
 
 	return $texture_data;
