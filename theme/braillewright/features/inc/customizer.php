@@ -1,5 +1,5 @@
 <?php
-defined( 'ABSPATH' ) or exit;
+defined( 'ABSPATH' ) || exit;
 
 add_action( 'customize_register', 'braillewright_features_add_customizer_content', 11 );
 

@@ -1,5 +1,5 @@
 <?php
-defined( 'ABSPATH' ) or exit;
+defined( 'ABSPATH' ) || exit;
 
 function braillewright_features_output_backgrounds() {
 

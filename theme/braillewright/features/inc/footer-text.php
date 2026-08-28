@@ -1,5 +1,5 @@
 <?php
-defined( 'ABSPATH' ) or exit;
+defined( 'ABSPATH' ) || exit;
 
 function braillewright_features_filter_footer_text( $footer_text ) {
 

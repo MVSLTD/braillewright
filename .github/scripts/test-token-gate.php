@@ -200,13 +200,78 @@ $cases[] = ['keyword case fold in keyword position is still inert', 'PASS',
     "<?php\nif ( \$a ) {\n\treturn 1;\n}\n"];
 
 // ---------------------------------------------------------------------------
+// STAGE 4 - `or` -> `||`. Added 2026-08-28.
+//
+// These run against stage 2's allow-list, which does NOT contain LOGICAL_OPERATOR,
+// so the two must-pass cases below are written as stage-4 checks further down; here
+// the point is the PRECEDENCE guard, which fails for stage-2 reasons AND stage-4
+// reasons alike. The dedicated stage-4 pass cases live in $stage4Cases.
+// ---------------------------------------------------------------------------
+
+/** Cases run against stage 4 rather than stage 2. */
+$stage4Cases = [];
+
+// The exact idiom at all 19 Braillewright sites. Measured identical on PHP 8.3 -
+// same value and same short-circuit trace under both operators.
+$stage4Cases[] = ['the ABSPATH guard, the shape all 19 sites use', 'PASS',
+    "<?php\ndefined( 'ABSPATH' ) or exit;\n",
+    "<?php\ndefined( 'ABSPATH' ) || exit;\n"];
+
+$stage4Cases[] = ['a bare two-call guard statement', 'PASS',
+    "<?php\nfunction f(\$a,\$b) {\n\tbw_check( \$a ) or bw_bail( \$b );\n}\n",
+    "<?php\nfunction f(\$a,\$b) {\n\tbw_check( \$a ) || bw_bail( \$b );\n}\n"];
+
+$stage4Cases[] = ['and -> && in a bare statement', 'PASS',
+    "<?php\nfunction f(\$a,\$b) {\n\tbw_check( \$a ) and bw_go( \$b );\n}\n",
+    "<?php\nfunction f(\$a,\$b) {\n\tbw_check( \$a ) && bw_go( \$b );\n}\n"];
+
+// ⛔ THE ONE THAT MATTERS. Assignment sits between `or` and `||` in precedence, so
+// this swap CHANGES WHAT $x GETS. Measured on PHP 8.3: false vs true.
+$stage4Cases[] = ['or -> || with an assignment in the statement', 'FAIL',
+    "<?php\nfunction f(\$a,\$b) {\n\t\$x = bw_check( \$a ) or bw_bail( \$b );\n\treturn \$x;\n}\n",
+    "<?php\nfunction f(\$a,\$b) {\n\t\$x = bw_check( \$a ) || bw_bail( \$b );\n\treturn \$x;\n}\n"];
+
+// ?? also sits between them. Measured: false vs true.
+$stage4Cases[] = ['or -> || with a null-coalesce in the statement', 'FAIL',
+    "<?php\nfunction f(\$n,\$b) {\n\t\$x = ( \$n ?? bw_check() ) or bw_bail( \$b );\n\treturn \$x;\n}\n",
+    "<?php\nfunction f(\$n,\$b) {\n\t\$x = ( \$n ?? bw_check() ) || bw_bail( \$b );\n\treturn \$x;\n}\n"];
+
+// A ternary in the statement is the same hazard.
+$stage4Cases[] = ['or -> || with a ternary in the statement', 'FAIL',
+    "<?php\nfunction f(\$a,\$b) {\n\t\$x = ( \$a ? 1 : 2 ) or bw_bail( \$b );\n\treturn \$x;\n}\n",
+    "<?php\nfunction f(\$a,\$b) {\n\t\$x = ( \$a ? 1 : 2 ) || bw_bail( \$b );\n\treturn \$x;\n}\n"];
+
+// A compound assignment is an assignment.
+$stage4Cases[] = ['or -> || with a compound assignment', 'FAIL',
+    "<?php\nfunction f(\$a,\$b) {\n\t\$x .= bw_check( \$a ) or bw_bail( \$b );\n\treturn \$x;\n}\n",
+    "<?php\nfunction f(\$a,\$b) {\n\t\$x .= bw_check( \$a ) || bw_bail( \$b );\n\treturn \$x;\n}\n"];
+
+// ⛔ Stage 4 may ONLY swap operators. Anything else riding along is not Stage 4 work.
+$stage4Cases[] = ['a requote riding along with the operator swap', 'FAIL',
+    "<?php\ndefined( \"ABSPATH\" ) or exit;\n",
+    "<?php\ndefined( 'ABSPATH' ) || exit;\n"];
+
+// ---------------------------------------------------------------------------
+
+// Tag each case with the stage it must be graded against, then run one list. A case is
+// only meaningful against its own stage's allow-list: LOGICAL_OPERATOR is permitted in
+// stage 4 and NOT in stage 2, and running a stage-4 case against stage 2 would "pass"
+// for the wrong reason.
+$all = [];
+foreach ($cases as $c) {
+    $all[] = [2, $c[0], $c[1], $c[2], $c[3]];
+}
+foreach ($stage4Cases as $c) {
+    $all[] = [4, $c[0], $c[1], $c[2], $c[3]];
+}
 
 $pass = 0;
 $bad = [];
 $n = 0;
 
-foreach ($cases as [$name, $expect, $before, $after]) {
+foreach ($all as [$stage, $name, $expect, $before, $after]) {
     $n++;
+    $name = "[s{$stage}] {$name}";
     $bFile = "{$tmp}/c{$n}-before.php";
     $aFile = "{$tmp}/c{$n}-after.php";
     file_put_contents($bFile, $before);
@@ -219,7 +284,7 @@ foreach ($cases as [$name, $expect, $before, $after]) {
     ]]));
 
     $cmd = escapeshellarg($php) . ' ' . escapeshellarg($gate)
-        . ' --stage 2 --pairs ' . escapeshellarg($man) . ' 2>&1';
+        . " --stage {$stage} --pairs " . escapeshellarg($man) . ' 2>&1';
     $out = [];
     $rc = 0;
     exec($cmd, $out, $rc);
@@ -242,8 +307,8 @@ foreach ($cases as [$name, $expect, $before, $after]) {
 }
 @rmdir($tmp);
 
-$total = count($cases);
-$mustPass = count(array_filter($cases, static fn($c): bool => $c[1] === 'PASS'));
+$total = count($all);
+$mustPass = count(array_filter($all, static fn($c): bool => $c[2] === 'PASS'));
 $mustFail = $total - $mustPass;
 
 echo "\n";

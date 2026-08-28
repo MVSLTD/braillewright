@@ -1,5 +1,5 @@
 <?php
-defined( 'ABSPATH' ) or exit;
+defined( 'ABSPATH' ) || exit;
 
 function braillewright_features_add_sliders_meta_box() {
 

@@ -1,5 +1,5 @@
 <?php
-defined( 'ABSPATH' ) or exit;
+defined( 'ABSPATH' ) || exit;
 
 function braillewright_last_updated_meta_box() {
 
