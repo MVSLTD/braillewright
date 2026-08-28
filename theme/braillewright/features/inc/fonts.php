@@ -50,9 +50,9 @@ function braillewright_features_font_css() {
 	// Loop through all the Customizer font options
 	foreach ( $fonts as $element => $font ) {
 		if ( $element == 'primary' ) {
-			$customFamily = ( $font['font'] != 'default' && ! empty( $font['font'] ) ) ? true : false;
-			$customWeight = ( $font['weight'] != 'default' && ! empty( $font['weight'] ) ) ? true : false;
-			if ( $customFamily || $customWeight ) {
+			$custom_family = ( $font['font'] != 'default' && ! empty( $font['font'] ) ) ? true : false;
+			$custom_weight = ( $font['weight'] != 'default' && ! empty( $font['weight'] ) ) ? true : false;
+			if ( $custom_family || $custom_weight ) {
 				$css .= "body, 
 								input[type='text'],
 								input[type='email'],
@@ -64,35 +64,35 @@ function braillewright_features_font_css() {
 								input[type='submit'], 
 								textarea,
 								h1, h2, h3, h4, h5, h6 {";
-				if ( $customFamily ) {
+				if ( $custom_family ) {
 					$css .= "font-family: '" . $font['font'] . "';";
 				}
-				if ( $customWeight ) {
+				if ( $custom_weight ) {
 					$css .= "font-weight: " . $font['weight'] . ";";
 				}
 								$css .= " }";
-				if ( $customWeight ) {
+				if ( $custom_weight ) {
 					// don't affect icons
 					$css .= 'body i { font-weight: initial; }s';
 				}
 			}
 		} elseif ( $element == 'heading' ) {
-			$customFamily = ( $font['font'] != 'default' && ! empty( $font['font'] ) ) ? true : false;
-			$customWeight = ( $font['weight'] != 'default' && ! empty( $font['weight'] ) ) ? true : false;
-			if ( $customFamily || $customWeight ) {
+			$custom_family = ( $font['font'] != 'default' && ! empty( $font['font'] ) ) ? true : false;
+			$custom_weight = ( $font['weight'] != 'default' && ! empty( $font['weight'] ) ) ? true : false;
+			if ( $custom_family || $custom_weight ) {
 				$css .= "h1, h2, h3, h4, h5, h6 {";
-				if ( $customFamily ) {
+				if ( $custom_family ) {
 					$css .= "font-family: '" . $font['font'] . "';";
 				}
-				if ( $customWeight ) {
+				if ( $custom_weight ) {
 					$css .= "font-weight: " . $font['weight'] . ";";
 				}
 					$css .= " }";
 			}
 		} elseif ( $element == 'input' ) {
-			$customFamily = ( $font['font'] != 'default' && ! empty( $font['font'] ) ) ? true : false;
-			$customWeight = ( $font['weight'] != 'default' && ! empty( $font['weight'] ) ) ? true : false;
-			if ( $customFamily || $customWeight ) {
+			$custom_family = ( $font['font'] != 'default' && ! empty( $font['font'] ) ) ? true : false;
+			$custom_weight = ( $font['weight'] != 'default' && ! empty( $font['weight'] ) ) ? true : false;
+			if ( $custom_family || $custom_weight ) {
 				$css .= "input[type='text'],
 					input[type='email'],
 					input[type='password'],
@@ -102,153 +102,153 @@ function braillewright_features_font_css() {
 					input[type='url'],
 					input[type='submit'], 
 					textarea {";
-				if ( $customFamily ) {
+				if ( $custom_family ) {
 					$css .= "font-family: '" . $font['font'] . "';";
 				}
-				if ( $customWeight ) {
+				if ( $custom_weight ) {
 					$css .= "font-weight: " . $font['weight'] . ";";
 				}
 					$css .= " }";
 			}
 		} elseif ( $element == 'site-title' ) {
-			$customFamily = ( $font['font'] != 'default' && ! empty( $font['font'] ) ) ? true : false;
-			$customWeight = ( $font['weight'] != 'default' && ! empty( $font['weight'] ) ) ? true : false;
-			if ( $customFamily || $customWeight ) {
+			$custom_family = ( $font['font'] != 'default' && ! empty( $font['font'] ) ) ? true : false;
+			$custom_weight = ( $font['weight'] != 'default' && ! empty( $font['weight'] ) ) ? true : false;
+			if ( $custom_family || $custom_weight ) {
 				$css .= ".site-title {";
-				if ( $customFamily ) {
+				if ( $custom_family ) {
 					$css .= "font-family: '" . $font['font'] . "';";
 				}
-				if ( $customWeight ) {
+				if ( $custom_weight ) {
 					$css .= "font-weight: " . $font['weight'] . ";";
 				}
 				$css .= " }";
 			}
 		} elseif ( $element == 'tagline' ) {
-			$customFamily = ( $font['font'] != 'default' && ! empty( $font['font'] ) ) ? true : false;
-			$customWeight = ( $font['weight'] != 'default' && ! empty( $font['weight'] ) ) ? true : false;
-			if ( $customFamily || $customWeight ) {
+			$custom_family = ( $font['font'] != 'default' && ! empty( $font['font'] ) ) ? true : false;
+			$custom_weight = ( $font['weight'] != 'default' && ! empty( $font['weight'] ) ) ? true : false;
+			if ( $custom_family || $custom_weight ) {
 				$css .= ".tagline {";
-				if ( $customFamily ) {
+				if ( $custom_family ) {
 					$css .= "font-family: '" . $font['font'] . "';";
 				}
-				if ( $customWeight ) {
+				if ( $custom_weight ) {
 					$css .= "font-weight: " . $font['weight'] . ";";
 				}
 				$css .= " }";
 			}
 		} elseif ( $element == 'primary-menu' ) {
-			$customFamily = ( $font['font'] != 'default' && ! empty( $font['font'] ) ) ? true : false;
-			$customWeight = ( $font['weight'] != 'default' && ! empty( $font['weight'] ) ) ? true : false;
-			if ( $customFamily || $customWeight ) {
+			$custom_family = ( $font['font'] != 'default' && ! empty( $font['font'] ) ) ? true : false;
+			$custom_weight = ( $font['weight'] != 'default' && ! empty( $font['weight'] ) ) ? true : false;
+			if ( $custom_family || $custom_weight ) {
 				$css .= ".menu-primary {";
-				if ( $customFamily ) {
+				if ( $custom_family ) {
 					$css .= "font-family: '" . $font['font'] . "';";
 				}
-				if ( $customWeight ) {
+				if ( $custom_weight ) {
 					$css .= "font-weight: " . $font['weight'] . ";";
 				}
 				$css .= " }";
 			}
 		} elseif ( $element == 'secondary-menu' ) {
-			$customFamily = ( $font['font'] != 'default' && ! empty( $font['font'] ) ) ? true : false;
-			$customWeight = ( $font['weight'] != 'default' && ! empty( $font['weight'] ) ) ? true : false;
-			if ( $customFamily || $customWeight ) {
+			$custom_family = ( $font['font'] != 'default' && ! empty( $font['font'] ) ) ? true : false;
+			$custom_weight = ( $font['weight'] != 'default' && ! empty( $font['weight'] ) ) ? true : false;
+			if ( $custom_family || $custom_weight ) {
 				$css .= ".menu-secondary {";
-				if ( $customFamily ) {
+				if ( $custom_family ) {
 					$css .= "font-family: '" . $font['font'] . "';";
 				}
-				if ( $customWeight ) {
+				if ( $custom_weight ) {
 					$css .= "font-weight: " . $font['weight'] . ";";
 				}
 				$css .= " }";
 			}
 		} elseif ( $element == 'post-titles' ) {
-			$customFamily = ( $font['font'] != 'default' && ! empty( $font['font'] ) ) ? true : false;
-			$customWeight = ( $font['weight'] != 'default' && ! empty( $font['weight'] ) ) ? true : false;
-			if ( $customFamily || $customWeight ) {
+			$custom_family = ( $font['font'] != 'default' && ! empty( $font['font'] ) ) ? true : false;
+			$custom_weight = ( $font['weight'] != 'default' && ! empty( $font['weight'] ) ) ? true : false;
+			if ( $custom_family || $custom_weight ) {
 				$css .= ".post-title {";
-				if ( $customFamily ) {
+				if ( $custom_family ) {
 					$css .= "font-family: '" . $font['font'] . "';";
 				}
-				if ( $customWeight ) {
+				if ( $custom_weight ) {
 					$css .= "font-weight: " . $font['weight'] . ";";
 				}
 				$css .= " }";
 			}
 		} elseif ( $element == 'post-byline' ) {
-			$customFamily = ( $font['font'] != 'default' && ! empty( $font['font'] ) ) ? true : false;
-			$customWeight = ( $font['weight'] != 'default' && ! empty( $font['weight'] ) ) ? true : false;
-			if ( $customFamily || $customWeight ) {
+			$custom_family = ( $font['font'] != 'default' && ! empty( $font['font'] ) ) ? true : false;
+			$custom_weight = ( $font['weight'] != 'default' && ! empty( $font['weight'] ) ) ? true : false;
+			if ( $custom_family || $custom_weight ) {
 				$css .= ".post-byline {";
-				if ( $customFamily ) {
+				if ( $custom_family ) {
 					$css .= "font-family: '" . $font['font'] . "';";
 				}
-				if ( $customWeight ) {
+				if ( $custom_weight ) {
 					$css .= "font-weight: " . $font['weight'] . ";";
 				}
 				$css .= " }";
 			}
 		} elseif ( $element == 'post-text' ) {
-			$customFamily = ( $font['font'] != 'default' && ! empty( $font['font'] ) ) ? true : false;
-			$customWeight = ( $font['weight'] != 'default' && ! empty( $font['weight'] ) ) ? true : false;
-			if ( $customFamily || $customWeight ) {
+			$custom_family = ( $font['font'] != 'default' && ! empty( $font['font'] ) ) ? true : false;
+			$custom_weight = ( $font['weight'] != 'default' && ! empty( $font['weight'] ) ) ? true : false;
+			if ( $custom_family || $custom_weight ) {
 				$css .= ".post-content, .post-meta {";
-				if ( $customFamily ) {
+				if ( $custom_family ) {
 					$css .= "font-family: '" . $font['font'] . "';";
 				}
-				if ( $customWeight ) {
+				if ( $custom_weight ) {
 					$css .= "font-weight: " . $font['weight'] . ";";
 				}
 				$css .= " }";
 			}
 		} elseif ( $element == 'comments' ) {
-			$customFamily = ( $font['font'] != 'default' && ! empty( $font['font'] ) ) ? true : false;
-			$customWeight = ( $font['weight'] != 'default' && ! empty( $font['weight'] ) ) ? true : false;
-			if ( $customFamily || $customWeight ) {
+			$custom_family = ( $font['font'] != 'default' && ! empty( $font['font'] ) ) ? true : false;
+			$custom_weight = ( $font['weight'] != 'default' && ! empty( $font['weight'] ) ) ? true : false;
+			if ( $custom_family || $custom_weight ) {
 				$css .= ".comments {";
-				if ( $customFamily ) {
+				if ( $custom_family ) {
 					$css .= "font-family: '" . $font['font'] . "';";
 				}
-				if ( $customWeight ) {
+				if ( $custom_weight ) {
 					$css .= "font-weight: " . $font['weight'] . ";";
 				}
 				$css .= " }";
 			}
 		} elseif ( $element == 'widget-titles' ) {
-			$customFamily = ( $font['font'] != 'default' && ! empty( $font['font'] ) ) ? true : false;
-			$customWeight = ( $font['weight'] != 'default' && ! empty( $font['weight'] ) ) ? true : false;
-			if ( $customFamily || $customWeight ) {
+			$custom_family = ( $font['font'] != 'default' && ! empty( $font['font'] ) ) ? true : false;
+			$custom_weight = ( $font['weight'] != 'default' && ! empty( $font['weight'] ) ) ? true : false;
+			if ( $custom_family || $custom_weight ) {
 				$css .= ".widget .widget-title {";
-				if ( $customFamily ) {
+				if ( $custom_family ) {
 					$css .= "font-family: '" . $font['font'] . "';";
 				}
-				if ( $customWeight ) {
+				if ( $custom_weight ) {
 					$css .= "font-weight: " . $font['weight'] . ";";
 				}
 				$css .= " }";
 			}
 		} elseif ( $element == 'widget-text' ) {
-			$customFamily = ( $font['font'] != 'default' && ! empty( $font['font'] ) ) ? true : false;
-			$customWeight = ( $font['weight'] != 'default' && ! empty( $font['weight'] ) ) ? true : false;
-			if ( $customFamily || $customWeight ) {
+			$custom_family = ( $font['font'] != 'default' && ! empty( $font['font'] ) ) ? true : false;
+			$custom_weight = ( $font['weight'] != 'default' && ! empty( $font['weight'] ) ) ? true : false;
+			if ( $custom_family || $custom_weight ) {
 				$css .= ".widget {";
-				if ( $customFamily ) {
+				if ( $custom_family ) {
 					$css .= "font-family: '" . $font['font'] . "';";
 				}
-				if ( $customWeight ) {
+				if ( $custom_weight ) {
 					$css .= "font-weight: " . $font['weight'] . ";";
 				}
 				$css .= " }";
 			}
 		} elseif ( $element == 'footer-text' ) {
-			$customFamily = ( $font['font'] != 'default' && ! empty( $font['font'] ) ) ? true : false;
-			$customWeight = ( $font['weight'] != 'default' && ! empty( $font['weight'] ) ) ? true : false;
-			if ( $customFamily || $customWeight ) {
+			$custom_family = ( $font['font'] != 'default' && ! empty( $font['font'] ) ) ? true : false;
+			$custom_weight = ( $font['weight'] != 'default' && ! empty( $font['weight'] ) ) ? true : false;
+			if ( $custom_family || $custom_weight ) {
 				$css .= ".design-credit {";
-				if ( $customFamily ) {
+				if ( $custom_family ) {
 					$css .= "font-family: '" . $font['font'] . "';";
 				}
-				if ( $customWeight ) {
+				if ( $custom_weight ) {
 					$css .= "font-weight: " . $font['weight'] . ";";
 				}
 				$css .= " }";

@@ -246,7 +246,7 @@ function braillewright_features_video_save_data( $post_id ) {
 		}
 	}
 
-	$youtube_IDs = array(
+	$youtube_ids = array(
 		'braillewright_features_video_youtube_logo',
 		'braillewright_features_video_youtube_captions',
 		'braillewright_features_video_youtube_autoplay',
@@ -254,7 +254,7 @@ function braillewright_features_video_save_data( $post_id ) {
 		'braillewright_features_video_youtube_mute'
 	);
 
-	foreach ( $youtube_IDs as $youtube_option ) {
+	foreach ( $youtube_ids as $youtube_option ) {
 
 		if ( ! isset( $_POST[ $youtube_option ] ) ) {
 			$_POST[ $youtube_option ] = '0';
