@@ -3,15 +3,20 @@ defined( 'ABSPATH' ) OR exit;
 
 function braillewright_features_get_fonts() {
 
+	// ⛔ DO NOT 'fix' the file_get_contents() below to wp_remote_get(). It returns WP_Error for a
+	// filesystem path, so is_string() below fails, $fonts_object becomes '', and
+	// braillewright_features_prepare_fonts() returns an EMPTY array. That array is the whitelist
+	// inside braillewright_features_sanitize_font_family(), which is the registered
+	// sanitize_callback on FOURTEEN font settings and ends
+	// `array_key_exists( $input, $fonts ) ? $input : ''`. One Customizer save would blank all
+	// fourteen on six live sites, with nothing to revert to.
+	//
+	// ⚠️ The suppression is INLINE on the statement, not on a line of its own above this block:
+	// phpcs:ignore applies to the NEXT line only, so a directive placed at the top of these
+	// comments would suppress the comment beneath it and leave the code still flagged. Measured -
+	// that is exactly what happened on the first attempt.
 	$fonts_dir = BRAILLEWRIGHT_FEATURES_PATH . "assets/fonts.json";
-	// phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- Reads the theme's OWN bundled asset from a local path, not a URL.
-	// ⛔ DO NOT 'fix' this to wp_remote_get(). It returns WP_Error for a filesystem path, so
-	// is_string() below fails, $fonts_object becomes '', and braillewright_features_prepare_fonts()
-	// returns an EMPTY array. That array is the whitelist inside
-	// braillewright_features_sanitize_font_family(), which is the registered sanitize_callback on
-	// FOURTEEN font settings and ends `array_key_exists( $input, $fonts ) ? $input : ''`. One
-	// Customizer save would blank all fourteen on six live sites, with nothing to revert to.
-	$fonts     = file_get_contents( $fonts_dir );
+	$fonts     = file_get_contents( $fonts_dir ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- The theme's OWN bundled asset, read from a local path; wp_remote_get is for URLs. See the block above.
 
 	if ( is_string( $fonts ) && ! empty( $fonts ) ) {
 		$fonts_object = json_decode( $fonts, true );
