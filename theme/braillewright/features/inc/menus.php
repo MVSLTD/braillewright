@@ -12,6 +12,6 @@ function braillewright_features_register_nav_menus() {
 add_action( 'after_setup_theme', 'braillewright_features_register_nav_menus', 11 );
 
 function braillewright_features_include_secondary_menu() {
-	include_once  'menus/menu-secondary.php' ;
+	include_once 'menus/menu-secondary.php';
 }
 add_action( 'before_header', 'braillewright_features_include_secondary_menu', 10 );

@@ -60,24 +60,24 @@ add_action( 'widgets_init', 'braillewright_features_register_widget_areas' );
 
 // After Post Content
 function braillewright_features_after_post_content_widgets() {
-	include  'widget-areas/after-post-content.php' ;
+	include 'widget-areas/after-post-content.php';
 }
 add_action( 'post_after', 'braillewright_features_after_post_content_widgets' );
 
 // After Page Content
 function braillewright_features_after_page_content_widgets() {
-	include  'widget-areas/after-page-content.php' ;
+	include 'widget-areas/after-page-content.php';
 }
 add_action( 'page_after', 'braillewright_features_after_page_content_widgets' );
 
 // Before Main Content
 function braillewright_features_before_main_content_widgets() {
-	include  'widget-areas/before-main-content.php' ;
+	include 'widget-areas/before-main-content.php';
 }
 add_action( 'after_archive_header', 'braillewright_features_before_main_content_widgets' );
 
 // Footer
 function braillewright_features_footer_widgets() {
-	include  'widget-areas/footer.php' ;
+	include 'widget-areas/footer.php';
 }
 add_action( 'footer_top', 'braillewright_features_footer_widgets' );

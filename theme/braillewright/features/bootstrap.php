@@ -32,22 +32,22 @@ if ( ! defined( 'BRAILLEWRIGHT_FEATURES_URL' ) ) {
 	define( 'BRAILLEWRIGHT_FEATURES_URL', trailingslashit( get_template_directory_uri() ) . 'features/' );
 }
 
-require_once  BRAILLEWRIGHT_FEATURES_PATH . 'inc/colors.php' ;
-require_once  BRAILLEWRIGHT_FEATURES_PATH . 'inc/customizer.php' ;
-require_once  BRAILLEWRIGHT_FEATURES_PATH . 'inc/featured-videos.php' ;
-require_once  BRAILLEWRIGHT_FEATURES_PATH . 'inc/scripts.php' ;
-require_once  BRAILLEWRIGHT_FEATURES_PATH . 'inc/featured-sliders.php' ;
-require_once  BRAILLEWRIGHT_FEATURES_PATH . 'inc/featured-image-size.php' ;
-require_once  BRAILLEWRIGHT_FEATURES_PATH . 'inc/header-image.php' ;
-require_once  BRAILLEWRIGHT_FEATURES_PATH . 'inc/fonts.php' ;
-require_once  BRAILLEWRIGHT_FEATURES_PATH . 'inc/font-sizes.php' ;
-require_once  BRAILLEWRIGHT_FEATURES_PATH . 'inc/widget-areas.php' ;
-require_once  BRAILLEWRIGHT_FEATURES_PATH . 'inc/background.php' ;
-require_once  BRAILLEWRIGHT_FEATURES_PATH . 'inc/display-controls.php' ;
-require_once  BRAILLEWRIGHT_FEATURES_PATH . 'inc/footer-text.php' ;
-require_once  BRAILLEWRIGHT_FEATURES_PATH . 'inc/layout.php' ;
-require_once  BRAILLEWRIGHT_FEATURES_PATH . 'inc/page-layouts.php' ;
-require_once  BRAILLEWRIGHT_FEATURES_PATH . 'inc/menus.php' ;
+require_once BRAILLEWRIGHT_FEATURES_PATH . 'inc/colors.php';
+require_once BRAILLEWRIGHT_FEATURES_PATH . 'inc/customizer.php';
+require_once BRAILLEWRIGHT_FEATURES_PATH . 'inc/featured-videos.php';
+require_once BRAILLEWRIGHT_FEATURES_PATH . 'inc/scripts.php';
+require_once BRAILLEWRIGHT_FEATURES_PATH . 'inc/featured-sliders.php';
+require_once BRAILLEWRIGHT_FEATURES_PATH . 'inc/featured-image-size.php';
+require_once BRAILLEWRIGHT_FEATURES_PATH . 'inc/header-image.php';
+require_once BRAILLEWRIGHT_FEATURES_PATH . 'inc/fonts.php';
+require_once BRAILLEWRIGHT_FEATURES_PATH . 'inc/font-sizes.php';
+require_once BRAILLEWRIGHT_FEATURES_PATH . 'inc/widget-areas.php';
+require_once BRAILLEWRIGHT_FEATURES_PATH . 'inc/background.php';
+require_once BRAILLEWRIGHT_FEATURES_PATH . 'inc/display-controls.php';
+require_once BRAILLEWRIGHT_FEATURES_PATH . 'inc/footer-text.php';
+require_once BRAILLEWRIGHT_FEATURES_PATH . 'inc/layout.php';
+require_once BRAILLEWRIGHT_FEATURES_PATH . 'inc/page-layouts.php';
+require_once BRAILLEWRIGHT_FEATURES_PATH . 'inc/menus.php';
 
 // Detect the optional MetaSlider plugin for the featured-sliders feature. Kept as
 // a named function because the theme dashboard uses function_exists() on it to
