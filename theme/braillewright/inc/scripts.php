@@ -32,8 +32,10 @@ function braillewright_load_scripts_styles() {
 	);
 	$fonts_url = add_query_arg( $font_args, '//fonts.googleapis.com/css' );
 
-	// External CDN URL - not ours to version, so null is the explicit "no version".
-	wp_enqueue_style( 'braillewright-google-fonts', $fonts_url, array(), null );
+	// Google Fonts. The URL already encodes every font setting that determines its
+	// content, so it is self-versioning - but WPCS counts null as 'version not set'
+	// (measured: MissingVersion still fired), so the theme version is passed too.
+	wp_enqueue_style( 'braillewright-google-fonts', $fonts_url, array(), BRAILLEWRIGHT_VERSION );
 
 	wp_enqueue_script( 'braillewright-js', get_template_directory_uri() . '/js/build/production.min.js', array( 'jquery' ), BRAILLEWRIGHT_VERSION, true );
 	wp_localize_script(
@@ -106,7 +108,7 @@ function braillewright_enqueue_admin_styles( $hook ) {
 		);
 		$fonts_url = add_query_arg( $font_args, '//fonts.googleapis.com/css' );
 
-		wp_enqueue_style( 'braillewright-google-fonts', $fonts_url, array(), null );
+		wp_enqueue_style( 'braillewright-google-fonts', $fonts_url, array(), BRAILLEWRIGHT_VERSION );
 	}
 }
 add_action( 'admin_enqueue_scripts', 'braillewright_enqueue_admin_styles' );
