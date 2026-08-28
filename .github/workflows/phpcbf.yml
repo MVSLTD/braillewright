@@ -28,10 +28,15 @@ on:
         description: 'Paths to fix. Blank = the ruleset roots in phpcs.xml.dist.'
         required: false
         default: ''
-  # So the job can be exercised on its own branch before it exists on main.
-  push:
-    branches:
-      - 'chore/phpcbf-**'
+
+# ⛔ DISPATCH ONLY, DELIBERATELY. There was a `push: branches: [chore/phpcbf-**]`
+# trigger here while the workflow was being proven on its own branch before it existed
+# on main. It was removed once it had done that job, because it composes badly with the
+# empty-patch guard: the moment a stage's fixes are APPLIED to the branch, the next push
+# re-runs phpcbf, finds nothing left to fix, and the guard correctly fails - leaving a
+# permanently red check on the very PR that did the work. Both behaviours are right on
+# their own; together they are wrong. Dispatching is an explicit "go and fix something",
+# which is exactly the state in which an empty patch really is a failure.
 
 permissions:
   contents: read
