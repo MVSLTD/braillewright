@@ -3,23 +3,23 @@ defined( 'ABSPATH' ) OR exit;
 
 function braillewright_features_add_body_classes( $classes ) {
 
-	$post_layout    		= get_theme_mod( 'layout' );
-	$post_layout 				= apply_filters( 'braillewright_features_layout_filter', $post_layout );
-	$page_layout    		= get_theme_mod( 'layout_pages' );
-	$page_layout    		= apply_filters( 'braillewright_features_layout_filter', $page_layout );
-	$blog_layout    		= get_theme_mod( 'layout_blog' );
-	$archives_layout    = get_theme_mod( 'layout_archives' );
+	$post_layout     = get_theme_mod( 'layout' );
+	$post_layout     = apply_filters( 'braillewright_features_layout_filter', $post_layout );
+	$page_layout     = get_theme_mod( 'layout_pages' );
+	$page_layout     = apply_filters( 'braillewright_features_layout_filter', $page_layout );
+	$blog_layout     = get_theme_mod( 'layout_blog' );
+	$archives_layout = get_theme_mod( 'layout_archives' );
 
-	if ( !empty( $post_layout ) && is_singular( 'post' ) ) {
+	if ( ! empty( $post_layout ) && is_singular( 'post' ) ) {
 		$classes[] = $post_layout . '-layout';
-	} 
-	if ( !empty( $page_layout ) && is_singular( 'page' ) ) {
+	}
+	if ( ! empty( $page_layout ) && is_singular( 'page' ) ) {
 		$classes[] = $page_layout . '-layout';
 	}
-	if ( !empty( $blog_layout ) && is_home() ) {
+	if ( ! empty( $blog_layout ) && is_home() ) {
 		$classes[] = $blog_layout . '-layout';
 	}
-	if ( !empty( $archives_layout ) && is_archive() ) {
+	if ( ! empty( $archives_layout ) && is_archive() ) {
 		$classes[] = $archives_layout . '-layout';
 	}
 
@@ -45,12 +45,12 @@ function braillewright_features_remove_primary_sidebar( $sidebars_widgets ) {
 		return $sidebars_widgets;
 	}
 
-	$post_layout    		= get_theme_mod( 'layout' );
-	$post_layout 				= apply_filters( 'braillewright_features_layout_filter', $post_layout );
-	$page_layout    		= get_theme_mod( 'layout_pages' );
-	$page_layout    		= apply_filters( 'braillewright_features_layout_filter', $page_layout );
-	$blog_layout    		= get_theme_mod( 'layout_blog' );
-	$archives_layout    = get_theme_mod( 'layout_archives' );
+	$post_layout     = get_theme_mod( 'layout' );
+	$post_layout     = apply_filters( 'braillewright_features_layout_filter', $post_layout );
+	$page_layout     = get_theme_mod( 'layout_pages' );
+	$page_layout     = apply_filters( 'braillewright_features_layout_filter', $page_layout );
+	$blog_layout     = get_theme_mod( 'layout_blog' );
+	$archives_layout = get_theme_mod( 'layout_archives' );
 
 	// if it's a non-sidebar layout, remove the primary sidebar
 	if ( in_array( $post_layout, braillewright_features_layouts( 'no-sidebar' ) ) && is_singular( 'post' ) ) {

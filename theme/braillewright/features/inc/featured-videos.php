@@ -2,7 +2,7 @@
 defined( 'ABSPATH' ) OR exit;
 
 //----------------------------------------------------------------------------------
-// Add the Featured Video meta box 
+// Add the Featured Video meta box
 //----------------------------------------------------------------------------------
 function braillewright_features_add_video_meta_box() {
 
@@ -41,13 +41,13 @@ function braillewright_features_video_callback( $post ) {
 		echo '<label for="braillewright_features_video_url">';
 			esc_html_e( 'Video Preview', 'braillewright' );
 		echo '</label> ';
-		if ( $video_url ) {
-			if ( braillewright_features_is_youtube_nocookie( $video_url ) ) {
-				echo '<iframe src="'. esc_url( $video_url ) .'" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
-			} else {
-				echo braillewright_features_output_video( $video_url ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- WP oembed/shortcode HTML (iframe/video) from an esc_url_raw'd URL; admin-only meta box.
-			}
+	if ( $video_url ) {
+		if ( braillewright_features_is_youtube_nocookie( $video_url ) ) {
+			echo '<iframe src="' . esc_url( $video_url ) . '" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
+		} else {
+			echo braillewright_features_output_video( $video_url ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- WP oembed/shortcode HTML (iframe/video) from an esc_url_raw'd URL; admin-only meta box.
 		}
+	}
 		echo '<span class="loading">' . braillewright_features_loading_indicator_svg() . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- hardcoded literal SVG; no user data.
 	echo '</div>';
 
@@ -140,7 +140,7 @@ function braillewright_features_add_oembed_callback() {
 	$video_url = isset( $_POST['videoURL'] ) ? esc_url_raw( (string) wp_unslash( $_POST['videoURL'] ) ) : '';
 
 	if ( braillewright_features_is_youtube_nocookie( $video_url ) ) {
-		$video = '<iframe src="'. esc_url( $video_url ) .'" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
+		$video = '<iframe src="' . esc_url( $video_url ) . '" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
 	} else {
 		$video = braillewright_features_output_video( $video_url );
 	}
@@ -317,7 +317,7 @@ function braillewright_features_output_featured_video( $featured_image ) {
 				$featured_image = '<div class="featured-video">' . braillewright_features_output_video( $featured_video ) . '</div>';
 			}
 			// If AMP plugin is active and viewing an AMP page
-			if ( function_exists('amp_init') ) {
+			if ( function_exists( 'amp_init' ) ) {
 				if ( is_amp_endpoint() ) {
 					// Add filter to remove the Featured Image
 					add_filter( 'amp_post_template_data', 'braillewright_features_amp_remove_featured_image' );
@@ -332,12 +332,12 @@ add_filter( 'braillewright_featured_image', 'braillewright_features_output_featu
 
 function braillewright_features_featured_video_amp( $content ) {
 	// If AMP plugin is active and viewing an AMP page
-	if ( function_exists('amp_init') ) {
+	if ( function_exists( 'amp_init' ) ) {
 		if ( is_amp_endpoint() ) {
 			// Add the Featured Video to the top of the content
 			global $post;
-			$featured_video = braillewright_features_output_featured_video('');
-			$content = $featured_video . $content;	
+			$featured_video = braillewright_features_output_featured_video( '' );
+			$content        = $featured_video . $content;
 		}
 	}
 	return $content;
@@ -345,8 +345,8 @@ function braillewright_features_featured_video_amp( $content ) {
 add_filter( 'the_content', 'braillewright_features_featured_video_amp', 1 );
 
 function braillewright_features_amp_remove_featured_image( $data ) {
-    $data['featured_image'] = false;
-    return $data;
+	$data['featured_image'] = false;
+	return $data;
 }
 
 function braillewright_features_add_youtube_parameters( $html, $url, $args ) {
@@ -365,7 +365,7 @@ function braillewright_features_add_youtube_parameters( $html, $url, $args ) {
 			// only add parameters if featured vid is a youtube vid
 			if ( strpos( $featured_video, 'youtube.com' ) || strpos( $featured_video, 'youtu.be' ) ) {
 
-				$youtube_logo    = get_post_meta( $post->ID, 'braillewright_features_video_youtube_logo', true );
+				$youtube_logo     = get_post_meta( $post->ID, 'braillewright_features_video_youtube_logo', true );
 				$youtube_captions = get_post_meta( $post->ID, 'braillewright_features_video_youtube_captions', true );
 				$youtube_autoplay = get_post_meta( $post->ID, 'braillewright_features_video_youtube_autoplay', true );
 				$youtube_loop     = get_post_meta( $post->ID, 'braillewright_features_video_youtube_loop', true );

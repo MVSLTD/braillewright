@@ -31,16 +31,20 @@ function braillewright_load_scripts_styles() {
 		'display' => 'swap'
 	);
 	$fonts_url = add_query_arg( $font_args, '//fonts.googleapis.com/css' );
-	
+
 	wp_enqueue_style( 'braillewright-google-fonts', $fonts_url );
 
 	wp_enqueue_script( 'braillewright-js', get_template_directory_uri() . '/js/build/production.min.js', array( 'jquery' ), '', true );
-	wp_localize_script( 'braillewright-js', 'braillewright_objectL10n', array(
-		'openMenu'       => esc_html_x( 'open menu', 'verb: open the menu', 'braillewright' ),
-		'closeMenu'      => esc_html_x( 'close menu', 'verb: close the menu', 'braillewright' ),
-		'openChildMenu'  => esc_html_x( 'open dropdown menu', 'verb: open the dropdown menu', 'braillewright' ),
-		'closeChildMenu' => esc_html_x( 'close dropdown menu', 'verb: close the dropdown menu', 'braillewright' )
-	) );
+	wp_localize_script(
+		'braillewright-js',
+		'braillewright_objectL10n',
+		array(
+			'openMenu'       => esc_html_x( 'open menu', 'verb: open the menu', 'braillewright' ),
+			'closeMenu'      => esc_html_x( 'close menu', 'verb: close the menu', 'braillewright' ),
+			'openChildMenu'  => esc_html_x( 'open dropdown menu', 'verb: open the dropdown menu', 'braillewright' ),
+			'closeChildMenu' => esc_html_x( 'close dropdown menu', 'verb: close the dropdown menu', 'braillewright' )
+		)
+	);
 
 	wp_enqueue_style( 'braillewright-font-awesome', get_template_directory_uri() . '/assets/font-awesome/css/all.min.css' );
 
@@ -99,7 +103,7 @@ function braillewright_enqueue_admin_styles( $hook ) {
 			'subset' => urlencode( 'latin,latin-ext' )
 		);
 		$fonts_url = add_query_arg( $font_args, '//fonts.googleapis.com/css' );
-	
+
 		wp_enqueue_style( 'braillewright-google-fonts', $fonts_url );
 	}
 }
@@ -118,6 +122,5 @@ add_action( 'customize_controls_enqueue_scripts', 'braillewright_enqueue_customi
  */
 function braillewright_enqueue_customizer_post_message_scripts() {
 	wp_enqueue_script( 'braillewright-customizer-post-message-js', get_template_directory_uri() . '/js/build/postMessage.min.js', array( 'jquery' ), '', true );
-
 }
 add_action( 'customize_preview_init', 'braillewright_enqueue_customizer_post_message_scripts' );
