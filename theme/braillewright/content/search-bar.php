@@ -11,6 +11,6 @@ if ( get_theme_mod( 'search_bar' ) != 'show' ) {
 	<form role="search" method="get" class="search-form" action="<?php echo esc_url( home_url( '/' ) ); ?>">
 		<label class="screen-reader-text" for="header-search-field"><?php esc_html_e( 'Search', 'braillewright' ); ?></label>
 		<input id="header-search-field" type="search" class="search-field" placeholder="<?php esc_attr_e( 'Search...', 'braillewright' ); ?>" value="" name="s"
-		       title="<?php esc_attr_e( 'Search for:', 'braillewright' ); ?>" tabindex="-1"/>
+				title="<?php esc_attr_e( 'Search for:', 'braillewright' ); ?>" tabindex="-1"/>
 	</form>
 </div>

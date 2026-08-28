@@ -1,0 +1,99 @@
+{
+  "_comment": "Authoritative stage map for the Braillewright coding-standards sweep. Read by .github/workflows/phpcbf.yml AND by ops/phpcs_stage_planner.py, so the runner and the planner cannot drift apart. Stage 1 must contain ONLY sniffs whose fix changes whitespace between tokens and never a PHP token; that claim is enforced by .github/scripts/assert-token-stream-unchanged.php.",
+  "_retired": {
+    "Universal.Operators.StrictComparisons": "retired 2026-08-27 - its autofix ships behaviour changes",
+    "WordPress.PHP.YodaConditions": "retired 2026-08-27 - pure house style, no fixer exists"
+  },
+  "stages": {
+    "1": {
+      "name": "whitespace + layout (autofix, NO token changes)",
+      "autofix": true,
+      "sniffs": [
+        "Generic.Formatting.MultipleStatementAlignment.IncorrectWarning",
+        "Generic.Formatting.MultipleStatementAlignment.NotSameWarning",
+        "Generic.Functions.FunctionCallArgumentSpacing.SpaceBeforeComma",
+        "Generic.Functions.OpeningFunctionBraceKernighanRitchie.BraceOnNewLine",
+        "Generic.WhiteSpace.ArbitraryParenthesesSpacing.SpaceAfterOpen",
+        "Generic.WhiteSpace.ArbitraryParenthesesSpacing.SpaceBeforeClose",
+        "Generic.WhiteSpace.DisallowSpaceIndent.SpacesUsed",
+        "Generic.WhiteSpace.IncrementDecrementSpacing.SpaceAfterIncrement",
+        "Generic.WhiteSpace.ScopeIndent.Incorrect",
+        "Generic.WhiteSpace.ScopeIndent.IncorrectExact",
+        "NormalizedArrays.Arrays.ArrayBraceSpacing.SpaceAfterArrayOpenerSingleLine",
+        "NormalizedArrays.Arrays.ArrayBraceSpacing.SpaceBeforeArrayCloserSingleLine",
+        "PEAR.Functions.FunctionCallSignature.CloseBracketLine",
+        "PEAR.Functions.FunctionCallSignature.ContentAfterOpenBracket",
+        "PEAR.Functions.FunctionCallSignature.Indent",
+        "PEAR.Functions.FunctionCallSignature.MultipleArguments",
+        "PEAR.Functions.FunctionCallSignature.SpaceAfterOpenBracket",
+        "PEAR.Functions.FunctionCallSignature.SpaceBeforeCloseBracket",
+        "PSR2.Methods.FunctionClosingBrace.SpacingBeforeClose",
+        "Squiz.Functions.FunctionDeclarationArgumentSpacing.SpacingAfterOpen",
+        "Squiz.Functions.FunctionDeclarationArgumentSpacing.SpacingBeforeClose",
+        "Squiz.Strings.ConcatenationSpacing.PaddingFound",
+        "Squiz.WhiteSpace.SuperfluousWhitespace.EndLine",
+        "Universal.WhiteSpace.DisallowInlineTabs.NonIndentTabsUsed",
+        "Universal.WhiteSpace.PrecisionAlignment.Found",
+        "WordPress.Arrays.ArrayIndentation.CloseBraceNotAligned",
+        "WordPress.Arrays.ArrayIndentation.ItemNotAligned",
+        "WordPress.Arrays.MultipleStatementAlignment.DoubleArrowNotAligned",
+        "WordPress.WhiteSpace.ControlStructureSpacing.NoSpaceAfterOpenParenthesis",
+        "WordPress.WhiteSpace.ControlStructureSpacing.NoSpaceAfterStructureOpen",
+        "WordPress.WhiteSpace.ControlStructureSpacing.NoSpaceBeforeCloseParenthesis",
+        "WordPress.WhiteSpace.ControlStructureSpacing.NoSpaceBeforeOpenParenthesis",
+        "WordPress.WhiteSpace.OperatorSpacing.NoSpaceAfter",
+        "WordPress.WhiteSpace.OperatorSpacing.NoSpaceBefore"
+      ]
+    },
+    "2": {
+      "name": "syntax normalisation (autofix, tokens change, behaviour does not)",
+      "autofix": true,
+      "sniffs": [
+        "Generic.CodeAnalysis.EmptyPHPStatement.SemicolonWithoutCodeDetected",
+        "Generic.Files.LineEndings.InvalidEOLChar",
+        "Generic.PHP.LowerCaseKeyword.Found",
+        "NormalizedArrays.Arrays.CommaAfterLast.MissingMultiLine",
+        "PEAR.Files.IncludingFile.BracketsNotRequired",
+        "PSR2.ControlStructures.ElseIfDeclaration.NotAllowed",
+        "PSR2.Files.EndFileNewline.NoneFound",
+        "Squiz.PHP.EmbeddedPhp.ContentAfterOpen",
+        "Squiz.PHP.EmbeddedPhp.ContentBeforeEnd",
+        "Squiz.PHP.EmbeddedPhp.ContentBeforeOpen",
+        "Squiz.PHP.EmbeddedPhp.NoSemicolon",
+        "Squiz.PHP.EmbeddedPhp.SpacingBeforeClose",
+        "Squiz.Strings.DoubleQuoteUsage.NotRequired",
+        "Universal.Operators.DisallowStandalonePostIncrementDecrement.PostIncrementFound"
+      ]
+    },
+    "4": {
+      "name": "manual but mechanical (no fixer exists)",
+      "autofix": false,
+      "sniffs": [
+        "Squiz.Operators.ValidLogicalOperators.NotAllowed"
+      ]
+    },
+    "5": {
+      "name": "manual, needs a judgement call",
+      "autofix": false,
+      "sniffs": [
+        "Generic.CodeAnalysis.UnusedFunctionParameter.Found",
+        "Squiz.ControlStructures.ControlSignature.SpaceAfterCloseBrace",
+        "Squiz.ControlStructures.ControlSignature.SpaceAfterKeyword",
+        "Squiz.PHP.CommentedOutCode.Found",
+        "WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedConstantFound",
+        "WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound",
+        "WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound",
+        "WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase",
+        "WordPress.PHP.DevelopmentFunctions.error_log_var_export",
+        "WordPress.PHP.DiscouragedPHPFunctions.urlencode_urlencode",
+        "WordPress.PHP.StrictInArray.MissingTrueStrict",
+        "WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents",
+        "WordPress.WP.EnqueuedResourceParameters.MissingVersion",
+        "WordPress.WP.EnqueuedResourceParameters.NoExplicitVersion",
+        "WordPress.WP.GlobalVariablesOverride.Prohibited",
+        "WordPress.WP.I18n.MissingTranslatorsComment",
+        "WordPress.WP.I18n.NoHtmlWrappedStrings"
+      ]
+    }
+  }
+}

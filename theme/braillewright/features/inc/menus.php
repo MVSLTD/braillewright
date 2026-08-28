@@ -3,9 +3,11 @@ defined( 'ABSPATH' ) OR exit;
 
 function braillewright_features_register_nav_menus() {
 
-	register_nav_menus( array(
-		'secondary' => esc_html__( 'Secondary', 'braillewright' )
-	) );
+	register_nav_menus(
+		array(
+			'secondary' => esc_html__( 'Secondary', 'braillewright' )
+		)
+	);
 }
 add_action( 'after_setup_theme', 'braillewright_features_register_nav_menus', 11 );
 

@@ -149,4 +149,4 @@ if ( $bw_failures ) {
 echo $bw_apply
 	? "Done (applied). {$bw_total_moved} post-meta value(s) written and verified.\n"
 	: "Dry-run complete; {$bw_total_moved} value(s) would be written. "
-	  . "Re-run with BW_POSTMETA_APPLY defined.\n";
+		. "Re-run with BW_POSTMETA_APPLY defined.\n";

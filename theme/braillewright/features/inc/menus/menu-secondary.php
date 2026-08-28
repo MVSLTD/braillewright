@@ -2,7 +2,7 @@
 if ( has_nav_menu( 'secondary' ) ) : ?>
 	<div class="menu-secondary-container">
 		<button id="toggle-secondary-navigation" class="toggle-secondary-navigation" name="toggle-navigation"
-		        aria-expanded="false">
+				aria-expanded="false">
 			<span class="screen-reader-text"><?php esc_html_e( 'open menu', 'braillewright' ); ?></span>
 			<i class="fa fa-plus" title="<?php esc_html_e( 'secondary menu icon', 'braillewright' ); ?>"></i>
 		</button>

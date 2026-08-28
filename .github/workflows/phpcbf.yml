@@ -1,0 +1,180 @@
+name: phpcbf (produce a coding-standards patch)
+
+# Runs phpcbf on a runner and uploads the resulting patch as an artifact. It NEVER
+# commits and NEVER pushes - a human reviews the patch locally and opens a PR from it.
+#
+# WHY A WORKFLOW AND NOT A LOCAL RUN
+# There is no PHP, no Composer and no Docker on the maintainer's machine, so phpcbf
+# cannot run there at all. Running it here is not a workaround, it is better: the runner
+# resolves the SAME composer.lock the blocking PHPCS job uses, so the fixer and the
+# checker can never be different versions of each other. A local install would be a
+# second toolchain free to drift.
+#
+# THE SAFETY GATE
+# For Stage 1 the claim is "not one PHP token changes". That is asserted, not asserted-ish:
+# .github/scripts/assert-token-stream-unchanged.php tokenises every changed file before and
+# after with PHP's own lexer and requires the non-whitespace stream to match token for
+# token. If it fails, the job fails and the patch is still uploaded so the divergence can
+# be read.
+
+on:
+  workflow_dispatch:
+    inputs:
+      stage:
+        description: 'Stage number from .github/phpcbf-stages.json (1 or 2). Blank = whole ruleset.'
+        required: false
+        default: '1'
+      paths:
+        description: 'Paths to fix. Blank = the ruleset roots in phpcs.xml.dist.'
+        required: false
+        default: ''
+
+# ⛔ DISPATCH ONLY, DELIBERATELY. There was a `push: branches: [chore/phpcbf-**]`
+# trigger here while the workflow was being proven on its own branch before it existed
+# on main. It was removed once it had done that job, because it composes badly with the
+# empty-patch guard: the moment a stage's fixes are APPLIED to the branch, the next push
+# re-runs phpcbf, finds nothing left to fix, and the guard correctly fails - leaving a
+# permanently red check on the very PR that did the work. Both behaviours are right on
+# their own; together they are wrong. Dispatching is an explicit "go and fix something",
+# which is exactly the state in which an empty patch really is a failure.
+
+permissions:
+  contents: read
+
+concurrency:
+  group: phpcbf-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  phpcbf:
+    name: Run phpcbf and upload the patch
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Set up PHP 8.3 + Composer
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          coverage: none
+          tools: composer:v2
+
+      - name: Install Composer dependencies
+        run: composer install --no-interaction --no-progress --prefer-dist
+
+      - name: Resolve the sniff list for this stage
+        id: sniffs
+        env:
+          STAGE: ${{ inputs.stage || '1' }}
+        run: |
+          set -euo pipefail
+          if [ ! -f .github/phpcbf-stages.json ]; then
+            echo "::error::.github/phpcbf-stages.json is missing"; exit 1
+          fi
+          LIST=$(python3 - "$STAGE" <<'PY'
+          import json, sys
+          stage = sys.argv[1].strip()
+          doc = json.load(open('.github/phpcbf-stages.json', encoding='utf-8'))
+          if not stage:
+              print('')
+              raise SystemExit
+          s = doc['stages'].get(stage)
+          if s is None:
+              raise SystemExit(f'no such stage: {stage}')
+          if not s.get('autofix'):
+              raise SystemExit(f'stage {stage} is not auto-fixable: {s["name"]}')
+          # ⚠️ --sniffs TAKES A SNIFF CODE, NOT A MESSAGE CODE.
+          # The stage map stores what a checkstyle report emits in its `source`
+          # attribute, which is four parts: Standard.Category.Sniff.ErrorCode. PHPCS
+          # rejects that outright - "ERROR: The --sniffs option only supports sniff
+          # codes" - and phpcbf then exits 3 having fixed NOTHING. Measured on run
+          # 33129462314, which produced a zero-byte patch and still reported success.
+          # So the map keeps the four-part codes the planner needs, and the three-part
+          # sniff codes are DERIVED here, deduplicated.
+          codes = sorted({'.'.join(x.split('.')[:3]) for x in s['sniffs']})
+          # ⛔ AND THE COLLAPSE MUST NOT LEAK INTO ANOTHER STAGE.
+          # phpcbf can only be filtered to a SNIFF, not to one of its message codes, so
+          # asking for a stage really asks for every message code those sniffs emit. That
+          # is safe only while the stages are disjoint at sniff-code level. Verified
+          # disjoint on 2026-08-27 - but a later edit could add a message code to an
+          # existing sniff and land it in a different stage, which would silently apply
+          # Stage 2 edits during a Stage 1 run. So it is asserted on every run.
+          for other, o in doc['stages'].items():
+              if other == stage:
+                  continue
+              clash = codes_set = {'.'.join(x.split('.')[:3]) for x in o['sniffs']} & set(codes)
+              if clash:
+                  raise SystemExit(
+                      f'stage {stage} and stage {other} share sniff code(s) {sorted(clash)} - '
+                      f'fixing one would silently apply the other')
+          print(','.join(codes))
+          PY
+          )
+          echo "list=$LIST" >> "$GITHUB_OUTPUT"
+          N=$(echo "$LIST" | tr ',' '\n' | grep -c . || true)
+          echo "Stage $STAGE -> $N sniff code(s)"
+          if [ "$N" -eq 0 ] && [ -n "$STAGE" ]; then
+            echo "::error::stage $STAGE resolved to zero sniff codes"; exit 1
+          fi
+
+      - name: Count findings BEFORE
+        run: |
+          vendor/bin/phpcs --report=summary --report-file=phpcbf-before.txt || true
+          tail -3 phpcbf-before.txt || true
+
+      - name: Run phpcbf
+        env:
+          SNIFFS: ${{ steps.sniffs.outputs.list }}
+          PATHS: ${{ inputs.paths }}
+        run: |
+          # phpcbf exit codes: 0 = nothing fixable, 1 = all fixed, 2 = some remain,
+          # 3 = a PROCESSING ERROR. Only 0/1/2 are acceptable outcomes here.
+          set +e
+          if [ -n "$SNIFFS" ]; then
+            vendor/bin/phpcbf --sniffs="$SNIFFS" $PATHS
+          else
+            vendor/bin/phpcbf $PATHS
+          fi
+          RC=$?
+          set -e
+          echo "phpcbf exit status: $RC"
+          if [ "$RC" -ge 3 ]; then
+            echo "::error::phpcbf failed to run (exit $RC). It fixed nothing."
+            exit 1
+          fi
+
+      - name: Produce the patch
+        run: |
+          git diff > phpcbf.patch
+          echo "--- files touched ---"
+          git diff --stat | tail -20
+          BYTES=$(wc -c < phpcbf.patch)
+          echo "--- patch bytes: $BYTES ---"
+          # ⛔ A ZERO-BYTE PATCH IS A FAILURE, NOT A CLEAN RUN. This job is only ever
+          # started because there is something to fix, so "nothing changed" means the
+          # run did not do its job - which is exactly what happened on run 33129462314,
+          # where a rejected --sniffs argument produced an empty patch and a green tick.
+          if [ "$BYTES" -eq 0 ]; then
+            echo "::error::phpcbf produced an EMPTY patch - it changed nothing. Treating as a failure."
+            exit 1
+          fi
+
+      - name: PROVE no PHP token changed
+        run: php .github/scripts/assert-token-stream-unchanged.php HEAD
+
+      - name: Count findings AFTER
+        if: always()
+        run: |
+          vendor/bin/phpcs --report=summary --report-file=phpcbf-after.txt || true
+          tail -3 phpcbf-after.txt || true
+
+      - name: Upload the patch and both counts
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: phpcbf-patch
+          path: |
+            phpcbf.patch
+            phpcbf-before.txt
+            phpcbf-after.txt
+          if-no-files-found: warn

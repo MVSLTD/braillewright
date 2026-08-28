@@ -7,8 +7,8 @@
 			</div>
 			<div class="post-content">
 				<?php
-				$image = wp_get_attachment_image($post->ID, 'full');
-				$image_meta = wp_prepare_attachment_for_js($post->ID);
+				$image      = wp_get_attachment_image( $post->ID, 'full' );
+				$image_meta = wp_prepare_attachment_for_js( $post->ID );
 				?>
 				<div class="attachment-container">
 					<?php echo wp_kses_post( $image ); ?>
