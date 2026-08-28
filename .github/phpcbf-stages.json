@@ -10,7 +10,10 @@
       "name": "whitespace + layout (autofix, NO token changes)",
       "autofix": true,
       "token_contract": "unchanged",
+      "_added_2026_08_28": "LanguageConstructSpacing and SemicolonSpacing were added on 2026-08-28 because STAGE 2 CREATED THEM. Its include-paren fixer rewrites require_once( X ); as 'require_once  X ;' - two spaces after the keyword, one before the semicolon - so 27 + 27 = 54 brand-new whitespace findings appeared in files Stage 1 had already cleaned. ops/phpcs_stage_planner.py refused to guess where they belonged and exited non-zero naming both, which is the fail-closed path working. Both were confirmed auto-fixable from the CI log's [x] markers (54 of them, matching exactly) before being placed here, and placing them in Stage 1 asserts they change no PHP token - a claim assert-token-stream-unchanged.php then has to prove on the next dispatch rather than anyone taking it on trust. GENERAL LESSON: a token-changing stage hands work back to the whitespace stage, so run Stage 1 again after Stage 2 - and expect the same after Stage 4.",
       "sniffs": [
+        "Generic.WhiteSpace.LanguageConstructSpacing.IncorrectSingle",
+        "Squiz.WhiteSpace.SemicolonSpacing.Incorrect",
         "Generic.Formatting.MultipleStatementAlignment.IncorrectWarning",
         "Generic.Formatting.MultipleStatementAlignment.NotSameWarning",
         "Generic.Functions.FunctionCallArgumentSpacing.SpaceBeforeComma",
