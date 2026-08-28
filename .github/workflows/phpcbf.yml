@@ -21,8 +21,15 @@ on:
   workflow_dispatch:
     inputs:
       stage:
-        description: 'Stage number from .github/phpcbf-stages.json (1 or 2). Blank = whole ruleset.'
-        required: false
+        # ⚠️ A STAGE IS ALWAYS REQUIRED, and the field cannot be left blank to mean
+        # anything else. This used to read "Blank = whole ruleset", which was
+        # unreachable: `${{ inputs.stage || '1' }}` treats the empty string as falsy,
+        # so clearing the field silently ran STAGE 1 instead. Two halves of the same
+        # step disagreeing is worse than the missing feature, and a whole-ruleset
+        # phpcbf run is not something to reach by accident anyway - it has no declared
+        # token_contract, so nothing would prove what it did.
+        description: 'Stage number from .github/phpcbf-stages.json. Currently 1 or 2. Required.'
+        required: true
         default: '1'
       paths:
         description: 'Paths to fix. Blank = the ruleset roots in phpcs.xml.dist.'

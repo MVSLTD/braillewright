@@ -142,11 +142,44 @@ function fail(string $msg): never
     exit(2);
 }
 
+/** For commands whose OUTPUT IS A LIST, where per-line trailing space is noise. */
 function shell(string $cmd, ?int &$status = null): string
 {
     $out = [];
     exec($cmd . ' 2>/dev/null', $out, $status);
     return implode("\n", $out);
+}
+
+/**
+ * Capture a command's stdout BYTE FOR BYTE.
+ *
+ * ⛔ DO NOT USE shell() TO READ FILE CONTENT. PHP's exec() rtrims every line it
+ * captures, and implode("\n") cannot restore a final newline that was never there.
+ * Measured on PHP 8.3: "alpha  \nbeta\t\ngamma" comes back as "alpha\nbeta\ngamma".
+ *
+ * That matters here more than it looks. In --base mode the BEFORE side comes from
+ * `git show`, while the AFTER side is read with file_get_contents(). If one is rtrimmed
+ * and the other is not, the two front ends DISAGREE ABOUT THE SAME FILE - and the
+ * disagreement shows up as an unexplained token change, i.e. a false failure on
+ * correct work, in the mode CI uses and not in the mode a human runs locally.
+ *
+ * This is not hypothetical in this repo: at the time of writing the theme carries 62
+ * lines with trailing whitespace (Stage 2's EmbeddedPhp fixer creates them, e.g.
+ * `<option value="2-1" ` in features/inc/featured-image-size.php) and 35 files with no
+ * final newline. Redirecting to a file and reading it keeps every byte and makes both
+ * front ends read through the same code path.
+ */
+function captureBytes(string $cmd, ?int &$status = null): ?string
+{
+    $tmp = tempnam(sys_get_temp_dir(), 'bwgate');
+    if ($tmp === false) {
+        fail('could not create a temporary file to capture command output');
+    }
+    $ignored = [];
+    exec($cmd . ' > ' . escapeshellarg($tmp) . ' 2>/dev/null', $ignored, $status);
+    $data = $status === 0 ? file_get_contents($tmp) : null;
+    @unlink($tmp);
+    return $data === false ? null : $data;
 }
 
 /**
@@ -161,16 +194,22 @@ function lex(string $src, string $label): array
         fail("could not tokenise {$label}");
     }
     $out = [];
+    // token_get_all() returns single-character tokens as bare strings with NO line
+    // number. Stamping 0 made every failure report that landed on punctuation say
+    // "line ~0", which is the least useful thing a gate can print - a `,` or a `)` is
+    // exactly where these diffs diverge. Carry the last known line forward instead.
+    $line = 1;
     foreach ($raw as $tok) {
         if (is_string($tok)) {
-            $out[] = ['id' => -1, 'name' => 'CHAR', 'text' => $tok, 'line' => 0];
+            $out[] = ['id' => -1, 'name' => 'CHAR', 'text' => $tok, 'line' => $line];
             continue;
         }
-        [$id, $text, $line] = $tok;
+        [$id, $text, $tokLine] = $tok;
+        $line = (int) $tokLine + substr_count((string) $text, "\n");
         if ($id === T_WHITESPACE) {
             continue;
         }
-        $out[] = ['id' => $id, 'name' => token_name($id), 'text' => $text, 'line' => (int) $line];
+        $out[] = ['id' => $id, 'name' => token_name($id), 'text' => $text, 'line' => (int) $tokLine];
     }
     return $out;
 }
@@ -288,6 +327,104 @@ function decodeLiteral(string $lit): ?string
 }
 
 /**
+ * Constructs whose closing `)` tolerates a trailing comma, identified by the token
+ * immediately BEFORE the opening `(`. An explicit allow-list: anything not named here
+ * is refused, so a construct nobody thought about is a failure rather than a pass.
+ */
+const COMMA_TOLERANT_BEFORE_PAREN = [
+    T_ARRAY,        // array( ... )
+    T_STRING,       // foo( ... ) and new Foo( ... )
+    T_VARIABLE,     // $callable( ... )
+    T_FUNCTION,     // function ( ... )
+    T_FN,           // fn ( ... )
+    T_USE,          // function () use ( ... )
+    T_ISSET,        // isset( ... )
+    T_UNSET,        // unset( ... )
+    T_LIST,         // list( ... )
+    T_CLASS,        // new class( ... )
+    T_STATIC,       // static function ( ... )
+    T_NAME_QUALIFIED,
+    T_NAME_FULLY_QUALIFIED,
+];
+
+/**
+ * Walk back from a closer to its matching opener and answer: is a trailing comma legal
+ * inside this construct?
+ *
+ * Refuses (returns false) unless it can positively identify a comma-tolerant construct.
+ */
+function commaIsInert(array $A, int $i, array $B, int $j): bool
+{
+    // 1. Never a SECOND comma. `array( 1, )` -> `array( 1,, )` is fatal, and it is the
+    //    reachable case, because the sniff edits arrays that may already end in one.
+    $bPrev = at($B, $j - 1);
+    if ($bPrev !== null && isChar($bPrev, ',')) {
+        return false;
+    }
+    $aPrev = at($A, $i - 1);
+    if ($aPrev !== null && isChar($aPrev, ',')) {
+        return false;
+    }
+
+    // 2. Find the matching opener by depth, scanning backwards from the closer.
+    $closer = $A[$i]['text'];
+    $opener = $closer === ')' ? '(' : '[';
+    $depth = 0;
+    $open = -1;
+    for ($k = $i; $k >= 0; $k--) {
+        $t = $A[$k];
+        if ($t['name'] !== 'CHAR') {
+            continue;
+        }
+        if ($t['text'] === $closer) {
+            $depth++;
+        } elseif ($t['text'] === $opener) {
+            $depth--;
+            if ($depth === 0) {
+                $open = $k;
+                break;
+            }
+        }
+    }
+    if ($open < 0) {
+        return false;
+    }
+
+    // 3. A `...` anywhere at this level makes a trailing comma illegal - both the
+    //    variadic parameter `function f( ...$a, )` and the first-class callable
+    //    `strlen( ..., )`.
+    for ($k = $open + 1; $k < $i; $k++) {
+        if ($A[$k]['name'] === 'T_ELLIPSIS') {
+            return false;
+        }
+    }
+
+    $before = at($A, $open - 1);
+
+    if ($closer === ']') {
+        // `[` is a short array literal (comma legal) OR array access (comma illegal).
+        // It is array ACCESS exactly when the preceding token can end an operand.
+        if ($before === null) {
+            return true;
+        }
+        $operandEnd = in_array($before['name'], [
+            'T_VARIABLE', 'T_STRING', 'T_CONSTANT_ENCAPSED_STRING',
+            'T_NAME_QUALIFIED', 'T_NAME_FULLY_QUALIFIED',
+        ], true) || ($before['name'] === 'CHAR' && in_array($before['text'], [')', ']'], true));
+        return !$operandEnd;
+    }
+
+    // `(` - require a positively identified comma-tolerant construct.
+    if ($before === null) {
+        return false;
+    }
+    if ($before['name'] === 'CHAR' && in_array($before['text'], [')', ']'], true)) {
+        return true;                      // chained call: foo()( ... )
+    }
+    return in_array($before['id'], COMMA_TOLERANT_BEFORE_PAREN, true);
+}
+
+/**
  * Every rule takes the two streams and the two cursors and returns
  * [tokens consumed from A, tokens consumed from B, class name] or null.
  *
@@ -303,10 +440,20 @@ function tryRules(array $A, int $i, array $B, int $j): ?array
 
     // --- TRAILING_COMMA: a `,` appears in AFTER, immediately before the closer
     //     that BEFORE is already sitting on. A pure insertion; nothing else moves.
+    //
+    // ⚠️ THE CLOSER'S CHARACTER IS NOT ENOUGH, and the first version of this rule
+    // tested nothing else. A trailing comma is inert in an array literal, a call, a
+    // parameter list, a closure `use`, isset/unset/list and short-array destructuring -
+    // and is a COMPILE ERROR in empty(), exit(), eval(), declare(), a control-structure
+    // paren, an array-access [ ], after a variadic or first-class-callable `...`, and
+    // after a comma that is already there. `array( 1, )` becoming `array( 1,, )` was
+    // accepted by the character-only test and is fatal: "Cannot use empty array
+    // elements in arrays". So the rule now resolves the OPENER and refuses anything it
+    // cannot positively identify as comma-tolerant.
     if ($b !== null && isChar($b, ',') && $a !== null
         && ($a['text'] === ')' || $a['text'] === ']') && $a['name'] === 'CHAR') {
         $bNext = at($B, $j + 1);
-        if ($bNext !== null && same($a, $bNext)) {
+        if ($bNext !== null && same($a, $bNext) && commaIsInert($A, $i, $B, $j)) {
             return [0, 1, 'TRAILING_COMMA'];
         }
     }
@@ -323,11 +470,28 @@ function tryRules(array $A, int $i, array $B, int $j): ?array
     }
 
     // --- KEYWORD_CASE: an allow-listed reserved keyword, differing only by case.
+    //
+    // ⚠️ THE TOKEN CLASS ALONE IS NOT ENOUGH. Since PHP 7's context-sensitive lexer,
+    // a reserved word may be used as a CLASS-CONSTANT or ENUM-CASE name - `Foo::IF`,
+    // `Status::MATCH` - and those names ARE case sensitive, unlike the keyword itself.
+    // The lexer still reports T_IF there, so the token id says "keyword" while the
+    // meaning is "identifier". Property names after -> and ?-> are case sensitive for
+    // the same reason. So refuse whenever the preceding token puts us in a name
+    // position rather than a keyword position.
     if ($a !== null && $b !== null
         && $a['name'] === $b['name']
         && in_array($a['id'], CASE_INSENSITIVE_KEYWORDS, true)
         && strtolower($a['text']) === strtolower($b['text'])) {
-        return [1, 1, 'KEYWORD_CASE'];
+        $prev = at($A, $i - 1);
+        $namePosition = $prev !== null && in_array($prev['name'], [
+            'T_DOUBLE_COLON',                 // Foo::IF  - class constant / enum case
+            'T_OBJECT_OPERATOR',              // $o->list - property name
+            'T_NULLSAFE_OBJECT_OPERATOR',     // $o?->list
+            'T_CONST',                        // const IF = 1;
+        ], true);
+        if (!$namePosition) {
+            return [1, 1, 'KEYWORD_CASE'];
+        }
     }
 
     // --- ELSEIF_MERGE: `else` `if` collapses to a single `elseif`.
@@ -423,13 +587,25 @@ function tryRules(array $A, int $i, array $B, int $j): ?array
         && collapse($a['text']) === collapse($b['text'])) {
         return [1, 1, 'INLINE_HTML_WS'];
     }
-    // The same class, for a tolerated token that collapses to NOTHING and so may be
-    // inserted or removed outright when a `<?php` moves to its own line.
+    // --- INLINE_HTML_DROPPED: a tolerated token that collapses to NOTHING is inserted
+    //     or removed outright, which happens when a `<?php` moves to its own line and
+    //     the whitespace-only inline-HTML run between two blocks disappears.
+    //
+    // ⚠️ THIS IS A SEPARATE CLASS FROM INLINE_HTML_WS ON PURPOSE. The two were one
+    // class and one inertness argument, and the argument only covered one of them:
+    // INLINE_HTML_WS compares two tokens whose content is identical once runs of
+    // whitespace collapse, which is exactly what an HTML parser does. DELETING a
+    // whitespace token is a different claim - the whitespace is gone from the output,
+    // not merely rewritten - and inside <pre> or a <textarea> that is visible. It is
+    // still allowed for stage 2 because the sniffs there only move a `<?php` across a
+    // line boundary, but it is now COUNTED SEPARATELY so it shows up in the census
+    // instead of hiding inside a bigger number, and it has to be allow-listed on its
+    // own merits by any future stage.
     if ($a !== null && in_array($a['id'], TOLERANT_WS, true) && collapse($a['text']) === '') {
-        return [1, 0, 'INLINE_HTML_WS'];
+        return [1, 0, 'INLINE_HTML_DROPPED'];
     }
     if ($b !== null && in_array($b['id'], TOLERANT_WS, true) && collapse($b['text']) === '') {
-        return [0, 1, 'INLINE_HTML_WS'];
+        return [0, 1, 'INLINE_HTML_DROPPED'];
     }
 
     return null;
@@ -522,7 +698,7 @@ function compareStreams(array $A, array $B): array
 // Front ends. Both feed the SAME comparator above.
 // ---------------------------------------------------------------------------
 
-$opts = getopt('', ['stage:', 'base:', 'pairs:', 'allow:']);
+$opts = getopt('', ['stage:', 'base:', 'pairs:', 'allow:', 'paths:']);
 $stage = isset($opts['stage']) ? (string) $opts['stage'] : '';
 if ($stage === '') {
     fail('usage: --stage <n> (--base <ref> | --pairs <manifest.json>)');
@@ -559,13 +735,30 @@ if (isset($opts['base'])) {
     if ($st !== 0) {
         fail("not a valid git ref: {$base}");
     }
+    // --paths narrows the comparison to a pathspec, e.g. --paths "theme tools".
+    // Without it every changed *.php is compared, which is right in CI - phpcbf has
+    // just run and nothing else is in the working tree - but wrong when a human is
+    // grading a branch that also contains hand edits to the tooling. Those hand edits
+    // are real unexplained changes and the gate is correct to reject them; they simply
+    // are not what is being asked about.
+    $pathspec = '"*.php"';
+    if (isset($opts['paths']) && trim((string) $opts['paths']) !== '') {
+        $parts = preg_split('/\s+/', trim((string) $opts['paths'])) ?: [];
+        $pathspec = implode(' ', array_map(
+            static fn(string $p): string => escapeshellarg(rtrim($p, '/') . '/*.php'),
+            $parts
+        ));
+    }
     $changed = array_values(array_filter(
-        explode("\n", shell('git diff --name-only ' . escapeshellarg($base) . ' -- "*.php"')),
+        explode("\n", shell('git diff --name-only ' . escapeshellarg($base) . ' -- ' . $pathspec)),
         static fn(string $l): bool => trim($l) !== ''
     ));
     foreach ($changed as $path) {
-        $before = shell('git show ' . escapeshellarg($base . ':' . $path), $st2);
-        if ($st2 !== 0) {
+        // captureBytes, NOT shell - see the comment on captureBytes. The AFTER side is
+        // read with file_get_contents below, so the BEFORE side must be byte-exact too
+        // or the two sides are not comparable.
+        $before = captureBytes('git show ' . escapeshellarg($base . ':' . $path), $st2);
+        if ($st2 !== 0 || $before === null) {
             echo "  SKIP  {$path} (new file)\n";
             continue;
         }
@@ -645,7 +838,7 @@ foreach ($pairs as $p) {
     foreach ($res['classes'] as $class => $n) {
         $summary[] = "{$class} x{$n}";
     }
-    if (isset($res['classes']['INLINE_HTML_WS'])) {
+    if (isset($res['classes']['INLINE_HTML_WS']) || isset($res['classes']['INLINE_HTML_DROPPED'])) {
         $filesWithHtmlMove[] = $p['label'];
     }
     if (!$summary) {

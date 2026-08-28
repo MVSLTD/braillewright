@@ -34,16 +34,23 @@ jobs:
           find theme tools -name '*.php' -print0 \
             | xargs -0 -P8 -n1 -- php -l
 
-      # The reformat gates are only worth anything if they can still REJECT something.
-      # This runs their self-test on every pull request, inside a job that is already
-      # a required check, so a change that quietly weakens a gate cannot merge. It
+      # A reformat gate is only worth anything if it can still REJECT something. This
+      # runs the self-test on every pull request, inside a job that is already a
+      # required check, so a change that quietly weakens the gate cannot merge. It
       # costs about a second and needs no dependencies.
+      #
+      # ⚠️ SCOPE, STATED HONESTLY: this covers assert-token-changes-expected.php only -
+      # every one of its cases runs `--stage 2 --pairs`. assert-token-stream-unchanged.php
+      # is a separate implementation and is NOT exercised here; it is exercised by every
+      # Stage 1 dispatch of phpcbf.yml, where it has to pass against a real patch. An
+      # earlier version of this comment said "the token gates", which claimed twice the
+      # coverage that exists.
       #
       # ⚠️ It is deliberately in the BLOCKING lint job rather than a new job of its
       # own: adding a job would add a 6th required check, and branch protection lists
       # the five by name - a new one would be non-blocking by default and this would
       # become advisory without anyone deciding that.
-      - name: Prove the token gates still reject regressions
+      - name: Prove the classified token gate still rejects regressions
         run: php .github/scripts/test-token-gate.php
 
   # ---------------------------------------------------------------------------

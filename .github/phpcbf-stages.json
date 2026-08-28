@@ -64,7 +64,8 @@
         "PRE_INCREMENT",
         "ADD_SEMICOLON",
         "DROP_EMPTY_SEMICOLON",
-        "INLINE_HTML_WS"
+        "INLINE_HTML_WS",
+        "INLINE_HTML_DROPPED"
       ],
       "sniffs": [
         "Generic.CodeAnalysis.EmptyPHPStatement.SemicolonWithoutCodeDetected",

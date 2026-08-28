@@ -148,6 +148,58 @@ $cases[] = ['inline HTML content edited, not just reindented', 'FAIL',
     "<div class=\"wrapper\">\n<?php echo 'x'; ?>\n"];
 
 // ---------------------------------------------------------------------------
+// Added 2026-08-28 after an adversarial review of the gate. Each of these was
+// ACCEPTED by the first version of the rules; every one is a PHP compile error or a
+// real rename, so the gate was attesting "inert" for code that does not run.
+// ---------------------------------------------------------------------------
+
+// The reachable one: the sniff edits arrays, and 11 arrays in the 44 changed files
+// ALREADY ended in a trailing comma. array(1,,) is fatal - "Cannot use empty array
+// elements in arrays" - but the character-only closer test waved it through.
+$cases[] = ['a SECOND trailing comma in an array literal', 'FAIL',
+    "<?php\n\$a = array(\n\t1,\n);\n",
+    "<?php\n\$a = array(\n\t1,,\n);\n"];
+
+// A comma before the ")" of a construct that forbids one. empty() appears 98 times in
+// the changed files, so this is the shape most likely to be reached by accident.
+$cases[] = ['a trailing comma inside empty()', 'FAIL',
+    "<?php\nif ( empty( \$x ) ) {\n\techo 1;\n}\n",
+    "<?php\nif ( empty( \$x, ) ) {\n\techo 1;\n}\n"];
+
+// Array ACCESS is not an array literal; a trailing comma there is a syntax error.
+$cases[] = ['a trailing comma inside an array access', 'FAIL',
+    "<?php\n\$v = \$a[ \$k ];\n",
+    "<?php\n\$v = \$a[ \$k, ];\n"];
+
+// A trailing comma after a variadic parameter is a syntax error.
+$cases[] = ['a trailing comma after a variadic parameter', 'FAIL',
+    "<?php\nfunction f(\n\t...\$args\n) {}\n",
+    "<?php\nfunction f(\n\t...\$args,\n) {}\n"];
+
+// The keyword allow-list is not enough on its own: since PHP 7 a reserved word can be
+// a CLASS-CONSTANT name, and constant names ARE case sensitive even though the lexer
+// still reports T_LIST / T_IF / T_MATCH for them.
+$cases[] = ['case fold of a class constant that happens to be a keyword', 'FAIL',
+    "<?php\n\$v = Braillewright_Fonts::LIST;\n",
+    "<?php\n\$v = Braillewright_Fonts::list;\n"];
+
+// Property names are case sensitive too.
+$cases[] = ['case fold of a property name that happens to be a keyword', 'FAIL',
+    "<?php\n\$v = \$obj->LIST;\n",
+    "<?php\n\$v = \$obj->list;\n"];
+
+// And the corresponding MUST-PASS, so the fixes above did not simply make the rules
+// refuse everything: an ordinary trailing comma in a nested call must still be inert.
+$cases[] = ['trailing comma in a nested function call is still inert', 'PASS',
+    "<?php\nadd_action(\n\t'init',\n\tarray( \$this, 'go' )\n);\n",
+    "<?php\nadd_action(\n\t'init',\n\tarray( \$this, 'go' ),\n);\n"];
+
+// A genuine keyword case fold in KEYWORD position must still pass.
+$cases[] = ['keyword case fold in keyword position is still inert', 'PASS',
+    "<?php\nIF ( \$a ) {\n\tRETURN 1;\n}\n",
+    "<?php\nif ( \$a ) {\n\treturn 1;\n}\n"];
+
+// ---------------------------------------------------------------------------
 
 $pass = 0;
 $bad = [];
