@@ -102,11 +102,24 @@ jobs:
         run: composer analyse -- --error-format=github
 
   # ---------------------------------------------------------------------------
-  # Security sniffs are BLOCKING (0 findings after the Phase 3 security pass,
-  # 2026-06-18) — this gate prevents any NEW unescaped-output / unsanitized-input
-  # / missing-nonce regression. The full WordPress-Extra style check stays
-  # ADVISORY: the ~12K-LOC fork still reports thousands of cosmetic findings
-  # (spacing, Yoda, alignment); its report is uploaded for incremental cleanup.
+  # BOTH steps in this job are BLOCKING as of 2026-08-28.
+  #
+  # Security sniffs have blocked since 2026-06-18 (0 findings after the Phase 3
+  # security pass) and prevent any NEW unescaped-output / unsanitized-input /
+  # missing-nonce regression.
+  #
+  # ⭐ The full WordPress-Extra style check now blocks too. This comment said it
+  # "stays ADVISORY: the ~12K-LOC fork still reports thousands of cosmetic findings"
+  # until today, and that was accurate right up to the moment it wasn't: PRs #48-#54
+  # took the count 6,031 -> ZERO on 2026-08-28. An advisory gate at zero costs a full
+  # PHPCS run on every PR and still lets the backlog rebuild silently, which is exactly
+  # how it reached 6,031 (5,851 on 2026-08-14, 6,065 by 2026-08-27, growing on its own).
+  #
+  # ✅ Proven in BOTH directions before it landed. It passes at zero - step conclusion
+  # `success`, not a failure masked by continue-on-error. And PR #56, a throwaway
+  # carrying a single deliberate trailing space, FAILED this job on
+  # Squiz.WhiteSpace.SuperfluousWhitespace.EndLine while the security step still passed.
+  # A guard that has only ever passed has not been shown able to fail.
   # ---------------------------------------------------------------------------
   coding-standards:
     name: Coding standards + security (PHPCS WordPress-Extra)
@@ -131,8 +144,27 @@ jobs:
             --sniffs=WordPress.Security.EscapeOutput,WordPress.Security.NonceVerification,WordPress.Security.ValidatedSanitizedInput \
             --extensions=php \
             --ignore=*/tgm/*,*/languages/*,*/lib/plugin-update-checker/*
-      - name: Full coding standards (advisory)
-        continue-on-error: true
+      # ⭐ BLOCKING SINCE 2026-08-28, THE DAY THE COUNT REACHED ZERO.
+      #
+      # This ran with continue-on-error: true from the day it was added, because the
+      # backlog was 6,031 findings and a blocking gate would simply have stopped all
+      # work. The sweep finished on 2026-08-28 (PRs #48-#54, 6,031 -> 0), and an
+      # advisory gate at zero is the worst of both worlds: it costs a full PHPCS run on
+      # every PR and permits the backlog to rebuild silently, one merge at a time.
+      #
+      # Switching it on was verified rather than assumed. On run 33149015652 - the merge
+      # of #54 to main - this step's own conclusion was `success`, not a failure masked
+      # by continue-on-error, which proves `composer lint` genuinely exits 0 at zero
+      # findings. So this flips a passing step from ignored to enforced; it does not
+      # newly fail anything.
+      #
+      # ⚠️ IF THIS EVER BLOCKS A PR, the fix is to clear the finding, not to restore
+      # continue-on-error. Re-adding that line would silently re-open the backlog and
+      # nothing would report it. Four rules whose compliance ships a REGRESSION are
+      # already retired by explicit decision in phpcs.xml.dist, with the measurement
+      # recorded beside each - that is the honest route when a rule is wrong, and it is
+      # visible to anyone reading the ruleset.
+      - name: Full coding standards (BLOCKING - the sweep is at zero, keep it there)
         run: composer lint -- --report-full --report-checkstyle=phpcs-report.xml
       - name: Upload PHPCS report
         if: always()
