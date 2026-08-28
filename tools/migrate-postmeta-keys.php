@@ -74,6 +74,7 @@ if ( ! is_readable( $bw_map_file ) ) {
 	exit( 1 );
 }
 
+// phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- Local map file written by the installer moments earlier; wp_remote_get is for URLs.
 $bw_map = json_decode( (string) file_get_contents( $bw_map_file ), true );
 
 if ( ! is_array( $bw_map ) || ! $bw_map ) {
