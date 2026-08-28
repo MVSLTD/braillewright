@@ -32,15 +32,17 @@
 		?>
 	</div>
 
-<?php the_posts_pagination();
+<?php
+the_posts_pagination();
 
 // only display bottom search bar if there are search results
 if ( $total_results ) {
 	?>
 	<div class="search-bottom">
-		<p><?php esc_html_e( "Can't find what you're looking for?  Try refining your search:", "braillewright" ); ?></p>
+		<p><?php esc_html_e( "Can't find what you're looking for?  Try refining your search:", 'braillewright' ); ?></p>
 		<?php get_search_form(); ?>
 	</div>
-<?php }
+<?php
+}
 
 get_footer();

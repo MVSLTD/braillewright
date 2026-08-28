@@ -1,5 +1,5 @@
 <?php
-defined( 'ABSPATH' ) OR exit;
+defined( 'ABSPATH' ) or exit;
 
 function braillewright_features_add_sliders_meta_box() {
 
@@ -30,13 +30,13 @@ function braillewright_features_slider_callback( $post ) {
 		// get all the meta sliders user has made
 		$sliders = get_posts( array(
 			'post_type'      => 'ml-slider',
-			'posts_per_page' => - 1
+			'posts_per_page' => - 1,
 		) );
 
 		// if there are no sliders, link them to the creation page
 		if ( empty( $sliders ) ) {
 			$link = add_query_arg( 'page', 'metaslider', admin_url( 'admin.php' ) );
-			echo wp_kses_post( '<p class="slider-notice"> ' . sprintf( __( "Looks like you don't have any Sliders yet. <a href='%s' target='_blank'>Click here</a> to create your first slider.", "braillewright" ), esc_url( $link ) ) . '</p>' );
+			echo wp_kses_post( '<p class="slider-notice"> ' . sprintf( __( "Looks like you don't have any Sliders yet. <a href='%s' target='_blank'>Click here</a> to create your first slider.", 'braillewright' ), esc_url( $link ) ) . '</p>' );
 		}
 
 		// add dropdown for selecting a slider
@@ -45,17 +45,22 @@ function braillewright_features_slider_callback( $post ) {
 				esc_html_e( 'Choose a slider:', 'braillewright' );
 			echo '</label> ';
 			echo '<select id="braillewright_features_slider_selection" name="braillewright_features_slider_selection">';
-				echo '<option value="select">' . esc_html__( "Select a slider", "braillewright" ) . '</option>';
+				echo '<option value="select">' . esc_html__( 'Select a slider', 'braillewright' ) . '</option>';
 				foreach ( $sliders as $slider ) {
-					$title = $slider->post_title;
-					$id    = $slider->ID;
-					?>
-					<option value="<?php echo absint( $id ); ?>" <?php if ( $id == $slider_id ) {
-						echo 'selected';
-					} ?>><?php echo esc_html( $title ); ?></option>
-				<?php }
+			$title = $slider->post_title;
+			$id    = $slider->ID;
+			?>
+					<option value="<?php echo absint( $id ); ?>" 
+			<?php
+			if ( $id == $slider_id ) {
+				echo 'selected';
+			}
+			?>
+                    ><?php echo esc_html( $title ); ?></option>
+		<?php
+                }
 			echo '</select>';
-			echo '<p><em> ' . esc_html__( "Recommended slider dimensions: 2x1", "braillewright" ) . '</em></p>';
+			echo '<p><em> ' . esc_html__( 'Recommended slider dimensions: 2x1', 'braillewright' ) . '</em></p>';
 		echo '</div>';
 
 		// Display option
@@ -64,22 +69,22 @@ function braillewright_features_slider_callback( $post ) {
 			$display_blog = get_post_meta( $post->ID, 'braillewright_features_slider_display_key', true );
 
 			if ( empty( $display_blog ) ) {
-				$display_blog = "post";
+				$display_blog = 'post';
 			}
 
 			// add radio buttons for post vs post and blog display
 			echo '<div class="braillewright_features_slider_display_container">';
 				echo '<p>' . esc_html__( 'Choose where to display the slider:', 'braillewright' ) . '</p>';
 				echo '<label for="braillewright_features_slider_display_post">';
-					echo '<input type="radio" name="braillewright_features_slider_display" id="braillewright_features_slider_display_post" value="post" ' . checked( $display_blog, "post", false ) . '>';
+					echo '<input type="radio" name="braillewright_features_slider_display" id="braillewright_features_slider_display_post" value="post" ' . checked( $display_blog, 'post', false ) . '>';
 					esc_html_e( 'Post', 'braillewright' );
 				echo '</label> ';
 				echo '<label for="braillewright_features_slider_display_blog">';
-					echo '<input type="radio" name="braillewright_features_slider_display" id="braillewright_features_slider_display_blog" value="blog" ' . checked( $display_blog, "blog", false ) . '>';
+					echo '<input type="radio" name="braillewright_features_slider_display" id="braillewright_features_slider_display_blog" value="blog" ' . checked( $display_blog, 'blog', false ) . '>';
 					esc_html_e( 'Blog', 'braillewright' );
 				echo '</label> ';
 				echo '<label for="braillewright_features_slider_display_both">';
-					echo '<input type="radio" name="braillewright_features_slider_display" id="braillewright_features_slider_display_both" value="both" ' . checked( $display_blog, "both", false ) . '>';
+					echo '<input type="radio" name="braillewright_features_slider_display" id="braillewright_features_slider_display_both" value="both" ' . checked( $display_blog, 'both', false ) . '>';
 					esc_html_e( 'Post & Blog', 'braillewright' );
 				echo '</label> ';
 			echo '</div>';
@@ -92,15 +97,15 @@ function braillewright_features_slider_callback( $post ) {
 		// if Meta Slider is installed, but not active
 		if ( array_key_exists( 'ml-slider/ml-slider.php', $plugins ) ) {
 			$link_plugins = admin_url( 'plugins.php' );
-			echo wp_kses_post( '<p class="slider-notice">' . sprintf( __( "Please activate Meta Slider from the <a href='%s'>Plugins menu</a>.", "braillewright" ), esc_url( $link_plugins ) ) );
+			echo wp_kses_post( '<p class="slider-notice">' . sprintf( __( "Please activate Meta Slider from the <a href='%s'>Plugins menu</a>.", 'braillewright' ), esc_url( $link_plugins ) ) );
 		} else { // if not installed and not active
 			echo '<div class="braillewright_features_slider_no_slider_container">';
 			$link_ml_search = add_query_arg( array(
 				'tab' => 'search',
-				's'   => 'metaslider'
+				's'   => 'metaslider',
 			), admin_url( 'plugin-install.php' ) );
-			echo '<p class="slider-notice">' . esc_html__( "Featured Sliders require the Meta Slider plugin.", "braillewright" );
-			echo wp_kses_post( ' ' . sprintf( __( "<a href='%s'>Click here</a> to find and install Meta Slider from the Plugins menu.", "braillewright" ), esc_url( $link_ml_search ) ) . '</p>' );
+			echo '<p class="slider-notice">' . esc_html__( 'Featured Sliders require the Meta Slider plugin.', 'braillewright' );
+			echo wp_kses_post( ' ' . sprintf( __( "<a href='%s'>Click here</a> to find and install Meta Slider from the Plugins menu.", 'braillewright' ), esc_url( $link_ml_search ) ) . '</p>' );
 			echo '</div>';
 		}
 	}

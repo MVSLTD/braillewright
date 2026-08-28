@@ -6,4 +6,5 @@
 		id="sidebar-before-main-content">
 		<?php dynamic_sidebar( 'before-main' ); ?>
 	</div>
-<?php endif;
+<?php
+endif;

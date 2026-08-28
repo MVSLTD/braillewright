@@ -19,12 +19,12 @@ if ( ! defined( 'BRAILLEWRIGHT_VERSION' ) ) {
 //----------------------------------------------------------------------------------
 //  Include all required files
 //----------------------------------------------------------------------------------
-require_once( trailingslashit( get_template_directory() ) . 'theme-options.php' );
-require_once( trailingslashit( get_template_directory() ) . 'inc/customizer.php' );
-require_once( trailingslashit( get_template_directory() ) . 'inc/last-updated-meta-box.php' );
-require_once( trailingslashit( get_template_directory() ) . 'inc/scripts.php' );
-require_once( trailingslashit( get_template_directory() ) . 'features/bootstrap.php' );
-require_once( trailingslashit( get_template_directory() ) . 'inc/auto-update.php' );
+require_once  trailingslashit( get_template_directory() ) . 'theme-options.php' ;
+require_once  trailingslashit( get_template_directory() ) . 'inc/customizer.php' ;
+require_once  trailingslashit( get_template_directory() ) . 'inc/last-updated-meta-box.php' ;
+require_once  trailingslashit( get_template_directory() ) . 'inc/scripts.php' ;
+require_once  trailingslashit( get_template_directory() ) . 'features/bootstrap.php' ;
+require_once  trailingslashit( get_template_directory() ) . 'inc/auto-update.php' ;
 
 if ( ! function_exists( ( 'braillewright_set_content_width' ) ) ) {
 	function braillewright_set_content_width() {
@@ -47,7 +47,7 @@ if ( ! function_exists( ( 'braillewright_theme_setup' ) ) ) {
 				'comment-form',
 				'comment-list',
 				'gallery',
-				'caption'
+				'caption',
 			)
 		);
 		add_theme_support(
@@ -55,7 +55,7 @@ if ( ! function_exists( ( 'braillewright_theme_setup' ) ) ) {
 			array(
 				'container' => 'loop-container',
 				'footer'    => 'overflow-container',
-				'render'    => 'braillewright_infinite_scroll_render'
+				'render'    => 'braillewright_infinite_scroll_render',
 			)
 		);
 
@@ -73,32 +73,32 @@ if ( ! function_exists( ( 'braillewright_theme_setup' ) ) ) {
 					'name'      => __( 'small', 'braillewright' ),
 					'shortName' => __( 'S', 'braillewright' ),
 					'size'      => 12,
-					'slug'      => 'small'
+					'slug'      => 'small',
 				),
 				array(
 					'name'      => __( 'regular', 'braillewright' ),
 					'shortName' => __( 'M', 'braillewright' ),
 					'size'      => 16,
-					'slug'      => 'regular'
+					'slug'      => 'regular',
 				),
 				array(
 					'name'      => __( 'large', 'braillewright' ),
 					'shortName' => __( 'L', 'braillewright' ),
 					'size'      => 21,
-					'slug'      => 'large'
+					'slug'      => 'large',
 				),
 				array(
 					'name'      => __( 'larger', 'braillewright' ),
 					'shortName' => __( 'XL', 'braillewright' ),
 					'size'      => 28,
-					'slug'      => 'larger'
-				)
+					'slug'      => 'larger',
+				),
 			)
 		);
 
 		register_nav_menus(
 			array(
-				'primary' => esc_html__( 'Primary', 'braillewright' )
+				'primary' => esc_html__( 'Primary', 'braillewright' ),
 			)
 		);
 
@@ -134,7 +134,7 @@ if ( ! function_exists( ( 'braillewright_register_widget_areas' ) ) ) {
 				'before_widget' => '<section id="%1$s" class="widget %2$s">',
 				'after_widget'  => '</section>',
 				'before_title'  => '<h3 class="widget-title">',
-				'after_title'   => '</h3>'
+				'after_title'   => '</h3>',
 			)
 		);
 	}
@@ -149,7 +149,8 @@ if ( ! function_exists( ( 'braillewright_customize_comments' ) ) ) {
 		<article id="comment-<?php comment_ID(); ?>" class="comment">
 			<div class="comment-author">
 				<?php
-				echo get_avatar( get_comment_author_email(), 48, '', get_comment_author() ); ?>
+				echo get_avatar( get_comment_author_email(), 48, '', get_comment_author() );
+                ?>
 				<div class="comment-meta">
 					<span class="author-name"><?php comment_author_link(); ?></span>
 					<span class="comment-date"><?php comment_date(); ?></span>
@@ -157,23 +158,25 @@ if ( ! function_exists( ( 'braillewright_customize_comments' ) ) ) {
 			</div>
 			<div class="comment-content">
 				<?php if ( $comment->comment_approved == '0' ) : ?>
-					<em><?php esc_html_e( 'Your comment is awaiting moderation.', 'braillewright' ) ?></em>
+					<em><?php esc_html_e( 'Your comment is awaiting moderation.', 'braillewright' ); ?></em>
 					<br/>
 				<?php endif; ?>
 				<?php comment_text(); ?>
 			</div>
 			<div class="comment-footer">
-				<?php comment_reply_link(
+				<?php
+                comment_reply_link(
 					array_merge(
 						$args,
 						array(
 							'reply_text' => esc_html_x( 'Reply', 'verb: reply to this comment', 'braillewright' ),
 							'depth'      => $depth,
 							'max_depth'  => $args['max_depth'],
-							'before'     => '<i class="fas fa-reply"></i>'
+							'before'     => '<i class="fas fa-reply"></i>',
 						)
 					)
-				); ?>
+				);
+                ?>
 				<?php edit_comment_link( esc_html_x( 'Edit', 'verb: edit this comment', 'braillewright' ), '<i class="fas fa-edit"></i>' ); ?>
 			</div>
 		</article>
@@ -190,21 +193,21 @@ if ( ! function_exists( 'braillewright_update_fields' ) ) {
 
 		$fields['author'] =
 			'<p class="comment-form-author">
-	            <label for="author">' . esc_html_x( "Name", "noun", "braillewright" ) . $label . '</label>
-	            <input id="author" name="author" type="text" placeholder="' . esc_attr__( "Jane Doe", "braillewright" ) . '" value="' . esc_attr( $commenter['comment_author'] ) .
+	            <label for="author">' . esc_html_x( 'Name', 'noun', 'braillewright' ) . $label . '</label>
+	            <input id="author" name="author" type="text" placeholder="' . esc_attr__( 'Jane Doe', 'braillewright' ) . '" value="' . esc_attr( $commenter['comment_author'] ) .
 			'" size="30" ' . $aria_req . ' />
 	        </p>';
 
 		$fields['email'] =
 			'<p class="comment-form-email">
-	            <label for="email">' . esc_html_x( "Email", "noun", "braillewright" ) . $label . '</label>
-	            <input id="email" name="email" type="email" placeholder="' . esc_attr__( "name@email.com", "braillewright" ) . '" value="' . esc_attr( $commenter['comment_author_email'] ) .
+	            <label for="email">' . esc_html_x( 'Email', 'noun', 'braillewright' ) . $label . '</label>
+	            <input id="email" name="email" type="email" placeholder="' . esc_attr__( 'name@email.com', 'braillewright' ) . '" value="' . esc_attr( $commenter['comment_author_email'] ) .
 			'" size="30" ' . $aria_req . ' />
 	        </p>';
 
 		$fields['url'] =
 			'<p class="comment-form-url">
-	            <label for="url">' . esc_html__( "Website", "braillewright" ) . '</label>
+	            <label for="url">' . esc_html__( 'Website', 'braillewright' ) . '</label>
 	            <input id="url" name="url" type="url" placeholder="http://google.com" value="' . esc_attr( $commenter['comment_author_url'] ) .
 			'" size="30" />
 	            </p>';
@@ -226,7 +229,7 @@ if ( ! function_exists( 'braillewright_update_comment_field' ) ) {
 
 		$comment_field =
 			'<p class="comment-form-comment">
-	            <label for="comment">' . esc_html_x( "Comment", "noun", "braillewright" ) . '</label>
+	            <label for="comment">' . esc_html_x( 'Comment', 'noun', 'braillewright' ) . '</label>
 	            <textarea required id="comment" name="comment" cols="45" rows="8" aria-required="true"></textarea>
 	        </p>';
 
@@ -541,7 +544,7 @@ if ( ! function_exists( 'braillewright_social_array' ) ) {
 			'500px'                => 'braillewright_500px_profile',
 			'social_icon_custom_1' => 'social_icon_custom_1_profile',
 			'social_icon_custom_2' => 'social_icon_custom_2_profile',
-			'social_icon_custom_3' => 'social_icon_custom_3_profile'
+			'social_icon_custom_3' => 'social_icon_custom_3_profile',
 		);
 
 		return apply_filters( 'braillewright_social_array_filter', $social_sites );
@@ -623,27 +626,32 @@ if ( ! function_exists( 'braillewright_social_icons_output' ) ) {
 					$href = esc_url( $url );
 				}
 				// Output the icon
-				if ( $name == 'social_icon_custom_1' || $name == 'social_icon_custom_2' || $name == 'social_icon_custom_3' ) { ?>
+				if ( $name == 'social_icon_custom_1' || $name == 'social_icon_custom_2' || $name == 'social_icon_custom_3' ) {
+                ?>
 					<li>
 						<a class="custom-icon" target="_blank" href="<?php echo $href; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $href is pre-escaped via esc_url() above. ?>">
-							<img class="icon" src="<?php echo esc_url( get_theme_mod( $name . '_image' ) ); ?>" style="width: <?php echo absint( get_theme_mod( $name . '_size', '20' ) ); ?>px;" alt="<?php echo esc_html( get_theme_mod( $name . '_name' ) );  ?>" />
+							<img class="icon" src="<?php echo esc_url( get_theme_mod( $name . '_image' ) ); ?>" style="width: <?php echo absint( get_theme_mod( $name . '_size', '20' ) ); ?>px;" alt="<?php echo esc_html( get_theme_mod( $name . '_name' ) ); ?>" />
 						</a>
 					</li>
 					<?php
-				} else { ?>
+				} else {
+                ?>
 					<li>
 						<a class="<?php echo esc_attr( $name ); ?>" target="_blank" href="<?php echo $href; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $href is pre-escaped per protocol branch (esc_url / mailto antispambot) above. ?>"
-							<?php if ( $title == 'mastodon' ) {
+							<?php
+                            if ( $title == 'mastodon' ) {
 								echo 'rel="me"';
-							} ?>>
+							}
+                            ?>
+                            >
 							<i class="<?php echo esc_attr( $class ); ?>" aria-hidden="true" title="<?php echo esc_attr( $title ); ?>"></i>
-							<span class="screen-reader-text"><?php echo esc_html( $title );  ?></span>
+							<span class="screen-reader-text"><?php echo esc_html( $title ); ?></span>
 						</a>
 					</li>
 					<?php
 				}
 			}
-			echo "</ul>";
+			echo '</ul>';
 		}
 	}
 }
@@ -656,8 +664,8 @@ if ( ! function_exists( ( 'braillewright_wp_page_menu' ) ) ) {
 	function braillewright_wp_page_menu() {
 		wp_page_menu(
 			array(
-				"menu_class" => "menu-unset",
-				"depth"      => - 1
+				'menu_class' => 'menu-unset',
+				'depth'      => - 1,
 			)
 		);
 	}
@@ -667,7 +675,7 @@ if ( ! function_exists( ( 'braillewright_nav_dropdown_buttons' ) ) ) {
 	function braillewright_nav_dropdown_buttons( $item_output, $item, $depth, $args ) {
 		if ( $args->theme_location == 'primary' ) {
 			if ( in_array( 'menu-item-has-children', $item->classes ) || in_array( 'page_item_has_children', $item->classes ) ) {
-				$item_output = str_replace( $args->link_after . '</a>', $args->link_after . '</a><button class="toggle-dropdown" aria-expanded="false" name="toggle-dropdown"><span class="screen-reader-text">' . esc_html_x( "open dropdown menu", "verb: open the dropdown menu", "braillewright" ) . '</span><span class="arrow"></span></button>', $item_output );
+				$item_output = str_replace( $args->link_after . '</a>', $args->link_after . '</a><button class="toggle-dropdown" aria-expanded="false" name="toggle-dropdown"><span class="screen-reader-text">' . esc_html_x( 'open dropdown menu', 'verb: open the dropdown menu', 'braillewright' ) . '</span><span class="arrow"></span></button>', $item_output );
 			}
 		}
 
@@ -679,7 +687,7 @@ add_filter( 'walker_nav_menu_start_el', 'braillewright_nav_dropdown_buttons', 10
 if ( ! function_exists( ( 'braillewright_sticky_post_marker' ) ) ) {
 	function braillewright_sticky_post_marker() {
 		if ( is_sticky() && ! is_archive() && ! is_search() ) {
-			echo '<div class="sticky-status"><span>' . esc_html__( "Featured", "braillewright" ) . '</span></div>';
+			echo '<div class="sticky-status"><span>' . esc_html__( 'Featured', 'braillewright' ) . '</span></div>';
 		}
 	}
 }
@@ -712,7 +720,7 @@ if ( ! function_exists( ( 'braillewright_reset_customizer_options' ) ) ) {
 			'display_post_author',
 			'display_post_date',
 			'last_updated',
-			'custom_css'
+			'custom_css',
 		);
 
 		$social_sites = braillewright_social_array();
@@ -1014,7 +1022,7 @@ function braillewright_output_last_updated_date() {
 			( $updated_customizer == 'yes' && ( $updated_post != 'no' ) )
 			|| $updated_post == 'yes'
 			) {
-			echo '<p class="last-updated">' . esc_html__( "Last updated on", "braillewright" ) . ' ' . esc_html( (string) get_the_modified_date() ) . ' </p>';
+			echo '<p class="last-updated">' . esc_html__( 'Last updated on', 'braillewright' ) . ' ' . esc_html( (string) get_the_modified_date() ) . ' </p>';
 		}
 	}
 }
@@ -1036,14 +1044,14 @@ if ( ! function_exists( ( 'braillewright_pagination' ) ) ) {
 			the_posts_pagination(
 				array(
 					'prev_text' => esc_html__( 'Previous', 'braillewright' ),
-					'next_text' => esc_html__( 'Next', 'braillewright' )
+					'next_text' => esc_html__( 'Next', 'braillewright' ),
 				)
 			);
 		} elseif ( ! Jetpack::is_module_active( 'infinite-scroll' ) ) {
 			the_posts_pagination(
 				array(
 					'prev_text' => esc_html__( 'Previous', 'braillewright' ),
-					'next_text' => esc_html__( 'Next', 'braillewright' )
+					'next_text' => esc_html__( 'Next', 'braillewright' ),
 				)
 			);
 		}

@@ -13,7 +13,8 @@ do_action( 'after_archive_header' ); ?>
 		endwhile;
 	endif;
 	?>
-</div><?php
+</div>
+<?php
 
 braillewright_pagination();
 

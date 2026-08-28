@@ -13,7 +13,8 @@ if ( function_exists( 'wp_body_open' ) ) {
 			wp_body_open();
 } else {
 		do_action( 'wp_body_open' );
-} ?>
+}
+?>
 <a class="skip-content" href="#main"><?php esc_html_e( 'Press "Enter" to skip to content', 'braillewright' ); ?></a>
 <div id="overflow-container" class="overflow-container">
 	<?php do_action( 'before_header' ); ?>
@@ -24,10 +25,12 @@ if ( function_exists( 'wp_body_open' ) ) {
 	<header class="site-header" id="site-header" role="banner">
 		<div class="max-width">
 			<div id="title-container" class="title-container">
-				<?php get_template_part( 'logo' ) ?>
-				<?php if ( get_bloginfo( 'description' ) ) {
+				<?php get_template_part( 'logo' ); ?>
+				<?php
+                if ( get_bloginfo( 'description' ) ) {
 					echo '<p class="tagline">' . esc_html( get_bloginfo( 'description' ) ) . '</p>';
-				} ?>
+				}
+                ?>
 			</div>
 			<button id="toggle-navigation" class="toggle-navigation" name="toggle-navigation" aria-expanded="false">
 				<span class="screen-reader-text"><?php echo esc_html_x( 'open menu', 'verb: open the menu', 'braillewright' ); ?></span>
@@ -47,7 +50,8 @@ if ( function_exists( 'wp_body_open' ) ) {
 	<div id="primary-container" class="primary-container">
 		<div class="max-width">
 			<section id="main" class="main" role="main">
-				<?php do_action( 'main_top' );
+				<?php
+                do_action( 'main_top' );
 				if ( function_exists( 'yoast_breadcrumb' ) ) {
 					yoast_breadcrumb( '<p id="breadcrumbs">', '</p>' );
 				}

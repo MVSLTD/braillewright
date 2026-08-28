@@ -1,5 +1,5 @@
 <?php
-defined( 'ABSPATH' ) OR exit;
+defined( 'ABSPATH' ) or exit;
 
 function braillewright_features_font_size_css() {
 	$css = '';
@@ -50,255 +50,255 @@ function braillewright_features_font_size_css() {
 
 	// Site Title
 	if ( ! empty( $site_title_mobile ) && 21 !== (int) $site_title_mobile ) {
-		$css .= "@media all and (max-width: 599px) {
+		$css .= '@media all and (max-width: 599px) {
               .site-title { 
-                font-size: " . $site_title_mobile . "px;
+                font-size: ' . $site_title_mobile . 'px;
               }
-            }";
+            }';
 	}
 	if ( ! empty( $site_title_tablet ) && 21 !== (int) $site_title_tablet ) {
-		$css .= "@media all and (min-width: 600px) and (max-width: 899px) {
+		$css .= '@media all and (min-width: 600px) and (max-width: 899px) {
               .site-title { 
-                font-size: " . $site_title_tablet . "px;
+                font-size: ' . $site_title_tablet . 'px;
               }
-            }";
+            }';
 	}
 	if ( ! empty( $site_title_desktop ) && 21 !== (int) $site_title_desktop ) {
-		$css .= "@media all and (min-width: 900px) {
+		$css .= '@media all and (min-width: 900px) {
               .site-title { 
-                font-size: " . $site_title_desktop . "px;
+                font-size: ' . $site_title_desktop . 'px;
               }
-            }";
+            }';
 	}
 
 	// Tagline
 	if ( ! empty( $tagline_mobile ) && 14 !== (int) $tagline_mobile ) {
-		$css .= "@media all and (max-width: 599px) {
+		$css .= '@media all and (max-width: 599px) {
               .tagline { 
-                font-size: " . $tagline_mobile . "px;
+                font-size: ' . $tagline_mobile . 'px;
               }
-            }";
+            }';
 	}
 	if ( ! empty( $tagline_tablet ) && 14 !== (int) $tagline_tablet ) {
-		$css .= "@media all and (min-width: 600px) and (max-width: 899px) {
+		$css .= '@media all and (min-width: 600px) and (max-width: 899px) {
               .tagline { 
-                font-size: " . $tagline_tablet . "px;
+                font-size: ' . $tagline_tablet . 'px;
               }
-            }";
+            }';
 	}
 	if ( ! empty( $tagline_desktop ) && 14 !== (int) $tagline_desktop ) {
-		$css .= "@media all and (min-width: 900px) {
+		$css .= '@media all and (min-width: 900px) {
               .tagline { 
-                font-size: " . $tagline_desktop . "px;
+                font-size: ' . $tagline_desktop . 'px;
               }
-            }";
+            }';
 	}
 
 	// Primary Menu Items
 	if ( ! empty( $menu_items_mobile ) && 14 !== (int) $menu_items_mobile ) {
-		$css .= "@media all and (max-width: 799px) {
+		$css .= '@media all and (max-width: 799px) {
               .menu-primary a { 
-                font-size: " . $menu_items_mobile . "px;
+                font-size: ' . $menu_items_mobile . 'px;
               }
-            }";
+            }';
 	}
 	if ( ! empty( $menu_items_tablet ) && 14 !== (int) $menu_items_tablet ) {
-		$css .= "@media all and (min-width: 800px) and (max-width: 999px) {
+		$css .= '@media all and (min-width: 800px) and (max-width: 999px) {
               .menu-primary a { 
-                font-size: " . $menu_items_tablet . "px;
+                font-size: ' . $menu_items_tablet . 'px;
               }
-            }";
+            }';
 	}
 	if ( ! empty( $menu_items_desktop ) && 14 !== (int) $menu_items_desktop ) {
-		$css .= "@media all and (min-width: 1000px) {
+		$css .= '@media all and (min-width: 1000px) {
               .menu-primary a { 
-                font-size: " . $menu_items_desktop . "px;
+                font-size: ' . $menu_items_desktop . 'px;
               }
-            }";
+            }';
 	}
 
 	// Secondary Menu Items
 	if ( ! empty( $secondary_menu_items_mobile ) && 12 !== (int) $secondary_menu_items_mobile ) {
-		$css .= "@media all and (max-width: 799px) {
+		$css .= '@media all and (max-width: 799px) {
               .menu-secondary .menu-secondary-items a { 
-                font-size: " . $secondary_menu_items_mobile . "px;
+                font-size: ' . $secondary_menu_items_mobile . 'px;
               }
-            }";
+            }';
 	}
 	if ( ! empty( $secondary_menu_items_tablet ) && 12 !== (int) $secondary_menu_items_tablet ) {
-		$css .= "@media all and (min-width: 800px) and (max-width: 899px) {
+		$css .= '@media all and (min-width: 800px) and (max-width: 899px) {
               .menu-secondary .menu-secondary-items a { 
-                font-size: " . $secondary_menu_items_tablet . "px;
+                font-size: ' . $secondary_menu_items_tablet . 'px;
               }
-            }";
+            }';
 	}
 	if ( ! empty( $secondary_menu_items_desktop ) && 12 !== (int) $secondary_menu_items_desktop ) {
-		$css .= "@media all and (min-width: 900px) {
+		$css .= '@media all and (min-width: 900px) {
               .menu-secondary .menu-secondary-items a { 
-                font-size: " . $secondary_menu_items_desktop . "px;
+                font-size: ' . $secondary_menu_items_desktop . 'px;
               }
-            }";
+            }';
 	}
 
 	// Post Titles
 	if ( ! empty( $post_titles_mobile ) && 18 !== (int) $post_titles_mobile ) {
-		$css .= "@media all and (max-width: 599px) {
+		$css .= '@media all and (max-width: 599px) {
               .post-header .post-title { 
-                font-size: " . $post_titles_mobile . "px;
+                font-size: ' . $post_titles_mobile . 'px;
               }
-            }";
+            }';
 	}
 	if ( ! empty( $post_titles_tablet ) && 21 !== (int) $post_titles_tablet ) {
-		$css .= "@media all and (min-width: 600px) and (max-width: 899px) {
+		$css .= '@media all and (min-width: 600px) and (max-width: 899px) {
             .post-header .post-title { 
-                font-size: " . $post_titles_tablet . "px;
+                font-size: ' . $post_titles_tablet . 'px;
               }
-            }";
+            }';
 	}
 	if ( ! empty( $post_titles_desktop ) && 28 !== (int) $post_titles_desktop ) {
-		$css .= "@media all and (min-width: 900px) {
+		$css .= '@media all and (min-width: 900px) {
             .post-header .post-title { 
-                font-size: " . $post_titles_desktop . "px;
+                font-size: ' . $post_titles_desktop . 'px;
               }
-            }";
+            }';
 	}
 
 	// Post Byline
 	if ( ! empty( $post_byline_mobile ) && 12 !== (int) $post_byline_mobile ) {
-		$css .= "@media all and (max-width: 599px) {
+		$css .= '@media all and (max-width: 599px) {
               .post-byline { 
-                font-size: " . $post_byline_mobile . "px;
+                font-size: ' . $post_byline_mobile . 'px;
               }
-            }";
+            }';
 	}
 	if ( ! empty( $post_byline_tablet ) && 12 !== (int) $post_byline_tablet ) {
-		$css .= "@media all and (min-width: 600px) and (max-width: 899px) {
+		$css .= '@media all and (min-width: 600px) and (max-width: 899px) {
               .post-byline { 
-                font-size: " . $post_byline_tablet . "px;
+                font-size: ' . $post_byline_tablet . 'px;
               }
-            }";
+            }';
 	}
 	if ( ! empty( $post_byline_desktop ) && 12 !== (int) $post_byline_desktop ) {
-		$css .= "@media all and (min-width: 900px) {
+		$css .= '@media all and (min-width: 900px) {
               .post-byline { 
-                font-size: " . $post_byline_desktop . "px;
+                font-size: ' . $post_byline_desktop . 'px;
               }
-            }";
+            }';
 	}
 
 	// Post Text
 	if ( ! empty( $post_text_mobile ) && 16 !== (int) $post_text_mobile ) {
-		$css .= "@media all and (max-width: 599px) {
+		$css .= '@media all and (max-width: 599px) {
               .post-content { 
-                font-size: " . $post_text_mobile . "px;
+                font-size: ' . $post_text_mobile . 'px;
               }
-            }";
+            }';
 	}
 	if ( ! empty( $post_text_tablet ) && 16 !== (int) $post_text_tablet ) {
-		$css .= "@media all and (min-width: 600px) and (max-width: 899px) {
+		$css .= '@media all and (min-width: 600px) and (max-width: 899px) {
               .post-content { 
-                font-size: " . $post_text_tablet . "px;
+                font-size: ' . $post_text_tablet . 'px;
               }
-            }";
+            }';
 	}
 	if ( ! empty( $post_text_desktop ) && 16 !== (int) $post_text_desktop ) {
-		$css .= "@media all and (min-width: 900px) {
+		$css .= '@media all and (min-width: 900px) {
               .post-content { 
-                font-size: " . $post_text_desktop . "px;
+                font-size: ' . $post_text_desktop . 'px;
               }
-            }";
+            }';
 	}
 
 	// Comments
 	if ( ! empty( $comments_mobile ) && 14 !== (int) $comments_mobile ) {
-		$css .= "@media all and (max-width: 599px) {
+		$css .= '@media all and (max-width: 599px) {
               .comments { 
-                font-size: " . $comments_mobile . "px;
+                font-size: ' . $comments_mobile . 'px;
               }
-            }";
+            }';
 	}
 	if ( ! empty( $comments_tablet ) && 14 !== (int) $comments_tablet ) {
-		$css .= "@media all and (min-width: 600px) and (max-width: 799px) {
+		$css .= '@media all and (min-width: 600px) and (max-width: 799px) {
               .comments { 
-                font-size: " . $comments_tablet . "px;
+                font-size: ' . $comments_tablet . 'px;
               }
-            }";
+            }';
 	}
 	if ( ! empty( $comments_desktop ) && 14 !== (int) $comments_desktop ) {
-		$css .= "@media all and (min-width: 800px) {
+		$css .= '@media all and (min-width: 800px) {
               .comments { 
-                font-size: " . $comments_desktop . "px;
+                font-size: ' . $comments_desktop . 'px;
               }
-            }";
+            }';
 	}
 
 	// Widget Titles
 	if ( ! empty( $widget_titles_mobile ) && 16 !== (int) $widget_titles_mobile ) {
-		$css .= "@media all and (max-width: 599px) {
+		$css .= '@media all and (max-width: 599px) {
               .sidebar-primary .widget .widget-title { 
-                font-size: " . $widget_titles_mobile . "px;
+                font-size: ' . $widget_titles_mobile . 'px;
               }
-            }";
+            }';
 	}
 	if ( ! empty( $widget_titles_tablet ) && 16 !== (int) $widget_titles_tablet ) {
-		$css .= "@media all and (min-width: 600px) and (max-width: 899px) {
+		$css .= '@media all and (min-width: 600px) and (max-width: 899px) {
               .sidebar-primary .widget .widget-title { 
-                font-size: " . $widget_titles_tablet . "px;
+                font-size: ' . $widget_titles_tablet . 'px;
               }
-            }";
+            }';
 	}
 	if ( ! empty( $widget_titles_desktop ) && 16 !== (int) $widget_titles_desktop ) {
-		$css .= "@media all and (min-width: 900px) {
+		$css .= '@media all and (min-width: 900px) {
               .sidebar-primary .widget .widget-title { 
-                font-size: " . $widget_titles_desktop . "px;
+                font-size: ' . $widget_titles_desktop . 'px;
               }
-            }";
+            }';
 	}
 
 	// Widget Text
 	if ( ! empty( $widget_text_mobile ) && 14 !== (int) $widget_text_mobile ) {
-		$css .= "@media all and (max-width: 599px) {
+		$css .= '@media all and (max-width: 599px) {
               .sidebar-primary .widget > * { 
-                font-size: " . $widget_text_mobile . "px;
+                font-size: ' . $widget_text_mobile . 'px;
               }
-            }";
+            }';
 	}
 	if ( ! empty( $widget_text_tablet ) && 14 !== (int) $widget_text_tablet ) {
-		$css .= "@media all and (min-width: 600px) and (max-width: 899px) {
+		$css .= '@media all and (min-width: 600px) and (max-width: 899px) {
               .sidebar-primary .widget > * { 
-                font-size: " . $widget_text_tablet . "px;
+                font-size: ' . $widget_text_tablet . 'px;
               }
-            }";
+            }';
 	}
 	if ( ! empty( $widget_text_desktop ) && 14 !== (int) $widget_text_desktop ) {
-		$css .= "@media all and (min-width: 900px) {
+		$css .= '@media all and (min-width: 900px) {
             .sidebar-primary .widget > * { 
-                font-size: " . $widget_text_desktop . "px;
+                font-size: ' . $widget_text_desktop . 'px;
               }
-            }";
+            }';
 	}
 
 	// Footer Text
 	if ( ! empty( $footer_text_mobile ) && 14 !== (int) $footer_text_mobile ) {
-		$css .= "@media all and (max-width: 599px) {
+		$css .= '@media all and (max-width: 599px) {
               .site-footer .design-credit { 
-                font-size: " . $footer_text_mobile . "px;
+                font-size: ' . $footer_text_mobile . 'px;
               }
-            }";
+            }';
 	}
 	if ( ! empty( $footer_text_tablet ) && 14 !== (int) $footer_text_tablet ) {
-		$css .= "@media all and (min-width: 600px) and (max-width: 799px) {
+		$css .= '@media all and (min-width: 600px) and (max-width: 799px) {
               .site-footer .design-credit { 
-                font-size: " . $footer_text_tablet . "px;
+                font-size: ' . $footer_text_tablet . 'px;
               }
-            }";
+            }';
 	}
 	if ( ! empty( $footer_text_desktop ) && 14 !== (int) $footer_text_desktop ) {
-		$css .= "@media all and (min-width: 800px) {
+		$css .= '@media all and (min-width: 800px) {
               .site-footer .design-credit { 
-                font-size: " . $footer_text_desktop . "px;
+                font-size: ' . $footer_text_desktop . 'px;
               }
-            }";
+            }';
 	}
 
 	if ( ! empty( $css ) ) {

@@ -7,7 +7,8 @@ if ( has_nav_menu( 'secondary' ) ) : ?>
 			<i class="fa fa-plus" title="<?php esc_html_e( 'secondary menu icon', 'braillewright' ); ?>"></i>
 		</button>
 		<div id="menu-secondary" class="menu-container menu-secondary" role="navigation" aria-label="<?php esc_attr_e( 'Secondary', 'braillewright' ); ?>">
-			<?php wp_nav_menu(
+			<?php
+            wp_nav_menu(
 				array(
 					'theme_location'  => 'secondary',
 					'container'       => 'div',
@@ -15,9 +16,11 @@ if ( has_nav_menu( 'secondary' ) ) : ?>
 					'menu_class'      => 'menu-secondary-items',
 					'menu_id'         => 'menu-secondary-items',
 					'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>',
-					'fallback_cb'     => false
+					'fallback_cb'     => false,
 				)
-			); ?>
+			);
+            ?>
 		</div>
 	</div>
-<?php endif;
+<?php
+endif;

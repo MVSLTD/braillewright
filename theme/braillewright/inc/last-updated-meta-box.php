@@ -1,5 +1,5 @@
 <?php
-defined( 'ABSPATH' ) OR exit;
+defined( 'ABSPATH' ) or exit;
 
 function braillewright_last_updated_meta_box() {
 
@@ -27,16 +27,25 @@ function braillewright_last_updated_callback( $post ) {
 	<p>
 		<select name="braillewright-last-updated" id="braillewright-last-updated" style="box-sizing: border-box; width: 100%;">
 			<option value="default"><?php esc_html_e( 'Use Customizer setting', 'braillewright' ); ?></option>
-			<option value="yes" <?php if ( $display == 'yes' ) {
+			<option value="yes" 
+            <?php
+            if ( $display == 'yes' ) {
 				echo 'selected';
-			} ?>><?php esc_html_e( 'Show the date', 'braillewright' ); ?>
+			}
+            ?>
+            ><?php esc_html_e( 'Show the date', 'braillewright' ); ?>
 			</option>
-			<option value="no" <?php if ( $display == 'no' ) {
+			<option value="no" 
+            <?php
+            if ( $display == 'no' ) {
 				echo 'selected';
-			} ?>><?php esc_html_e( "Don't show the date", 'braillewright' ); ?>
+			}
+            ?>
+            ><?php esc_html_e( "Don't show the date", 'braillewright' ); ?>
 			</option>
 		</select>
-	</p> <?php
+	</p> 
+    <?php
 }
 function braillewright_last_updated_save_data( $post_id ) {
 

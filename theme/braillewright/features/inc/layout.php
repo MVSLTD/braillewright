@@ -1,5 +1,5 @@
 <?php
-defined( 'ABSPATH' ) OR exit;
+defined( 'ABSPATH' ) or exit;
 
 function braillewright_features_add_body_classes( $classes ) {
 
@@ -77,7 +77,7 @@ function braillewright_features_layouts( $type = '' ) {
 			'narrow',
 			'wide',
 			'two-narrow',
-			'two-wide'
+			'two-wide',
 		);
 	} elseif ( $type == 'page-layouts' ) {
 		$layouts = array(
@@ -85,7 +85,7 @@ function braillewright_features_layouts( $type = '' ) {
 			'right',
 			'left',
 			'narrow',
-			'wide'
+			'wide',
 		);
 	} else {
 		$layouts = array(
@@ -96,7 +96,7 @@ function braillewright_features_layouts( $type = '' ) {
 			'two-right',
 			'two-left',
 			'two-narrow',
-			'two-wide'
+			'two-wide',
 		);
 	}
 

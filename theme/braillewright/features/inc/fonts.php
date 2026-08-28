@@ -1,5 +1,5 @@
 <?php
-defined( 'ABSPATH' ) OR exit;
+defined( 'ABSPATH' ) or exit;
 
 function braillewright_features_get_fonts() {
 
@@ -15,7 +15,7 @@ function braillewright_features_get_fonts() {
 	// phpcs:ignore applies to the NEXT line only, so a directive placed at the top of these
 	// comments would suppress the comment beneath it and leave the code still flagged. Measured -
 	// that is exactly what happened on the first attempt.
-	$fonts_dir = BRAILLEWRIGHT_FEATURES_PATH . "assets/fonts.json";
+	$fonts_dir = BRAILLEWRIGHT_FEATURES_PATH . 'assets/fonts.json';
 	$fonts     = file_get_contents( $fonts_dir ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- The theme's OWN bundled asset, read from a local path; wp_remote_get is for URLs. See the block above.
 
 	if ( is_string( $fonts ) && ! empty( $fonts ) ) {
@@ -80,9 +80,9 @@ function braillewright_features_font_css() {
 					$css .= "font-family: '" . $font['font'] . "';";
 				}
 				if ( $custom_weight ) {
-					$css .= "font-weight: " . $font['weight'] . ";";
+					$css .= 'font-weight: ' . $font['weight'] . ';';
 				}
-								$css .= " }";
+								$css .= ' }';
 				if ( $custom_weight ) {
 					// don't affect icons
 					$css .= 'body i { font-weight: initial; }s';
@@ -92,14 +92,14 @@ function braillewright_features_font_css() {
 			$custom_family = ( $font['font'] != 'default' && ! empty( $font['font'] ) ) ? true : false;
 			$custom_weight = ( $font['weight'] != 'default' && ! empty( $font['weight'] ) ) ? true : false;
 			if ( $custom_family || $custom_weight ) {
-				$css .= "h1, h2, h3, h4, h5, h6 {";
+				$css .= 'h1, h2, h3, h4, h5, h6 {';
 				if ( $custom_family ) {
 					$css .= "font-family: '" . $font['font'] . "';";
 				}
 				if ( $custom_weight ) {
-					$css .= "font-weight: " . $font['weight'] . ";";
+					$css .= 'font-weight: ' . $font['weight'] . ';';
 				}
-					$css .= " }";
+					$css .= ' }';
 			}
 		} elseif ( $element == 'input' ) {
 			$custom_family = ( $font['font'] != 'default' && ! empty( $font['font'] ) ) ? true : false;
@@ -118,152 +118,152 @@ function braillewright_features_font_css() {
 					$css .= "font-family: '" . $font['font'] . "';";
 				}
 				if ( $custom_weight ) {
-					$css .= "font-weight: " . $font['weight'] . ";";
+					$css .= 'font-weight: ' . $font['weight'] . ';';
 				}
-					$css .= " }";
+					$css .= ' }';
 			}
 		} elseif ( $element == 'site-title' ) {
 			$custom_family = ( $font['font'] != 'default' && ! empty( $font['font'] ) ) ? true : false;
 			$custom_weight = ( $font['weight'] != 'default' && ! empty( $font['weight'] ) ) ? true : false;
 			if ( $custom_family || $custom_weight ) {
-				$css .= ".site-title {";
+				$css .= '.site-title {';
 				if ( $custom_family ) {
 					$css .= "font-family: '" . $font['font'] . "';";
 				}
 				if ( $custom_weight ) {
-					$css .= "font-weight: " . $font['weight'] . ";";
+					$css .= 'font-weight: ' . $font['weight'] . ';';
 				}
-				$css .= " }";
+				$css .= ' }';
 			}
 		} elseif ( $element == 'tagline' ) {
 			$custom_family = ( $font['font'] != 'default' && ! empty( $font['font'] ) ) ? true : false;
 			$custom_weight = ( $font['weight'] != 'default' && ! empty( $font['weight'] ) ) ? true : false;
 			if ( $custom_family || $custom_weight ) {
-				$css .= ".tagline {";
+				$css .= '.tagline {';
 				if ( $custom_family ) {
 					$css .= "font-family: '" . $font['font'] . "';";
 				}
 				if ( $custom_weight ) {
-					$css .= "font-weight: " . $font['weight'] . ";";
+					$css .= 'font-weight: ' . $font['weight'] . ';';
 				}
-				$css .= " }";
+				$css .= ' }';
 			}
 		} elseif ( $element == 'primary-menu' ) {
 			$custom_family = ( $font['font'] != 'default' && ! empty( $font['font'] ) ) ? true : false;
 			$custom_weight = ( $font['weight'] != 'default' && ! empty( $font['weight'] ) ) ? true : false;
 			if ( $custom_family || $custom_weight ) {
-				$css .= ".menu-primary {";
+				$css .= '.menu-primary {';
 				if ( $custom_family ) {
 					$css .= "font-family: '" . $font['font'] . "';";
 				}
 				if ( $custom_weight ) {
-					$css .= "font-weight: " . $font['weight'] . ";";
+					$css .= 'font-weight: ' . $font['weight'] . ';';
 				}
-				$css .= " }";
+				$css .= ' }';
 			}
 		} elseif ( $element == 'secondary-menu' ) {
 			$custom_family = ( $font['font'] != 'default' && ! empty( $font['font'] ) ) ? true : false;
 			$custom_weight = ( $font['weight'] != 'default' && ! empty( $font['weight'] ) ) ? true : false;
 			if ( $custom_family || $custom_weight ) {
-				$css .= ".menu-secondary {";
+				$css .= '.menu-secondary {';
 				if ( $custom_family ) {
 					$css .= "font-family: '" . $font['font'] . "';";
 				}
 				if ( $custom_weight ) {
-					$css .= "font-weight: " . $font['weight'] . ";";
+					$css .= 'font-weight: ' . $font['weight'] . ';';
 				}
-				$css .= " }";
+				$css .= ' }';
 			}
 		} elseif ( $element == 'post-titles' ) {
 			$custom_family = ( $font['font'] != 'default' && ! empty( $font['font'] ) ) ? true : false;
 			$custom_weight = ( $font['weight'] != 'default' && ! empty( $font['weight'] ) ) ? true : false;
 			if ( $custom_family || $custom_weight ) {
-				$css .= ".post-title {";
+				$css .= '.post-title {';
 				if ( $custom_family ) {
 					$css .= "font-family: '" . $font['font'] . "';";
 				}
 				if ( $custom_weight ) {
-					$css .= "font-weight: " . $font['weight'] . ";";
+					$css .= 'font-weight: ' . $font['weight'] . ';';
 				}
-				$css .= " }";
+				$css .= ' }';
 			}
 		} elseif ( $element == 'post-byline' ) {
 			$custom_family = ( $font['font'] != 'default' && ! empty( $font['font'] ) ) ? true : false;
 			$custom_weight = ( $font['weight'] != 'default' && ! empty( $font['weight'] ) ) ? true : false;
 			if ( $custom_family || $custom_weight ) {
-				$css .= ".post-byline {";
+				$css .= '.post-byline {';
 				if ( $custom_family ) {
 					$css .= "font-family: '" . $font['font'] . "';";
 				}
 				if ( $custom_weight ) {
-					$css .= "font-weight: " . $font['weight'] . ";";
+					$css .= 'font-weight: ' . $font['weight'] . ';';
 				}
-				$css .= " }";
+				$css .= ' }';
 			}
 		} elseif ( $element == 'post-text' ) {
 			$custom_family = ( $font['font'] != 'default' && ! empty( $font['font'] ) ) ? true : false;
 			$custom_weight = ( $font['weight'] != 'default' && ! empty( $font['weight'] ) ) ? true : false;
 			if ( $custom_family || $custom_weight ) {
-				$css .= ".post-content, .post-meta {";
+				$css .= '.post-content, .post-meta {';
 				if ( $custom_family ) {
 					$css .= "font-family: '" . $font['font'] . "';";
 				}
 				if ( $custom_weight ) {
-					$css .= "font-weight: " . $font['weight'] . ";";
+					$css .= 'font-weight: ' . $font['weight'] . ';';
 				}
-				$css .= " }";
+				$css .= ' }';
 			}
 		} elseif ( $element == 'comments' ) {
 			$custom_family = ( $font['font'] != 'default' && ! empty( $font['font'] ) ) ? true : false;
 			$custom_weight = ( $font['weight'] != 'default' && ! empty( $font['weight'] ) ) ? true : false;
 			if ( $custom_family || $custom_weight ) {
-				$css .= ".comments {";
+				$css .= '.comments {';
 				if ( $custom_family ) {
 					$css .= "font-family: '" . $font['font'] . "';";
 				}
 				if ( $custom_weight ) {
-					$css .= "font-weight: " . $font['weight'] . ";";
+					$css .= 'font-weight: ' . $font['weight'] . ';';
 				}
-				$css .= " }";
+				$css .= ' }';
 			}
 		} elseif ( $element == 'widget-titles' ) {
 			$custom_family = ( $font['font'] != 'default' && ! empty( $font['font'] ) ) ? true : false;
 			$custom_weight = ( $font['weight'] != 'default' && ! empty( $font['weight'] ) ) ? true : false;
 			if ( $custom_family || $custom_weight ) {
-				$css .= ".widget .widget-title {";
+				$css .= '.widget .widget-title {';
 				if ( $custom_family ) {
 					$css .= "font-family: '" . $font['font'] . "';";
 				}
 				if ( $custom_weight ) {
-					$css .= "font-weight: " . $font['weight'] . ";";
+					$css .= 'font-weight: ' . $font['weight'] . ';';
 				}
-				$css .= " }";
+				$css .= ' }';
 			}
 		} elseif ( $element == 'widget-text' ) {
 			$custom_family = ( $font['font'] != 'default' && ! empty( $font['font'] ) ) ? true : false;
 			$custom_weight = ( $font['weight'] != 'default' && ! empty( $font['weight'] ) ) ? true : false;
 			if ( $custom_family || $custom_weight ) {
-				$css .= ".widget {";
+				$css .= '.widget {';
 				if ( $custom_family ) {
 					$css .= "font-family: '" . $font['font'] . "';";
 				}
 				if ( $custom_weight ) {
-					$css .= "font-weight: " . $font['weight'] . ";";
+					$css .= 'font-weight: ' . $font['weight'] . ';';
 				}
-				$css .= " }";
+				$css .= ' }';
 			}
 		} elseif ( $element == 'footer-text' ) {
 			$custom_family = ( $font['font'] != 'default' && ! empty( $font['font'] ) ) ? true : false;
 			$custom_weight = ( $font['weight'] != 'default' && ! empty( $font['weight'] ) ) ? true : false;
 			if ( $custom_family || $custom_weight ) {
-				$css .= ".design-credit {";
+				$css .= '.design-credit {';
 				if ( $custom_family ) {
 					$css .= "font-family: '" . $font['font'] . "';";
 				}
 				if ( $custom_weight ) {
-					$css .= "font-weight: " . $font['weight'] . ";";
+					$css .= 'font-weight: ' . $font['weight'] . ';';
 				}
-				$css .= " }";
+				$css .= ' }';
 			}
 		}
 	}
@@ -295,7 +295,7 @@ function braillewright_features_register_new_font() {
 			// Setup the arguments for the GF request
 			$font_args = array(
 				'family' => urlencode( $font['font'] . $font_weight ),
-				'subset' => urlencode( $language )
+				'subset' => urlencode( $language ),
 			);
 			// Format the GF request URL
 			$font_url = add_query_arg( $font_args, '//fonts.googleapis.com/css' );
@@ -305,7 +305,7 @@ function braillewright_features_register_new_font() {
 			wp_register_style( 'braillewright-features-' . $element . '-google-fonts', $font_url, array(), BRAILLEWRIGHT_VERSION );
 			wp_enqueue_style( 'braillewright-features-' . $element . '-google-fonts' );
 		}
-	};
+	}
 }
 add_action( 'wp_enqueue_scripts', 'braillewright_features_register_new_font', 30 );
 
@@ -315,31 +315,31 @@ function braillewright_features_user_fonts() {
 	$fonts = array(
 		'primary'        => array(
 			'font'   => get_theme_mod( 'primary_font' ),
-			'weight' => get_theme_mod( 'primary_font_weight' )
+			'weight' => get_theme_mod( 'primary_font_weight' ),
 		),
 		'heading'        => array(
 			'font'   => get_theme_mod( 'heading_font' ),
-			'weight' => get_theme_mod( 'heading_font_weight' )
+			'weight' => get_theme_mod( 'heading_font_weight' ),
 		),
 		'input'          => array(
 			'font'   => get_theme_mod( 'input_font' ),
-			'weight' => get_theme_mod( 'input_font_weight' )
+			'weight' => get_theme_mod( 'input_font_weight' ),
 		),
 		'site-title'     => array(
 			'font'   => get_theme_mod( 'site_title_font' ),
-			'weight' => get_theme_mod( 'site_title_font_weight' )
+			'weight' => get_theme_mod( 'site_title_font_weight' ),
 		),
 		'tagline'        => array(
 			'font'   => get_theme_mod( 'tagline_font' ),
-			'weight' => get_theme_mod( 'tagline_font_weight' )
+			'weight' => get_theme_mod( 'tagline_font_weight' ),
 		),
 		'primary-menu'   => array(
 			'font'   => get_theme_mod( 'primary_menu_font' ),
-			'weight' => get_theme_mod( 'primary_menu_font_weight' )
+			'weight' => get_theme_mod( 'primary_menu_font_weight' ),
 		),
 		'secondary-menu' => array(
 			'font'   => get_theme_mod( 'secondary_menu_font' ),
-			'weight' => get_theme_mod( 'secondary_menu_font_weight' )
+			'weight' => get_theme_mod( 'secondary_menu_font_weight' ),
 		),
 		'post-titles'    => array(
 			'font'   => get_theme_mod( 'post_titles_font' ),
@@ -351,24 +351,24 @@ function braillewright_features_user_fonts() {
 		),
 		'post-text'      => array(
 			'font'   => get_theme_mod( 'post_text_font' ),
-			'weight' => get_theme_mod( 'post_text_font_weight' )
+			'weight' => get_theme_mod( 'post_text_font_weight' ),
 		),
 		'comments'       => array(
 			'font'   => get_theme_mod( 'comments_font' ),
-			'weight' => get_theme_mod( 'comments_font_weight' )
+			'weight' => get_theme_mod( 'comments_font_weight' ),
 		),
 		'widget-titles'  => array(
 			'font'   => get_theme_mod( 'ct_widget_titles_font' ),
-			'weight' => get_theme_mod( 'ct_widget_titles_font_weight' )
+			'weight' => get_theme_mod( 'ct_widget_titles_font_weight' ),
 		),
 		'widget-text'    => array(
 			'font'   => get_theme_mod( 'ct_widget_text_font' ),
-			'weight' => get_theme_mod( 'ct_widget_text_font_weight' )
+			'weight' => get_theme_mod( 'ct_widget_text_font_weight' ),
 		),
 		'footer-text'    => array(
 			'font'   => get_theme_mod( 'footer_text_font' ),
-			'weight' => get_theme_mod( 'footer_text_font_weight' )
-		)
+			'weight' => get_theme_mod( 'footer_text_font_weight' ),
+		),
 	);
 
 	return $fonts;

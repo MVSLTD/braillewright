@@ -1,5 +1,5 @@
 <?php
-defined( 'ABSPATH' ) OR exit;
+defined( 'ABSPATH' ) or exit;
 
 /********** Register Widget Areas **********/
 
@@ -14,7 +14,7 @@ function braillewright_features_register_widget_areas() {
 			'before_widget' => '<section id="%1$s" class="widget %2$s">',
 			'after_widget'  => '</section>',
 			'before_title'  => '<h3 class="widget-title">',
-			'after_title'   => '</h3>'
+			'after_title'   => '</h3>',
 		)
 	);
 	// After page content
@@ -26,7 +26,7 @@ function braillewright_features_register_widget_areas() {
 			'before_widget' => '<section id="%1$s" class="widget %2$s">',
 			'after_widget'  => '</section>',
 			'before_title'  => '<h3 class="widget-title">',
-			'after_title'   => '</h3>'
+			'after_title'   => '</h3>',
 		)
 	);
 	// Before main content
@@ -38,7 +38,7 @@ function braillewright_features_register_widget_areas() {
 			'before_widget' => '<section id="%1$s" class="widget %2$s">',
 			'after_widget'  => '</section>',
 			'before_title'  => '<h3 class="widget-title">',
-			'after_title'   => '</h3>'
+			'after_title'   => '</h3>',
 		)
 	);
 	// Footer
@@ -50,7 +50,7 @@ function braillewright_features_register_widget_areas() {
 			'before_widget' => '<section id="%1$s" class="widget %2$s">',
 			'after_widget'  => '</section>',
 			'before_title'  => '<h3 class="widget-title">',
-			'after_title'   => '</h3>'
+			'after_title'   => '</h3>',
 		)
 	);
 }
@@ -60,24 +60,24 @@ add_action( 'widgets_init', 'braillewright_features_register_widget_areas' );
 
 // After Post Content
 function braillewright_features_after_post_content_widgets() {
-	include( 'widget-areas/after-post-content.php' );
+	include  'widget-areas/after-post-content.php' ;
 }
 add_action( 'post_after', 'braillewright_features_after_post_content_widgets' );
 
 // After Page Content
 function braillewright_features_after_page_content_widgets() {
-	include( 'widget-areas/after-page-content.php' );
+	include  'widget-areas/after-page-content.php' ;
 }
 add_action( 'page_after', 'braillewright_features_after_page_content_widgets' );
 
 // Before Main Content
 function braillewright_features_before_main_content_widgets() {
-	include( 'widget-areas/before-main-content.php' );
+	include  'widget-areas/before-main-content.php' ;
 }
 add_action( 'after_archive_header', 'braillewright_features_before_main_content_widgets' );
 
 // Footer
 function braillewright_features_footer_widgets() {
-	include( 'widget-areas/footer.php' );
+	include  'widget-areas/footer.php' ;
 }
 add_action( 'footer_top', 'braillewright_features_footer_widgets' );

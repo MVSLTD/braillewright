@@ -1,5 +1,5 @@
 <?php
-defined( 'ABSPATH' ) OR exit;
+defined( 'ABSPATH' ) or exit;
 
 // Front-end
 function braillewright_features_enqueue_front_end_styles() {
@@ -15,7 +15,7 @@ function braillewright_features_enqueue_front_end_styles() {
 		BRAILLEWRIGHT_FEATURES_URL . 'js/build/functions.min.js',
 		array(
 			'jquery',
-			'braillewright-js'
+			'braillewright-js',
 		),
 		BRAILLEWRIGHT_VERSION,
 		true
@@ -40,7 +40,7 @@ function braillewright_features_enqueue_admin_styles( $hook ) {
 			BRAILLEWRIGHT_FEATURES_URL . 'js/build/admin.min.js',
 			array(
 				'jquery',
-				'fitvids'
+				'fitvids',
 			),
 			BRAILLEWRIGHT_VERSION,
 			true
@@ -71,7 +71,7 @@ function braillewright_features_enqueue_customizer_scripts() {
 		'braillewright-features-customizer-js',
 		'braillewright_features_objectL10n',
 		array(
-			'BRAILLEWRIGHT_FEATURES_URL' => BRAILLEWRIGHT_FEATURES_URL
+			'BRAILLEWRIGHT_FEATURES_URL' => BRAILLEWRIGHT_FEATURES_URL,
 		)
 	);
 }
@@ -88,7 +88,7 @@ function braillewright_features_enqueue_customizer_post_message_scripts() {
 		'braillewright-features-post-message-js',
 		'braillewright_features_objectL10n',
 		array(
-			'BRAILLEWRIGHT_FEATURES_URL' => BRAILLEWRIGHT_FEATURES_URL
+			'BRAILLEWRIGHT_FEATURES_URL' => BRAILLEWRIGHT_FEATURES_URL,
 		)
 	);
 }

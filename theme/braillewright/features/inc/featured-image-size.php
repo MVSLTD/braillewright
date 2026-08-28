@@ -1,5 +1,5 @@
 <?php
-defined( 'ABSPATH' ) OR exit;
+defined( 'ABSPATH' ) or exit;
 
 function braillewright_features_fi_size_meta_box() {
 
@@ -27,55 +27,104 @@ function braillewright_features_fi_size_callback( $post ) {
 	<p>
 		<select name="braillewright-pro-fi-size" id="braillewright-pro-fi-size" style="box-sizing: border-box; width: 100%;">
 			<option value="default"><?php esc_html_e( 'Use size set in Customizer', 'braillewright' ); ?></option>
-			<option value="2-1" <?php if ( $ratio == '2-1' ) {
+			<option value="2-1" 
+            <?php
+            if ( $ratio == '2-1' ) {
 				echo 'selected';
-			} ?>>2:1
+			}
+            ?>
+            >2:1
 			</option>
-			<option value="1-2" <?php if ( $ratio == '1-2' ) {
+			<option value="1-2" 
+            <?php
+            if ( $ratio == '1-2' ) {
 				echo 'selected';
-			} ?>>1:2
+			}
+            ?>
+            >1:2
 			</option>
-			<option value="16-9" <?php if ( $ratio == '16-9' ) {
+			<option value="16-9" 
+            <?php
+            if ( $ratio == '16-9' ) {
 				echo 'selected';
-			} ?>>16:9
+			}
+            ?>
+            >16:9
 			</option>
-			<option value="9-16" <?php if ( $ratio == '9-16' ) {
+			<option value="9-16" 
+            <?php
+            if ( $ratio == '9-16' ) {
 				echo 'selected';
-			} ?>>9:16
+			}
+            ?>
+            >9:16
 			</option>
-			<option value="3-2" <?php if ( $ratio == '3-2' ) {
+			<option value="3-2" 
+            <?php
+            if ( $ratio == '3-2' ) {
 				echo 'selected';
-			} ?>>3:2
+			}
+            ?>
+            >3:2
 			</option>
-			<option value="2-3" <?php if ( $ratio == '2-3' ) {
+			<option value="2-3" 
+            <?php
+            if ( $ratio == '2-3' ) {
 				echo 'selected';
-			} ?>>2:3
+			}
+            ?>
+            >2:3
 			</option>
-			<option value="4-3" <?php if ( $ratio == '4-3' ) {
+			<option value="4-3" 
+            <?php
+            if ( $ratio == '4-3' ) {
 				echo 'selected';
-			} ?>>4:3
+			}
+            ?>
+            >4:3
 			</option>
-			<option value="3-4" <?php if ( $ratio == '3-4' ) {
+			<option value="3-4" 
+            <?php
+            if ( $ratio == '3-4' ) {
 				echo 'selected';
-			} ?>>3:4
+			}
+            ?>
+            >3:4
 			</option>
-			<option value="5-4" <?php if ( $ratio == '5-4' ) {
+			<option value="5-4" 
+            <?php
+            if ( $ratio == '5-4' ) {
 				echo 'selected';
-			} ?>>5:4
+			}
+            ?>
+            >5:4
 			</option>
-			<option value="4-5" <?php if ( $ratio == '4-5' ) {
+			<option value="4-5" 
+            <?php
+            if ( $ratio == '4-5' ) {
 				echo 'selected';
-			} ?>>4:5
+			}
+            ?>
+            >4:5
 			</option>
-			<option value="1-1" <?php if ( $ratio == '1-1' ) {
+			<option value="1-1" 
+            <?php
+            if ( $ratio == '1-1' ) {
 				echo 'selected';
-			} ?>>1:1
+			}
+            ?>
+            >1:1
 			</option>
-			<option value="natural" <?php if ( $ratio == 'natural' ) {
+			<option value="natural" 
+            <?php
+            if ( $ratio == 'natural' ) {
 				echo 'selected';
-			} ?>><?php esc_html_e( 'Natural Dimensions', 'braillewright' ); ?></option>
+			}
+            ?>
+            ><?php esc_html_e( 'Natural Dimensions', 'braillewright' ); ?></option>
 		</select>
-	</p> <?php
+	</p> 
+    <?php
 }
 
 function braillewright_features_fi_size_save_data( $post_id ) {
@@ -147,7 +196,7 @@ function braillewright_features_fi_size_array() {
 		'5-4',
 		'4-5',
 		'1-1',
-		'natural'
+		'natural',
 	);
 
 	return $sizes;

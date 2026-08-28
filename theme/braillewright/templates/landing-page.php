@@ -21,7 +21,8 @@
 			<?php
 			if ( have_posts() ) :
 				while ( have_posts() ) :
-					the_post(); ?>
+					the_post();
+                    ?>
 				<div <?php post_class(); ?>>
 					<article>
 					<div class="post-container">
@@ -31,8 +32,10 @@
 					</div>
 					</article>
 				</div>
-				<?php endwhile;
-			endif; ?>
+				<?php
+                endwhile;
+			endif;
+            ?>
 			</div>
 		</section> <!-- .main -->
 		</div><!-- .max-width -->

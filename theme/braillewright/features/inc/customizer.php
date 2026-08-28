@@ -1,5 +1,5 @@
 <?php
-defined( 'ABSPATH' ) OR exit;
+defined( 'ABSPATH' ) or exit;
 
 add_action( 'customize_register', 'braillewright_features_add_customizer_content', 11 );
 
@@ -46,7 +46,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 			array(
 				'priority'    => 2,
 				'title'       => __( 'Colors', 'braillewright' ),
-				'description' => __( 'Change any color on your site', 'braillewright' )
+				'description' => __( 'Change any color on your site', 'braillewright' ),
 			)
 		);
 		$wp_customize->add_panel(
@@ -54,7 +54,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 			array(
 				'priority'    => 3,
 				'title'       => __( 'Fonts', 'braillewright' ),
-				'description' => __( 'Change the fonts on your site', 'braillewright' )
+				'description' => __( 'Change the fonts on your site', 'braillewright' ),
 			)
 		);
 		$wp_customize->add_panel(
@@ -62,7 +62,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 			array(
 				'priority'    => 4,
 				'title'       => __( 'Font Sizes', 'braillewright' ),
-				'description' => __( 'Change the size of text on your site', 'braillewright' )
+				'description' => __( 'Change the size of text on your site', 'braillewright' ),
 			)
 		);
 		$wp_customize->add_panel(
@@ -70,7 +70,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 			array(
 				'priority'    => 6,
 				'title'       => __( 'Background', 'braillewright' ),
-				'description' => __( 'Change your background using images & textures', 'braillewright' )
+				'description' => __( 'Change your background using images & textures', 'braillewright' ),
 			)
 		);
 		$wp_customize->add_panel(
@@ -78,7 +78,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 			array(
 				'priority'    => 8,
 				'title'       => __( 'Show/Hide Elements', 'braillewright' ),
-				'description' => __( 'Choose which elements you want to display on the site.', 'braillewright' )
+				'description' => __( 'Choose which elements you want to display on the site.', 'braillewright' ),
 			)
 		);
 	}
@@ -93,7 +93,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		'braillewright_features_site_title_font_size',
 		array(
 			'panel' => 'braillewright_features_font_sizes_panel',
-			'title' => __( 'Site Title', 'braillewright' )
+			'title' => __( 'Site Title', 'braillewright' ),
 		)
 	);
 	// Setting - Mobile
@@ -101,7 +101,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		'site_title_font_size_mobile',
 		array(
 			'default'           => '21',
-			'sanitize_callback' => 'absint'
+			'sanitize_callback' => 'absint',
 		)
 	);
 	// Control - Mobile
@@ -112,7 +112,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 			'description' => __( 'Default is 21px', 'braillewright' ),
 			'section'     => 'braillewright_features_site_title_font_size',
 			'settings'    => 'site_title_font_size_mobile',
-			'type'        => 'number'
+			'type'        => 'number',
 		)
 	);
 	// Setting - Tablet
@@ -120,7 +120,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		'site_title_font_size_tablet',
 		array(
 			'default'           => '21',
-			'sanitize_callback' => 'absint'
+			'sanitize_callback' => 'absint',
 		)
 	);
 	// Control - Tablet
@@ -131,7 +131,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 			'description' => __( 'Default is 21px', 'braillewright' ),
 			'section'     => 'braillewright_features_site_title_font_size',
 			'settings'    => 'site_title_font_size_tablet',
-			'type'        => 'number'
+			'type'        => 'number',
 		)
 	);
 	// Setting - Desktop
@@ -139,7 +139,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		'site_title_font_size_desktop',
 		array(
 			'default'           => '21',
-			'sanitize_callback' => 'absint'
+			'sanitize_callback' => 'absint',
 		)
 	);
 	// Control - Desktop
@@ -150,7 +150,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 			'description' => __( 'Default is 21px', 'braillewright' ),
 			'section'     => 'braillewright_features_site_title_font_size',
 			'settings'    => 'site_title_font_size_desktop',
-			'type'        => 'number'
+			'type'        => 'number',
 		)
 	);
 
@@ -160,7 +160,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		'braillewright_features_tagline_font_size',
 		array(
 			'panel' => 'braillewright_features_font_sizes_panel',
-			'title' => __( 'Tagline', 'braillewright' )
+			'title' => __( 'Tagline', 'braillewright' ),
 		)
 	);
 	// Setting - Mobile
@@ -168,7 +168,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		'tagline_font_size_mobile',
 		array(
 			'default'           => '14',
-			'sanitize_callback' => 'absint'
+			'sanitize_callback' => 'absint',
 		)
 	);
 	// Control - Mobile
@@ -179,7 +179,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 			'description' => __( 'Default is 14px', 'braillewright' ),
 			'section'     => 'braillewright_features_tagline_font_size',
 			'settings'    => 'tagline_font_size_mobile',
-			'type'        => 'number'
+			'type'        => 'number',
 		)
 	);
 	// Setting - Tablet
@@ -187,7 +187,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		'tagline_font_size_tablet',
 		array(
 			'default'           => '14',
-			'sanitize_callback' => 'absint'
+			'sanitize_callback' => 'absint',
 		)
 	);
 	// Control - Tablet
@@ -198,7 +198,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 			'description' => __( 'Default is 14px', 'braillewright' ),
 			'section'     => 'braillewright_features_tagline_font_size',
 			'settings'    => 'tagline_font_size_tablet',
-			'type'        => 'number'
+			'type'        => 'number',
 		)
 	);
 	// Setting - Desktop
@@ -206,7 +206,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		'tagline_font_size_desktop',
 		array(
 			'default'           => '14',
-			'sanitize_callback' => 'absint'
+			'sanitize_callback' => 'absint',
 		)
 	);
 	// Control - Desktop
@@ -217,7 +217,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 			'description' => __( 'Default is 14px', 'braillewright' ),
 			'section'     => 'braillewright_features_tagline_font_size',
 			'settings'    => 'tagline_font_size_desktop',
-			'type'        => 'number'
+			'type'        => 'number',
 		)
 	);
 
@@ -227,7 +227,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		'braillewright_features_menu_primary_font_size',
 		array(
 			'panel' => 'braillewright_features_font_sizes_panel',
-			'title' => __( 'Primary Menu Items', 'braillewright' )
+			'title' => __( 'Primary Menu Items', 'braillewright' ),
 		)
 	);
 	// Setting - Mobile
@@ -235,7 +235,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		'menu_primary_font_size_mobile',
 		array(
 			'default'           => '14',
-			'sanitize_callback' => 'absint'
+			'sanitize_callback' => 'absint',
 		)
 	);
 	// Control - Mobile
@@ -246,7 +246,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 			'description' => __( 'Default is 14px', 'braillewright' ),
 			'section'     => 'braillewright_features_menu_primary_font_size',
 			'settings'    => 'menu_primary_font_size_mobile',
-			'type'        => 'number'
+			'type'        => 'number',
 		)
 	);
 	// Setting - Tablet
@@ -254,7 +254,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		'menu_primary_font_size_tablet',
 		array(
 			'default'           => '14',
-			'sanitize_callback' => 'absint'
+			'sanitize_callback' => 'absint',
 		)
 	);
 	// Control - Tablet
@@ -265,7 +265,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 			'description' => __( 'Default is 14px', 'braillewright' ),
 			'section'     => 'braillewright_features_menu_primary_font_size',
 			'settings'    => 'menu_primary_font_size_tablet',
-			'type'        => 'number'
+			'type'        => 'number',
 		)
 	);
 	// Setting - Desktop
@@ -273,7 +273,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		'menu_primary_font_size_desktop',
 		array(
 			'default'           => '14',
-			'sanitize_callback' => 'absint'
+			'sanitize_callback' => 'absint',
 		)
 	);
 	// Control - Desktop
@@ -284,7 +284,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 			'description' => __( 'Default is 14px', 'braillewright' ),
 			'section'     => 'braillewright_features_menu_primary_font_size',
 			'settings'    => 'menu_primary_font_size_desktop',
-			'type'        => 'number'
+			'type'        => 'number',
 		)
 	);
 
@@ -294,7 +294,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		'braillewright_features_menu_secondary_font_size',
 		array(
 			'panel' => 'braillewright_features_font_sizes_panel',
-			'title' => __( 'Secondary Menu Items', 'braillewright' )
+			'title' => __( 'Secondary Menu Items', 'braillewright' ),
 		)
 	);
 	// Setting - Mobile
@@ -302,7 +302,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		'menu_secondary_font_size_mobile',
 		array(
 			'default'           => '12',
-			'sanitize_callback' => 'absint'
+			'sanitize_callback' => 'absint',
 		)
 	);
 	// Control - Mobile
@@ -313,7 +313,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 			'description' => __( 'Default is 12px', 'braillewright' ),
 			'section'     => 'braillewright_features_menu_secondary_font_size',
 			'settings'    => 'menu_secondary_font_size_mobile',
-			'type'        => 'number'
+			'type'        => 'number',
 		)
 	);
 	// Setting - Tablet
@@ -321,7 +321,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		'menu_secondary_font_size_tablet',
 		array(
 			'default'           => '12',
-			'sanitize_callback' => 'absint'
+			'sanitize_callback' => 'absint',
 		)
 	);
 	// Control - Tablet
@@ -332,7 +332,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 			'description' => __( 'Default is 12px', 'braillewright' ),
 			'section'     => 'braillewright_features_menu_secondary_font_size',
 			'settings'    => 'menu_secondary_font_size_tablet',
-			'type'        => 'number'
+			'type'        => 'number',
 		)
 	);
 	// Setting - Desktop
@@ -340,7 +340,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		'menu_secondary_font_size_desktop',
 		array(
 			'default'           => '12',
-			'sanitize_callback' => 'absint'
+			'sanitize_callback' => 'absint',
 		)
 	);
 	// Control - Desktop
@@ -351,7 +351,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 			'description' => __( 'Default is 12px', 'braillewright' ),
 			'section'     => 'braillewright_features_menu_secondary_font_size',
 			'settings'    => 'menu_secondary_font_size_desktop',
-			'type'        => 'number'
+			'type'        => 'number',
 		)
 	);
 
@@ -361,7 +361,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		'braillewright_features_post_title_font_size',
 		array(
 			'panel' => 'braillewright_features_font_sizes_panel',
-			'title' => __( 'Post Titles', 'braillewright' )
+			'title' => __( 'Post Titles', 'braillewright' ),
 		)
 	);
 	// Setting - Mobile
@@ -369,7 +369,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		'post_title_font_size_mobile',
 		array(
 			'default'           => '18',
-			'sanitize_callback' => 'absint'
+			'sanitize_callback' => 'absint',
 		)
 	);
 	// Control - Mobile
@@ -380,7 +380,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 			'description' => __( 'Default is 18px', 'braillewright' ),
 			'section'     => 'braillewright_features_post_title_font_size',
 			'settings'    => 'post_title_font_size_mobile',
-			'type'        => 'number'
+			'type'        => 'number',
 		)
 	);
 	// Setting - Tablet
@@ -388,7 +388,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		'post_title_font_size_tablet',
 		array(
 			'default'           => '21',
-			'sanitize_callback' => 'absint'
+			'sanitize_callback' => 'absint',
 		)
 	);
 	// Control - Tablet
@@ -399,7 +399,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 			'description' => __( 'Default is 21px', 'braillewright' ),
 			'section'     => 'braillewright_features_post_title_font_size',
 			'settings'    => 'post_title_font_size_tablet',
-			'type'        => 'number'
+			'type'        => 'number',
 		)
 	);
 	// Setting - Desktop
@@ -407,7 +407,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		'post_title_font_size_desktop',
 		array(
 			'default'           => '28',
-			'sanitize_callback' => 'absint'
+			'sanitize_callback' => 'absint',
 		)
 	);
 	// Control - Desktop
@@ -418,7 +418,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 			'description' => __( 'Default is 28px', 'braillewright' ),
 			'section'     => 'braillewright_features_post_title_font_size',
 			'settings'    => 'post_title_font_size_desktop',
-			'type'        => 'number'
+			'type'        => 'number',
 		)
 	);
 
@@ -428,7 +428,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		'braillewright_features_post_byline_font_size',
 		array(
 			'panel' => 'braillewright_features_font_sizes_panel',
-			'title' => __( 'Post Byline', 'braillewright' )
+			'title' => __( 'Post Byline', 'braillewright' ),
 		)
 	);
 	// Setting - Mobile
@@ -436,7 +436,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		'post_byline_font_size_mobile',
 		array(
 			'default'           => '12',
-			'sanitize_callback' => 'absint'
+			'sanitize_callback' => 'absint',
 		)
 	);
 	// Control - Mobile
@@ -447,7 +447,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 			'description' => __( 'Default is 12px', 'braillewright' ),
 			'section'     => 'braillewright_features_post_byline_font_size',
 			'settings'    => 'post_byline_font_size_mobile',
-			'type'        => 'number'
+			'type'        => 'number',
 		)
 	);
 	// Setting - Tablet
@@ -455,7 +455,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		'post_byline_font_size_tablet',
 		array(
 			'default'           => '12',
-			'sanitize_callback' => 'absint'
+			'sanitize_callback' => 'absint',
 		)
 	);
 	// Control - Tablet
@@ -466,7 +466,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 			'description' => __( 'Default is 12px', 'braillewright' ),
 			'section'     => 'braillewright_features_post_byline_font_size',
 			'settings'    => 'post_byline_font_size_tablet',
-			'type'        => 'number'
+			'type'        => 'number',
 		)
 	);
 	// Setting - Desktop
@@ -474,7 +474,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		'post_byline_font_size_desktop',
 		array(
 			'default'           => '12',
-			'sanitize_callback' => 'absint'
+			'sanitize_callback' => 'absint',
 		)
 	);
 	// Control - Desktop
@@ -485,7 +485,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 			'description' => __( 'Default is 12px', 'braillewright' ),
 			'section'     => 'braillewright_features_post_byline_font_size',
 			'settings'    => 'post_byline_font_size_desktop',
-			'type'        => 'number'
+			'type'        => 'number',
 		)
 	);
 
@@ -495,7 +495,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		'braillewright_features_post_text_font_size',
 		array(
 			'panel' => 'braillewright_features_font_sizes_panel',
-			'title' => __( 'Post Text', 'braillewright' )
+			'title' => __( 'Post Text', 'braillewright' ),
 		)
 	);
 	// Setting - Mobile
@@ -503,7 +503,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		'post_text_font_size_mobile',
 		array(
 			'default'           => '16',
-			'sanitize_callback' => 'absint'
+			'sanitize_callback' => 'absint',
 		)
 	);
 	// Control - Mobile
@@ -514,7 +514,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 			'description' => __( 'Default is 16px', 'braillewright' ),
 			'section'     => 'braillewright_features_post_text_font_size',
 			'settings'    => 'post_text_font_size_mobile',
-			'type'        => 'number'
+			'type'        => 'number',
 		)
 	);
 	// Setting - Tablet
@@ -522,7 +522,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		'post_text_font_size_tablet',
 		array(
 			'default'           => '16',
-			'sanitize_callback' => 'absint'
+			'sanitize_callback' => 'absint',
 		)
 	);
 	// Control - Tablet
@@ -533,7 +533,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 			'description' => __( 'Default is 16px', 'braillewright' ),
 			'section'     => 'braillewright_features_post_text_font_size',
 			'settings'    => 'post_text_font_size_tablet',
-			'type'        => 'number'
+			'type'        => 'number',
 		)
 	);
 	// Setting - Desktop
@@ -541,7 +541,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		'post_text_font_size_desktop',
 		array(
 			'default'           => '16',
-			'sanitize_callback' => 'absint'
+			'sanitize_callback' => 'absint',
 		)
 	);
 	// Control - Desktop
@@ -552,7 +552,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 			'description' => __( 'Default is 16px', 'braillewright' ),
 			'section'     => 'braillewright_features_post_text_font_size',
 			'settings'    => 'post_text_font_size_desktop',
-			'type'        => 'number'
+			'type'        => 'number',
 		)
 	);
 
@@ -562,7 +562,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		'braillewright_features_comments_font_size',
 		array(
 			'panel' => 'braillewright_features_font_sizes_panel',
-			'title' => __( 'Comments', 'braillewright' )
+			'title' => __( 'Comments', 'braillewright' ),
 		)
 	);
 	// Setting - Mobile
@@ -570,7 +570,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		'comments_font_size_mobile',
 		array(
 			'default'           => '14',
-			'sanitize_callback' => 'absint'
+			'sanitize_callback' => 'absint',
 		)
 	);
 	// Control - Mobile
@@ -581,7 +581,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 			'description' => __( 'Default is 14px', 'braillewright' ),
 			'section'     => 'braillewright_features_comments_font_size',
 			'settings'    => 'comments_font_size_mobile',
-			'type'        => 'number'
+			'type'        => 'number',
 		)
 	);
 	// Setting - Tablet
@@ -589,7 +589,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		'comments_font_size_tablet',
 		array(
 			'default'           => '14',
-			'sanitize_callback' => 'absint'
+			'sanitize_callback' => 'absint',
 		)
 	);
 	// Control - Tablet
@@ -600,7 +600,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 			'description' => __( 'Default is 14px', 'braillewright' ),
 			'section'     => 'braillewright_features_comments_font_size',
 			'settings'    => 'comments_font_size_tablet',
-			'type'        => 'number'
+			'type'        => 'number',
 		)
 	);
 	// Setting - Desktop
@@ -608,7 +608,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		'comments_font_size_desktop',
 		array(
 			'default'           => '14',
-			'sanitize_callback' => 'absint'
+			'sanitize_callback' => 'absint',
 		)
 	);
 	// Control - Desktop
@@ -619,7 +619,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 			'description' => __( 'Default is 14px', 'braillewright' ),
 			'section'     => 'braillewright_features_comments_font_size',
 			'settings'    => 'comments_font_size_desktop',
-			'type'        => 'number'
+			'type'        => 'number',
 		)
 	);
 
@@ -629,7 +629,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		'braillewright_features_widget_titles_font_size',
 		array(
 			'panel' => 'braillewright_features_font_sizes_panel',
-			'title' => __( 'Widget Titles', 'braillewright' )
+			'title' => __( 'Widget Titles', 'braillewright' ),
 		)
 	);
 	// Setting - Mobile
@@ -637,7 +637,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		'ct_widget_titles_font_size_mobile',
 		array(
 			'default'           => '16',
-			'sanitize_callback' => 'absint'
+			'sanitize_callback' => 'absint',
 		)
 	);
 	// Control - Mobile
@@ -648,7 +648,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 			'description' => __( 'Default is 16px', 'braillewright' ),
 			'section'     => 'braillewright_features_widget_titles_font_size',
 			'settings'    => 'ct_widget_titles_font_size_mobile',
-			'type'        => 'number'
+			'type'        => 'number',
 		)
 	);
 	// Setting - Tablet
@@ -656,7 +656,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		'ct_widget_titles_font_size_tablet',
 		array(
 			'default'           => '16',
-			'sanitize_callback' => 'absint'
+			'sanitize_callback' => 'absint',
 		)
 	);
 	// Control - Tablet
@@ -667,7 +667,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 			'description' => __( 'Default is 16px', 'braillewright' ),
 			'section'     => 'braillewright_features_widget_titles_font_size',
 			'settings'    => 'ct_widget_titles_font_size_tablet',
-			'type'        => 'number'
+			'type'        => 'number',
 		)
 	);
 	// Setting - Desktop
@@ -675,7 +675,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		'ct_widget_titles_font_size_desktop',
 		array(
 			'default'           => '16',
-			'sanitize_callback' => 'absint'
+			'sanitize_callback' => 'absint',
 		)
 	);
 	// Control - Desktop
@@ -686,7 +686,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 			'description' => __( 'Default is 16px', 'braillewright' ),
 			'section'     => 'braillewright_features_widget_titles_font_size',
 			'settings'    => 'ct_widget_titles_font_size_desktop',
-			'type'        => 'number'
+			'type'        => 'number',
 		)
 	);
 
@@ -696,7 +696,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		'braillewright_features_widget_text_font_size',
 		array(
 			'panel' => 'braillewright_features_font_sizes_panel',
-			'title' => __( 'Widget Text', 'braillewright' )
+			'title' => __( 'Widget Text', 'braillewright' ),
 		)
 	);
 	// Setting - Mobile
@@ -704,7 +704,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		'ct_widget_text_font_size_mobile',
 		array(
 			'default'           => '14',
-			'sanitize_callback' => 'absint'
+			'sanitize_callback' => 'absint',
 		)
 	);
 	// Control - Mobile
@@ -715,7 +715,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 			'description' => __( 'Default is 14px', 'braillewright' ),
 			'section'     => 'braillewright_features_widget_text_font_size',
 			'settings'    => 'ct_widget_text_font_size_mobile',
-			'type'        => 'number'
+			'type'        => 'number',
 		)
 	);
 	// Setting - Tablet
@@ -723,7 +723,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		'ct_widget_text_font_size_tablet',
 		array(
 			'default'           => '14',
-			'sanitize_callback' => 'absint'
+			'sanitize_callback' => 'absint',
 		)
 	);
 	// Control - Tablet
@@ -734,7 +734,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 			'description' => __( 'Default is 14px', 'braillewright' ),
 			'section'     => 'braillewright_features_widget_text_font_size',
 			'settings'    => 'ct_widget_text_font_size_tablet',
-			'type'        => 'number'
+			'type'        => 'number',
 		)
 	);
 	// Setting - Desktop
@@ -742,7 +742,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		'ct_widget_text_font_size_desktop',
 		array(
 			'default'           => '14',
-			'sanitize_callback' => 'absint'
+			'sanitize_callback' => 'absint',
 		)
 	);
 	// Control - Desktop
@@ -753,7 +753,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 			'description' => __( 'Default is 14px', 'braillewright' ),
 			'section'     => 'braillewright_features_widget_text_font_size',
 			'settings'    => 'ct_widget_text_font_size_desktop',
-			'type'        => 'number'
+			'type'        => 'number',
 		)
 	);
 
@@ -763,7 +763,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		'braillewright_features_footer_text_font_size',
 		array(
 			'panel' => 'braillewright_features_font_sizes_panel',
-			'title' => __( 'Footer Text', 'braillewright' )
+			'title' => __( 'Footer Text', 'braillewright' ),
 		)
 	);
 	// Setting - Mobile
@@ -771,7 +771,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		'footer_text_font_size_mobile',
 		array(
 			'default'           => '16',
-			'sanitize_callback' => 'absint'
+			'sanitize_callback' => 'absint',
 		)
 	);
 	// Control - Mobile
@@ -782,7 +782,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 			'description' => __( 'Default is 16px', 'braillewright' ),
 			'section'     => 'braillewright_features_footer_text_font_size',
 			'settings'    => 'footer_text_font_size_mobile',
-			'type'        => 'number'
+			'type'        => 'number',
 		)
 	);
 	// Setting - Tablet
@@ -790,7 +790,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		'footer_text_font_size_tablet',
 		array(
 			'default'           => '16',
-			'sanitize_callback' => 'absint'
+			'sanitize_callback' => 'absint',
 		)
 	);
 	// Control - Tablet
@@ -801,7 +801,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 			'description' => __( 'Default is 16px', 'braillewright' ),
 			'section'     => 'braillewright_features_footer_text_font_size',
 			'settings'    => 'footer_text_font_size_tablet',
-			'type'        => 'number'
+			'type'        => 'number',
 		)
 	);
 	// Setting - Desktop
@@ -809,7 +809,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		'footer_text_font_size_desktop',
 		array(
 			'default'           => '16',
-			'sanitize_callback' => 'absint'
+			'sanitize_callback' => 'absint',
 		)
 	);
 	// Control - Desktop
@@ -820,7 +820,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 			'description' => __( 'Default is 16px', 'braillewright' ),
 			'section'     => 'braillewright_features_footer_text_font_size',
 			'settings'    => 'footer_text_font_size_desktop',
-			'type'        => 'number'
+			'type'        => 'number',
 		)
 	);
 
@@ -833,7 +833,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		'braillewright_features_header_image',
 		array(
 			'title'    => __( 'Header Image', 'braillewright' ),
-			'priority' => 5
+			'priority' => 5,
 		)
 	);
 	// setting - image or video
@@ -841,7 +841,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		'header_image_type',
 		array(
 			'default'           => 'image',
-			'sanitize_callback' => 'braillewright_features_sanitize_header_image_type'
+			'sanitize_callback' => 'braillewright_features_sanitize_header_image_type',
 		)
 	);
 	// control - image or video
@@ -854,15 +854,15 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 			'type'     => 'radio',
 			'choices'  => array(
 				'image' => __( 'Image', 'braillewright' ),
-				'video' => __( 'Video', 'braillewright' )
-			)
+				'video' => __( 'Video', 'braillewright' ),
+			),
 		)
 	);
 	// setting - upload
 	$wp_customize->add_setting(
 		'header_image_upload',
 		array(
-			'sanitize_callback' => 'esc_url_raw'
+			'sanitize_callback' => 'esc_url_raw',
 		)
 	);
 	// control - upload
@@ -882,7 +882,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		'header_image_video',
 		array(
 			'default'           => '',
-			'sanitize_callback' => 'esc_url'
+			'sanitize_callback' => 'esc_url',
 		)
 	);
 	// control - video
@@ -892,7 +892,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 			'label'    => __( 'Enter a video URL', 'braillewright' ),
 			'section'  => 'braillewright_features_header_image',
 			'settings' => 'header_image_video',
-			'type'     => 'url'
+			'type'     => 'url',
 		)
 	);
 	// setting - homepage only
@@ -900,7 +900,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		'header_image_homepage',
 		array(
 			'default'           => 'no',
-			'sanitize_callback' => 'braillewright_features_sanitize_yes_no_settings'
+			'sanitize_callback' => 'braillewright_features_sanitize_yes_no_settings',
 		)
 	);
 	// control - homepage only
@@ -913,15 +913,15 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 			'type'     => 'radio',
 			'choices'  => array(
 				'yes' => __( 'Yes', 'braillewright' ),
-				'no'  => __( 'No', 'braillewright' )
-			)
+				'no'  => __( 'No', 'braillewright' ),
+			),
 		)
 	);
 	// setting - link home
 	$wp_customize->add_setting(
 		'header_image_link',
 		array(
-			'sanitize_callback' => 'esc_url'
+			'sanitize_callback' => 'esc_url',
 		)
 	);
 	// control - link home
@@ -931,7 +931,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 			'label'    => __( 'Header image link', 'braillewright' ),
 			'section'  => 'braillewright_features_header_image',
 			'settings' => 'header_image_link',
-			'type'     => 'url'
+			'type'     => 'url',
 		)
 	);
 	// setting - height type
@@ -939,7 +939,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		'header_image_height_type',
 		array(
 			'default'           => 'responsive',
-			'sanitize_callback' => 'braillewright_features_sanitize_header_image_height_type'
+			'sanitize_callback' => 'braillewright_features_sanitize_header_image_height_type',
 		)
 	);
 	// control - height type
@@ -952,8 +952,8 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 			'type'     => 'radio',
 			'choices'  => array(
 				'responsive' => __( 'Responsive', 'braillewright' ),
-				'fixed'      => __( 'Fixed', 'braillewright' )
-			)
+				'fixed'      => __( 'Fixed', 'braillewright' ),
+			),
 		)
 	);
 	// setting - height
@@ -962,7 +962,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		array(
 			'default'           => '20',
 			'sanitize_callback' => 'absint',
-			'transport'         => 'postMessage'
+			'transport'         => 'postMessage',
 		)
 	);
 	// control - height
@@ -976,8 +976,8 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 			'input_attrs' => array(
 				'min'  => 5,
 				'max'  => 100,
-				'step' => 1
-			)
+				'step' => 1,
+			),
 		)
 	);
 
@@ -1001,11 +1001,11 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 				'priority'    => $priority,
 				'title'       => $section['section_title'],
 				'description' => $section['description'],
-				'panel'       => 'braillewright_features_colors_panel'
+				'panel'       => 'braillewright_features_colors_panel',
 			)
 		);
 
-		$priority++;
+		++$priority;
 
 		/* Add Settings & Controls */
 
@@ -1019,7 +1019,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 					$setting['setting_id'],
 					array(
 						'default'           => $setting['setting_default'],
-						'sanitize_callback' => 'sanitize_hex_color'
+						'sanitize_callback' => 'sanitize_hex_color',
 					)
 				);
 
@@ -1031,12 +1031,12 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 							'label'    => $setting['control_label'],
 							'section'  => $section['section_id'],
 							'settings' => $setting['setting_id'],
-							'priority' => $control_priority
+							'priority' => $control_priority,
 						)
 					)
 				);
 
-				$control_priority++;
+				++$control_priority;
 			}
 		}
 	}
@@ -1054,7 +1054,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		'two-right'  => __( 'Two column - Right sidebar', 'braillewright' ),
 		'two-left'   => __( 'Two column - Left sidebar', 'braillewright' ),
 		'two-narrow' => __( 'Two column - No Sidebar - Narrow', 'braillewright' ),
-		'two-wide'   => __( 'Two column - No Sidebar - Wide', 'braillewright' )
+		'two-wide'   => __( 'Two column - No Sidebar - Wide', 'braillewright' ),
 	);
 	$wp_customize->get_control( 'layout' )->choices = $layouts;
 	$wp_customize->get_control( 'layout_pages' )->choices    = $layouts;
@@ -1071,7 +1071,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		array(
 			'title'    => __( 'Background Images', 'braillewright' ),
 			'priority' => 55,
-			'panel'    => 'braillewright_features_background_panel'
+			'panel'    => 'braillewright_features_background_panel',
 		)
 	);
 	// setting - header
@@ -1079,7 +1079,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		'background_image_header',
 		array(
 			'sanitize_callback' => 'esc_url_raw',
-			'transport'         => 'postMessage'
+			'transport'         => 'postMessage',
 		)
 	);
 	// control - header
@@ -1090,7 +1090,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 			array(
 				'label'    => __( 'Header', 'braillewright' ),
 				'section'  => 'braillewright_features_background_image',
-				'settings' => 'background_image_header'
+				'settings' => 'background_image_header',
 			)
 		)
 	);
@@ -1099,7 +1099,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		'background_image_main',
 		array(
 			'sanitize_callback' => 'esc_url_raw',
-			'transport'         => 'postMessage'
+			'transport'         => 'postMessage',
 		)
 	);
 	// control - main
@@ -1110,7 +1110,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 			array(
 				'label'    => __( 'Body', 'braillewright' ),
 				'section'  => 'braillewright_features_background_image',
-				'settings' => 'background_image_main'
+				'settings' => 'background_image_main',
 			)
 		)
 	);
@@ -1125,7 +1125,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		array(
 			'title'    => __( 'Background Textures', 'braillewright' ),
 			'priority' => 56,
-			'panel'    => 'braillewright_features_background_panel'
+			'panel'    => 'braillewright_features_background_panel',
 		)
 	);
 
@@ -1140,7 +1140,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 				array(
 					'default'           => 'no',
 					'sanitize_callback' => 'braillewright_features_sanitize_yes_no_settings',
-					'transport'         => 'postMessage'
+					'transport'         => 'postMessage',
 				)
 			);
 
@@ -1153,8 +1153,8 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 					'type'     => 'radio',
 					'choices'  => array(
 						'yes' => __( 'Yes', 'braillewright' ),
-						'no'  => __( 'No', 'braillewright' )
-					)
+						'no'  => __( 'No', 'braillewright' ),
+					),
 				)
 			);
 		} else {
@@ -1163,7 +1163,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 				$setting['setting_id'],
 				array(
 					'sanitize_callback' => 'braillewright_features_sanitize_textures',
-					'transport'         => 'postMessage'
+					'transport'         => 'postMessage',
 				)
 			);
 			// control - header textures
@@ -1174,7 +1174,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 					'section'  => 'braillewright_features_background_texture',
 					'settings' => $setting['setting_id'],
 					'type'     => 'radio',
-					'choices'  => braillewright_features_textures_array()
+					'choices'  => braillewright_features_textures_array(),
 				)
 			);
 		}
@@ -1201,7 +1201,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		'600'     => __( 'Semi-Bold', 'braillewright' ),
 		'700'     => __( 'Bold', 'braillewright' ),
 		'800'     => __( 'Extra-Bold', 'braillewright' ),
-		'900'     => __( 'Ultra-Bold', 'braillewright' )
+		'900'     => __( 'Ultra-Bold', 'braillewright' ),
 	);
 
 	// section
@@ -1210,7 +1210,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		array(
 			'title'       => __( 'Global', 'braillewright' ),
 			'description' => sprintf( __( '<i>All fonts can be previewed at <a href="%s" target="_blank">Google Fonts</a>.</i>', 'braillewright' ), 'https://fonts.google.com/' ),
-			'panel'       => 'braillewright_features_fonts_panel'
+			'panel'       => 'braillewright_features_fonts_panel',
 		)
 	);
 	// setting - language
@@ -1218,7 +1218,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		'font_language',
 		array(
 			'default'           => 'latin-ext',
-			'sanitize_callback' => 'braillewright_features_sanitize_font_language'
+			'sanitize_callback' => 'braillewright_features_sanitize_font_language',
 		)
 	);
 	// control - language
@@ -1257,8 +1257,8 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 				'tamil'               => 'Tamil',
 				'telugu'              => 'Telugu',
 				'thai'                => 'Thai',
-				'vietnamese'          => 'Vietnamese'
-			)
+				'vietnamese'          => 'Vietnamese',
+			),
 		)
 	);
 	// setting - primary font family
@@ -1266,7 +1266,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		'primary_font',
 		array(
 			'default'           => 'default',
-			'sanitize_callback' => 'braillewright_features_sanitize_font_family'
+			'sanitize_callback' => 'braillewright_features_sanitize_font_family',
 		)
 	);
 	// control - primary font family
@@ -1278,7 +1278,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 			'description' => __( 'Changes font everywhere. Overridable with other font settings.', 'braillewright' ),
 			'section'     => 'braillewright_features_fonts',
 			'setting'     => 'primary_font',
-			'choices'     => $fonts
+			'choices'     => $fonts,
 		)
 	);
 	// setting - primary font weight
@@ -1286,7 +1286,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		'primary_font_weight',
 		array(
 			'default'           => 'default',
-			'sanitize_callback' => 'braillewright_features_sanitize_font_weight'
+			'sanitize_callback' => 'braillewright_features_sanitize_font_weight',
 		)
 	);
 	// control - primary font weight
@@ -1297,7 +1297,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 			'label'   => __( 'Primary Font Weight', 'braillewright' ),
 			'section' => 'braillewright_features_fonts',
 			'setting' => 'primary_font_weight',
-			'choices' => $font_weights
+			'choices' => $font_weights,
 		)
 	);
 	// setting - headings font family
@@ -1305,7 +1305,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		'heading_font',
 		array(
 			'default'           => 'default',
-			'sanitize_callback' => 'braillewright_features_sanitize_font_family'
+			'sanitize_callback' => 'braillewright_features_sanitize_font_family',
 		)
 	);
 	// control - headings font family
@@ -1316,7 +1316,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 			'label'   => __( 'Headings', 'braillewright' ),
 			'section' => 'braillewright_features_fonts',
 			'setting' => 'heading_font',
-			'choices' => $fonts
+			'choices' => $fonts,
 		)
 	);
 	// setting - headings font weight
@@ -1324,7 +1324,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		'heading_font_weight',
 		array(
 			'default'           => 'default',
-			'sanitize_callback' => 'braillewright_features_sanitize_font_weight'
+			'sanitize_callback' => 'braillewright_features_sanitize_font_weight',
 		)
 	);
 	// control - headings font weight
@@ -1335,7 +1335,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 			'label'   => __( 'Headings (Font weight)', 'braillewright' ),
 			'section' => 'braillewright_features_fonts',
 			'setting' => 'heading_font_weight',
-			'choices' => $font_weights
+			'choices' => $font_weights,
 		)
 	);
 	// setting - inputs font family
@@ -1343,7 +1343,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		'input_font',
 		array(
 			'default'           => 'default',
-			'sanitize_callback' => 'braillewright_features_sanitize_font_family'
+			'sanitize_callback' => 'braillewright_features_sanitize_font_family',
 		)
 	);
 	// control - inputs font family
@@ -1354,7 +1354,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 			'label'   => __( 'Buttons & Inputs', 'braillewright' ),
 			'section' => 'braillewright_features_fonts',
 			'setting' => 'input_font',
-			'choices' => $fonts
+			'choices' => $fonts,
 		)
 	);
 	// setting - inputs font weight
@@ -1362,7 +1362,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		'input_font_weight',
 		array(
 			'default'           => 'default',
-			'sanitize_callback' => 'braillewright_features_sanitize_font_weight'
+			'sanitize_callback' => 'braillewright_features_sanitize_font_weight',
 		)
 	);
 	// control - inputs font weight
@@ -1373,7 +1373,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 			'label'   => __( 'Buttons & Inputs (Font weight)', 'braillewright' ),
 			'section' => 'braillewright_features_fonts',
 			'setting' => 'input_font_weight',
-			'choices' => $font_weights
+			'choices' => $font_weights,
 		)
 	);
 
@@ -1383,7 +1383,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		array(
 			'title'       => __( 'Individual Elements', 'braillewright' ),
 			'description' => sprintf( __( '<i>All fonts can be previewed at <a href="%s" target="_blank">Google Fonts</a>.</i>', 'braillewright' ), 'https://fonts.google.com/' ),
-			'panel'       => 'braillewright_features_fonts_panel'
+			'panel'       => 'braillewright_features_fonts_panel',
 		)
 	);
 
@@ -1394,7 +1394,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		'site_title_font',
 		array(
 			'default'           => 'default',
-			'sanitize_callback' => 'braillewright_features_sanitize_font_family'
+			'sanitize_callback' => 'braillewright_features_sanitize_font_family',
 		)
 	);
 	// control - site title font family
@@ -1405,7 +1405,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 			'label'   => __( 'Site Title', 'braillewright' ),
 			'section' => 'braillewright_features_fonts_advanced',
 			'setting' => 'site_title_font',
-			'choices' => $fonts
+			'choices' => $fonts,
 		)
 	);
 	// setting - site title font weight
@@ -1413,7 +1413,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		'site_title_font_weight',
 		array(
 			'default'           => 'default',
-			'sanitize_callback' => 'braillewright_features_sanitize_font_weight'
+			'sanitize_callback' => 'braillewright_features_sanitize_font_weight',
 		)
 	);
 	// control - site title font weight
@@ -1424,7 +1424,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 			'label'   => __( 'Site Title (Font weight)', 'braillewright' ),
 			'section' => 'braillewright_features_fonts_advanced',
 			'setting' => 'site_title_font_weight',
-			'choices' => $font_weights
+			'choices' => $font_weights,
 		)
 	);
 	// setting - tagline font family
@@ -1432,7 +1432,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		'tagline_font',
 		array(
 			'default'           => 'default',
-			'sanitize_callback' => 'braillewright_features_sanitize_font_family'
+			'sanitize_callback' => 'braillewright_features_sanitize_font_family',
 		)
 	);
 	// control - tagline font family
@@ -1443,7 +1443,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 			'label'   => __( 'Tagline', 'braillewright' ),
 			'section' => 'braillewright_features_fonts_advanced',
 			'setting' => 'tagline_font',
-			'choices' => $fonts
+			'choices' => $fonts,
 		)
 	);
 	// setting - tagline font weight
@@ -1451,7 +1451,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		'tagline_font_weight',
 		array(
 			'default'           => 'default',
-			'sanitize_callback' => 'braillewright_features_sanitize_font_weight'
+			'sanitize_callback' => 'braillewright_features_sanitize_font_weight',
 		)
 	);
 	// control - tagline font weight
@@ -1462,7 +1462,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 			'label'   => __( 'Tagline (Font weight)', 'braillewright' ),
 			'section' => 'braillewright_features_fonts_advanced',
 			'setting' => 'tagline_font_weight',
-			'choices' => $font_weights
+			'choices' => $font_weights,
 		)
 	);
 	// setting - primary menu font family
@@ -1470,7 +1470,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		'primary_menu_font',
 		array(
 			'default'           => 'default',
-			'sanitize_callback' => 'braillewright_features_sanitize_font_family'
+			'sanitize_callback' => 'braillewright_features_sanitize_font_family',
 		)
 	);
 	// control - primary menu font family
@@ -1481,7 +1481,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 			'label'   => __( 'Primary Menu', 'braillewright' ),
 			'section' => 'braillewright_features_fonts_advanced',
 			'setting' => 'primary_menu_font',
-			'choices' => $fonts
+			'choices' => $fonts,
 		)
 	);
 	// setting - primary menu font weight
@@ -1489,7 +1489,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		'primary_menu_font_weight',
 		array(
 			'default'           => 'default',
-			'sanitize_callback' => 'braillewright_features_sanitize_font_weight'
+			'sanitize_callback' => 'braillewright_features_sanitize_font_weight',
 		)
 	);
 	// control - primary menu font weight
@@ -1500,7 +1500,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 			'label'   => __( 'Primary Menu (Font weight)', 'braillewright' ),
 			'section' => 'braillewright_features_fonts_advanced',
 			'setting' => 'primary_menu_font_weight',
-			'choices' => $font_weights
+			'choices' => $font_weights,
 		)
 	);
 	// setting - secondary menu font family
@@ -1508,7 +1508,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		'secondary_menu_font',
 		array(
 			'default'           => 'default',
-			'sanitize_callback' => 'braillewright_features_sanitize_font_family'
+			'sanitize_callback' => 'braillewright_features_sanitize_font_family',
 		)
 	);
 	// control - secondary menu font family
@@ -1519,7 +1519,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 			'label'   => __( 'Secondary Menu', 'braillewright' ),
 			'section' => 'braillewright_features_fonts_advanced',
 			'setting' => 'secondary_menu_font',
-			'choices' => $fonts
+			'choices' => $fonts,
 		)
 	);
 	// setting - secondary menu font weight
@@ -1527,7 +1527,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		'secondary_menu_font_weight',
 		array(
 			'default'           => 'default',
-			'sanitize_callback' => 'braillewright_features_sanitize_font_weight'
+			'sanitize_callback' => 'braillewright_features_sanitize_font_weight',
 		)
 	);
 	// control - secondary menu font weight
@@ -1538,7 +1538,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 			'label'   => __( 'Secondary Menu (Font weight)', 'braillewright' ),
 			'section' => 'braillewright_features_fonts_advanced',
 			'setting' => 'secondary_menu_font_weight',
-			'choices' => $font_weights
+			'choices' => $font_weights,
 		)
 	);
 	// setting - post titles font family
@@ -1546,7 +1546,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		'post_titles_font',
 		array(
 			'default'           => 'default',
-			'sanitize_callback' => 'braillewright_features_sanitize_font_family'
+			'sanitize_callback' => 'braillewright_features_sanitize_font_family',
 		)
 	);
 	// control - post titles font family
@@ -1557,7 +1557,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 			'label'   => __( 'Post Titles', 'braillewright' ),
 			'section' => 'braillewright_features_fonts_advanced',
 			'setting' => 'post_titles_font',
-			'choices' => $fonts
+			'choices' => $fonts,
 		)
 	);
 	// setting - post titles font weight
@@ -1565,7 +1565,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		'post_titles_font_weight',
 		array(
 			'default'           => 'default',
-			'sanitize_callback' => 'braillewright_features_sanitize_font_weight'
+			'sanitize_callback' => 'braillewright_features_sanitize_font_weight',
 		)
 	);
 	// control - post titles font weight
@@ -1576,7 +1576,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 			'label'   => __( 'Post Titles (Font weight)', 'braillewright' ),
 			'section' => 'braillewright_features_fonts_advanced',
 			'setting' => 'post_titles_font_weight',
-			'choices' => $font_weights
+			'choices' => $font_weights,
 		)
 	);
 	// setting - post byline font family
@@ -1584,7 +1584,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		'post_byline_font',
 		array(
 			'default'           => 'default',
-			'sanitize_callback' => 'braillewright_features_sanitize_font_family'
+			'sanitize_callback' => 'braillewright_features_sanitize_font_family',
 		)
 	);
 	// control - post byline font family
@@ -1595,7 +1595,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 			'label'   => __( 'Post Byline', 'braillewright' ),
 			'section' => 'braillewright_features_fonts_advanced',
 			'setting' => 'post_byline_font',
-			'choices' => $fonts
+			'choices' => $fonts,
 		)
 	);
 	// setting - post byline font weight
@@ -1603,7 +1603,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		'post_byline_font_weight',
 		array(
 			'default'           => 'default',
-			'sanitize_callback' => 'braillewright_features_sanitize_font_weight'
+			'sanitize_callback' => 'braillewright_features_sanitize_font_weight',
 		)
 	);
 	// control - post byline font weight
@@ -1614,7 +1614,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 			'label'   => __( 'Post Byline (Font weight)', 'braillewright' ),
 			'section' => 'braillewright_features_fonts_advanced',
 			'setting' => 'post_byline_font_weight',
-			'choices' => $font_weights
+			'choices' => $font_weights,
 		)
 	);
 	// setting - post text font family
@@ -1622,7 +1622,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		'post_text_font',
 		array(
 			'default'           => 'default',
-			'sanitize_callback' => 'braillewright_features_sanitize_font_family'
+			'sanitize_callback' => 'braillewright_features_sanitize_font_family',
 		)
 	);
 	// control - post text font family
@@ -1633,7 +1633,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 			'label'   => __( 'Post Text', 'braillewright' ),
 			'section' => 'braillewright_features_fonts_advanced',
 			'setting' => 'post_text_font',
-			'choices' => $fonts
+			'choices' => $fonts,
 		)
 	);
 	// setting - post text font weight
@@ -1641,7 +1641,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		'post_text_font_weight',
 		array(
 			'default'           => 'default',
-			'sanitize_callback' => 'braillewright_features_sanitize_font_weight'
+			'sanitize_callback' => 'braillewright_features_sanitize_font_weight',
 		)
 	);
 	// control - post text font weight
@@ -1652,7 +1652,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 			'label'   => __( 'Post Text (Font weight)', 'braillewright' ),
 			'section' => 'braillewright_features_fonts_advanced',
 			'setting' => 'post_text_font_weight',
-			'choices' => $font_weights
+			'choices' => $font_weights,
 		)
 	);
 	// setting - comments font family
@@ -1660,7 +1660,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		'comments_font',
 		array(
 			'default'           => 'default',
-			'sanitize_callback' => 'braillewright_features_sanitize_font_family'
+			'sanitize_callback' => 'braillewright_features_sanitize_font_family',
 		)
 	);
 	// control - comments font family
@@ -1671,7 +1671,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 			'label'   => __( 'Comments', 'braillewright' ),
 			'section' => 'braillewright_features_fonts_advanced',
 			'setting' => 'comments_font',
-			'choices' => $fonts
+			'choices' => $fonts,
 		)
 	);
 	// setting - comments font weight
@@ -1679,7 +1679,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		'comments_font_weight',
 		array(
 			'default'           => 'default',
-			'sanitize_callback' => 'braillewright_features_sanitize_font_weight'
+			'sanitize_callback' => 'braillewright_features_sanitize_font_weight',
 		)
 	);
 	// control - comments font weight
@@ -1690,7 +1690,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 			'label'   => __( 'Comments (Font weight)', 'braillewright' ),
 			'section' => 'braillewright_features_fonts_advanced',
 			'setting' => 'comments_font_weight',
-			'choices' => $font_weights
+			'choices' => $font_weights,
 		)
 	);
 	// setting - widget titles font family
@@ -1698,7 +1698,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		'ct_widget_titles_font',
 		array(
 			'default'           => 'default',
-			'sanitize_callback' => 'braillewright_features_sanitize_font_family'
+			'sanitize_callback' => 'braillewright_features_sanitize_font_family',
 		)
 	);
 	// control - widget titles font family
@@ -1709,7 +1709,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 			'label'   => __( 'Widget Titles', 'braillewright' ),
 			'section' => 'braillewright_features_fonts_advanced',
 			'setting' => 'ct_widget_titles_font',
-			'choices' => $fonts
+			'choices' => $fonts,
 		)
 	);
 	// setting - widget titles font weight
@@ -1717,7 +1717,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		'ct_widget_titles_font_weight',
 		array(
 			'default'           => 'default',
-			'sanitize_callback' => 'braillewright_features_sanitize_font_weight'
+			'sanitize_callback' => 'braillewright_features_sanitize_font_weight',
 		)
 	);
 	// control - widget titles font weight
@@ -1728,7 +1728,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 			'label'   => __( 'Widget Titles (Font weight)', 'braillewright' ),
 			'section' => 'braillewright_features_fonts_advanced',
 			'setting' => 'ct_widget_titles_font_weight',
-			'choices' => $font_weights
+			'choices' => $font_weights,
 		)
 	);
 	// setting - widget text font family
@@ -1736,7 +1736,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		'ct_widget_text_font',
 		array(
 			'default'           => 'default',
-			'sanitize_callback' => 'braillewright_features_sanitize_font_family'
+			'sanitize_callback' => 'braillewright_features_sanitize_font_family',
 		)
 	);
 	// control - widget text font family
@@ -1747,7 +1747,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 			'label'   => __( 'Widget Text', 'braillewright' ),
 			'section' => 'braillewright_features_fonts_advanced',
 			'setting' => 'ct_widget_text_font',
-			'choices' => $fonts
+			'choices' => $fonts,
 		)
 	);
 	// setting - widget text font weight
@@ -1755,7 +1755,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		'ct_widget_text_font_weight',
 		array(
 			'default'           => 'default',
-			'sanitize_callback' => 'braillewright_features_sanitize_font_weight'
+			'sanitize_callback' => 'braillewright_features_sanitize_font_weight',
 		)
 	);
 	// control - widget text font weight
@@ -1766,7 +1766,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 			'label'   => __( 'Widget Text (Font weight)', 'braillewright' ),
 			'section' => 'braillewright_features_fonts_advanced',
 			'setting' => 'ct_widget_text_font_weight',
-			'choices' => $font_weights
+			'choices' => $font_weights,
 		)
 	);
 	// setting - footer text font family
@@ -1774,7 +1774,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		'footer_text_font',
 		array(
 			'default'           => 'default',
-			'sanitize_callback' => 'braillewright_features_sanitize_font_family'
+			'sanitize_callback' => 'braillewright_features_sanitize_font_family',
 		)
 	);
 	// control - footer text font family
@@ -1785,7 +1785,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 			'label'   => __( 'Footer Text', 'braillewright' ),
 			'section' => 'braillewright_features_fonts_advanced',
 			'setting' => 'footer_text_font',
-			'choices' => $fonts
+			'choices' => $fonts,
 		)
 	);
 	// setting - footer text font weight
@@ -1793,7 +1793,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		'footer_text_font_weight',
 		array(
 			'default'           => 'default',
-			'sanitize_callback' => 'braillewright_features_sanitize_font_weight'
+			'sanitize_callback' => 'braillewright_features_sanitize_font_weight',
 		)
 	);
 	// control - footer text font weight
@@ -1804,7 +1804,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 			'label'   => __( 'Footer Text (Font weight)', 'braillewright' ),
 			'section' => 'braillewright_features_fonts_advanced',
 			'setting' => 'footer_text_font_weight',
-			'choices' => $font_weights
+			'choices' => $font_weights,
 		)
 	);
 
@@ -1817,7 +1817,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		'braillewright_features_featured_image_size',
 		array(
 			'title'    => __( 'Featured Image Size', 'braillewright' ),
-			'priority' => 7
+			'priority' => 7,
 		)
 	);
 	// setting
@@ -1825,7 +1825,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		'featured_image_size',
 		array(
 			'default'           => '2-1',
-			'sanitize_callback' => 'braillewright_features_sanitize_featured_image_size'
+			'sanitize_callback' => 'braillewright_features_sanitize_featured_image_size',
 		)
 	);
 	// control
@@ -1849,8 +1849,8 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 				'5-4'     => '5:4',
 				'4-5'     => '4:5',
 				'1-1'     => '1:1',
-				'natural' => __( 'Natural Dimensions', 'braillewright' )
-			)
+				'natural' => __( 'Natural Dimensions', 'braillewright' ),
+			),
 		)
 	);
 
@@ -1864,7 +1864,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		'braillewright_features_show_hide_header',
 		array(
 			'title' => __( 'Header', 'braillewright' ),
-			'panel' => 'braillewright_features_show_hide_panel'
+			'panel' => 'braillewright_features_show_hide_panel',
 		)
 	);
 	// setting - site title
@@ -1873,7 +1873,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		array(
 			'default'           => 'show',
 			'sanitize_callback' => 'braillewright_features_sanitize_show_hide',
-			'transport'         => 'postMessage'
+			'transport'         => 'postMessage',
 		)
 	);
 	// control - site title
@@ -1886,8 +1886,8 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 			'setting' => 'display_site_title',
 			'choices' => array(
 				'show' => __( 'Show', 'braillewright' ),
-				'hide' => __( 'Hide', 'braillewright' )
-			)
+				'hide' => __( 'Hide', 'braillewright' ),
+			),
 		)
 	);
 	// setting - tagline
@@ -1896,7 +1896,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		array(
 			'default'           => 'show',
 			'sanitize_callback' => 'braillewright_features_sanitize_show_hide',
-			'transport'         => 'postMessage'
+			'transport'         => 'postMessage',
 		)
 	);
 	// control - tagline
@@ -1909,8 +1909,8 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 			'setting' => 'display_tagline',
 			'choices' => array(
 				'show' => __( 'Show', 'braillewright' ),
-				'hide' => __( 'Hide', 'braillewright' )
-			)
+				'hide' => __( 'Hide', 'braillewright' ),
+			),
 		)
 	);
 	// setting - primary menu
@@ -1919,7 +1919,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		array(
 			'default'           => 'show',
 			'sanitize_callback' => 'braillewright_features_sanitize_show_hide',
-			'transport'         => 'postMessage'
+			'transport'         => 'postMessage',
 		)
 	);
 	// control - primary menu
@@ -1932,8 +1932,8 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 			'setting' => 'display_primary_menu',
 			'choices' => array(
 				'show' => __( 'Show', 'braillewright' ),
-				'hide' => __( 'Hide', 'braillewright' )
-			)
+				'hide' => __( 'Hide', 'braillewright' ),
+			),
 		)
 	);
 
@@ -1943,7 +1943,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		'braillewright_features_show_hide_post',
 		array(
 			'title' => __( 'Posts', 'braillewright' ),
-			'panel' => 'braillewright_features_show_hide_panel'
+			'panel' => 'braillewright_features_show_hide_panel',
 		)
 	);
 	// setting - post title
@@ -1952,7 +1952,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		array(
 			'default'           => 'show',
 			'sanitize_callback' => 'braillewright_features_sanitize_show_hide',
-			'transport'         => 'postMessage'
+			'transport'         => 'postMessage',
 		)
 	);
 	// control - post title
@@ -1966,8 +1966,8 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 			'priority' => 1,
 			'choices'  => array(
 				'show' => __( 'Show', 'braillewright' ),
-				'hide' => __( 'Hide', 'braillewright' )
-			)
+				'hide' => __( 'Hide', 'braillewright' ),
+			),
 		)
 	);
 	// setting - Featured Image
@@ -1976,7 +1976,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		array(
 			'default'           => 'show',
 			'sanitize_callback' => 'braillewright_features_sanitize_show_hide',
-			'transport'         => 'postMessage'
+			'transport'         => 'postMessage',
 		)
 	);
 	// control - Featured Image
@@ -1990,8 +1990,8 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 			'priority' => 1,
 			'choices'  => array(
 				'show' => __( 'Show', 'braillewright' ),
-				'hide' => __( 'Hide', 'braillewright' )
-			)
+				'hide' => __( 'Hide', 'braillewright' ),
+			),
 		)
 	);
 
@@ -2009,7 +2009,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		array(
 			'default'           => 'show',
 			'sanitize_callback' => 'braillewright_features_sanitize_show_hide',
-			'transport'         => 'postMessage'
+			'transport'         => 'postMessage',
 		)
 	);
 	// control - post categories
@@ -2022,8 +2022,8 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 			'setting' => 'display_post_categories',
 			'choices' => array(
 				'show' => __( 'Show', 'braillewright' ),
-				'hide' => __( 'Hide', 'braillewright' )
-			)
+				'hide' => __( 'Hide', 'braillewright' ),
+			),
 		)
 	);
 	// setting - post tags
@@ -2032,7 +2032,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		array(
 			'default'           => 'show',
 			'sanitize_callback' => 'braillewright_features_sanitize_show_hide',
-			'transport'         => 'postMessage'
+			'transport'         => 'postMessage',
 		)
 	);
 	// control - post tags
@@ -2045,8 +2045,8 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 			'setting' => 'display_post_tags',
 			'choices' => array(
 				'show' => __( 'Show', 'braillewright' ),
-				'hide' => __( 'Hide', 'braillewright' )
-			)
+				'hide' => __( 'Hide', 'braillewright' ),
+			),
 		)
 	);
 	// setting - post nav
@@ -2055,7 +2055,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		array(
 			'default'           => 'show',
 			'sanitize_callback' => 'braillewright_features_sanitize_show_hide',
-			'transport'         => 'postMessage'
+			'transport'         => 'postMessage',
 		)
 	);
 	// control - post nav
@@ -2068,8 +2068,8 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 			'setting' => 'display_post_nav',
 			'choices' => array(
 				'show' => __( 'Show', 'braillewright' ),
-				'hide' => __( 'Hide', 'braillewright' )
-			)
+				'hide' => __( 'Hide', 'braillewright' ),
+			),
 		)
 	);
 	// setting - comment count
@@ -2078,7 +2078,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		array(
 			'default'           => 'show',
 			'sanitize_callback' => 'braillewright_features_sanitize_show_hide',
-			'transport'         => 'postMessage'
+			'transport'         => 'postMessage',
 		)
 	);
 	// control - comment count
@@ -2091,8 +2091,8 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 			'setting' => 'display_comment_count',
 			'choices' => array(
 				'show' => __( 'Show', 'braillewright' ),
-				'hide' => __( 'Hide', 'braillewright' )
-			)
+				'hide' => __( 'Hide', 'braillewright' ),
+			),
 		)
 	);
 	// setting - comment date
@@ -2101,7 +2101,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		array(
 			'default'           => 'show',
 			'sanitize_callback' => 'braillewright_features_sanitize_show_hide',
-			'transport'         => 'postMessage'
+			'transport'         => 'postMessage',
 		)
 	);
 	// control - comment count
@@ -2114,8 +2114,8 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 			'setting' => 'display_comment_date',
 			'choices' => array(
 				'show' => __( 'Show', 'braillewright' ),
-				'hide' => __( 'Hide', 'braillewright' )
-			)
+				'hide' => __( 'Hide', 'braillewright' ),
+			),
 		)
 	);
 
@@ -2125,7 +2125,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		'braillewright_features_show_hide_blog_archives',
 		array(
 			'title' => __( 'Blog & Archives', 'braillewright' ),
-			'panel' => 'braillewright_features_show_hide_panel'
+			'panel' => 'braillewright_features_show_hide_panel',
 		)
 	);
 	// setting - Featured Images
@@ -2134,7 +2134,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		array(
 			'default'           => 'show',
 			'sanitize_callback' => 'braillewright_features_sanitize_show_hide',
-			'transport'         => 'postMessage'
+			'transport'         => 'postMessage',
 		)
 	);
 	// control - Featured Images
@@ -2147,8 +2147,8 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 			'setting' => 'display_featured_images',
 			'choices' => array(
 				'show' => __( 'Show', 'braillewright' ),
-				'hide' => __( 'Hide', 'braillewright' )
-			)
+				'hide' => __( 'Hide', 'braillewright' ),
+			),
 		)
 	);
 	// setting - more link
@@ -2157,7 +2157,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		array(
 			'default'           => 'show',
 			'sanitize_callback' => 'braillewright_features_sanitize_show_hide',
-			'transport'         => 'postMessage'
+			'transport'         => 'postMessage',
 		)
 	);
 	// control - more link
@@ -2170,8 +2170,8 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 			'setting' => 'display_more_link',
 			'choices' => array(
 				'show' => __( 'Show', 'braillewright' ),
-				'hide' => __( 'Hide', 'braillewright' )
-			)
+				'hide' => __( 'Hide', 'braillewright' ),
+			),
 		)
 	);
 	// setting - comments link
@@ -2180,7 +2180,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		array(
 			'default'           => 'show',
 			'sanitize_callback' => 'braillewright_features_sanitize_show_hide',
-			'transport'         => 'postMessage'
+			'transport'         => 'postMessage',
 		)
 	);
 	// control - comments link
@@ -2193,8 +2193,8 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 			'setting' => 'display_comments_link',
 			'choices' => array(
 				'show' => __( 'Show', 'braillewright' ),
-				'hide' => __( 'Hide', 'braillewright' )
-			)
+				'hide' => __( 'Hide', 'braillewright' ),
+			),
 		)
 	);
 
@@ -2204,7 +2204,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		'braillewright_features_show_hide_archives',
 		array(
 			'title' => __( 'Archives', 'braillewright' ),
-			'panel' => 'braillewright_features_show_hide_panel'
+			'panel' => 'braillewright_features_show_hide_panel',
 		)
 	);
 	// setting - archive title
@@ -2213,7 +2213,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		array(
 			'default'           => 'show',
 			'sanitize_callback' => 'braillewright_features_sanitize_show_hide',
-			'transport'         => 'postMessage'
+			'transport'         => 'postMessage',
 		)
 	);
 	// control - archive title
@@ -2226,8 +2226,8 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 			'setting' => 'display_archive_title',
 			'choices' => array(
 				'show' => __( 'Show', 'braillewright' ),
-				'hide' => __( 'Hide', 'braillewright' )
-			)
+				'hide' => __( 'Hide', 'braillewright' ),
+			),
 		)
 	);
 	// setting - archive description
@@ -2236,7 +2236,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		array(
 			'default'           => 'show',
 			'sanitize_callback' => 'braillewright_features_sanitize_show_hide',
-			'transport'         => 'postMessage'
+			'transport'         => 'postMessage',
 		)
 	);
 	// control - archive description
@@ -2249,8 +2249,8 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 			'setting' => 'display_archive_description',
 			'choices' => array(
 				'show' => __( 'Show', 'braillewright' ),
-				'hide' => __( 'Hide', 'braillewright' )
-			)
+				'hide' => __( 'Hide', 'braillewright' ),
+			),
 		)
 	);
 
@@ -2260,7 +2260,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		'braillewright_features_show_hide_footer',
 		array(
 			'title' => __( 'Footer', 'braillewright' ),
-			'panel' => 'braillewright_features_show_hide_panel'
+			'panel' => 'braillewright_features_show_hide_panel',
 		)
 	);
 
@@ -2270,7 +2270,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		array(
 			'default'           => 'show',
 			'sanitize_callback' => 'braillewright_features_sanitize_show_hide',
-			'transport'         => 'postMessage'
+			'transport'         => 'postMessage',
 		)
 	);
 	// control - footer
@@ -2283,8 +2283,8 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 			'setting' => 'display_footer',
 			'choices' => array(
 				'show' => __( 'Show', 'braillewright' ),
-				'hide' => __( 'Hide', 'braillewright' )
-			)
+				'hide' => __( 'Hide', 'braillewright' ),
+			),
 		)
 	);
 
@@ -2297,7 +2297,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		'braillewright_features_footer_text',
 		array(
 			'title'    => __( 'Footer Text', 'braillewright' ),
-			'priority' => 9
+			'priority' => 9,
 		)
 	);
 	// setting
@@ -2305,7 +2305,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		'footer_text',
 		array(
 			'sanitize_callback' => 'wp_kses_post',
-			'transport'         => 'postMessage'
+			'transport'         => 'postMessage',
 		)
 	);
 	// control
@@ -2315,7 +2315,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 			'label'    => __( 'Edit the text in your footer', 'braillewright' ),
 			'section'  => 'braillewright_features_footer_text',
 			'settings' => 'footer_text',
-			'type'     => 'textarea'
+			'type'     => 'textarea',
 		)
 	);
 }
@@ -2329,7 +2329,7 @@ function braillewright_features_sanitize_yes_no_settings( $input ) {
 
 	$valid = array(
 		'yes' => __( 'Yes', 'braillewright' ),
-		'no'  => __( 'No', 'braillewright' )
+		'no'  => __( 'No', 'braillewright' ),
 	);
 
 	return array_key_exists( $input, $valid ) ? $input : '';
@@ -2339,7 +2339,7 @@ function braillewright_features_sanitize_header_image_height_type( $input ) {
 
 	$valid = array(
 		'responsive' => __( 'Responsive', 'braillewright' ),
-		'fixed'      => __( 'Fixed', 'braillewright' )
+		'fixed'      => __( 'Fixed', 'braillewright' ),
 	);
 
 	return array_key_exists( $input, $valid ) ? $input : '';
@@ -2368,7 +2368,7 @@ function braillewright_features_sanitize_font_weight( $input ) {
 		'600'     => __( 'Semi-Bold', 'braillewright' ),
 		'700'     => __( 'Bold', 'braillewright' ),
 		'800'     => __( 'Extra-Bold', 'braillewright' ),
-		'900'     => __( 'Ultra-Bold', 'braillewright' )
+		'900'     => __( 'Ultra-Bold', 'braillewright' ),
 	);
 
 	return array_key_exists( $input, $valid ) ? $input : '';
@@ -2391,7 +2391,7 @@ function braillewright_features_sanitize_layout( $input ) {
 		'left-sidebar'  => __( 'Left sidebar', 'braillewright' ),
 		'two-right'     => __( 'Two columns - Right sidebar', 'braillewright' ),
 		'two-left'      => __( 'Two columns - Left sidebar', 'braillewright' ),
-		'three-column'  => __( 'Three columns', 'braillewright' )
+		'three-column'  => __( 'Three columns', 'braillewright' ),
 	);
 
 	return array_key_exists( $input, $valid ) ? $input : '';
@@ -2408,7 +2408,7 @@ function braillewright_features_sanitize_show_hide( $input ) {
 
 	$valid = array(
 		'show' => __( 'Show', 'braillewright' ),
-		'hide' => __( 'Hide', 'braillewright' )
+		'hide' => __( 'Hide', 'braillewright' ),
 	);
 
 	return array_key_exists( $input, $valid ) ? $input : '';
@@ -2428,7 +2428,7 @@ function braillewright_features_sanitize_featured_image_size( $input ) {
 		'5-4'     => '5:4',
 		'4-5'     => '4:5',
 		'1-1'     => '1:1',
-		'natural' => __( 'Natural Dimensions', 'braillewright' )
+		'natural' => __( 'Natural Dimensions', 'braillewright' ),
 	);
 
 	return array_key_exists( $input, $valid ) ? $input : '';
@@ -2437,7 +2437,7 @@ function braillewright_features_sanitize_featured_image_size( $input ) {
 function braillewright_features_sanitize_header_image_type( $input ) {
 	$valid = array(
 		'image' => __( 'Image', 'braillewright' ),
-		'video' => __( 'Video', 'braillewright' )
+		'video' => __( 'Video', 'braillewright' ),
 	);
 	return array_key_exists( $input, $valid ) ? $input : '';
 }
@@ -2471,7 +2471,7 @@ function braillewright_features_sanitize_font_language( $input ) {
 		'tamil'               => 'Tamil',
 		'telugu'              => 'Telugu',
 		'thai'                => 'Thai',
-		'vietnamese'          => 'Vietnamese'
+		'vietnamese'          => 'Vietnamese',
 	);
 
 	return array_key_exists( $input, $valid ) ? $input : '';

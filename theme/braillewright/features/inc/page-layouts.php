@@ -1,5 +1,5 @@
 <?php
-defined( 'ABSPATH' ) OR exit;
+defined( 'ABSPATH' ) or exit;
 
 function braillewright_features_add_post_layout_meta_box() {
 
@@ -27,24 +27,41 @@ function braillewright_features_post_layout_callback( $post ) {
 	<p>
 		<select name="braillewright-pro-post-layout" id="braillewright-pro-post-layout" style="box-sizing: border-box; width: 100%;">
 			<option value="default"><?php esc_html_e( 'Use layout set in Customizer', 'braillewright' ); ?></option>
-			<option value="right" <?php if ( $layout == 'right' ) {
+			<option value="right" 
+            <?php
+            if ( $layout == 'right' ) {
 				echo 'selected';
-			} ?>><?php esc_html_e( 'Right sidebar', 'braillewright' ); ?>
+			}
+            ?>
+            ><?php esc_html_e( 'Right sidebar', 'braillewright' ); ?>
 			</option>
-			<option value="left" <?php if ( $layout == 'left' ) {
+			<option value="left" 
+            <?php
+            if ( $layout == 'left' ) {
 				echo 'selected';
-			} ?>><?php esc_html_e( 'Left sidebar', 'braillewright' ); ?>
+			}
+            ?>
+            ><?php esc_html_e( 'Left sidebar', 'braillewright' ); ?>
 			</option>
-			<option value="narrow" <?php if ( $layout == 'narrow' ) {
+			<option value="narrow" 
+            <?php
+            if ( $layout == 'narrow' ) {
 				echo 'selected';
-			} ?>><?php esc_html_e( 'Narrow', 'braillewright' ); ?>
+			}
+            ?>
+            ><?php esc_html_e( 'Narrow', 'braillewright' ); ?>
 			</option>
-			<option value="wide" <?php if ( $layout == 'wide' ) {
+			<option value="wide" 
+            <?php
+            if ( $layout == 'wide' ) {
 				echo 'selected';
-			} ?>><?php esc_html_e( 'Wide', 'braillewright' ); ?>
+			}
+            ?>
+            ><?php esc_html_e( 'Wide', 'braillewright' ); ?>
 			</option>
 		</select>
-	</p> <?php
+	</p> 
+    <?php
 }
 
 function braillewright_features_post_layout_save_data( $post_id ) {

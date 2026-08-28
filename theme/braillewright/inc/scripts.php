@@ -28,7 +28,7 @@ function braillewright_load_scripts_styles() {
 	$font_args = array(
 		'family'  => urlencode( 'Roboto:300,300italic,400,700' ),
 		'subset'  => urlencode( 'latin,latin-ext' ),
-		'display' => 'swap'
+		'display' => 'swap',
 	);
 	$fonts_url = add_query_arg( $font_args, '//fonts.googleapis.com/css' );
 
@@ -45,7 +45,7 @@ function braillewright_load_scripts_styles() {
 			'openMenu'       => esc_html_x( 'open menu', 'verb: open the menu', 'braillewright' ),
 			'closeMenu'      => esc_html_x( 'close menu', 'verb: close the menu', 'braillewright' ),
 			'openChildMenu'  => esc_html_x( 'open dropdown menu', 'verb: open the dropdown menu', 'braillewright' ),
-			'closeChildMenu' => esc_html_x( 'close dropdown menu', 'verb: close the dropdown menu', 'braillewright' )
+			'closeChildMenu' => esc_html_x( 'close dropdown menu', 'verb: close the dropdown menu', 'braillewright' ),
 		)
 	);
 
@@ -104,7 +104,7 @@ function braillewright_enqueue_admin_styles( $hook ) {
 
 		$font_args = array(
 			'family' => urlencode( 'Roboto:300,300i,400,700' ),
-			'subset' => urlencode( 'latin,latin-ext' )
+			'subset' => urlencode( 'latin,latin-ext' ),
 		);
 		$fonts_url = add_query_arg( $font_args, '//fonts.googleapis.com/css' );
 
