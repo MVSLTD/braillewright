@@ -78,11 +78,24 @@ jobs:
               raise SystemExit(f'no such stage: {stage}')
           if not s.get('autofix'):
               raise SystemExit(f'stage {stage} is not auto-fixable: {s["name"]}')
-          print(','.join(s['sniffs']))
+          # ⚠️ --sniffs TAKES A SNIFF CODE, NOT A MESSAGE CODE.
+          # The stage map stores what a checkstyle report emits in its `source`
+          # attribute, which is four parts: Standard.Category.Sniff.ErrorCode. PHPCS
+          # rejects that outright - "ERROR: The --sniffs option only supports sniff
+          # codes" - and phpcbf then exits 3 having fixed NOTHING. Measured on run
+          # 33129462314, which produced a zero-byte patch and still reported success.
+          # So the map keeps the four-part codes the planner needs, and the three-part
+          # sniff codes are DERIVED here, deduplicated.
+          codes = sorted({'.'.join(x.split('.')[:3]) for x in s['sniffs']})
+          print(','.join(codes))
           PY
           )
           echo "list=$LIST" >> "$GITHUB_OUTPUT"
-          echo "Stage $STAGE -> $(echo "$LIST" | tr ',' '\n' | grep -c . || true) sniff(s)"
+          N=$(echo "$LIST" | tr ',' '\n' | grep -c . || true)
+          echo "Stage $STAGE -> $N sniff code(s)"
+          if [ "$N" -eq 0 ] && [ -n "$STAGE" ]; then
+            echo "::error::stage $STAGE resolved to zero sniff codes"; exit 1
+          fi
 
       - name: Count findings BEFORE
         run: |
@@ -94,24 +107,37 @@ jobs:
           SNIFFS: ${{ steps.sniffs.outputs.list }}
           PATHS: ${{ inputs.paths }}
         run: |
-          # phpcbf exits 1 when it fixed something and 2 when some remain - neither is an
-          # error here, so the status is recorded rather than allowed to fail the job.
+          # phpcbf exit codes: 0 = nothing fixable, 1 = all fixed, 2 = some remain,
+          # 3 = a PROCESSING ERROR. Only 0/1/2 are acceptable outcomes here.
           set +e
           if [ -n "$SNIFFS" ]; then
             vendor/bin/phpcbf --sniffs="$SNIFFS" $PATHS
           else
             vendor/bin/phpcbf $PATHS
           fi
-          echo "phpcbf exit status: $?"
+          RC=$?
           set -e
+          echo "phpcbf exit status: $RC"
+          if [ "$RC" -ge 3 ]; then
+            echo "::error::phpcbf failed to run (exit $RC). It fixed nothing."
+            exit 1
+          fi
 
       - name: Produce the patch
         run: |
           git diff > phpcbf.patch
           echo "--- files touched ---"
           git diff --stat | tail -20
-          echo "--- patch bytes ---"
-          wc -c phpcbf.patch
+          BYTES=$(wc -c < phpcbf.patch)
+          echo "--- patch bytes: $BYTES ---"
+          # ⛔ A ZERO-BYTE PATCH IS A FAILURE, NOT A CLEAN RUN. This job is only ever
+          # started because there is something to fix, so "nothing changed" means the
+          # run did not do its job - which is exactly what happened on run 33129462314,
+          # where a rejected --sniffs argument produced an empty patch and a green tick.
+          if [ "$BYTES" -eq 0 ]; then
+            echo "::error::phpcbf produced an EMPTY patch - it changed nothing. Treating as a failure."
+            exit 1
+          fi
 
       - name: PROVE no PHP token changed
         run: php .github/scripts/assert-token-stream-unchanged.php HEAD
