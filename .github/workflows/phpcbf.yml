@@ -1,0 +1,134 @@
+name: phpcbf (produce a coding-standards patch)
+
+# Runs phpcbf on a runner and uploads the resulting patch as an artifact. It NEVER
+# commits and NEVER pushes - a human reviews the patch locally and opens a PR from it.
+#
+# WHY A WORKFLOW AND NOT A LOCAL RUN
+# There is no PHP, no Composer and no Docker on the maintainer's machine, so phpcbf
+# cannot run there at all. Running it here is not a workaround, it is better: the runner
+# resolves the SAME composer.lock the blocking PHPCS job uses, so the fixer and the
+# checker can never be different versions of each other. A local install would be a
+# second toolchain free to drift.
+#
+# THE SAFETY GATE
+# For Stage 1 the claim is "not one PHP token changes". That is asserted, not asserted-ish:
+# .github/scripts/assert-token-stream-unchanged.php tokenises every changed file before and
+# after with PHP's own lexer and requires the non-whitespace stream to match token for
+# token. If it fails, the job fails and the patch is still uploaded so the divergence can
+# be read.
+
+on:
+  workflow_dispatch:
+    inputs:
+      stage:
+        description: 'Stage number from .github/phpcbf-stages.json (1 or 2). Blank = whole ruleset.'
+        required: false
+        default: '1'
+      paths:
+        description: 'Paths to fix. Blank = the ruleset roots in phpcs.xml.dist.'
+        required: false
+        default: ''
+  # So the job can be exercised on its own branch before it exists on main.
+  push:
+    branches:
+      - 'chore/phpcbf-**'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: phpcbf-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  phpcbf:
+    name: Run phpcbf and upload the patch
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Set up PHP 8.3 + Composer
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          coverage: none
+          tools: composer:v2
+
+      - name: Install Composer dependencies
+        run: composer install --no-interaction --no-progress --prefer-dist
+
+      - name: Resolve the sniff list for this stage
+        id: sniffs
+        env:
+          STAGE: ${{ inputs.stage || '1' }}
+        run: |
+          set -euo pipefail
+          if [ ! -f .github/phpcbf-stages.json ]; then
+            echo "::error::.github/phpcbf-stages.json is missing"; exit 1
+          fi
+          LIST=$(python3 - "$STAGE" <<'PY'
+          import json, sys
+          stage = sys.argv[1].strip()
+          doc = json.load(open('.github/phpcbf-stages.json', encoding='utf-8'))
+          if not stage:
+              print('')
+              raise SystemExit
+          s = doc['stages'].get(stage)
+          if s is None:
+              raise SystemExit(f'no such stage: {stage}')
+          if not s.get('autofix'):
+              raise SystemExit(f'stage {stage} is not auto-fixable: {s["name"]}')
+          print(','.join(s['sniffs']))
+          PY
+          )
+          echo "list=$LIST" >> "$GITHUB_OUTPUT"
+          echo "Stage $STAGE -> $(echo "$LIST" | tr ',' '\n' | grep -c . || true) sniff(s)"
+
+      - name: Count findings BEFORE
+        run: |
+          vendor/bin/phpcs --report=summary --report-file=phpcbf-before.txt || true
+          tail -3 phpcbf-before.txt || true
+
+      - name: Run phpcbf
+        env:
+          SNIFFS: ${{ steps.sniffs.outputs.list }}
+          PATHS: ${{ inputs.paths }}
+        run: |
+          # phpcbf exits 1 when it fixed something and 2 when some remain - neither is an
+          # error here, so the status is recorded rather than allowed to fail the job.
+          set +e
+          if [ -n "$SNIFFS" ]; then
+            vendor/bin/phpcbf --sniffs="$SNIFFS" $PATHS
+          else
+            vendor/bin/phpcbf $PATHS
+          fi
+          echo "phpcbf exit status: $?"
+          set -e
+
+      - name: Produce the patch
+        run: |
+          git diff > phpcbf.patch
+          echo "--- files touched ---"
+          git diff --stat | tail -20
+          echo "--- patch bytes ---"
+          wc -c phpcbf.patch
+
+      - name: PROVE no PHP token changed
+        run: php .github/scripts/assert-token-stream-unchanged.php HEAD
+
+      - name: Count findings AFTER
+        if: always()
+        run: |
+          vendor/bin/phpcs --report=summary --report-file=phpcbf-after.txt || true
+          tail -3 phpcbf-after.txt || true
+
+      - name: Upload the patch and both counts
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: phpcbf-patch
+          path: |
+            phpcbf.patch
+            phpcbf-before.txt
+            phpcbf-after.txt
+          if-no-files-found: warn
