@@ -7,7 +7,10 @@
 	<?php if ( $braillewright_total_results ) : ?>
 	<div class="search-header archive-header">
 		<h1 class="post-title">
-			<?php printf( esc_html( _n( '%1$d search result for "%2$s"', '%1$d search results for "%2$s"', $braillewright_total_results, 'braillewright' ) ), (int) $braillewright_total_results, esc_html( $braillewright_search_query ) ); ?>
+			<?php
+			/* translators: 1: number of posts matching the search, 2: the search term entered by the visitor. */
+			printf( esc_html( _n( '%1$d search result for "%2$s"', '%1$d search results for "%2$s"', $braillewright_total_results, 'braillewright' ) ), (int) $braillewright_total_results, esc_html( $braillewright_search_query ) );
+			?>
 		</h1>
 	</div>
 	<?php endif; ?>
@@ -22,7 +25,10 @@
 			?>
 			<div class="bw-search-empty">
 				<h1 class="post-title bw-search-empty-title">
-					<?php printf( esc_html__( 'No search results for "%s"', 'braillewright' ), esc_html( $braillewright_search_query ) ); ?>
+					<?php
+					/* translators: %s: the search term entered by the visitor. */
+					printf( esc_html__( 'No search results for "%s"', 'braillewright' ), esc_html( $braillewright_search_query ) );
+					?>
 				</h1>
 				<p><?php esc_html_e( "We couldn't find anything matching that search. Try a different or more general term:", 'braillewright' ); ?></p>
 				<?php get_search_form(); ?>

@@ -143,11 +143,11 @@ add_action( 'widgets_init', 'braillewright_register_widget_areas' );
 
 if ( ! function_exists( ( 'braillewright_customize_comments' ) ) ) {
 	function braillewright_customize_comments( $comment, $args, $depth ) {
-		// phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited -- required.
 		// This is the wp_list_comments() callback (registered at comments.php:15), and
 		// the comment template tags below - comment_class(), comment_ID(),
 		// get_comment_author_email() - all read this global via get_comment().
 		// WordPress core's own class-walker-comment.php:179 sets it identically.
+		// phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited -- required.
 		$GLOBALS['comment'] = $comment;
 		global $post; ?>
 		<li <?php comment_class(); ?> id="li-comment-<?php comment_ID(); ?>">

@@ -38,6 +38,7 @@ function braillewright_features_slider_callback( $post ) {
 		// if there are no sliders, link them to the creation page
 		if ( empty( $sliders ) ) {
 			$link = add_query_arg( 'page', 'metaslider', admin_url( 'admin.php' ) );
+			/* translators: %s: URL of the Meta Slider admin screen. */
 			echo wp_kses_post( '<p class="slider-notice"> ' . sprintf( __( "Looks like you don't have any Sliders yet. <a href='%s' target='_blank'>Click here</a> to create your first slider.", 'braillewright' ), esc_url( $link ) ) . '</p>' );
 		}
 
@@ -99,6 +100,7 @@ function braillewright_features_slider_callback( $post ) {
 		// if Meta Slider is installed, but not active
 		if ( array_key_exists( 'ml-slider/ml-slider.php', $plugins ) ) {
 			$link_plugins = admin_url( 'plugins.php' );
+			/* translators: %s: URL of the WordPress Plugins admin screen. */
 			echo wp_kses_post( '<p class="slider-notice">' . sprintf( __( "Please activate Meta Slider from the <a href='%s'>Plugins menu</a>.", 'braillewright' ), esc_url( $link_plugins ) ) );
 		} else { // if not installed and not active
 			echo '<div class="braillewright_features_slider_no_slider_container">';
@@ -110,6 +112,7 @@ function braillewright_features_slider_callback( $post ) {
 				admin_url( 'plugin-install.php' )
 			);
 			echo '<p class="slider-notice">' . esc_html__( 'Featured Sliders require the Meta Slider plugin.', 'braillewright' );
+			/* translators: %s: URL of the Add Plugins screen, pre-filtered to Meta Slider. */
 			echo wp_kses_post( ' ' . sprintf( __( "<a href='%s'>Click here</a> to find and install Meta Slider from the Plugins menu.", 'braillewright' ), esc_url( $link_ml_search ) ) . '</p>' );
 			echo '</div>';
 		}

@@ -17,10 +17,13 @@ $date   = "<a class='date' href='" . esc_url( get_month_link( get_the_date( 'Y' 
 
 echo '<div class="post-byline">';
 if ( $author_display == 'hide' ) {
+	/* translators: %s: post publication date, wrapped in a link to the month archive. */
 	echo wp_kses_post( sprintf( esc_html_x( 'Published %s', 'This blog post was published on some date', 'braillewright' ), $date ) );
 } elseif ( $date_display == 'hide' ) {
+	/* translators: %s: post author name, wrapped in a link to the author archive. */
 	echo wp_kses_post( sprintf( esc_html_x( 'Published by %s', 'This blog post was published by some author', 'braillewright' ), $author ) );
 } else {
+	/* translators: 1: post publication date, linked to the month archive, 2: post author name, linked to the author archive. */
 	echo wp_kses_post( sprintf( esc_html_x( 'Published %1$s by %2$s', 'This blog post was published on some date by some author', 'braillewright' ), $date, $author ) );
 }
 echo '</div>';

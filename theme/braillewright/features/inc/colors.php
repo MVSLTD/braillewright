@@ -438,9 +438,8 @@ function braillewright_features_custom_colors_css() {
 						$custom_css .= "input[type='submit']:hover,
 						                input[type='submit']:active,
 						                input[type='submit']:focus {background: $value;}";
-					}
 					/***** Header *****/
-					elseif ( $setting['setting_id'] == 'colors_header_bg' ) {
+					} elseif ( $setting['setting_id'] == 'colors_header_bg' ) {
 						$custom_css .= ".site-header {background: $value;}";
 					} elseif ( $setting['setting_id'] == 'colors_header_site_title' ) {
 						$custom_css .= ".site-title a,
@@ -461,9 +460,8 @@ function braillewright_features_custom_colors_css() {
 						$custom_css .= ".social-media-icons a:hover,
 						                .social-media-icons a:active,
 						                .social-media-icons a:focus {color: $value;}";
-					}
 					/***** Menus *****/
-					elseif ( $setting['setting_id'] == 'colors_header_menu_links' ) {
+					} elseif ( $setting['setting_id'] == 'colors_header_menu_links' ) {
 						$custom_css .= ".menu-primary a,
 										.menu-primary a:link,
 										.menu-primary a:visited,
@@ -534,9 +532,8 @@ function braillewright_features_custom_colors_css() {
 										#menu-secondary-items ul {background: $value;}";
 					} elseif ( $setting['setting_id'] == 'colors_header_secondary_menu_button' ) {
 						$custom_css .= "#toggle-secondary-navigation {color: $value;}";
-					} /***** Post *****/
-
-					elseif ( $setting['setting_id'] == 'colors_post_title' ) {
+					/***** Post *****/
+					} elseif ( $setting['setting_id'] == 'colors_post_title' ) {
 						$custom_css .= ".entry .post-title,
 						                .entry .post-title a,
 						                .entry .post-title a:link,
@@ -593,9 +590,8 @@ function braillewright_features_custom_colors_css() {
 										.entry .comments-link a:hover,
 						                .entry .comments-link a:active,
 						                .entry .comments-link a:focus {color: $value;}";
-					} /***** Comments *****/
-
-					elseif ( $setting['setting_id'] == 'colors_comments_content' ) {
+					/***** Comments *****/
+					} elseif ( $setting['setting_id'] == 'colors_comments_content' ) {
 						$custom_css .= "li.comment,
 						                li.pingback {color: $value;}";
 					} elseif ( $setting['setting_id'] == 'colors_comments_links' ) {
@@ -612,9 +608,8 @@ function braillewright_features_custom_colors_css() {
 					                    li.pingback a:hover,
 				                        li.pingback a:active,
 			                            li.pingback a:focus  {color: $value;}";
-					} /***** Widgets *****/
-
-					elseif ( $setting['setting_id'] == 'colors_widgets_headings' ) {
+					/***** Widgets *****/
+					} elseif ( $setting['setting_id'] == 'colors_widgets_headings' ) {
 						$custom_css .= ".widget h1,
 										.widget h2,
 										.widget h3,
@@ -631,10 +626,8 @@ function braillewright_features_custom_colors_css() {
 						$custom_css .= ".widget a:hover,
 						                .widget a:active,
 						                .widget a:focus {color: $value;}";
-					}
 					/***** Archives *****/
-
-					elseif ( $setting['setting_id'] == 'colors_archives_header' ) {
+					} elseif ( $setting['setting_id'] == 'colors_archives_header' ) {
 						$custom_css .= ".archive-header {color: $value;}";
 					} elseif ( $setting['setting_id'] == 'colors_archives_header_bg' ) {
 						$custom_css .= ".archive-header h2 {background: $value;}";
@@ -647,10 +640,8 @@ function braillewright_features_custom_colors_css() {
 					} elseif ( $setting['setting_id'] == 'colors_archives_pagination_current' ) {
 						$custom_css .= ".pagination span.current,
 						                .pagination a.current {background: $value;}";
-					}
 					/***** Footer *****/
-
-					elseif ( $setting['setting_id'] == 'colors_footer_bg' ) {
+					} elseif ( $setting['setting_id'] == 'colors_footer_bg' ) {
 						$custom_css .= ".site-footer, .design-credit {background: $value;}";
 					} elseif ( $setting['setting_id'] == 'colors_footer_content' ) {
 						$custom_css .= ".site-footer .design-credit {color: $value;}";

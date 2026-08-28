@@ -1209,6 +1209,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		'braillewright_features_fonts',
 		array(
 			'title'       => __( 'Global', 'braillewright' ),
+			/* translators: %s: URL of the Google Fonts website. */
 			'description' => sprintf( __( '<i>All fonts can be previewed at <a href="%s" target="_blank">Google Fonts</a>.</i>', 'braillewright' ), 'https://fonts.google.com/' ),
 			'panel'       => 'braillewright_features_fonts_panel',
 		)
@@ -1382,6 +1383,7 @@ function braillewright_features_add_customizer_content( $wp_customize ) {
 		'braillewright_features_fonts_advanced',
 		array(
 			'title'       => __( 'Individual Elements', 'braillewright' ),
+			/* translators: %s: URL of the Google Fonts website. */
 			'description' => sprintf( __( '<i>All fonts can be previewed at <a href="%s" target="_blank">Google Fonts</a>.</i>', 'braillewright' ), 'https://fonts.google.com/' ),
 			'panel'       => 'braillewright_features_fonts_panel',
 		)
