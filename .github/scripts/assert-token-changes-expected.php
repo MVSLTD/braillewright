@@ -425,6 +425,135 @@ function commaIsInert(array $A, int $i, array $B, int $j): bool
 }
 
 /**
+ * `or`/`and` and `||`/`&&` are the SAME operators with DIFFERENT PRECEDENCE. Between
+ * them in PHP's precedence table sit these, and ONLY these. If a statement containing
+ * the swapped operator holds any of them, the swap re-binds the expression and the
+ * program changes.
+ *
+ * Measured on PHP 8.3 rather than recited: `$x = f() or g();` yields false where
+ * `$x = f() || g();` yields true, and `($n ?? f()) or g()` differs the same way, while
+ * the bare guard statement `f() or g();` is identical under both - same value, same
+ * short-circuit trace. `return f() or g();` also measured identical, so `return` is
+ * NOT a hazard and is deliberately absent from this list.
+ */
+const PRECEDENCE_HAZARDS = [
+    'T_COALESCE',                                  // ??
+    'T_YIELD', 'T_YIELD_FROM', 'T_THROW', 'T_PRINT',
+    'T_PLUS_EQUAL', 'T_MINUS_EQUAL', 'T_MUL_EQUAL', 'T_DIV_EQUAL',
+    'T_CONCAT_EQUAL', 'T_MOD_EQUAL', 'T_AND_EQUAL', 'T_OR_EQUAL',
+    'T_XOR_EQUAL', 'T_SL_EQUAL', 'T_SR_EQUAL', 'T_POW_EQUAL', 'T_COALESCE_EQUAL',
+    // Another low-precedence word operator in the same statement changes how the two
+    // of them associate with each other, so refuse rather than reason about it.
+    'T_LOGICAL_AND', 'T_LOGICAL_OR', 'T_LOGICAL_XOR',
+];
+
+/** Bare characters that are hazards: assignment and the ternary. */
+const PRECEDENCE_HAZARD_CHARS = ['=', '?'];
+
+/**
+ * Bounds of the statement containing token $idx, as [start, endExclusive].
+ *
+ * Returns null when the boundaries cannot be established confidently - in which case
+ * the caller must refuse, because "I could not tell" is not "it is fine".
+ */
+function statementBounds(array $S, int $idx): ?array
+{
+    $start = null;
+    $depth = 0;
+    for ($k = $idx - 1; $k >= 0; $k--) {
+        $t = $S[$k];
+        if ($t['name'] === 'CHAR') {
+            if (in_array($t['text'], [')', ']', '}'], true)) {
+                $depth++;
+                continue;
+            }
+            if (in_array($t['text'], ['(', '['], true)) {
+                $depth--;
+                if ($depth < 0) {          // unmatched opener: the enclosing construct
+                    $start = $k + 1;
+                    break;
+                }
+                continue;
+            }
+            if ($t['text'] === '{') {
+                $depth--;
+                if ($depth < 0) {
+                    $start = $k + 1;
+                    break;
+                }
+                continue;
+            }
+            if ($t['text'] === ';' && $depth === 0) {
+                $start = $k + 1;
+                break;
+            }
+        }
+        if ($t['name'] === 'T_OPEN_TAG' && $depth === 0) {
+            $start = $k + 1;
+            break;
+        }
+    }
+    if ($start === null) {
+        $start = 0;
+    }
+
+    $end = null;
+    $depth = 0;
+    for ($k = $idx + 1; $k < count($S); $k++) {
+        $t = $S[$k];
+        if ($t['name'] === 'CHAR') {
+            if (in_array($t['text'], ['(', '[', '{'], true)) {
+                $depth++;
+                continue;
+            }
+            if (in_array($t['text'], [')', ']', '}'], true)) {
+                $depth--;
+                if ($depth < 0) {
+                    $end = $k;
+                    break;
+                }
+                continue;
+            }
+            if ($t['text'] === ';' && $depth === 0) {
+                $end = $k;
+                break;
+            }
+        }
+        if ($t['name'] === 'T_CLOSE_TAG' && $depth === 0) {
+            $end = $k;
+            break;
+        }
+    }
+    if ($end === null) {
+        return null;                        // ran off the end: refuse
+    }
+    return [$start, $end];
+}
+
+/** Is swapping a word operator for its symbol form inert in this statement? */
+function operatorSwapIsInert(array $A, int $i): bool
+{
+    $bounds = statementBounds($A, $i);
+    if ($bounds === null) {
+        return false;
+    }
+    [$start, $end] = $bounds;
+    for ($k = $start; $k < $end; $k++) {
+        if ($k === $i) {
+            continue;                        // the operator being swapped
+        }
+        $t = $A[$k];
+        if (in_array($t['name'], PRECEDENCE_HAZARDS, true)) {
+            return false;
+        }
+        if ($t['name'] === 'CHAR' && in_array($t['text'], PRECEDENCE_HAZARD_CHARS, true)) {
+            return false;
+        }
+    }
+    return true;
+}
+
+/**
  * Every rule takes the two streams and the two cursors and returns
  * [tokens consumed from A, tokens consumed from B, class name] or null.
  *
@@ -491,6 +620,27 @@ function tryRules(array $A, int $i, array $B, int $j): ?array
         ], true);
         if (!$namePosition) {
             return [1, 1, 'KEYWORD_CASE'];
+        }
+    }
+
+    // --- LOGICAL_OPERATOR: `or` -> `||`, `and` -> `&&`.
+    //
+    // ⚠️ THIS IS A PRECEDENCE CHANGE, NOT A SPELLING CHANGE, and it is the whole risk
+    // of Stage 4. The swap is inert only when nothing of intermediate precedence sits
+    // in the same statement - see PRECEDENCE_HAZARDS, which was measured on PHP 8.3
+    // rather than recited. `xor` is deliberately NOT here: PHP has no `^^`, so there is
+    // no symbol form to swap to and any "fix" would be a rewrite.
+    if ($a !== null && $b !== null) {
+        $swap = [
+            'T_LOGICAL_OR' => ['T_BOOLEAN_OR', '||'],
+            'T_LOGICAL_AND' => ['T_BOOLEAN_AND', '&&'],
+        ];
+        if (isset($swap[$a['name']])) {
+            [$wantName, $wantText] = $swap[$a['name']];
+            if ($b['name'] === $wantName && $b['text'] === $wantText
+                && operatorSwapIsInert($A, $i)) {
+                return [1, 1, 'LOGICAL_OPERATOR'];
+            }
         }
     }
 

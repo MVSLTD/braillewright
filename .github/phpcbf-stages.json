@@ -87,6 +87,11 @@
     "4": {
       "name": "manual but mechanical (no fixer exists)",
       "autofix": false,
+      "token_contract": "classified",
+      "_token_classes_note": "autofix is FALSE - phpcbf has no fixer for this sniff, so the edit is applied by ops/stage4_logical_operators.py and the gate is what proves it. LOGICAL_OPERATOR is the ONLY class permitted: a Stage 4 change that also moved whitespace, requoted a string or added a comma would be doing something nobody asked for, and would fail here. `or` -> `||` is a PRECEDENCE change, not a spelling change, and the gate refuses it in any statement carrying an operator of intermediate precedence - assignment, ??, ?:, yield, throw, print, or another word operator. Measured on PHP 8.3 2026-08-28: the bare guard statement is identical under both operators (same value, same short-circuit trace) while `$x = f() or g();` yields false where || yields true. xor is deliberately unsupported - PHP has no ^^, so there is nothing to swap to.",
+      "token_classes": [
+        "LOGICAL_OPERATOR"
+      ],
       "sniffs": [
         "Squiz.Operators.ValidLogicalOperators.NotAllowed"
       ]
