@@ -1,6 +1,6 @@
 <div id="menu-primary" class="menu-container menu-primary" role="navigation" aria-label="<?php esc_attr_e( 'Primary', 'braillewright' ); ?>">
 	<?php
-    wp_nav_menu(
+	wp_nav_menu(
 		array(
 			'theme_location'  => 'primary',
 			'container'       => 'div',
@@ -11,5 +11,5 @@
 			'fallback_cb'     => 'braillewright_wp_page_menu',
 		)
 	);
-    ?>
+	?>
 </div>

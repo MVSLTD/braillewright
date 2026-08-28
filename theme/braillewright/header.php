@@ -27,10 +27,10 @@ if ( function_exists( 'wp_body_open' ) ) {
 			<div id="title-container" class="title-container">
 				<?php get_template_part( 'logo' ); ?>
 				<?php
-                if ( get_bloginfo( 'description' ) ) {
+				if ( get_bloginfo( 'description' ) ) {
 					echo '<p class="tagline">' . esc_html( get_bloginfo( 'description' ) ) . '</p>';
 				}
-                ?>
+				?>
 			</div>
 			<button id="toggle-navigation" class="toggle-navigation" name="toggle-navigation" aria-expanded="false">
 				<span class="screen-reader-text"><?php echo esc_html_x( 'open menu', 'verb: open the menu', 'braillewright' ); ?></span>
@@ -51,7 +51,7 @@ if ( function_exists( 'wp_body_open' ) ) {
 		<div class="max-width">
 			<section id="main" class="main" role="main">
 				<?php
-                do_action( 'main_top' );
+				do_action( 'main_top' );
 				if ( function_exists( 'yoast_breadcrumb' ) ) {
 					yoast_breadcrumb( '<p id="breadcrumbs">', '</p>' );
 				}

@@ -150,7 +150,7 @@ if ( ! function_exists( ( 'braillewright_customize_comments' ) ) ) {
 			<div class="comment-author">
 				<?php
 				echo get_avatar( get_comment_author_email(), 48, '', get_comment_author() );
-                ?>
+				?>
 				<div class="comment-meta">
 					<span class="author-name"><?php comment_author_link(); ?></span>
 					<span class="comment-date"><?php comment_date(); ?></span>
@@ -165,7 +165,7 @@ if ( ! function_exists( ( 'braillewright_customize_comments' ) ) ) {
 			</div>
 			<div class="comment-footer">
 				<?php
-                comment_reply_link(
+				comment_reply_link(
 					array_merge(
 						$args,
 						array(
@@ -176,7 +176,7 @@ if ( ! function_exists( ( 'braillewright_customize_comments' ) ) ) {
 						)
 					)
 				);
-                ?>
+				?>
 				<?php edit_comment_link( esc_html_x( 'Edit', 'verb: edit this comment', 'braillewright' ), '<i class="fas fa-edit"></i>' ); ?>
 			</div>
 		</article>
@@ -627,7 +627,7 @@ if ( ! function_exists( 'braillewright_social_icons_output' ) ) {
 				}
 				// Output the icon
 				if ( $name == 'social_icon_custom_1' || $name == 'social_icon_custom_2' || $name == 'social_icon_custom_3' ) {
-                ?>
+					?>
 					<li>
 						<a class="custom-icon" target="_blank" href="<?php echo $href; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $href is pre-escaped via esc_url() above. ?>">
 							<img class="icon" src="<?php echo esc_url( get_theme_mod( $name . '_image' ) ); ?>" style="width: <?php echo absint( get_theme_mod( $name . '_size', '20' ) ); ?>px;" alt="<?php echo esc_html( get_theme_mod( $name . '_name' ) ); ?>" />
@@ -635,15 +635,15 @@ if ( ! function_exists( 'braillewright_social_icons_output' ) ) {
 					</li>
 					<?php
 				} else {
-                ?>
+					?>
 					<li>
 						<a class="<?php echo esc_attr( $name ); ?>" target="_blank" href="<?php echo $href; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $href is pre-escaped per protocol branch (esc_url / mailto antispambot) above. ?>"
 							<?php
-                            if ( $title == 'mastodon' ) {
+							if ( $title == 'mastodon' ) {
 								echo 'rel="me"';
 							}
-                            ?>
-                            >
+							?>
+							>
 							<i class="<?php echo esc_attr( $class ); ?>" aria-hidden="true" title="<?php echo esc_attr( $title ); ?>"></i>
 							<span class="screen-reader-text"><?php echo esc_html( $title ); ?></span>
 						</a>

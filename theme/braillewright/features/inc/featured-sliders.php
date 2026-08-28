@@ -28,10 +28,12 @@ function braillewright_features_slider_callback( $post ) {
 	if ( defined( 'META_SLIDER_ACTIVE' ) ) {
 
 		// get all the meta sliders user has made
-		$sliders = get_posts( array(
-			'post_type'      => 'ml-slider',
-			'posts_per_page' => - 1,
-		) );
+		$sliders = get_posts(
+			array(
+				'post_type'      => 'ml-slider',
+				'posts_per_page' => - 1,
+			)
+		);
 
 		// if there are no sliders, link them to the creation page
 		if ( empty( $sliders ) ) {
@@ -46,7 +48,7 @@ function braillewright_features_slider_callback( $post ) {
 			echo '</label> ';
 			echo '<select id="braillewright_features_slider_selection" name="braillewright_features_slider_selection">';
 				echo '<option value="select">' . esc_html__( 'Select a slider', 'braillewright' ) . '</option>';
-				foreach ( $sliders as $slider ) {
+		foreach ( $sliders as $slider ) {
 			$title = $slider->post_title;
 			$id    = $slider->ID;
 			?>
@@ -56,9 +58,9 @@ function braillewright_features_slider_callback( $post ) {
 				echo 'selected';
 			}
 			?>
-                    ><?php echo esc_html( $title ); ?></option>
-		<?php
-                }
+					><?php echo esc_html( $title ); ?></option>
+			<?php
+		}
 			echo '</select>';
 			echo '<p><em> ' . esc_html__( 'Recommended slider dimensions: 2x1', 'braillewright' ) . '</em></p>';
 		echo '</div>';
@@ -100,10 +102,13 @@ function braillewright_features_slider_callback( $post ) {
 			echo wp_kses_post( '<p class="slider-notice">' . sprintf( __( "Please activate Meta Slider from the <a href='%s'>Plugins menu</a>.", 'braillewright' ), esc_url( $link_plugins ) ) );
 		} else { // if not installed and not active
 			echo '<div class="braillewright_features_slider_no_slider_container">';
-			$link_ml_search = add_query_arg( array(
-				'tab' => 'search',
-				's'   => 'metaslider',
-			), admin_url( 'plugin-install.php' ) );
+			$link_ml_search = add_query_arg(
+				array(
+					'tab' => 'search',
+					's'   => 'metaslider',
+				),
+				admin_url( 'plugin-install.php' )
+			);
 			echo '<p class="slider-notice">' . esc_html__( 'Featured Sliders require the Meta Slider plugin.', 'braillewright' );
 			echo wp_kses_post( ' ' . sprintf( __( "<a href='%s'>Click here</a> to find and install Meta Slider from the Plugins menu.", 'braillewright' ), esc_url( $link_ml_search ) ) . '</p>' );
 			echo '</div>';

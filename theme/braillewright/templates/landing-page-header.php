@@ -8,7 +8,7 @@ get_header(); ?>
 	if ( have_posts() ) :
 		while ( have_posts() ) :
 			the_post();
-            ?>
+			?>
 			<div <?php post_class(); ?>>
 				<article>
 					<div class="post-container">
@@ -18,10 +18,10 @@ get_header(); ?>
 					</div>
 				</article>
 			</div>
-		<?php
-        endwhile;
+			<?php
+		endwhile;
 	endif;
-    ?>
+	?>
 </div>
 
 </section> <!-- .main -->

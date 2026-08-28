@@ -42,7 +42,7 @@ if ( $total_results ) {
 		<p><?php esc_html_e( "Can't find what you're looking for?  Try refining your search:", 'braillewright' ); ?></p>
 		<?php get_search_form(); ?>
 	</div>
-<?php
+	<?php
 }
 
 get_footer();

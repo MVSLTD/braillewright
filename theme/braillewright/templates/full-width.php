@@ -8,7 +8,7 @@ get_header(); ?>
 	if ( have_posts() ) :
 		while ( have_posts() ) :
 			the_post();
-            ?>
+			?>
 			<div <?php post_class(); ?>>
 				<article>
 					<?php do_action( 'page_before' ); ?>
@@ -20,13 +20,13 @@ get_header(); ?>
 						<div class="post-content">
 							<?php the_content(); ?>
 							<?php
-                            wp_link_pages(
+							wp_link_pages(
 								array(
 									'before' => '<p class="singular-pagination">' . esc_html__( 'Pages:', 'braillewright' ),
 									'after'  => '</p>',
 								)
 							);
-                            ?>
+							?>
 							<?php do_action( 'page_after' ); ?>
 						</div>
 					</div>
@@ -35,10 +35,10 @@ get_header(); ?>
 					<?php comments_template(); ?>
 				</div>
 			</div>
-		<?php
-        endwhile;
+			<?php
+		endwhile;
 	endif;
-    ?>
+	?>
 </div>
 <?php
 get_footer();

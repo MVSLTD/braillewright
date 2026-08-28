@@ -12,5 +12,5 @@ if ( is_active_sidebar( 'primary' ) ) : ?>
 		<h2 class="screen-reader-text"><?php esc_html_e( 'Sidebar', 'braillewright' ); ?></h2>
 		<?php dynamic_sidebar( 'primary' ); ?>
 	</aside>
-<?php
+	<?php
 endif;

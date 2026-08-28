@@ -8,7 +8,7 @@ if ( has_nav_menu( 'secondary' ) ) : ?>
 		</button>
 		<div id="menu-secondary" class="menu-container menu-secondary" role="navigation" aria-label="<?php esc_attr_e( 'Secondary', 'braillewright' ); ?>">
 			<?php
-            wp_nav_menu(
+			wp_nav_menu(
 				array(
 					'theme_location'  => 'secondary',
 					'container'       => 'div',
@@ -19,8 +19,8 @@ if ( has_nav_menu( 'secondary' ) ) : ?>
 					'fallback_cb'     => false,
 				)
 			);
-            ?>
+			?>
 		</div>
 	</div>
-<?php
+	<?php
 endif;
