@@ -159,8 +159,50 @@ jobs:
             exit 1
           fi
 
-      - name: PROVE no PHP token changed
-        run: php .github/scripts/assert-token-stream-unchanged.php HEAD
+      # ⛔ THE GATE IS CHOSEN BY THE STAGE'S DECLARED CONTRACT, NOT BY WHOEVER IS
+      # DISPATCHING. Until 2026-08-28 this step ran the "no token changed" gate
+      # unconditionally. That is the right claim for Stage 1 and the WRONG claim for
+      # Stage 2, whose entire purpose is to change tokens - so a correct Stage 2 run
+      # produced a wall of failures and proved nothing. A check that cries wolf gets
+      # ignored on the run where it is right, so the contract now lives in the stage
+      # map beside the sniffs and this step reads it.
+      #
+      #   unchanged  -> not one PHP token may differ.
+      #   classified -> tokens WILL differ, and every difference must fall into one of
+      #                 the stage's named token_classes. Anything else fails.
+      #
+      # Both gates fail closed. A stage that declares no contract stops the run rather
+      # than defaulting to either, because "which promise does this stage make?" is a
+      # question a human should have answered before dispatching it.
+      - name: Prove the gate itself still rejects regressions
+        run: php .github/scripts/test-token-gate.php
+
+      - name: PROVE the token changes are the expected ones for this stage
+        env:
+          STAGE: ${{ inputs.stage || '1' }}
+        run: |
+          set -euo pipefail
+          CONTRACT=$(python3 - "$STAGE" <<'PY'
+          import json, sys
+          doc = json.load(open('.github/phpcbf-stages.json', encoding='utf-8'))
+          s = doc['stages'].get(sys.argv[1].strip())
+          print((s or {}).get('token_contract', ''))
+          PY
+          )
+          echo "stage $STAGE declares token_contract=${CONTRACT:-<none>}"
+          case "$CONTRACT" in
+            unchanged)
+              php .github/scripts/assert-token-stream-unchanged.php HEAD
+              ;;
+            classified)
+              php .github/scripts/assert-token-changes-expected.php --stage "$STAGE" --base HEAD
+              ;;
+            *)
+              echo "::error::stage $STAGE declares no token_contract in .github/phpcbf-stages.json."
+              echo "::error::Add \"token_contract\": \"unchanged\" or \"classified\" (plus token_classes)."
+              exit 1
+              ;;
+          esac
 
       - name: Count findings AFTER
         if: always()

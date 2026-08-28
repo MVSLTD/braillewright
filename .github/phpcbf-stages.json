@@ -1,5 +1,6 @@
 {
   "_comment": "Authoritative stage map for the Braillewright coding-standards sweep. Read by .github/workflows/phpcbf.yml AND by ops/phpcs_stage_planner.py, so the runner and the planner cannot drift apart. Stage 1 must contain ONLY sniffs whose fix changes whitespace between tokens and never a PHP token; that claim is enforced by .github/scripts/assert-token-stream-unchanged.php.",
+  "_token_contract": "Every auto-fixable stage MUST declare token_contract, and the workflow picks its gate from that field rather than from anyone remembering which stage is which. 'unchanged' = not one PHP token may differ, proven by assert-token-stream-unchanged.php. 'classified' = tokens are EXPECTED to change, and every change must fall into one of the named token_classes, proven by assert-token-changes-expected.php. Running the 'unchanged' gate against a stage that legitimately changes tokens produces a wall of failures on a CORRECT run, which is the shape this project's CLAUDE.md warns about: a check that cries wolf gets ignored on the run where it is right. Both gates fail closed - an unlisted class is never assumed benign.",
   "_retired": {
     "Universal.Operators.StrictComparisons": "retired 2026-08-27 - its autofix ships behaviour changes",
     "WordPress.PHP.YodaConditions": "retired 2026-08-27 - pure house style, no fixer exists"
@@ -8,6 +9,7 @@
     "1": {
       "name": "whitespace + layout (autofix, NO token changes)",
       "autofix": true,
+      "token_contract": "unchanged",
       "sniffs": [
         "Generic.Formatting.MultipleStatementAlignment.IncorrectWarning",
         "Generic.Formatting.MultipleStatementAlignment.NotSameWarning",
@@ -48,6 +50,19 @@
     "2": {
       "name": "syntax normalisation (autofix, tokens change, behaviour does not)",
       "autofix": true,
+      "token_contract": "classified",
+      "_token_classes_note": "Each class is a transformation assert-token-changes-expected.php can recognise structurally and argue is inert; the argument for each one is written next to its rule in that script. The list is an ALLOW-LIST: an edit matching no class fails the gate. Measured on the 2026-08-28 Stage 2 patch (44 files) - if a later WPCS bump adds a sniff to this stage, its edits will land as UNCLASSIFIED and stop the run rather than passing as already-approved.",
+      "token_classes": [
+        "TRAILING_COMMA",
+        "REQUOTE",
+        "KEYWORD_CASE",
+        "INCLUDE_PARENS",
+        "ELSEIF_MERGE",
+        "PRE_INCREMENT",
+        "ADD_SEMICOLON",
+        "DROP_EMPTY_SEMICOLON",
+        "INLINE_HTML_WS"
+      ],
       "sniffs": [
         "Generic.CodeAnalysis.EmptyPHPStatement.SemicolonWithoutCodeDetected",
         "Generic.Files.LineEndings.InvalidEOLChar",
