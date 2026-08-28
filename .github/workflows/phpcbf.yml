@@ -87,6 +87,21 @@ jobs:
           # So the map keeps the four-part codes the planner needs, and the three-part
           # sniff codes are DERIVED here, deduplicated.
           codes = sorted({'.'.join(x.split('.')[:3]) for x in s['sniffs']})
+          # ⛔ AND THE COLLAPSE MUST NOT LEAK INTO ANOTHER STAGE.
+          # phpcbf can only be filtered to a SNIFF, not to one of its message codes, so
+          # asking for a stage really asks for every message code those sniffs emit. That
+          # is safe only while the stages are disjoint at sniff-code level. Verified
+          # disjoint on 2026-08-27 - but a later edit could add a message code to an
+          # existing sniff and land it in a different stage, which would silently apply
+          # Stage 2 edits during a Stage 1 run. So it is asserted on every run.
+          for other, o in doc['stages'].items():
+              if other == stage:
+                  continue
+              clash = codes_set = {'.'.join(x.split('.')[:3]) for x in o['sniffs']} & set(codes)
+              if clash:
+                  raise SystemExit(
+                      f'stage {stage} and stage {other} share sniff code(s) {sorted(clash)} - '
+                      f'fixing one would silently apply the other')
           print(','.join(codes))
           PY
           )
