@@ -22,7 +22,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-defined( 'ABSPATH' ) or exit;
+defined( 'ABSPATH' ) || exit;
 
 // Asset locations for the merged-in feature modules (now a theme subdirectory).
 if ( ! defined( 'BRAILLEWRIGHT_FEATURES_PATH' ) ) {

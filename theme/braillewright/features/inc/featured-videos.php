@@ -1,5 +1,5 @@
 <?php
-defined( 'ABSPATH' ) or exit;
+defined( 'ABSPATH' ) || exit;
 
 //----------------------------------------------------------------------------------
 // Add the Featured Video meta box
