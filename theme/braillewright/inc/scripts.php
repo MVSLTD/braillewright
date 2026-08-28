@@ -32,9 +32,12 @@ function braillewright_load_scripts_styles() {
 	);
 	$fonts_url = add_query_arg( $font_args, '//fonts.googleapis.com/css' );
 
-	wp_enqueue_style( 'braillewright-google-fonts', $fonts_url );
+	// Google Fonts. The URL already encodes every font setting that determines its
+	// content, so it is self-versioning - but WPCS counts null as 'version not set'
+	// (measured: MissingVersion still fired), so the theme version is passed too.
+	wp_enqueue_style( 'braillewright-google-fonts', $fonts_url, array(), BRAILLEWRIGHT_VERSION );
 
-	wp_enqueue_script( 'braillewright-js', get_template_directory_uri() . '/js/build/production.min.js', array( 'jquery' ), '', true );
+	wp_enqueue_script( 'braillewright-js', get_template_directory_uri() . '/js/build/production.min.js', array( 'jquery' ), BRAILLEWRIGHT_VERSION, true );
 	wp_localize_script(
 		'braillewright-js',
 		'braillewright_objectL10n',
@@ -46,9 +49,9 @@ function braillewright_load_scripts_styles() {
 		)
 	);
 
-	wp_enqueue_style( 'braillewright-font-awesome', get_template_directory_uri() . '/assets/font-awesome/css/all.min.css' );
+	wp_enqueue_style( 'braillewright-font-awesome', get_template_directory_uri() . '/assets/font-awesome/css/all.min.css', array(), BRAILLEWRIGHT_VERSION );
 
-	wp_enqueue_style( 'braillewright-style', get_stylesheet_uri() );
+	wp_enqueue_style( 'braillewright-style', get_stylesheet_uri(), array(), BRAILLEWRIGHT_VERSION );
 
 	/*
 	 * WordPress core already loads this theme's rtl.css by itself: locale_stylesheet()
@@ -78,7 +81,8 @@ function braillewright_load_scripts_styles() {
 		wp_enqueue_style(
 			'braillewright-style-rtl',
 			$braillewright_locale_stylesheet,
-			array( 'braillewright-style' )
+			array( 'braillewright-style' ),
+			BRAILLEWRIGHT_VERSION
 		);
 		remove_action( 'wp_head', 'locale_stylesheet' );
 	}
@@ -94,7 +98,7 @@ add_action( 'wp_enqueue_scripts', 'braillewright_load_scripts_styles' );
 function braillewright_enqueue_admin_styles( $hook ) {
 
 	if ( $hook == 'appearance_page_braillewright-options' ) {
-		wp_enqueue_style( 'braillewright-admin-styles', get_template_directory_uri() . '/styles/admin.min.css' );
+		wp_enqueue_style( 'braillewright-admin-styles', get_template_directory_uri() . '/styles/admin.min.css', array(), BRAILLEWRIGHT_VERSION );
 	}
 	if ( $hook == 'post.php' || $hook == 'post-new.php' ) {
 
@@ -104,15 +108,15 @@ function braillewright_enqueue_admin_styles( $hook ) {
 		);
 		$fonts_url = add_query_arg( $font_args, '//fonts.googleapis.com/css' );
 
-		wp_enqueue_style( 'braillewright-google-fonts', $fonts_url );
+		wp_enqueue_style( 'braillewright-google-fonts', $fonts_url, array(), BRAILLEWRIGHT_VERSION );
 	}
 }
 add_action( 'admin_enqueue_scripts', 'braillewright_enqueue_admin_styles' );
 
 // Customizer scripts
 function braillewright_enqueue_customizer_scripts() {
-	wp_enqueue_script( 'braillewright-customizer-js', get_template_directory_uri() . '/js/build/customizer.min.js', array( 'jquery' ), '', true );
-	wp_enqueue_style( 'braillewright-customizer-styles', get_template_directory_uri() . '/styles/customizer.min.css' );
+	wp_enqueue_script( 'braillewright-customizer-js', get_template_directory_uri() . '/js/build/customizer.min.js', array( 'jquery' ), BRAILLEWRIGHT_VERSION, true );
+	wp_enqueue_style( 'braillewright-customizer-styles', get_template_directory_uri() . '/styles/customizer.min.css', array(), BRAILLEWRIGHT_VERSION );
 }
 add_action( 'customize_controls_enqueue_scripts', 'braillewright_enqueue_customizer_scripts' );
 
@@ -121,6 +125,6 @@ add_action( 'customize_controls_enqueue_scripts', 'braillewright_enqueue_customi
  * transport => postMessage
  */
 function braillewright_enqueue_customizer_post_message_scripts() {
-	wp_enqueue_script( 'braillewright-customizer-post-message-js', get_template_directory_uri() . '/js/build/postMessage.min.js', array( 'jquery' ), '', true );
+	wp_enqueue_script( 'braillewright-customizer-post-message-js', get_template_directory_uri() . '/js/build/postMessage.min.js', array( 'jquery' ), BRAILLEWRIGHT_VERSION, true );
 }
 add_action( 'customize_preview_init', 'braillewright_enqueue_customizer_post_message_scripts' );

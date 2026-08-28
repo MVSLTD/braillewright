@@ -1,6 +1,22 @@
 <?php
 
 //----------------------------------------------------------------------------------
+//  The theme's own version.
+//
+//  Every enqueued stylesheet and script is versioned with this so a release actually
+//  reaches a returning visitor. Without a $ver argument WordPress appends its OWN
+//  version instead, so style.css?ver=7.1 does not change when the theme does, and the
+//  browser keeps serving the cached copy until WordPress core is upgraded.
+//
+//  get_template() resolves the PARENT theme deliberately: on a child-theme site
+//  wp_get_theme() returns the CHILD's version, which does not describe the assets
+//  enqueued from here.
+//----------------------------------------------------------------------------------
+if ( ! defined( 'BRAILLEWRIGHT_VERSION' ) ) {
+	define( 'BRAILLEWRIGHT_VERSION', wp_get_theme( get_template() )->get( 'Version' ) );
+}
+
+//----------------------------------------------------------------------------------
 //  Include all required files
 //----------------------------------------------------------------------------------
 require_once( trailingslashit( get_template_directory() ) . 'theme-options.php' );

@@ -75,6 +75,38 @@
         shorter one was tried on 2026-08-27 and is not possible - see the note inside
         the prefixes list for the measured reason.
     -->
+    <!--
+        ⛔ HOOK NAMES ARE EXEMPT, AND ONLY HOOK NAMES. Measured 2026-08-27.
+
+        NonPrefixedHooknameFound reports 23 do_action() calls. Renaming any of them is a
+        BREAKING CHANGE, because a hook name is a public API: it is the thing a child
+        theme, a plugin or a site snippet attaches to. Six live sites migrated here from
+        Period 1.750, where these names have existed since long before the fork.
+
+        The 22 theme hooks are the template extension points, named for where they fire:
+        body_top, before_header, after_header, main_top, main_bottom, footer_top,
+        body_bottom, page_before, page_after, post_before, post_after,
+        archive_post_before, archive_post_after, after_archive_header,
+        sticky_post_status, attachment_before, attachment_after, theme_options_before,
+        theme_options_after.
+
+        ⚠️ AND THE 23rd IS NOT OURS AT ALL. header.php fires do_action('wp_body_open')
+        inside the standard WordPress core shim:
+
+            if ( function_exists( 'wp_body_open' ) ) { wp_body_open(); }
+            else { do_action( 'wp_body_open' ); }
+
+        That is CORE's hook, deliberately invoked for WordPress older than 5.2. Renaming
+        it would break every plugin that hooks wp_body_open. The sniff is simply wrong
+        about this one.
+
+        Only the hookname message code is silenced. NonPrefixedVariableFound and
+        NonPrefixedConstantFound stay ACTIVE and are still counted as work to do.
+    -->
+    <rule ref="WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound">
+        <severity>0</severity>
+    </rule>
+
     <rule ref="WordPress.NamingConventions.PrefixAllGlobals">
         <properties>
             <property name="prefixes" type="array">
