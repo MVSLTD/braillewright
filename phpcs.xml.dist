@@ -54,6 +54,33 @@
         -->
         <exclude name="WordPress.PHP.YodaConditions"/>
 
+        <!--
+            3. WordPress.PHP.DiscouragedPHPFunctions.urlencode_urlencode - 6 findings.
+               Aaron's decision, 2026-08-27, and it is a case where complying is a small
+               REGRESSION rather than an improvement.
+
+               The sniff prefers rawurlencode(). That rule exists to stop urlencode()
+               being used for PATH segments, where a "+" is a literal plus rather than a
+               space. All six sites here are QUERY-STRING values for Google Fonts, which
+               is exactly what urlencode() is for.
+
+               Measured on the real WordPress 7.1 running on TTT staging:
+
+                 urlencode    + add_query_arg -> ...css?family=Open+Sans%3A400    canonical
+                 raw          + add_query_arg -> ...css?family=Open Sans:400      broken
+                 rawurlencode + add_query_arg -> ...css?family=Open%20Sans%3A400  non-canonical
+
+               "+" is the form Google documents. Complying would change every multi-word
+               font URL for no benefit.
+
+               ⚠️ Recorded because it nearly became a false bug report: urlencode() feeding
+               add_query_arg() LOOKS like double encoding, which would have broken every
+               multi-word font on every site. Measured - add_query_arg does NOT re-encode.
+               The live page confirms it: WordPress.com proxies the request and the family
+               arrives as Roboto%3A300%2C300italic%2C400%2C700, working correctly.
+        -->
+        <exclude name="WordPress.PHP.DiscouragedPHPFunctions.urlencode_urlencode"/>
+
     </rule>
 
     <!-- Target a recent-but-stable WP for the deprecated-function checks. -->

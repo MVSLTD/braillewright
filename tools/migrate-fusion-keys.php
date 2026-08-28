@@ -105,7 +105,9 @@ foreach ( $bw_option_map as $bw_old => $bw_new ) {
 
 	++$bw_problems;
 	echo "  option  CONFLICT  '$bw_new' exists and DIFFERS from '$bw_old'\n";
+	// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_var_export -- WP-CLI migration transcript, never shipped: the release zip and the wpcom artifact are theme/braillewright alone.
 	echo '           old=' . var_export( $bw_old_val, true ) . "\n";
+	// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_var_export -- Pair of the line above; phpcs:ignore covers ONE line only.
 	echo '           new=' . var_export( $bw_new_val, true ) . "\n";
 	echo "           Most likely the theme wrote it on first boot BEFORE this ran.\n";
 	echo "           Migrate BEFORE activating braillewright. Not overwriting.\n";

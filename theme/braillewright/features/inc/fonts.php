@@ -4,6 +4,13 @@ defined( 'ABSPATH' ) OR exit;
 function braillewright_features_get_fonts() {
 
 	$fonts_dir = BRAILLEWRIGHT_FEATURES_PATH . "assets/fonts.json";
+	// phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- Reads the theme's OWN bundled asset from a local path, not a URL.
+	// ⛔ DO NOT 'fix' this to wp_remote_get(). It returns WP_Error for a filesystem path, so
+	// is_string() below fails, $fonts_object becomes '', and braillewright_features_prepare_fonts()
+	// returns an EMPTY array. That array is the whitelist inside
+	// braillewright_features_sanitize_font_family(), which is the registered sanitize_callback on
+	// FOURTEEN font settings and ends `array_key_exists( $input, $fonts ) ? $input : ''`. One
+	// Customizer save would blank all fourteen on six live sites, with nothing to revert to.
 	$fonts     = file_get_contents( $fonts_dir );
 
 	if ( is_string( $fonts ) && ! empty( $fonts ) ) {
