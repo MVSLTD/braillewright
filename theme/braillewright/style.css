@@ -514,10 +514,18 @@ a img {
   padding: 0;
 }
 
+/*
+ * Padding only where the 24px minimum target (WCAG 2.2, 2.5.8) needs it: the link is already
+ * 1.5em tall from its line-height, which is 24px at 16px text, so from 16px up this is zero and
+ * below 16px it makes up the difference. A fixed 0.25em used to make the first line of the trail
+ * taller than the others, so the space above the words was 8px bigger than below at 32px.
+ */
 .breadcrumbs a,
 #breadcrumbs a {
   display: inline-block;
-  padding: 0.25em 0;
+  padding: 0;
+  padding-top: max(0px, calc((24px - 1.5em) / 2));
+  padding-bottom: max(0px, calc((24px - 1.5em) / 2));
   text-decoration: underline;
   text-decoration-thickness: 1px;
   text-underline-offset: 0.2em;
