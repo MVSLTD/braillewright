@@ -30,7 +30,9 @@ Braillewright is created and maintained by Aaron Di Blasi of Mind Vault Solution
 * Emoji are left out of the trail by default, because screen readers read each one aloud. Your page titles are not changed.
 * Search engines get the same trail as structured data. With Yoast SEO active, the trail is handed to Yoast, so its structured data matches what visitors see instead of listing a different one.
 * Every breadcrumb setting is in the one Breadcrumbs section: the background (a box like the theme's other boxes, the header colour, the page colour, or a colour you choose), the text size, the text, link and hover colours, and the space around the trail. Colours left empty are picked to contrast with the background, and the Customizer warns when a colour you choose measures below 4.5 to 1.
-* The space above the trail, under the menu, now equals the space below it. The theme's usual 30 pixel gap under the menu is reduced on pages that show a trail, allowing for the space the menu's own text already leaves.
+* The space above the trail, under the menu, now equals the space below it. The theme's usual 30 pixel gap under the menu is reduced on pages that show a trail, allowing for the space the menu's own text already leaves. The same setting sets the space inside the box, equal on all four sides, so it changes visibly at any text size.
+* A long page title continues on the same line as the links before it and wraps from there, instead of dropping to a line of its own. A very long trail is cut off on screen after three lines; screen readers still read all of it.
+* Theme files now carry the time they last changed in their web address, so an update reaches visitors whose browsers had saved the previous version. WordPress.com tells browsers to keep theme files for ten years, and the address used to change only when the theme's version number did.
 * Yoast SEO's own breadcrumbs, for sites that turned them on in Yoast, now use the same box and settings.
 
 = 2.0.10 =

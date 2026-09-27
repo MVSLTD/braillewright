@@ -22,6 +22,29 @@ if ( ! function_exists( 'braillewright_customizer_style_handle' ) ) {
 	}
 }
 
+if ( ! function_exists( 'braillewright_asset_version' ) ) {
+	/**
+	 * The version for one of the theme's own files: the theme version plus the file's
+	 * last-modified time.
+	 *
+	 * ⛔ WHY. WordPress.com serves theme files with Cache-Control: max-age=315360000 (ten years),
+	 * and each file's ?ver= used to be the theme version alone. On 2026-09-26 three breadcrumb CSS
+	 * fixes reached TTT staging under the same 2.0.11, and a browser that had already loaded
+	 * style.css?ver=2.0.11 kept the OLD file. Measured in Aaron's Chrome: the cached copy was
+	 * 49,033 bytes with the old layout, the server's 49,570 with the fix. The normal page escaped
+	 * only because Jetpack Boost bundles CSS under a fresh address; the Customizer preview loads
+	 * files one by one, so to him the bug came back. With the file time in the address, a deploy
+	 * that changes a file changes its address, and every browser fetches the new one.
+	 *
+	 * @param string $file Absolute path to the file.
+	 * @return string
+	 */
+	function braillewright_asset_version( $file ) {
+		$mtime = ( is_string( $file ) && '' !== $file && file_exists( $file ) ) ? filemtime( $file ) : false;
+		return $mtime ? BRAILLEWRIGHT_VERSION . '.' . $mtime : BRAILLEWRIGHT_VERSION;
+	}
+}
+
 // Front-end scripts
 function braillewright_load_scripts_styles() {
 
@@ -37,7 +60,7 @@ function braillewright_load_scripts_styles() {
 	// (measured: MissingVersion still fired), so the theme version is passed too.
 	wp_enqueue_style( 'braillewright-google-fonts', $fonts_url, array(), BRAILLEWRIGHT_VERSION );
 
-	wp_enqueue_script( 'braillewright-js', get_template_directory_uri() . '/js/build/production.min.js', array( 'jquery' ), BRAILLEWRIGHT_VERSION, true );
+	wp_enqueue_script( 'braillewright-js', get_template_directory_uri() . '/js/build/production.min.js', array( 'jquery' ), braillewright_asset_version( get_template_directory() . '/js/build/production.min.js' ), true );
 	wp_localize_script(
 		'braillewright-js',
 		'braillewright_objectL10n',
@@ -49,9 +72,9 @@ function braillewright_load_scripts_styles() {
 		)
 	);
 
-	wp_enqueue_style( 'braillewright-font-awesome', get_template_directory_uri() . '/assets/font-awesome/css/all.min.css', array(), BRAILLEWRIGHT_VERSION );
+	wp_enqueue_style( 'braillewright-font-awesome', get_template_directory_uri() . '/assets/font-awesome/css/all.min.css', array(), braillewright_asset_version( get_template_directory() . '/assets/font-awesome/css/all.min.css' ) );
 
-	wp_enqueue_style( 'braillewright-style', get_stylesheet_uri(), array(), BRAILLEWRIGHT_VERSION );
+	wp_enqueue_style( 'braillewright-style', get_stylesheet_uri(), array(), braillewright_asset_version( get_stylesheet_directory() . '/style.css' ) );
 
 	/*
 	 * WordPress core already loads this theme's rtl.css by itself: locale_stylesheet()
@@ -82,7 +105,7 @@ function braillewright_load_scripts_styles() {
 			'braillewright-style-rtl',
 			$braillewright_locale_stylesheet,
 			array( 'braillewright-style' ),
-			BRAILLEWRIGHT_VERSION
+			braillewright_asset_version( str_replace( get_stylesheet_directory_uri(), get_stylesheet_directory(), $braillewright_locale_stylesheet ) )
 		);
 		remove_action( 'wp_head', 'locale_stylesheet' );
 	}
@@ -98,7 +121,7 @@ add_action( 'wp_enqueue_scripts', 'braillewright_load_scripts_styles' );
 function braillewright_enqueue_admin_styles( $hook ) {
 
 	if ( $hook == 'appearance_page_braillewright-options' ) {
-		wp_enqueue_style( 'braillewright-admin-styles', get_template_directory_uri() . '/styles/admin.min.css', array(), BRAILLEWRIGHT_VERSION );
+		wp_enqueue_style( 'braillewright-admin-styles', get_template_directory_uri() . '/styles/admin.min.css', array(), braillewright_asset_version( get_template_directory() . '/styles/admin.min.css' ) );
 	}
 	if ( $hook == 'post.php' || $hook == 'post-new.php' ) {
 
@@ -115,8 +138,8 @@ add_action( 'admin_enqueue_scripts', 'braillewright_enqueue_admin_styles' );
 
 // Customizer scripts
 function braillewright_enqueue_customizer_scripts() {
-	wp_enqueue_script( 'braillewright-customizer-js', get_template_directory_uri() . '/js/build/customizer.min.js', array( 'jquery' ), BRAILLEWRIGHT_VERSION, true );
-	wp_enqueue_style( 'braillewright-customizer-styles', get_template_directory_uri() . '/styles/customizer.min.css', array(), BRAILLEWRIGHT_VERSION );
+	wp_enqueue_script( 'braillewright-customizer-js', get_template_directory_uri() . '/js/build/customizer.min.js', array( 'jquery' ), braillewright_asset_version( get_template_directory() . '/js/build/customizer.min.js' ), true );
+	wp_enqueue_style( 'braillewright-customizer-styles', get_template_directory_uri() . '/styles/customizer.min.css', array(), braillewright_asset_version( get_template_directory() . '/styles/customizer.min.css' ) );
 }
 add_action( 'customize_controls_enqueue_scripts', 'braillewright_enqueue_customizer_scripts' );
 
@@ -125,6 +148,6 @@ add_action( 'customize_controls_enqueue_scripts', 'braillewright_enqueue_customi
  * transport => postMessage
  */
 function braillewright_enqueue_customizer_post_message_scripts() {
-	wp_enqueue_script( 'braillewright-customizer-post-message-js', get_template_directory_uri() . '/js/build/postMessage.min.js', array( 'jquery' ), BRAILLEWRIGHT_VERSION, true );
+	wp_enqueue_script( 'braillewright-customizer-post-message-js', get_template_directory_uri() . '/js/build/postMessage.min.js', array( 'jquery' ), braillewright_asset_version( get_template_directory() . '/js/build/postMessage.min.js' ), true );
 }
 add_action( 'customize_preview_init', 'braillewright_enqueue_customizer_post_message_scripts' );

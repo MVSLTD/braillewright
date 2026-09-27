@@ -302,7 +302,7 @@ if ( ! function_exists( 'braillewright_breadcrumbs_customize_register' ) ) {
 		$colors = array(
 			'breadcrumbs_text_color'       => array( __( 'Text colour', 'braillewright' ), __( 'The current page and the separators. Leave empty to pick a colour that contrasts with the background.', 'braillewright' ), 40 ),
 			'breadcrumbs_link_color'       => array( __( 'Link colour', 'braillewright' ), __( 'Leave empty to use your site\'s link colour on a light background, or white on a dark one.', 'braillewright' ), 50 ),
-			'breadcrumbs_link_hover_color' => array( __( 'Link colour when pointed at', 'braillewright' ), __( 'Leave empty to use your site\'s hover colour on a light background.', 'braillewright' ), 60 ),
+			'breadcrumbs_link_hover_color' => array( __( 'Link colour on hover', 'braillewright' ), __( 'The colour a link turns when the mouse is over it. Leave empty to use your site\'s hover colour on a light background.', 'braillewright' ), 60 ),
 		);
 		foreach ( $colors as $id => $control ) {
 			$wp_customize->add_setting(
@@ -337,7 +337,7 @@ if ( ! function_exists( 'braillewright_breadcrumbs_customize_register' ) ) {
 			'breadcrumbs_spacing',
 			array(
 				'label'       => __( 'Space above and below, in pixels', 'braillewright' ),
-				'description' => __( 'Sets the space above and below the words inside the bar, and the gaps between the bar and the menu above and the content below. Equal above and below, at any text size.', 'braillewright' ),
+				'description' => __( 'Sets the space around the words inside the bar, the same on all four sides, and the gaps between the bar and the menu above and the content below. Equal above and below, at any text size.', 'braillewright' ),
 				'section'     => $section,
 				'type'        => 'number',
 				'input_attrs' => array(
@@ -595,7 +595,9 @@ if ( ! function_exists( 'braillewright_breadcrumbs_css' ) ) {
 	/**
 	 * The CSS for the resolved look, including the equal space above and below.
 	 *
-	 * The spacing setting sets the bar's own top and bottom padding as well as the gaps outside
+	 * The spacing setting sets the bar's own padding, the same on all four sides (Aaron,
+	 * 2026-09-26: "can we make sure that the top margin, left margin, right margin ... are
+	 * equal?" - the sides were 1.5em, 48px at 32px), as well as the gaps outside
 	 * it. It used to set only the gaps, while the padding stayed 0.625em, so at 32px there were
 	 * 20px above and below the words that the setting could not change (Aaron, 2026-09-26: "the
 	 * space above and below in pixels does not seem to change anything once I've changed the
@@ -614,7 +616,7 @@ if ( ! function_exists( 'braillewright_breadcrumbs_css' ) ) {
 	 */
 	function braillewright_breadcrumbs_css() {
 		$s   = braillewright_breadcrumbs_style();
-		$css = '.breadcrumbs,#breadcrumbs{font-size:' . $s['font_size'] . 'px;background:' . $s['background'] . ';color:' . $s['text'] . ';padding-top:' . $s['spacing'] . 'px;padding-bottom:' . $s['spacing'] . 'px;margin-bottom:' . $s['spacing'] . 'px;' . ( $s['box'] ? '' : 'box-shadow:none;' ) . '}';
+		$css = '.breadcrumbs,#breadcrumbs{font-size:' . $s['font_size'] . 'px;background:' . $s['background'] . ';color:' . $s['text'] . ';padding:' . $s['spacing'] . 'px;margin-bottom:' . $s['spacing'] . 'px;' . ( $s['box'] ? '' : 'box-shadow:none;' ) . '}';
 
 		$css .= '.breadcrumbs a,.breadcrumbs a:link,.breadcrumbs a:visited,#breadcrumbs a,#breadcrumbs a:link,#breadcrumbs a:visited{color:' . $s['link'] . ';}';
 		$css .= '.breadcrumbs a:hover,.breadcrumbs a:active,.breadcrumbs a:focus,#breadcrumbs a:hover,#breadcrumbs a:active,#breadcrumbs a:focus{color:' . $s['hover'] . ';}';
@@ -659,7 +661,7 @@ if ( ! function_exists( 'braillewright_breadcrumbs_customizer_scripts' ) ) {
 	 * The contrast warnings shown beside the breadcrumb colour pickers.
 	 */
 	function braillewright_breadcrumbs_customizer_scripts() {
-		wp_enqueue_script( 'braillewright-breadcrumbs-customizer', get_template_directory_uri() . '/js/breadcrumbs-customizer.js', array( 'customize-controls' ), BRAILLEWRIGHT_VERSION, true );
+		wp_enqueue_script( 'braillewright-breadcrumbs-customizer', get_template_directory_uri() . '/js/breadcrumbs-customizer.js', array( 'customize-controls' ), braillewright_asset_version( get_template_directory() . '/js/breadcrumbs-customizer.js' ), true );
 		wp_localize_script(
 			'braillewright-breadcrumbs-customizer',
 			'braillewrightBreadcrumbs',
