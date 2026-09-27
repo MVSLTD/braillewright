@@ -22,8 +22,9 @@ What it does
    fails on any word in BRITISH. Skipped: lib/ (the third-party Plugin Update Checker),
    node_modules/, minified files (built from sources that are checked), and
    features/assets/fonts.json, whose font names ("La Belle Aurore") are not prose.
-2. Reads inc/breadcrumbs.php and checks every Customizer label, section title and choice
-   name in it for Title Case: every word capitalized except the SMALL words, which stay
+2. Reads the files in LABEL_FILES (inc/breadcrumbs.php, and since 2026-09-27
+   inc/header-menu.php) and checks every Customizer label, section title and choice
+   name in them for Title Case: every word capitalized except the SMALL words, which stay
    lower case unless they are the first or last word.
 3. --self-test feeds known-bad and known-good text through both checks and fails unless
    each is judged correctly, so the check is proven able to say no.
@@ -35,6 +36,13 @@ import sys
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 THEME = os.path.join(ROOT, "theme", "braillewright")
 BREADCRUMBS = os.path.join(THEME, "inc", "breadcrumbs.php")
+# Files whose Customizer labels are held to Title Case, with the fewest labels each must yield
+# (a count far below that means the extractor stopped matching the file, not that it is clean).
+# inc/header-menu.php joined on 2026-09-27 with the logo spacing and menu options.
+LABEL_FILES = [
+    (os.path.join("inc", "breadcrumbs.php"), 15),
+    (os.path.join("inc", "header-menu.php"), 4),
+]
 
 BRITISH = {
     "colour": "color", "colours": "colors", "coloured": "colored", "colouring": "coloring",
@@ -119,16 +127,19 @@ def check_repo():
                 for number, word, us in british_findings(handle.read()):
                     failures.append(f"{rel}:{number}: British spelling \"{word}\" -- use \"{us}\"")
 
-    with open(BREADCRUMBS, encoding="utf-8") as handle:
-        labels = breadcrumb_labels(handle.read())
-    if len(labels) < 15:
-        failures.append(f"inc/breadcrumbs.php: found only {len(labels)} labels; the extractor no longer matches the file")
-    for label in labels:
-        problem = title_case_problem(label)
-        if problem:
-            failures.append(f"inc/breadcrumbs.php: label \"{label}\" is not Title Case: {problem}")
+    total = 0
+    for rel, minimum in LABEL_FILES:
+        with open(os.path.join(THEME, rel), encoding="utf-8") as handle:
+            labels = breadcrumb_labels(handle.read())
+        total += len(labels)
+        if len(labels) < minimum:
+            failures.append(f"{rel}: found only {len(labels)} labels, expected at least {minimum}; the extractor no longer matches the file")
+        for label in labels:
+            problem = title_case_problem(label)
+            if problem:
+                failures.append(f"{rel}: label \"{label}\" is not Title Case: {problem}")
 
-    print(f"checked {files} theme files for British spelling and {len(labels)} breadcrumb labels for Title Case")
+    print(f"checked {files} theme files for British spelling and {total} labels for Title Case")
     return failures
 
 

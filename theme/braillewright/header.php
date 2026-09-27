@@ -24,7 +24,7 @@ if ( function_exists( 'wp_body_open' ) ) {
 		?>
 	<header class="site-header" id="site-header" role="banner">
 		<div class="max-width">
-			<div id="title-container" class="title-container">
+			<div id="title-container" class="<?php echo esc_attr( get_theme_mod( 'logo_upload' ) ? 'title-container has-logo' : 'title-container' ); ?>">
 				<?php get_template_part( 'logo' ); ?>
 				<?php
 				if ( get_bloginfo( 'description' ) ) {

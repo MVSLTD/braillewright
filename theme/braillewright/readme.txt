@@ -1,7 +1,7 @@
 === Braillewright ===
 Requires at least: 5.2
 Tested up to: 6.7
-Stable tag: 2.0.12
+Stable tag: 2.0.13
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: accessibility-ready, custom-logo, custom-menu, featured-images, two-columns, left-sidebar, right-sidebar
@@ -21,6 +21,13 @@ Forked from Period 1.750 (GPLv2-or-later) Source integrity hashes and full attri
 Braillewright is created and maintained by Aaron Di Blasi of Mind Vault Solutions, Ltd. on behalf of Top Tech Tidbits, with engineering support from Claude Code.
 
 == Changelog ==
+
+= 2.0.13 =
+* No more empty space under an image logo. The logo used to sit on a line of text sized for the site title, and the room that line keeps for letters like g and y stayed empty below it, 8 to 16 pixels on the sites measured. A tagline beside the logo does not move. The logo's link now wraps the image exactly, so the keyboard focus outline fits the logo.
+* New Space Between the Logo and the Menu setting in the Customizer's Logo section, measured as you see it, from the bottom of the logo to the tops of the menu's words. It starts at 48 pixels.
+* New Primary Menu Links (Current Page) color in Colors, Menus: the text of the link to the page being viewed. Left empty, it keeps your link color where that is easy to read on the current-page background, and uses black or white where it is not. Before this, the current page's link kept the ordinary link color on any background, for example white on yellow at 1.51 to 1.
+* New Bold the Current Page in the Menu and Bold Menu Links on Hover options, both off by default. The letters are drawn heavier without getting wider, so the menu never shifts.
+* The Customizer warns under the current-page and hover colors when either measures below 4.5 to 1 on its menu background.
 
 = 2.0.12 =
 * New Breadcrumb Page setting on each category's edit screen (Posts, Categories, Edit). Choose a page, and posts in that category show that page in their breadcrumbs, linked, instead of the category. For example, a site whose newsletters are filed under a category named Newsletter, while visitors know the section as its Newsletters page, now shows Home, then Newsletters, then the issue. The page brings its own parent pages with it, and the blog page is not added in front of it. It is empty by default, so updating changes nothing until you choose a page.
