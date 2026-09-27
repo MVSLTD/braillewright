@@ -486,28 +486,26 @@ a img {
   line-height: 1.5;
 }
 
+/*
+ * The trail flows as ONE line of text, so a long current-page title continues right after the
+ * last separator and wraps from there. Until 2.0.11's first review each item was a flex item, and
+ * at 32px the title could not fit beside "Home > News" and dropped whole to a second row.
+ * A very long trail is cut off after three lines. The -4px margin with 4px padding keeps the
+ * links' focus outline inside the clipped area.
+ */
 .breadcrumbs-list {
   display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-  -webkit-box-align: baseline;
-      -ms-flex-align: baseline;
-          align-items: baseline;
-  margin: 0;
-  padding: 0;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  overflow: hidden;
+  margin: -4px;
+  padding: 4px;
   list-style: none;
 }
 
 .breadcrumbs-item {
-  display: -webkit-inline-box;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-box-align: baseline;
-      -ms-flex-align: baseline;
-          align-items: baseline;
-  min-width: 0;
+  display: inline;
   margin: 0;
   padding: 0;
 }
@@ -544,12 +542,7 @@ a img {
 }
 
 .breadcrumbs-current {
-  display: -webkit-box;
-  padding: 0.25em 0;
-  overflow: hidden;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-  line-clamp: 2;
+  display: inline;
 }
 
 @media all and (max-width: 37.4375em) {
