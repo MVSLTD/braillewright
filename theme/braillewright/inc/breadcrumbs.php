@@ -337,7 +337,7 @@ if ( ! function_exists( 'braillewright_breadcrumbs_customize_register' ) ) {
 			'breadcrumbs_spacing',
 			array(
 				'label'       => __( 'Space above and below, in pixels', 'braillewright' ),
-				'description' => __( 'The same space is kept above the trail, under the menu, and below it, above the content. 12 matches the gap between the theme\'s other boxes.', 'braillewright' ),
+				'description' => __( 'Sets the space above and below the words inside the bar, and the gaps between the bar and the menu above and the content below. Equal above and below, at any text size.', 'braillewright' ),
 				'section'     => $section,
 				'type'        => 'number',
 				'input_attrs' => array(
@@ -401,7 +401,7 @@ if ( ! function_exists( 'braillewright_breadcrumbs_customize_register' ) ) {
 			'breadcrumbs_show_current',
 			array(
 				'label'       => __( 'End the trail with the title of the current page?', 'braillewright' ),
-				'description' => __( 'It is marked as the current page for screen readers, and long titles are shortened on screen to two lines.', 'braillewright' ),
+				'description' => __( 'It is marked as the current page for screen readers. A very long trail is cut off on screen after three lines; screen readers still read all of it.', 'braillewright' ),
 				'section'     => $section,
 				'type'        => 'radio',
 				'choices'     => $yes_no,
@@ -595,6 +595,13 @@ if ( ! function_exists( 'braillewright_breadcrumbs_css' ) ) {
 	/**
 	 * The CSS for the resolved look, including the equal space above and below.
 	 *
+	 * The spacing setting sets the bar's own top and bottom padding as well as the gaps outside
+	 * it. It used to set only the gaps, while the padding stayed 0.625em, so at 32px there were
+	 * 20px above and below the words that the setting could not change (Aaron, 2026-09-26: "the
+	 * space above and below in pixels does not seem to change anything once I've changed the
+	 * text to 32 pixels"). On the header-colour background the bar blends into the header, so
+	 * that padding IS the space a reader sees.
+	 *
 	 * Space ABOVE the trail comes from the header, not the trail: 30px under the menu button on
 	 * a phone (.toggle-navigation margin 1.875em) and 30px under the menu from 900px up
 	 * (.menu-primary-container margin 1.875em). Measured on TTT staging on 2026-09-26: 40px
@@ -607,7 +614,7 @@ if ( ! function_exists( 'braillewright_breadcrumbs_css' ) ) {
 	 */
 	function braillewright_breadcrumbs_css() {
 		$s   = braillewright_breadcrumbs_style();
-		$css = '.breadcrumbs,#breadcrumbs{font-size:' . $s['font_size'] . 'px;background:' . $s['background'] . ';color:' . $s['text'] . ';margin-bottom:' . $s['spacing'] . 'px;' . ( $s['box'] ? '' : 'box-shadow:none;' ) . '}';
+		$css = '.breadcrumbs,#breadcrumbs{font-size:' . $s['font_size'] . 'px;background:' . $s['background'] . ';color:' . $s['text'] . ';padding-top:' . $s['spacing'] . 'px;padding-bottom:' . $s['spacing'] . 'px;margin-bottom:' . $s['spacing'] . 'px;' . ( $s['box'] ? '' : 'box-shadow:none;' ) . '}';
 
 		$css .= '.breadcrumbs a,.breadcrumbs a:link,.breadcrumbs a:visited,#breadcrumbs a,#breadcrumbs a:link,#breadcrumbs a:visited{color:' . $s['link'] . ';}';
 		$css .= '.breadcrumbs a:hover,.breadcrumbs a:active,.breadcrumbs a:focus,#breadcrumbs a:hover,#breadcrumbs a:active,#breadcrumbs a:focus{color:' . $s['hover'] . ';}';
@@ -1166,7 +1173,7 @@ if ( ! function_exists( 'braillewright_breadcrumbs_output' ) ) {
 		}
 
 		printf(
-			'<nav class="breadcrumbs" aria-label="%1$s"><ol class="breadcrumbs-list">%2$s</ol></nav>',
+			'<nav class="breadcrumbs" aria-label="%1$s"><ol class="breadcrumbs-list" role="list">%2$s</ol></nav>',
 			esc_attr__( 'Breadcrumb', 'braillewright' ),
 			$list // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- assembled above; every URL passed through esc_url(), every label through esc_html(), the class through esc_attr().
 		);
