@@ -279,7 +279,7 @@ if ( ! function_exists( 'braillewright_breadcrumbs_customize_register' ) ) {
 		$wp_customize->add_setting(
 			'breadcrumbs_font_size',
 			array(
-				'default'           => 16,
+				'default'           => '16',
 				'sanitize_callback' => 'braillewright_breadcrumbs_sanitize_font_size',
 			)
 		);
@@ -329,7 +329,7 @@ if ( ! function_exists( 'braillewright_breadcrumbs_customize_register' ) ) {
 		$wp_customize->add_setting(
 			'breadcrumbs_spacing',
 			array(
-				'default'           => 12,
+				'default'           => '12',
 				'sanitize_callback' => 'braillewright_breadcrumbs_sanitize_spacing',
 			)
 		);
