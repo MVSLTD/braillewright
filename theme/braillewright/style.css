@@ -473,8 +473,8 @@ a img {
 
 /*
  * Breadcrumbs (inc/breadcrumbs.php). A card like the theme's other boxes, so the trail reads the
- * same on any header colour: until 2.0.11 it was white text on the header band, and a long title
- * wrapped off the band onto the grey page at 1.27:1. #breadcrumbs is Yoast SEO's own trail, kept
+ * same on any header color: until 2.0.11 it was white text on the header band, and a long title
+ * wrapped off the band onto the gray page at 1.27:1. #breadcrumbs is Yoast SEO's own trail, kept
  * for sites that switched it on in Yoast, and styled the same way.
  */
 .breadcrumbs,
@@ -496,6 +496,13 @@ a img {
  * at 32px the title could not fit beside "Home > News" and dropped whole to a second row.
  * A very long trail is cut off after three lines. The -4px margin with 4px padding keeps the
  * links' focus outline inside the clipped area.
+ *
+ * margin-block pulls the list into the empty part of its first and last lines: half of a line's
+ * height less the height of a capital letter (1lh and 1cap), so the space seen above the capitals
+ * and below the baseline equals the padding at the sides. Below 16px a line is 24px tall, not 1lh,
+ * because the links are padded to the 24px minimum target, hence max(1lh, 24px). Measured on TTT staging at 32px with
+ * the padding at 10px: 22px above and 23px below against 10px at the sides, before this rule.
+ * A browser without the lh or cap unit ignores the line and keeps the -4px above.
  */
 .breadcrumbs-list {
   display: -webkit-box;
@@ -504,6 +511,7 @@ a img {
   line-clamp: 3;
   overflow: hidden;
   margin: -4px;
+  margin-block: calc((1cap - max(1lh, 24px)) / 2 - 4px);
   padding: 4px;
   list-style: none;
 }
@@ -980,11 +988,11 @@ li.pingback > article {
 }
 
 /*
- * The theme's OWN footer credit has the same collision. It is centred rather
+ * The theme's OWN footer credit has the same collision. It is centered rather
  * than floated, so it only reaches the arrow once the line grows long enough --
  * measured at a 790px viewport, the credit ran 14px underneath the button.
  *
- * Reserve on BOTH sides so the line stays centred, and because this one rule
+ * Reserve on BOTH sides so the line stays centered, and because this one rule
  * then works unchanged in right-to-left (where the arrow is pinned left).
  * Clearance works out at padding minus the 60px button, so 80px leaves 20px.
  * The unprefixed values are a fallback for anything without CSS max().
@@ -999,9 +1007,9 @@ li.pingback > article {
 /*
  * Jetpack ships this credit at #888 on a near-white bar, which measures
  * 3.43:1 -- below the 4.5:1 that 12px text needs. Raising it to the theme's own
- * dark makes it 15:1. That leaves the WordPress link the same colour as the text
- * around it, so it gets an underline rather than relying on colour alone to be
- * recognisable as a link.
+ * dark makes it 15:1. That leaves the WordPress link the same color as the text
+ * around it, so it gets an underline rather than relying on color alone to be
+ * recognizable as a link.
  */
 #infinite-footer .blog-credits,
 #infinite-footer .blog-credits a {

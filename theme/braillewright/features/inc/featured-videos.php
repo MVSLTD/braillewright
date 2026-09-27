@@ -171,7 +171,7 @@ add_action( 'wp_ajax_add_oembed', 'braillewright_features_add_oembed_callback' )
  * The value is author input: `braillewright_features_video_save_data()` gates only on
  * `current_user_can( 'edit_post' )` — a capability Contributors and Authors hold and
  * which deliberately does NOT carry `unfiltered_html` — and writes the raw field
- * through `esc_url_raw()`, which normalises characters and performs no host check.
+ * through `esc_url_raw()`, which normalizes characters and performs no host check.
  *
  * ⚠️ It was inert only by accident: `wp_kses_post()` in functions.php was deleting the
  * <iframe> before it reached a browser. Allowing <iframe> in that slot (which is what

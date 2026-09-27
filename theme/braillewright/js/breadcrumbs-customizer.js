@@ -1,13 +1,13 @@
 /**
  * Braillewright breadcrumbs: contrast warnings in the Customizer.
  *
- * Adds a warning under the breadcrumb Text, Link and hover colour pickers whenever the colour
+ * Adds a warning under the breadcrumb Text, Link and hover color pickers whenever the color
  * that will actually be used measures below 4.5:1 against the breadcrumb background. Nothing is
- * changed for the site owner: a chosen colour is always used as chosen, and this only tells them.
+ * changed for the site owner: a chosen color is always used as chosen, and this only tells them.
  *
- * ⚠️ The "automatic" colours below mirror braillewright_breadcrumbs_style() in
+ * ⚠️ The "automatic" colors below mirror braillewright_breadcrumbs_style() in
  * inc/breadcrumbs.php. If the rules change there, change them here too; the two must agree or
- * the warning will describe a colour the page is not using.
+ * the warning will describe a color the page is not using.
  */
 ( function ( api, strings ) {
 	'use strict';
@@ -80,13 +80,13 @@
 
 	function check() {
 		var bg = background();
-		var colours = effective( bg );
-		Object.keys( colours ).forEach( function ( id ) {
+		var colors = effective( bg );
+		Object.keys( colors ).forEach( function ( id ) {
 			var control = api.control( id );
 			if ( ! control ) {
 				return;
 			}
-			var ratio = contrast( colours[ id ], bg );
+			var ratio = contrast( colors[ id ], bg );
 			if ( ratio < 4.5 ) {
 				control.notifications.add( new api.Notification( CODE, {
 					type: 'warning',
@@ -106,4 +106,4 @@
 		} );
 		check();
 	} );
-} )( wp.customize, window.braillewrightBreadcrumbs || { warning: 'This colour measures %s to 1 against the breadcrumb background. Text needs at least 4.5 to 1.' } );
+} )( wp.customize, window.braillewrightBreadcrumbs || { warning: 'This color measures %s to 1 against the breadcrumb background. Text needs at least 4.5 to 1.' } );

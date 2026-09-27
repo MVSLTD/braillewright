@@ -213,6 +213,13 @@ jobs:
       # no warning, no error, even with WP_DEBUG on.
       - name: Every inline-style handle is registered [BLOCKING]
         run: python -X utf8 tools/check-inline-style-handles.py
+      # Added 2026-09-26 from Aaron's breadcrumbs review: American spelling everywhere in
+      # the theme ("there is no 'u' in 'color'") and Title Case breadcrumb labels ("Link
+      # Color on Hover"). The self-test runs first so the check is proven able to fail.
+      - name: American spelling and Title Case breadcrumb labels [BLOCKING]
+        run: |
+          python -X utf8 tools/check-wording.py --self-test
+          python -X utf8 tools/check-wording.py
       - name: Start wp-env (WordPress + PHP 8.3; theme mounted)
         run: npx wp-env start
       - name: Activate theme

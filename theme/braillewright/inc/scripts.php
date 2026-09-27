@@ -85,8 +85,8 @@ function braillewright_load_scripts_styles() {
 	 * silently overrides the site owner's own settings.
 	 *
 	 * Measured on an Arabic-locale page load on 2026-08-25: 30 of 31 colliding Customizer
-	 * declarations lost to rtl.css, including the link colour (#0000cc -> #333333, which
-	 * makes links the same colour as body text) and the focus colour on .site-title and
+	 * declarations lost to rtl.css, including the link color (#0000cc -> #333333, which
+	 * makes links the same color as body text) and the focus color on .site-title and
 	 * .social-media-icons links (#ffcc00 -> #D4D4D4).
 	 *
 	 * Enqueueing the same URI core would have printed, as a real handle that depends on
