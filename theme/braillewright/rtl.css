@@ -3,7 +3,7 @@
 Theme Name: Braillewright
 Author: Aaron Di Blasi
 Description: Accessibility-first WordPress theme, maintained in-house. Forked from the GPL Period theme
-Version: 2.0.10
+Version: 2.0.11
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: two-columns, left-sidebar, right-sidebar, accessibility-ready, custom-logo, custom-menu, featured-images, full-width-template, rtl-language-support, sticky-post, theme-options, threaded-comments, translation-ready, blog, education, news
@@ -39,7 +39,7 @@ Braillewright is created and maintained by Aaron Di Blasi of Mind Vault Solution
 
 .widget > *, .sidebar-primary .widget > *, .further-reading a, .post-tags a, .post-categories, .menu-primary a, .tagline, .comment-content > *, .comment-author .author-name, .comment-respond label, .more-link,
 .comments-link, .archive-header p, .archive-header h1,
-.archive-header h2, #breadcrumbs > span {
+.archive-header h2 {
   font-size: 0.875em;
   /* 14px / 16px */
   line-height: 1.715;
@@ -62,13 +62,13 @@ textarea, .wp-caption-text,
   /* 18px */
 }
 
-.menu-primary a, .social-media-icons a, .site-title a, .site-footer a, #breadcrumbs a {
+.menu-primary a, .social-media-icons a, .site-title a, .site-footer a {
   color: white;
 }
-.menu-primary a:link, .social-media-icons a:link, .site-title a:link, .site-footer a:link, #breadcrumbs a:link, .menu-primary a:visited, .social-media-icons a:visited, .site-title a:visited, .site-footer a:visited, #breadcrumbs a:visited {
+.menu-primary a:link, .social-media-icons a:link, .site-title a:link, .site-footer a:link, .menu-primary a:visited, .social-media-icons a:visited, .site-title a:visited, .site-footer a:visited {
   color: white;
 }
-.menu-primary a:hover, .social-media-icons a:hover, .site-title a:hover, .site-footer a:hover, #breadcrumbs a:hover, .menu-primary a:active, .social-media-icons a:active, .site-title a:active, .site-footer a:active, #breadcrumbs a:active, .menu-primary a:focus, .social-media-icons a:focus, .site-title a:focus, .site-footer a:focus, #breadcrumbs a:focus {
+.menu-primary a:hover, .social-media-icons a:hover, .site-title a:hover, .site-footer a:hover, .menu-primary a:active, .social-media-icons a:active, .site-title a:active, .site-footer a:active, .menu-primary a:focus, .social-media-icons a:focus, .site-title a:focus, .site-footer a:focus {
   color: #D4D4D4;
 }
 
@@ -467,11 +467,96 @@ a img {
   top: 32px;
 }
 
+/*
+ * Breadcrumbs (inc/breadcrumbs.php). A card like the theme's other boxes, so the trail reads the
+ * same on any header colour: until 2.0.11 it was white text on the header band, and a long title
+ * wrapped off the band onto the grey page at 1.27:1. #breadcrumbs is Yoast SEO's own trail, kept
+ * for sites that switched it on in Yoast, and styled the same way.
+ */
+.breadcrumbs,
 #breadcrumbs {
+  display: block;
+  margin: 0 0 0.75em;
+  padding: 0.625em 1.5em;
+  background: white;
+  box-shadow: 0 0 2px 0 rgba(58, 58, 58, 0.2);
+  color: #333333;
+  font-size: 1em;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.breadcrumbs-list {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-align: baseline;
+      -ms-flex-align: baseline;
+          align-items: baseline;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.breadcrumbs-item {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: baseline;
+      -ms-flex-align: baseline;
+          align-items: baseline;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.breadcrumbs a,
+#breadcrumbs a {
   display: inline-block;
-  margin-bottom: 0.75em;
-  color: #D4D4D4;
-  margin-top: 0;
+  padding: 0.25em 0;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+.breadcrumbs a:hover, .breadcrumbs a:active, .breadcrumbs a:focus,
+#breadcrumbs a:hover,
+#breadcrumbs a:active,
+#breadcrumbs a:focus {
+  text-decoration-thickness: 2px;
+}
+.breadcrumbs a:focus-visible,
+#breadcrumbs a:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+.breadcrumbs-separator {
+  margin: 0 0.5em;
+  opacity: 0.7;
+}
+
+.rtl .breadcrumbs-separator-directional {
+  display: inline-block;
+  -webkit-transform: scaleX(-1);
+          transform: scaleX(-1);
+}
+
+.breadcrumbs-current {
+  display: -webkit-box;
+  padding: 0.25em 0;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+}
+
+@media all and (max-width: 37.4375em) {
+  .breadcrumbs,
+  #breadcrumbs {
+    padding: 0.5em 1em;
+  }
 }
 .page-template-landing-page .primary-container,
 .page-template-landing-page-header .primary-container {

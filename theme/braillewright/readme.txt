@@ -1,7 +1,7 @@
 === Braillewright ===
 Requires at least: 5.2
 Tested up to: 6.7
-Stable tag: 2.0.10
+Stable tag: 2.0.11
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: accessibility-ready, custom-logo, custom-menu, featured-images, two-columns, left-sidebar, right-sidebar
@@ -21,6 +21,15 @@ Forked from Period 1.750 (GPLv2-or-later) Source integrity hashes and full attri
 Braillewright is created and maintained by Aaron Di Blasi of Mind Vault Solutions, Ltd. on behalf of Top Tech Tidbits, with engineering support from Claude Code.
 
 == Changelog ==
+
+= 2.0.11 =
+* Breadcrumbs are now built into the theme, with no plugin needed. Switch them on under Appearance, Customize, Breadcrumbs. They are off by default, so updating changes nothing until you choose to.
+* The trail sits in a box above the content, in your site's link colour, so it reads the same on any header colour. The old breadcrumbs were white text on the header, and a long title ran off the header onto the grey page, where it could not be read.
+* Screen readers find the trail as a labelled navigation region and a list, hear which item is the current page, and do not hear the separators. The "skip to content" link moves past it the same way it moves past the menu.
+* Posts show their category, and on sites with a separate blog page, the blog page too. When an SEO plugin has stored a post's main category, that category is used.
+* Emoji are left out of the trail by default, because screen readers read each one aloud. Your page titles are not changed.
+* Search engines get the same trail as structured data. With Yoast SEO active, the trail is handed to Yoast, so its structured data matches what visitors see instead of listing a different one.
+* Colours for the trail are under Colors, Breadcrumbs. Yoast SEO's own breadcrumbs, for sites that turned them on in Yoast, now use the same box and colours.
 
 = 2.0.10 =
 * Featured videos render again. The featured-image slot ran through wp_kses_post(), which does not allow iframe, so every featured video shipped as an empty div. Measured on WordPress 7.1: 448 bytes in, 218 out. The slot now uses wp_kses() with an allowlist that adds iframe and source; script is still not allowed.

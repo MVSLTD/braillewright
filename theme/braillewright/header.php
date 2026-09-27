@@ -49,9 +49,16 @@ if ( function_exists( 'wp_body_open' ) ) {
 	<?php do_action( 'after_header' ); ?>
 	<div id="primary-container" class="primary-container">
 		<div class="max-width">
+			<?php
+			// The theme's own breadcrumbs hook in here (inc/breadcrumbs.php): inside the content
+			// area but before the main landmark, so "skip to content" moves past them.
+			do_action( 'before_main' );
+			?>
 			<section id="main" class="main" role="main">
 				<?php
 				do_action( 'main_top' );
-				if ( function_exists( 'yoast_breadcrumb' ) ) {
+				// Yoast SEO's breadcrumbs, kept for sites that switched them on in Yoast before the
+				// theme had its own. Never both: the theme's replace them once switched on.
+				if ( function_exists( 'yoast_breadcrumb' ) && ! braillewright_breadcrumbs_enabled() ) {
 					yoast_breadcrumb( '<p id="breadcrumbs">', '</p>' );
 				}

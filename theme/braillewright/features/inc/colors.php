@@ -328,6 +328,37 @@ function braillewright_features_custom_colors_data() {
 				'control_label'   => esc_html__( 'Pagination - Current Page Background', 'braillewright' ),
 			),
 		),
+		/***** Breadcrumbs *****/
+
+		// ⚠️ The link default matches colors_base_links on purpose. The stylesheet gives breadcrumb
+		// links no colour of their own, so they follow the site's link colour unless this setting
+		// is changed. The pairs below all measure at least 4.5:1 on the #ffffff default background:
+		// text #333333 12.63:1, hover #757575 4.61:1.
+		array(
+			'section_id'    => 'braillewright_features_colors_breadcrumbs',
+			'section_title' => esc_html__( 'Breadcrumbs', 'braillewright' ),
+			'description'   => esc_html__( 'These colors affect the breadcrumb trail. Switch it on under Breadcrumbs. Links follow your site\'s link color unless you change them here.', 'braillewright' ),
+			array(
+				'setting_id'      => 'colors_breadcrumbs_bg',
+				'setting_default' => '#ffffff',
+				'control_label'   => esc_html__( 'Background', 'braillewright' ),
+			),
+			array(
+				'setting_id'      => 'colors_breadcrumbs_text',
+				'setting_default' => '#333333',
+				'control_label'   => esc_html__( 'Text and separators', 'braillewright' ),
+			),
+			array(
+				'setting_id'      => 'colors_breadcrumbs_links',
+				'setting_default' => '#333333',
+				'control_label'   => esc_html__( 'Links', 'braillewright' ),
+			),
+			array(
+				'setting_id'      => 'colors_breadcrumbs_links_hover',
+				'setting_default' => '#757575',
+				'control_label'   => esc_html__( 'Links (hover)', 'braillewright' ),
+			),
+		),
 		/***** Footer *****/
 
 		array(
@@ -640,6 +671,27 @@ function braillewright_features_custom_colors_css() {
 					} elseif ( $setting['setting_id'] == 'colors_archives_pagination_current' ) {
 						$custom_css .= ".pagination span.current,
 						                .pagination a.current {background: $value;}";
+						/***** Breadcrumbs *****/
+					} elseif ( $setting['setting_id'] == 'colors_breadcrumbs_bg' ) {
+						$custom_css .= ".breadcrumbs,
+										#breadcrumbs {background: $value;}";
+					} elseif ( $setting['setting_id'] == 'colors_breadcrumbs_text' ) {
+						$custom_css .= ".breadcrumbs,
+										#breadcrumbs {color: $value;}";
+					} elseif ( $setting['setting_id'] == 'colors_breadcrumbs_links' ) {
+						$custom_css .= ".breadcrumbs a,
+										.breadcrumbs a:link,
+										.breadcrumbs a:visited,
+										#breadcrumbs a,
+										#breadcrumbs a:link,
+										#breadcrumbs a:visited {color: $value;}";
+					} elseif ( $setting['setting_id'] == 'colors_breadcrumbs_links_hover' ) {
+						$custom_css .= ".breadcrumbs a:hover,
+										.breadcrumbs a:active,
+										.breadcrumbs a:focus,
+										#breadcrumbs a:hover,
+										#breadcrumbs a:active,
+										#breadcrumbs a:focus {color: $value;}";
 						/***** Footer *****/
 					} elseif ( $setting['setting_id'] == 'colors_footer_bg' ) {
 						$custom_css .= ".site-footer, .design-credit {background: $value;}";
