@@ -10,7 +10,7 @@ Accessibility-first WordPress theme, maintained in-house.
 
 == Description ==
 
-Braillewright is an accessibility-first WordPress theme maintained in-house by Aaron Di Blasi. It is a fork of the GPL-licensed Period theme (1.750), kept and remediated for WCAG 2.2 AA conformance. Its layout, color, font, header-image, and display features (forked from Period Pro 1.16) are built directly into the theme.
+Braillewright is an accessibility-first WordPress theme maintained in-house by Aaron Di Blasi. It is a fork of the GPL-licensed Period theme (1.750), remediated against the WCAG 2.2 AA success criteria and checked on every change by automated accessibility tests and nightly screen-reader runs. Its layout, color, font, header-image, and display features (forked from Period Pro 1.16) are built directly into the theme.
 
 == Provenance ==
 
@@ -29,7 +29,9 @@ Braillewright is created and maintained by Aaron Di Blasi of Mind Vault Solution
 * Posts show their category, and on sites with a separate blog page, the blog page too. When an SEO plugin has stored a post's main category, that category is used.
 * Emoji are left out of the trail by default, because screen readers read each one aloud. Your page titles are not changed.
 * Search engines get the same trail as structured data. With Yoast SEO active, the trail is handed to Yoast, so its structured data matches what visitors see instead of listing a different one.
-* Colours for the trail are under Colors, Breadcrumbs. Yoast SEO's own breadcrumbs, for sites that turned them on in Yoast, now use the same box and colours.
+* Every breadcrumb setting is in the one Breadcrumbs section: the background (a box like the theme's other boxes, the header colour, the page colour, or a colour you choose), the text size, the text, link and hover colours, and the space around the trail. Colours left empty are picked to contrast with the background, and the Customizer warns when a colour you choose measures below 4.5 to 1.
+* The space above the trail, under the menu, now equals the space below it. The theme's usual 30 pixel gap under the menu is reduced on pages that show a trail, allowing for the space the menu's own text already leaves.
+* Yoast SEO's own breadcrumbs, for sites that turned them on in Yoast, now use the same box and settings.
 
 = 2.0.10 =
 * Featured videos render again. The featured-image slot ran through wp_kses_post(), which does not allow iframe, so every featured video shipped as an empty div. Measured on WordPress 7.1: 448 bytes in, 218 out. The slot now uses wp_kses() with an allowlist that adds iframe and source; script is still not allowed.
