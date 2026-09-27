@@ -11,7 +11,7 @@
  * Until 2.0.11 the theme's only breadcrumb support was one call to Yoast SEO's
  * yoast_breadcrumb(), so a site without Yoast could not have breadcrumbs at all, and a site
  * with Yoast got them painted white. Measured on TTT staging on 2026-09-26: the white text sat
- * on the dark header band, and at phone width a long post title ran off the band onto the grey
+ * on the dark header band, and at phone width a long post title ran off the band onto the gray
  * page, where lines 4 to 6 measured 1.27:1. Yoast's markup is also a <p> of <span>s, with no
  * navigation landmark and no list, and its separator is read aloud.
  *
@@ -79,7 +79,7 @@ if ( ! function_exists( 'braillewright_breadcrumbs_separators' ) ) {
 			),
 			'double-chevron' => array(
 				'char'        => '»',
-				'label'       => __( 'Double chevron', 'braillewright' ) . ' »',
+				'label'       => __( 'Double Chevron', 'braillewright' ) . ' »',
 				'directional' => true,
 			),
 			'arrow'          => array(
@@ -89,7 +89,7 @@ if ( ! function_exists( 'braillewright_breadcrumbs_separators' ) ) {
 			),
 			'pipe'           => array(
 				'char'        => '|',
-				'label'       => __( 'Vertical bar', 'braillewright' ) . ' |',
+				'label'       => __( 'Vertical Bar', 'braillewright' ) . ' |',
 				'directional' => false,
 			),
 		);
@@ -114,17 +114,17 @@ if ( ! function_exists( 'braillewright_breadcrumbs_backgrounds' ) ) {
 	 *
 	 * ⛔ There is deliberately no "transparent" choice. The trail sits on the lower edge of the
 	 * header band, and before 2.0.11 transparent text there wrapped off the band onto the page at
-	 * 1.27:1 on a phone. "The same colour as the header" gives the same look with a background of
-	 * its own, so a wrapped line still has the header colour behind it.
+	 * 1.27:1 on a phone. "Same Color as the Header" gives the same look with a background of
+	 * its own, so a wrapped line still has the header color behind it.
 	 *
 	 * @return string[]
 	 */
 	function braillewright_breadcrumbs_backgrounds() {
 		return array(
-			'box'    => __( 'A box, like the theme\'s other boxes', 'braillewright' ),
-			'header' => __( 'The same colour as the header', 'braillewright' ),
-			'page'   => __( 'The same colour as the page background', 'braillewright' ),
-			'custom' => __( 'A colour I choose', 'braillewright' ),
+			'box'    => __( 'A Box Like the Theme\'s Other Boxes', 'braillewright' ),
+			'header' => __( 'Same Color as the Header', 'braillewright' ),
+			'page'   => __( 'Same Color as the Page Background', 'braillewright' ),
+			'custom' => __( 'A Color I Choose', 'braillewright' ),
 		);
 	}
 }
@@ -156,7 +156,7 @@ if ( ! function_exists( 'braillewright_breadcrumbs_sanitize_font_size' ) ) {
 
 if ( ! function_exists( 'braillewright_breadcrumbs_sanitize_spacing' ) ) {
 	/**
-	 * Sanitize the space above and below the trail, in pixels, to 0 through 48.
+	 * Sanitize the margin around the trail, in pixels, to 0 through 48.
 	 *
 	 * @param mixed $input The submitted value.
 	 * @return int
@@ -168,10 +168,10 @@ if ( ! function_exists( 'braillewright_breadcrumbs_sanitize_spacing' ) ) {
 
 if ( ! function_exists( 'braillewright_breadcrumbs_sanitize_optional_color' ) ) {
 	/**
-	 * Sanitize a colour that may be left empty, which means "choose automatically".
+	 * Sanitize a color that may be left empty, which means "choose automatically".
 	 *
 	 * @param string $input The submitted value.
-	 * @return string A #rrggbb colour, or ''.
+	 * @return string A #rrggbb color, or ''.
 	 */
 	function braillewright_breadcrumbs_sanitize_optional_color( $input ) {
 		$color = sanitize_hex_color( $input );
@@ -181,7 +181,7 @@ if ( ! function_exists( 'braillewright_breadcrumbs_sanitize_optional_color' ) ) 
 
 if ( ! function_exists( 'braillewright_breadcrumbs_custom_background_active' ) ) {
 	/**
-	 * Show the background colour picker only when "A colour I choose" is selected.
+	 * Show the background color picker only when "A Color I Choose" is selected.
 	 *
 	 * @return bool
 	 */
@@ -194,10 +194,10 @@ if ( ! function_exists( 'braillewright_breadcrumbs_customize_register' ) ) {
 	/**
 	 * Add the Breadcrumbs section and every breadcrumb setting to the Customizer.
 	 *
-	 * Everything lives in this one section, colours included, because Aaron asked for "a place
+	 * Everything lives in this one section, colors included, because Aaron asked for "a place
 	 * ... where I can customize specifically the font size and the font color" (2026-09-26).
-	 * The colour pickers start empty, which means "choose a colour that contrasts with the
-	 * background"; js/breadcrumbs-customizer.js warns inside the Customizer when a chosen colour
+	 * The color pickers start empty, which means "choose a color that contrasts with the
+	 * background"; js/breadcrumbs-customizer.js warns inside the Customizer when a chosen color
 	 * falls below 4.5:1.
 	 *
 	 * @param WP_Customize_Manager $wp_customize The Customizer manager.
@@ -210,7 +210,7 @@ if ( ! function_exists( 'braillewright_breadcrumbs_customize_register' ) ) {
 			array(
 				'title'       => __( 'Breadcrumbs', 'braillewright' ),
 				'priority'    => 56,
-				'description' => __( 'A trail of links above the content that shows where each page sits in your site, for example Home, then News, then the article. It is never shown on the front page. Every breadcrumb setting is here: the background, the text size and colours, the spacing and the separator.', 'braillewright' ),
+				'description' => __( 'A trail of links above the content that shows where each page sits in your site, for example Home, then News, then the article. It is never shown on the front page. Every breadcrumb setting is here: the background, the text size and colors, the margin and the separator.', 'braillewright' ),
 			)
 		);
 
@@ -229,7 +229,7 @@ if ( ! function_exists( 'braillewright_breadcrumbs_customize_register' ) ) {
 		$wp_customize->add_control(
 			'breadcrumbs',
 			array(
-				'label'    => __( 'Show breadcrumbs?', 'braillewright' ),
+				'label'    => __( 'Show Breadcrumbs?', 'braillewright' ),
 				'section'  => $section,
 				'type'     => 'radio',
 				'choices'  => $yes_no,
@@ -248,7 +248,7 @@ if ( ! function_exists( 'braillewright_breadcrumbs_customize_register' ) ) {
 			'breadcrumbs_background',
 			array(
 				'label'       => __( 'Background', 'braillewright' ),
-				'description' => __( 'The header and page colours follow whatever you set under Colors.', 'braillewright' ),
+				'description' => __( 'The header and page colors follow whatever you set under Colors.', 'braillewright' ),
 				'section'     => $section,
 				'type'        => 'radio',
 				'choices'     => braillewright_breadcrumbs_backgrounds(),
@@ -268,7 +268,7 @@ if ( ! function_exists( 'braillewright_breadcrumbs_customize_register' ) ) {
 				$wp_customize,
 				'breadcrumbs_bg_color',
 				array(
-					'label'           => __( 'Background colour', 'braillewright' ),
+					'label'           => __( 'Background Color', 'braillewright' ),
 					'section'         => $section,
 					'priority'        => 25,
 					'active_callback' => 'braillewright_breadcrumbs_custom_background_active',
@@ -286,7 +286,7 @@ if ( ! function_exists( 'braillewright_breadcrumbs_customize_register' ) ) {
 		$wp_customize->add_control(
 			'breadcrumbs_font_size',
 			array(
-				'label'       => __( 'Text size, in pixels', 'braillewright' ),
+				'label'       => __( 'Text Size, in Pixels', 'braillewright' ),
 				'description' => __( 'From 12 to 32. The theme\'s body text is 16.', 'braillewright' ),
 				'section'     => $section,
 				'type'        => 'number',
@@ -300,9 +300,9 @@ if ( ! function_exists( 'braillewright_breadcrumbs_customize_register' ) ) {
 		);
 
 		$colors = array(
-			'breadcrumbs_text_color'       => array( __( 'Text colour', 'braillewright' ), __( 'The current page and the separators. Leave empty to pick a colour that contrasts with the background.', 'braillewright' ), 40 ),
-			'breadcrumbs_link_color'       => array( __( 'Link colour', 'braillewright' ), __( 'Leave empty to use your site\'s link colour on a light background, or white on a dark one.', 'braillewright' ), 50 ),
-			'breadcrumbs_link_hover_color' => array( __( 'Link colour on hover', 'braillewright' ), __( 'The colour a link turns when the mouse is over it. Leave empty to use your site\'s hover colour on a light background.', 'braillewright' ), 60 ),
+			'breadcrumbs_text_color'       => array( __( 'Text Color', 'braillewright' ), __( 'The current page and the separators. Leave empty to pick a color that contrasts with the background.', 'braillewright' ), 40 ),
+			'breadcrumbs_link_color'       => array( __( 'Link Color', 'braillewright' ), __( 'Leave empty to use your site\'s link color on a light background, or white on a dark one.', 'braillewright' ), 50 ),
+			'breadcrumbs_link_hover_color' => array( __( 'Link Color on Hover', 'braillewright' ), __( 'The color a link turns when the mouse is over it. Leave empty to use your site\'s hover color on a light background.', 'braillewright' ), 60 ),
 		);
 		foreach ( $colors as $id => $control ) {
 			$wp_customize->add_setting(
@@ -336,8 +336,8 @@ if ( ! function_exists( 'braillewright_breadcrumbs_customize_register' ) ) {
 		$wp_customize->add_control(
 			'breadcrumbs_spacing',
 			array(
-				'label'       => __( 'Space above and below, in pixels', 'braillewright' ),
-				'description' => __( 'Sets the space around the words inside the bar, the same on all four sides, and the gaps between the bar and the menu above and the content below. Equal above and below, at any text size.', 'braillewright' ),
+				'label'       => __( 'Margin Around the Breadcrumbs, in Pixels', 'braillewright' ),
+				'description' => __( 'The space between the words and the edge of their box, the same on all four sides as you see it, and the space between the box and the menu above it and the content below it.', 'braillewright' ),
 				'section'     => $section,
 				'type'        => 'number',
 				'input_attrs' => array(
@@ -363,7 +363,7 @@ if ( ! function_exists( 'braillewright_breadcrumbs_customize_register' ) ) {
 		$wp_customize->add_control(
 			'breadcrumbs_separator',
 			array(
-				'label'       => __( 'Separator between links', 'braillewright' ),
+				'label'       => __( 'Separator Between Links', 'braillewright' ),
 				'description' => __( 'Screen readers do not announce the separator, whichever you choose.', 'braillewright' ),
 				'section'     => $section,
 				'type'        => 'radio',
@@ -382,7 +382,7 @@ if ( ! function_exists( 'braillewright_breadcrumbs_customize_register' ) ) {
 		$wp_customize->add_control(
 			'breadcrumbs_home_label',
 			array(
-				'label'       => __( 'Text of the first link', 'braillewright' ),
+				'label'       => __( 'Text of the First Link', 'braillewright' ),
 				'description' => __( 'Leave empty to use "Home".', 'braillewright' ),
 				'section'     => $section,
 				'type'        => 'text',
@@ -400,7 +400,7 @@ if ( ! function_exists( 'braillewright_breadcrumbs_customize_register' ) ) {
 		$wp_customize->add_control(
 			'breadcrumbs_show_current',
 			array(
-				'label'       => __( 'End the trail with the title of the current page?', 'braillewright' ),
+				'label'       => __( 'Show the Current Page\'s Title at the End?', 'braillewright' ),
 				'description' => __( 'It is marked as the current page for screen readers. A very long trail is cut off on screen after three lines; screen readers still read all of it.', 'braillewright' ),
 				'section'     => $section,
 				'type'        => 'radio',
@@ -419,7 +419,7 @@ if ( ! function_exists( 'braillewright_breadcrumbs_customize_register' ) ) {
 		$wp_customize->add_control(
 			'breadcrumbs_strip_emoji',
 			array(
-				'label'       => __( 'Leave emoji out of the breadcrumbs?', 'braillewright' ),
+				'label'       => __( 'Leave Emoji Out of the Breadcrumbs?', 'braillewright' ),
 				'description' => __( 'Screen readers read every emoji aloud, so a link titled "Newsletters" followed by a newspaper emoji is announced as "Newsletters newspaper". Your page titles themselves are not changed.', 'braillewright' ),
 				'section'     => $section,
 				'type'        => 'radio',
@@ -461,14 +461,14 @@ if ( ! function_exists( 'braillewright_breadcrumbs_mods_to_remove' ) ) {
 add_filter( 'braillewright_mods_to_remove', 'braillewright_breadcrumbs_mods_to_remove' );
 
 //----------------------------------------------------------------------------------
-//  Colours, size and spacing
+//  Colors, size and spacing
 //----------------------------------------------------------------------------------
 
 if ( ! function_exists( 'braillewright_breadcrumbs_luminance' ) ) {
 	/**
-	 * WCAG 2.x relative luminance of a #rgb or #rrggbb colour.
+	 * WCAG 2.x relative luminance of a #rgb or #rrggbb color.
 	 *
-	 * @param string $hex The colour.
+	 * @param string $hex The color.
 	 * @return float 0 (black) to 1 (white).
 	 */
 	function braillewright_breadcrumbs_luminance( $hex ) {
@@ -490,10 +490,10 @@ if ( ! function_exists( 'braillewright_breadcrumbs_luminance' ) ) {
 
 if ( ! function_exists( 'braillewright_breadcrumbs_contrast' ) ) {
 	/**
-	 * WCAG 2.x contrast ratio between two colours.
+	 * WCAG 2.x contrast ratio between two colors.
 	 *
-	 * @param string $a A colour.
-	 * @param string $b Another colour.
+	 * @param string $a A color.
+	 * @param string $b Another color.
 	 * @return float 1 to 21.
 	 */
 	function braillewright_breadcrumbs_contrast( $a, $b ) {
@@ -524,12 +524,12 @@ if ( ! function_exists( 'braillewright_breadcrumbs_menu_gap' ) ) {
 
 if ( ! function_exists( 'braillewright_breadcrumbs_style' ) ) {
 	/**
-	 * The resolved look of the trail: background, text size, colours and spacing.
+	 * The resolved look of the trail: background, text size, colors and spacing.
 	 *
-	 * An empty colour setting means "automatic": the text is #333333 when that reaches 4.5:1 on
-	 * the background and white otherwise; links use the site's link colour on a light
-	 * background when it reaches 4.5:1, white on a dark one; hover uses the site's hover colour,
-	 * or a light grey on a dark background. A colour the site owner chose is always used as
+	 * An empty color setting means "automatic": the text is #333333 when that reaches 4.5:1 on
+	 * the background and white otherwise; links use the site's link color on a light
+	 * background when it reaches 4.5:1, white on a dark one; hover uses the site's hover color,
+	 * or a light gray on a dark background. A color the site owner chose is always used as
 	 * chosen: the Customizer warns about low contrast, the front end never overrides a choice.
 	 *
 	 * @return array
@@ -595,13 +595,18 @@ if ( ! function_exists( 'braillewright_breadcrumbs_css' ) ) {
 	/**
 	 * The CSS for the resolved look, including the equal space above and below.
 	 *
-	 * The spacing setting sets the bar's own padding, the same on all four sides (Aaron,
+	 * The margin setting sets the bar's own padding, the same on all four sides (Aaron,
 	 * 2026-09-26: "can we make sure that the top margin, left margin, right margin ... are
 	 * equal?" - the sides were 1.5em, 48px at 32px), as well as the gaps outside
-	 * it. It used to set only the gaps, while the padding stayed 0.625em, so at 32px there were
+	 * it. Equal padding is not equal SPACE: each line of text is 1.5 times the text size tall,
+	 * so the line itself adds room above and below the letters. Measured on TTT staging at 32px
+	 * with a 10px setting: 22px above the capital letters, 23px below the baseline, 10px at the
+	 * sides (Aaron, asking a second time: "the left margin and the right margin are much shorter
+	 * than the top margin and the bottom margin"). style.css pulls the list up and down into
+	 * that extra line space (.breadcrumbs-list, margin-block), so all four look the same. It used to set only the gaps, while the padding stayed 0.625em, so at 32px there were
 	 * 20px above and below the words that the setting could not change (Aaron, 2026-09-26: "the
 	 * space above and below in pixels does not seem to change anything once I've changed the
-	 * text to 32 pixels"). On the header-colour background the bar blends into the header, so
+	 * text to 32 pixels"). On the header-color background the bar blends into the header, so
 	 * that padding IS the space a reader sees.
 	 *
 	 * Space ABOVE the trail comes from the header, not the trail: 30px under the menu button on
@@ -630,7 +635,7 @@ if ( ! function_exists( 'braillewright_breadcrumbs_css' ) ) {
 
 if ( ! function_exists( 'braillewright_breadcrumbs_inline_css' ) ) {
 	/**
-	 * Attach the breadcrumb CSS after the Customizer colours (priority 99), so it wins.
+	 * Attach the breadcrumb CSS after the Customizer colors (priority 99), so it wins.
 	 */
 	function braillewright_breadcrumbs_inline_css() {
 		if ( braillewright_breadcrumbs_enabled() ) {
@@ -658,7 +663,7 @@ add_filter( 'body_class', 'braillewright_breadcrumbs_body_class' );
 
 if ( ! function_exists( 'braillewright_breadcrumbs_customizer_scripts' ) ) {
 	/**
-	 * The contrast warnings shown beside the breadcrumb colour pickers.
+	 * The contrast warnings shown beside the breadcrumb color pickers.
 	 */
 	function braillewright_breadcrumbs_customizer_scripts() {
 		wp_enqueue_script( 'braillewright-breadcrumbs-customizer', get_template_directory_uri() . '/js/breadcrumbs-customizer.js', array( 'customize-controls' ), braillewright_asset_version( get_template_directory() . '/js/breadcrumbs-customizer.js' ), true );
@@ -667,7 +672,7 @@ if ( ! function_exists( 'braillewright_breadcrumbs_customizer_scripts' ) ) {
 			'braillewrightBreadcrumbs',
 			array(
 				/* translators: %s: a contrast ratio such as 3.2. */
-				'warning' => __( 'This colour measures %s to 1 against the breadcrumb background. Text needs at least 4.5 to 1.', 'braillewright' ),
+				'warning' => __( 'This color measures %s to 1 against the breadcrumb background. Text needs at least 4.5 to 1.', 'braillewright' ),
 			)
 		);
 	}

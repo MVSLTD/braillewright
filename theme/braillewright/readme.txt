@@ -24,14 +24,15 @@ Braillewright is created and maintained by Aaron Di Blasi of Mind Vault Solution
 
 = 2.0.11 =
 * Breadcrumbs are now built into the theme, with no plugin needed. Switch them on under Appearance, Customize, Breadcrumbs. They are off by default, so updating changes nothing until you choose to.
-* The trail sits in a box above the content, in your site's link colour, so it reads the same on any header colour. The old breadcrumbs were white text on the header, and a long title ran off the header onto the grey page, where it could not be read.
-* Screen readers find the trail as a labelled navigation region and a list, hear which item is the current page, and do not hear the separators. The "skip to content" link moves past it the same way it moves past the menu.
+* The trail sits in a box above the content, in your site's link color, so it reads the same on any header color. The old breadcrumbs were white text on the header, and a long title ran off the header onto the gray page, where it could not be read.
+* Screen readers find the trail as a labeled navigation region and a list, hear which item is the current page, and do not hear the separators. The "skip to content" link moves past it the same way it moves past the menu.
 * Posts show their category, and on sites with a separate blog page, the blog page too. When an SEO plugin has stored a post's main category, that category is used.
 * Emoji are left out of the trail by default, because screen readers read each one aloud. Your page titles are not changed.
 * Search engines get the same trail as structured data. With Yoast SEO active, the trail is handed to Yoast, so its structured data matches what visitors see instead of listing a different one.
-* Every breadcrumb setting is in the one Breadcrumbs section: the background (a box like the theme's other boxes, the header colour, the page colour, or a colour you choose), the text size, the text, link and hover colours, and the space around the trail. Colours left empty are picked to contrast with the background, and the Customizer warns when a colour you choose measures below 4.5 to 1.
-* The space above the trail, under the menu, now equals the space below it. The theme's usual 30 pixel gap under the menu is reduced on pages that show a trail, allowing for the space the menu's own text already leaves. The same setting sets the space inside the box, equal on all four sides, so it changes visibly at any text size.
+* Every breadcrumb setting is in the one Breadcrumbs section, with Title Case names such as Link Color on Hover: the background (a box like the theme's other boxes, the header color, the page color, or a color you choose), the text size, the text, link and hover colors, and the margin around the trail. Colors left empty are picked to contrast with the background, and the Customizer warns when a color you choose measures below 4.5 to 1.
+* One setting, Margin Around the Breadcrumbs, sets the space around the trail. Inside the box the space is the same on all four sides as you see it: the extra height of each line of text is taken off the top and bottom, which otherwise looked twice as roomy as the sides at large text sizes. Outside the box, the space above the trail, under the menu, equals the space below it; the theme's usual 30 pixel gap under the menu is reduced on pages that show a trail, allowing for the space the menu's own text already leaves.
 * A long page title continues on the same line as the links before it and wraps from there, instead of dropping to a line of its own. A very long trail is cut off on screen after three lines; screen readers still read all of it.
+* The theme's text uses American spelling throughout, for example color and gray.
 * Theme files now carry the time they last changed in their web address, so an update reaches visitors whose browsers had saved the previous version. WordPress.com tells browsers to keep theme files for ten years, and the address used to change only when the theme's version number did.
 * Yoast SEO's own breadcrumbs, for sites that turned them on in Yoast, now use the same box and settings.
 
@@ -41,7 +42,7 @@ Braillewright is created and maintained by Aaron Di Blasi of Mind Vault Solution
 * New tools to carry per-post settings and editor panel positions across a Period to Braillewright cutover.
 
 = 2.0.9 =
-* Fixed the theme's own right-to-left stylesheet cancelling the settings you chose in the Customizer. On a right-to-left site WordPress loaded rtl.css AFTER the Customizer's own styles, so 30 of 31 overlapping settings lost - including the link colour, which fell back to the same colour as body text. The stylesheet is now loaded in the proper place in the queue so your settings win.
+* Fixed the theme's own right-to-left stylesheet canceling the settings you chose in the Customizer. On a right-to-left site WordPress loaded rtl.css AFTER the Customizer's own styles, so 30 of 31 overlapping settings lost - including the link color, which fell back to the same color as body text. The stylesheet is now loaded in the proper place in the queue so your settings win.
 * Added a build check that fails if theme code ever attaches Customizer styles to a stylesheet handle that was never registered. That is what let this go unnoticed: doing so fails silently, with no notice and no error anywhere.
 
 = 2.0.8 =
@@ -49,8 +50,8 @@ Braillewright is created and maintained by Aaron Di Blasi of Mind Vault Solution
 
 = 2.0.7 =
 * The scroll-to-top arrow no longer covers the credit line in the Infinite Scroll footer bar. At a 1280px window the text ran 40px underneath the button and the theme name was unreadable. Room is now reserved for the arrow, and only when the arrow is switched on.
-* The arrow no longer covers the theme's own footer credit either. That line is centred, so it only reached the arrow once it grew long enough: at a 790px window it ran 14px underneath the button. Room is now reserved on both sides, which keeps the line centred and works the same way on right-to-left sites.
-* Raised the contrast of that credit line. It shipped at #888 on a near-white bar, which measures 3.43 to 1 and fails the 4.5 to 1 that 12px text needs. It is now 15 to 1, and the WordPress link is underlined so it is still recognisable as a link.
+* The arrow no longer covers the theme's own footer credit either. That line is centered, so it only reached the arrow once it grew long enough: at a 790px window it ran 14px underneath the button. Room is now reserved on both sides, which keeps the line centered and works the same way on right-to-left sites.
+* Raised the contrast of that credit line. It shipped at #888 on a near-white bar, which measures 3.43 to 1 and fails the 4.5 to 1 that 12px text needs. It is now 15 to 1, and the WordPress link is underlined so it is still recognizable as a link.
 
 = 2.0.6 =
 * Added a second LinkedIn slot, so a site can show a company page and a personal profile side by side. Only one LinkedIn icon was available before.
