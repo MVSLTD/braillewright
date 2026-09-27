@@ -43,6 +43,9 @@
  * - braillewright_breadcrumbs_items   filters the finished trail (a list of label/url arrays).
  * - braillewright_breadcrumbs_display filters whether the trail shows on the current page.
  * - braillewright_breadcrumbs_post_term filters the category chosen for a post.
+ * - braillewright_breadcrumbs_term_page filters the page that stands for a category (the
+ *   Breadcrumb Page field on the category's edit screen, stored as term meta
+ *   braillewright_breadcrumb_page).
  * - braillewright_breadcrumbs_schema  filters whether the theme prints its own structured data.
  * - To move the trail, remove braillewright_breadcrumbs_output from before_main and add it to
  *   another action, for example main_top.
@@ -461,6 +464,125 @@ if ( ! function_exists( 'braillewright_breadcrumbs_mods_to_remove' ) ) {
 add_filter( 'braillewright_mods_to_remove', 'braillewright_breadcrumbs_mods_to_remove' );
 
 //----------------------------------------------------------------------------------
+//  Breadcrumb Page: a page that stands for a category in the trail
+//----------------------------------------------------------------------------------
+
+/*
+ * Why this exists: on toptechtidbits.com newsletters are filed in a category named "Newsletter",
+ * while the page visitors know, the one in the menu with the year archives under it, is a page
+ * named "Newsletters". The trail took its middle link from the category, so it read "Home >
+ * Newsletter > issue" and led to the bare category list (Aaron, 2026-09-27: "It does not say
+ * newsletters, and the name of the page is newsletters with an S"). The same site has three
+ * more categories whose section page is a separate page in the menu: JAWS Power Tip, News and
+ * Publisher Updates. A site owner picks the page on the category's own edit screen; nothing
+ * changes until they do.
+ */
+
+if ( ! function_exists( 'braillewright_breadcrumbs_page_taxonomies' ) ) {
+	/**
+	 * The taxonomies whose terms can be given a Breadcrumb Page: every public hierarchical one,
+	 * because those are the ones braillewright_breadcrumbs_post_term() puts in a post's trail.
+	 *
+	 * @return string[]
+	 */
+	function braillewright_breadcrumbs_page_taxonomies() {
+		return array_values(
+			get_taxonomies(
+				array(
+					'public'       => true,
+					'hierarchical' => true,
+				)
+			)
+		);
+	}
+}
+
+if ( ! function_exists( 'braillewright_breadcrumbs_term_page' ) ) {
+	/**
+	 * The published page chosen to stand for a term in the trail, if any.
+	 *
+	 * @param WP_Term $term The term.
+	 * @return WP_Post|null
+	 */
+	function braillewright_breadcrumbs_term_page( $term ) {
+		$page_id = absint( get_term_meta( $term->term_id, 'braillewright_breadcrumb_page', true ) );
+		$page    = $page_id ? get_post( $page_id ) : null;
+		if ( ! ( $page instanceof WP_Post ) || 'page' !== $page->post_type || 'publish' !== $page->post_status ) {
+			$page = null;
+		}
+		$page = apply_filters( 'braillewright_breadcrumbs_term_page', $page, $term );
+
+		return ( $page instanceof WP_Post ) ? $page : null;
+	}
+}
+
+if ( ! function_exists( 'braillewright_breadcrumbs_term_page_field' ) ) {
+	/**
+	 * The Breadcrumb Page field on a category's edit screen.
+	 *
+	 * @param WP_Term $term The term being edited.
+	 */
+	function braillewright_breadcrumbs_term_page_field( $term ) {
+		?>
+		<tr class="form-field term-braillewright-breadcrumb-page-wrap">
+			<th scope="row"><label for="braillewright-breadcrumb-page"><?php esc_html_e( 'Breadcrumb Page', 'braillewright' ); ?></label></th>
+			<td>
+				<?php
+				wp_nonce_field( 'braillewright_breadcrumb_page', 'braillewright_breadcrumb_page_nonce' );
+				wp_dropdown_pages(
+					array(
+						'name'              => 'braillewright_breadcrumb_page',
+						'id'                => 'braillewright-breadcrumb-page',
+						'selected'          => absint( get_term_meta( $term->term_id, 'braillewright_breadcrumb_page', true ) ),
+						'show_option_none'  => esc_html__( 'None: show the category itself', 'braillewright' ),
+						'option_none_value' => '0',
+					)
+				);
+				?>
+				<p class="description"><?php esc_html_e( 'When breadcrumbs are switched on, posts in this category show this page in their trail, linked, instead of the category. Choose it when a page, not the list of posts, is where visitors go for this section: for example a Newsletters page for a Newsletter category.', 'braillewright' ); ?></p>
+			</td>
+		</tr>
+		<?php
+	}
+}
+
+if ( ! function_exists( 'braillewright_breadcrumbs_save_term_page' ) ) {
+	/**
+	 * Save the Breadcrumb Page chosen on a category's edit screen.
+	 *
+	 * @param int $term_id The term being saved.
+	 */
+	function braillewright_breadcrumbs_save_term_page( $term_id ) {
+		if ( ! isset( $_POST['braillewright_breadcrumb_page_nonce'] ) || ! wp_verify_nonce( sanitize_key( wp_unslash( $_POST['braillewright_breadcrumb_page_nonce'] ) ), 'braillewright_breadcrumb_page' ) ) {
+			return;
+		}
+		if ( ! current_user_can( 'edit_term', $term_id ) ) {
+			return;
+		}
+		$page_id = isset( $_POST['braillewright_breadcrumb_page'] ) ? absint( wp_unslash( $_POST['braillewright_breadcrumb_page'] ) ) : 0;
+		if ( $page_id && 'page' === get_post_type( $page_id ) ) {
+			update_term_meta( $term_id, 'braillewright_breadcrumb_page', $page_id );
+		} else {
+			delete_term_meta( $term_id, 'braillewright_breadcrumb_page' );
+		}
+	}
+}
+
+if ( ! function_exists( 'braillewright_breadcrumbs_term_page_hooks' ) ) {
+	/**
+	 * Put the field on the edit screen of every taxonomy that can use it. On admin_init, after
+	 * plugins have registered their taxonomies on init.
+	 */
+	function braillewright_breadcrumbs_term_page_hooks() {
+		foreach ( braillewright_breadcrumbs_page_taxonomies() as $taxonomy ) {
+			add_action( "{$taxonomy}_edit_form_fields", 'braillewright_breadcrumbs_term_page_field' );
+			add_action( "edited_{$taxonomy}", 'braillewright_breadcrumbs_save_term_page' );
+		}
+	}
+}
+add_action( 'admin_init', 'braillewright_breadcrumbs_term_page_hooks' );
+
+//----------------------------------------------------------------------------------
 //  Colors, size and spacing
 //----------------------------------------------------------------------------------
 
@@ -830,29 +952,102 @@ if ( ! function_exists( 'braillewright_breadcrumbs_blog_item' ) ) {
 	}
 }
 
+if ( ! function_exists( 'braillewright_breadcrumbs_page_items' ) ) {
+	/**
+	 * A page and its published parent pages, top-most first, every one a link. The front page is
+	 * left out: "Home" already stands for it.
+	 *
+	 * @param WP_Post $page The page.
+	 * @return array[]
+	 */
+	function braillewright_breadcrumbs_page_items( $page ) {
+		$items = array();
+		$front = (int) get_option( 'page_on_front' );
+
+		foreach ( array_reverse( get_post_ancestors( $page ) ) as $ancestor_id ) {
+			if ( (int) $ancestor_id !== $front && 'publish' === get_post_status( $ancestor_id ) ) {
+				$items[] = braillewright_breadcrumbs_item( get_the_title( $ancestor_id ), get_permalink( $ancestor_id ) );
+			}
+		}
+		if ( (int) $page->ID !== $front ) {
+			$items[] = braillewright_breadcrumbs_item( get_the_title( $page ), get_permalink( $page ) );
+		}
+
+		return $items;
+	}
+}
+
+if ( ! function_exists( 'braillewright_breadcrumbs_term_chain' ) ) {
+	/**
+	 * A term's parents and then the term itself, top-most first.
+	 *
+	 * @param WP_Term $term The term.
+	 * @return WP_Term[]
+	 */
+	function braillewright_breadcrumbs_term_chain( $term ) {
+		$chain = array();
+		foreach ( array_reverse( get_ancestors( $term->term_id, $term->taxonomy, 'taxonomy' ) ) as $ancestor_id ) {
+			$ancestor = get_term( $ancestor_id, $term->taxonomy );
+			if ( $ancestor instanceof WP_Term ) {
+				$chain[] = $ancestor;
+			}
+		}
+		$chain[] = $term;
+
+		return $chain;
+	}
+}
+
+if ( ! function_exists( 'braillewright_breadcrumbs_chain_page' ) ) {
+	/**
+	 * The deepest term in a chain that has a Breadcrumb Page, and that page.
+	 *
+	 * That page then stands for the term AND every term above it: it has its own place in the site,
+	 * given by its own parent pages. The term that IS the current page (a category archive) is
+	 * never replaced, only the terms above it.
+	 *
+	 * @param WP_Term[] $chain       Terms, top-most first.
+	 * @param bool      $link_itself Whether the last term is a link (false on its own archive).
+	 * @return array|null array( index in the chain, WP_Post ), or null.
+	 */
+	function braillewright_breadcrumbs_chain_page( $chain, $link_itself = true ) {
+		for ( $i = count( $chain ) - ( $link_itself ? 1 : 2 ); $i >= 0; $i-- ) {
+			$page = braillewright_breadcrumbs_term_page( $chain[ $i ] );
+			if ( $page ) {
+				return array( $i, $page );
+			}
+		}
+
+		return null;
+	}
+}
+
 if ( ! function_exists( 'braillewright_breadcrumbs_term_items' ) ) {
 	/**
-	 * A term and its parents, top-most first.
+	 * A term and its parents, top-most first, with any Breadcrumb Page standing in for them.
 	 *
 	 * @param WP_Term $term        The term.
 	 * @param bool    $link_itself Whether the term itself is a link (false when it IS the current page).
 	 * @return array[]
 	 */
 	function braillewright_breadcrumbs_term_items( $term, $link_itself = true ) {
-		$items = array();
+		$chain  = braillewright_breadcrumbs_term_chain( $term );
+		$last   = count( $chain ) - 1;
+		$mapped = braillewright_breadcrumbs_chain_page( $chain, $link_itself );
+		$items  = $mapped ? braillewright_breadcrumbs_page_items( $mapped[1] ) : array();
+		$start  = $mapped ? $mapped[0] + 1 : 0;
 
-		foreach ( array_reverse( get_ancestors( $term->term_id, $term->taxonomy, 'taxonomy' ) ) as $ancestor_id ) {
-			$ancestor = get_term( $ancestor_id, $term->taxonomy );
-			if ( $ancestor instanceof WP_Term ) {
-				$link = get_term_link( $ancestor );
+		for ( $i = $start; $i <= $last; $i++ ) {
+			if ( $i < $last ) {
+				$link = get_term_link( $chain[ $i ] );
 				if ( ! is_wp_error( $link ) ) {
-					$items[] = braillewright_breadcrumbs_item( $ancestor->name, $link );
+					$items[] = braillewright_breadcrumbs_item( $chain[ $i ]->name, $link );
 				}
+			} else {
+				$link    = $link_itself ? get_term_link( $term ) : '';
+				$items[] = braillewright_breadcrumbs_item( $term->name, is_wp_error( $link ) ? '' : $link );
 			}
 		}
-
-		$link    = $link_itself ? get_term_link( $term ) : '';
-		$items[] = braillewright_breadcrumbs_item( $term->name, is_wp_error( $link ) ? '' : $link );
 
 		return $items;
 	}
@@ -966,8 +1161,14 @@ if ( ! function_exists( 'braillewright_breadcrumbs_singular_items' ) ) {
 			return $items;
 		}
 
+		$term = is_post_type_hierarchical( $post->post_type ) ? null : braillewright_breadcrumbs_post_term( $post );
+
 		if ( 'post' === $post->post_type ) {
-			$items = braillewright_breadcrumbs_blog_item();
+			// Not when the post's category has a Breadcrumb Page: that page's own parents say where
+			// it sits, and "Home > Blog > Newsletters" would invent a place the site does not have.
+			if ( ! $term || ! braillewright_breadcrumbs_chain_page( braillewright_breadcrumbs_term_chain( $term ) ) ) {
+				$items = braillewright_breadcrumbs_blog_item();
+			}
 		} else {
 			// A post type with its own archive, such as WooCommerce products and the Shop page.
 			$archive     = get_post_type_archive_link( $post->post_type );
@@ -985,11 +1186,8 @@ if ( ! function_exists( 'braillewright_breadcrumbs_singular_items' ) ) {
 					$items[] = braillewright_breadcrumbs_item( get_the_title( $ancestor_id ), get_permalink( $ancestor_id ) );
 				}
 			}
-		} else {
-			$term = braillewright_breadcrumbs_post_term( $post );
-			if ( $term ) {
-				$items = array_merge( $items, braillewright_breadcrumbs_term_items( $term ) );
-			}
+		} elseif ( $term ) {
+			$items = array_merge( $items, braillewright_breadcrumbs_term_items( $term ) );
 		}
 
 		return $items;
@@ -1061,7 +1259,8 @@ if ( ! function_exists( 'braillewright_breadcrumbs_get_items' ) ) {
 			$term = get_queried_object();
 			if ( $term instanceof WP_Term ) {
 				$taxonomy = get_taxonomy( $term->taxonomy );
-				if ( $taxonomy && in_array( 'post', (array) $taxonomy->object_type, true ) ) {
+				$mapped   = ! is_tag() && braillewright_breadcrumbs_chain_page( braillewright_breadcrumbs_term_chain( $term ), false );
+				if ( $taxonomy && in_array( 'post', (array) $taxonomy->object_type, true ) && ! $mapped ) {
 					$items = array_merge( $items, braillewright_breadcrumbs_blog_item() );
 				}
 				if ( is_tag() ) {

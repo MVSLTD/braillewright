@@ -1,7 +1,7 @@
 === Braillewright ===
 Requires at least: 5.2
 Tested up to: 6.7
-Stable tag: 2.0.11
+Stable tag: 2.0.12
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: accessibility-ready, custom-logo, custom-menu, featured-images, two-columns, left-sidebar, right-sidebar
@@ -21,6 +21,9 @@ Forked from Period 1.750 (GPLv2-or-later) Source integrity hashes and full attri
 Braillewright is created and maintained by Aaron Di Blasi of Mind Vault Solutions, Ltd. on behalf of Top Tech Tidbits, with engineering support from Claude Code.
 
 == Changelog ==
+
+= 2.0.12 =
+* New Breadcrumb Page setting on each category's edit screen (Posts, Categories, Edit). Choose a page, and posts in that category show that page in their breadcrumbs, linked, instead of the category. For example, a site whose newsletters are filed under a category named Newsletter, while visitors know the section as its Newsletters page, now shows Home, then Newsletters, then the issue. The page brings its own parent pages with it, and the blog page is not added in front of it. It is empty by default, so updating changes nothing until you choose a page.
 
 = 2.0.11 =
 * Breadcrumbs are now built into the theme, with no plugin needed. Switch them on under Appearance, Customize, Breadcrumbs. They are off by default, so updating changes nothing until you choose to.
