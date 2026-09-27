@@ -1,7 +1,7 @@
 === Braillewright ===
 Requires at least: 5.2
 Tested up to: 6.7
-Stable tag: 2.0.14
+Stable tag: 2.0.15
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: accessibility-ready, custom-logo, custom-menu, featured-images, two-columns, left-sidebar, right-sidebar
@@ -21,6 +21,9 @@ Forked from Period 1.750 (GPLv2-or-later) Source integrity hashes and full attri
 Braillewright is created and maintained by Aaron Di Blasi of Mind Vault Solutions, Ltd. on behalf of Top Tech Tidbits, with engineering support from Claude Code.
 
 == Changelog ==
+
+= 2.0.15 =
+* When the front page shows your latest posts (Settings, Reading, Your latest posts), breadcrumbs now show Home, then Blog, on it, and Home, then Blog, then Page 2 on its later pages. A static front page still shows no breadcrumbs. As before, nothing shows until breadcrumbs are switched on under Appearance, Customize, Breadcrumbs.
 
 = 2.0.14 =
 * The logo spacing setting is now Space Above and Below the Menu. On pages without breadcrumbs it also sets the space from the bottom of the menu's words to the page below, so the space above and below the menu is always the same. Before this, a page without breadcrumbs, such as the home page, kept the theme's fixed 30 pixel gap under the menu, 38 pixels as seen on toptechtidbits.com. Pages with breadcrumbs keep the breadcrumbs' own spacing.

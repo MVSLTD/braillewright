@@ -820,10 +820,12 @@ if ( ! function_exists( 'braillewright_breadcrumbs_should_display' ) ) {
 	/**
 	 * Whether the trail belongs on the current page.
 	 *
-	 * Never on the front page, where it could only ever say "Home" (Yoast SEO prints exactly
-	 * that, as one unlinked word, measured on TTT staging), except on its second and later
-	 * pages. Never on the landing-page templates, which are standalone pages by design, and
-	 * never on bbPress pages, which print their own trail.
+	 * Never on the first page of a STATIC front page (Settings, Reading, "A static page"), where it
+	 * could only ever say "Home" (Yoast SEO prints exactly that, as one unlinked word, measured on
+	 * TTT staging). When the front page is the list of latest posts it shows "Home > Blog"
+	 * (Aaron, 2026-09-27: "when your blog is the main page, you still have a breadcrumb at the top
+	 * that says 'Home > Blog'"). Never on the landing-page templates, which are standalone pages
+	 * by design, and never on bbPress pages, which print their own trail.
 	 *
 	 * @return bool
 	 */
@@ -837,7 +839,7 @@ if ( ! function_exists( 'braillewright_breadcrumbs_should_display' ) ) {
 				$display = false;
 			} elseif ( is_feed() || is_embed() ) {
 				$display = false;
-			} elseif ( is_front_page() && ! is_paged() && (int) get_query_var( 'page' ) < 2 ) {
+			} elseif ( is_front_page() && ! is_home() && ! is_paged() && (int) get_query_var( 'page' ) < 2 ) {
 				$display = false;
 			} elseif ( is_page_template( array( 'templates/landing-page.php', 'templates/landing-page-header.php' ) ) ) {
 				$display = false;
@@ -1229,8 +1231,19 @@ if ( ! function_exists( 'braillewright_breadcrumbs_get_items' ) ) {
 		$paged      = max( (int) get_query_var( 'paged' ), 1 );
 		$current    = array();
 
-		if ( is_front_page() ) {
-			// Reached only on page 2 and later of the front page; see should_display().
+		if ( is_front_page() && is_home() ) {
+			// The front page IS the list of latest posts: "Home > Blog", and on its later pages
+			// "Home > Blog > Page 2" with Blog linking back to the first page, the same shape as a
+			// separate blog page. "Blog" can be renamed with the braillewright_breadcrumbs_front_blog_label filter.
+			$blog = braillewright_breadcrumbs_item( apply_filters( 'braillewright_breadcrumbs_front_blog_label', __( 'Blog', 'braillewright' ) ) );
+			if ( $paged > 1 ) {
+				$blog['url'] = get_pagenum_link( 1, false );
+				$current     = array( $blog, braillewright_breadcrumbs_page_number_item( $paged ) );
+			} else {
+				$current = array( $blog );
+			}
+		} elseif ( is_front_page() ) {
+			// A static front page: reached only on page 2 and later; see should_display().
 			$current = array( braillewright_breadcrumbs_page_number_item( max( $paged, (int) get_query_var( 'page' ) ) ) );
 		} elseif ( is_home() ) {
 			// The blog page IS the current page here, so it must not link to itself. Measured on
