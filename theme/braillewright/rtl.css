@@ -3,7 +3,7 @@
 Theme Name: Braillewright
 Author: Aaron Di Blasi
 Description: Accessibility-first WordPress theme, maintained in-house. Forked from the GPL Period theme
-Version: 2.0.12
+Version: 2.0.13
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: two-columns, left-sidebar, right-sidebar, accessibility-ready, custom-logo, custom-menu, featured-images, full-width-template, rtl-language-support, sticky-post, theme-options, threaded-comments, translation-ready, blog, education, news
@@ -1079,6 +1079,28 @@ li.pingback > article {
   max-width: 100%;
   width: 168px;
   height: auto;
+}
+
+/*
+ * No empty space under an image logo. The logo used to sit on a line of text sized for the site
+ * title, and the room that line keeps for letters like g and y stayed empty below it: 16px on
+ * toptechtidbits.com, 8 to 16px across the fleet (measured 2026-09-27). The link becomes a box
+ * that wraps the image exactly, and the title lines stop adding height of their own. A tagline
+ * beside the logo keeps its own line height (the .tagline rule above) and does not move.
+ * line-height alone did not do it: a browser extension can force a link's line-height, so the
+ * link is taken off the text line instead (display: inline-block with a block image inside).
+ */
+.title-container.has-logo,
+.title-container.has-logo .site-title {
+  line-height: 0;
+}
+
+.title-container.has-logo .site-title a {
+  display: inline-block;
+}
+
+.title-container.has-logo .logo {
+  display: block;
 }
 
 .social-media-icons {
