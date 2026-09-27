@@ -257,6 +257,10 @@ jobs:
   # workflow) deploys this artifact's contents into the configured destination
   # /wp-content/themes/braillewright. Artifact root = the theme's contents
   # (style.css at the root), verified against the live deploy.
+  # A RE-RUN of a failed push run builds this artifact but did NOT deploy it
+  # (measured 2026-09-27: run 36356874684, attempt 2, artifact at 23:02 UTC,
+  # staging still on the old build 8 minutes later; first-attempt deploys land
+  # within about 20 seconds). Recover with a fresh merge to main, never a re-run.
   # ---------------------------------------------------------------------------
   package-theme:
     name: Package theme for WordPress.com (wpcom artifact)
