@@ -77,8 +77,8 @@ if ( ! function_exists( 'braillewright_header_menu_customize_register' ) ) {
 		$wp_customize->add_control(
 			'logo_menu_space',
 			array(
-				'label'       => __( 'Space Between the Logo and the Menu, in Pixels', 'braillewright' ),
-				'description' => __( 'Measured as you see it: from the bottom of the logo, or of the tagline if it sits lower, to the tops of the menu\'s words. Applies on screens wide enough to show the whole menu.', 'braillewright' ),
+				'label'       => __( 'Space Above and Below the Menu, in Pixels', 'braillewright' ),
+				'description' => __( 'Measured as you see it: from the bottom of the logo, or of the tagline if it sits lower, to the tops of the menu\'s words, and the same from the bottom of the menu\'s words to the page below it. On pages that show breadcrumbs, the space between the menu and the breadcrumbs comes from Margin Around the Breadcrumbs instead. Applies on screens wide enough to show the whole menu.', 'braillewright' ),
 				'section'     => 'braillewright_logo_upload',
 				'type'        => 'number',
 				'input_attrs' => array(
@@ -221,7 +221,7 @@ if ( ! function_exists( 'braillewright_header_menu_css' ) ) {
 	/**
 	 * The CSS for the logo spacing, the current page's link and the bold options.
 	 *
-	 * The space: .title-container's margin-bottom (only from 900px, where the theme sets it and
+	 * The space above the menu: .title-container's margin-bottom (only from 900px, where the theme sets it and
 	 * the menu lies flat) becomes the chosen space less the menu's own line spacing above its
 	 * capitals, using the menu's tablet font size from 900 to 999px and its desktop size from
 	 * 1000px, the widths the theme switches them at (features/inc/font-sizes.php).
@@ -240,6 +240,17 @@ if ( ! function_exists( 'braillewright_header_menu_css' ) ) {
 
 		$css  = '@media all and (min-width:900px) and (max-width:999px){.title-container{margin-bottom:' . max( 0, $space - braillewright_header_menu_cap_offset( $tablet ) ) . 'px;}}';
 		$css .= '@media all and (min-width:1000px){.title-container{margin-bottom:' . max( 0, $space - braillewright_header_menu_cap_offset( $desktop ) ) . 'px;}}';
+
+		// The same space BELOW the menu, on every page without a breadcrumb trail (Aaron, 2026-09-27,
+		// on the home page: "there's an extreme amount of space below the menu ... tie that space ...
+		// so that whatever it is, it's always equal"). Measured on toptechtidbits.com's home page with
+		// 24 above: 38px from the bottom of the menu's words to the first post, the menu line's 8px
+		// under its letters plus the theme's 30px .menu-primary-container margin. Measured the way the
+		// breadcrumbs measure the space above their box (braillewright_breadcrumbs_menu_gap), so a page
+		// with a trail and a page without one are spaced by the same rule. Pages WITH a trail keep the
+		// breadcrumbs' own rule (.has-breadcrumbs .menu-primary-container, inc/breadcrumbs.php).
+		$css .= '@media all and (min-width:900px) and (max-width:999px){body:not(.has-breadcrumbs) .menu-primary-container{margin-bottom:' . max( 0, $space - braillewright_breadcrumbs_menu_gap( $tablet ) ) . 'px;}}';
+		$css .= '@media all and (min-width:1000px){body:not(.has-breadcrumbs) .menu-primary-container{margin-bottom:' . max( 0, $space - braillewright_breadcrumbs_menu_gap( $desktop ) ) . 'px;}}';
 
 		$current = braillewright_header_menu_current_color();
 		if ( '' !== $current ) {
