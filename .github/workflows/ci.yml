@@ -217,6 +217,11 @@ jobs:
         run: npx wp-env start
       - name: Activate theme
         run: npx wp-env run cli wp theme activate braillewright
+      # Breadcrumbs are OFF by default, so without this pa11y would never see the markup and a
+      # regression in it could merge unchecked. With them on, the post and page URLs below each
+      # carry a trail (the front page never does, by design). Added with the feature in 2.0.11.
+      - name: Switch on the theme's breadcrumbs so pa11y checks them
+        run: npx wp-env run cli wp theme mod set breadcrumbs yes
       - name: pa11y-ci (WCAG2AA — axe + HTML_CodeSniffer) [BLOCKING]
         run: npx pa11y-ci --json > pa11y-report.json
       - name: Lighthouse CI (accessibility category)
