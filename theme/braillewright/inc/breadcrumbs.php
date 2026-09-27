@@ -138,11 +138,10 @@ if ( ! function_exists( 'braillewright_breadcrumbs_customize_register' ) ) {
 		$wp_customize->add_control(
 			'breadcrumbs',
 			array(
-				'label'    => __( 'Show breadcrumbs?', 'braillewright' ),
-				'section'  => 'braillewright_breadcrumbs',
-				'settings' => 'breadcrumbs',
-				'type'     => 'radio',
-				'choices'  => array(
+				'label'   => __( 'Show breadcrumbs?', 'braillewright' ),
+				'section' => 'braillewright_breadcrumbs',
+				'type'    => 'radio',
+				'choices' => array(
 					'yes' => __( 'Yes', 'braillewright' ),
 					'no'  => __( 'No', 'braillewright' ),
 				),
@@ -166,7 +165,6 @@ if ( ! function_exists( 'braillewright_breadcrumbs_customize_register' ) ) {
 				'label'       => __( 'Separator between links', 'braillewright' ),
 				'description' => __( 'Screen readers do not announce the separator, whichever you choose.', 'braillewright' ),
 				'section'     => 'braillewright_breadcrumbs',
-				'settings'    => 'breadcrumbs_separator',
 				'type'        => 'radio',
 				'choices'     => $choices,
 			)
@@ -185,7 +183,6 @@ if ( ! function_exists( 'braillewright_breadcrumbs_customize_register' ) ) {
 				'label'       => __( 'Text of the first link', 'braillewright' ),
 				'description' => __( 'Leave empty to use "Home".', 'braillewright' ),
 				'section'     => 'braillewright_breadcrumbs',
-				'settings'    => 'breadcrumbs_home_label',
 				'type'        => 'text',
 			)
 		);
@@ -203,7 +200,6 @@ if ( ! function_exists( 'braillewright_breadcrumbs_customize_register' ) ) {
 				'label'       => __( 'End the trail with the title of the current page?', 'braillewright' ),
 				'description' => __( 'It is marked as the current page for screen readers, and long titles are shortened on screen to two lines.', 'braillewright' ),
 				'section'     => 'braillewright_breadcrumbs',
-				'settings'    => 'breadcrumbs_show_current',
 				'type'        => 'radio',
 				'choices'     => array(
 					'yes' => __( 'Yes', 'braillewright' ),
@@ -225,7 +221,6 @@ if ( ! function_exists( 'braillewright_breadcrumbs_customize_register' ) ) {
 				'label'       => __( 'Leave emoji out of the breadcrumbs?', 'braillewright' ),
 				'description' => __( 'Screen readers read every emoji aloud, so a link titled "Newsletters" followed by a newspaper emoji is announced as "Newsletters newspaper". Your page titles themselves are not changed.', 'braillewright' ),
 				'section'     => 'braillewright_breadcrumbs',
-				'settings'    => 'breadcrumbs_strip_emoji',
 				'type'        => 'radio',
 				'choices'     => array(
 					'yes' => __( 'Yes', 'braillewright' ),
