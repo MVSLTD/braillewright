@@ -3,7 +3,6 @@ jQuery(document).ready(function($) {
     // set context to customizer panel outside iframe site content is in
     var panel = $('html', window.parent.document);
 
-    addProlabel();
     addTextureThumbnails();
     hideTextures();
 
@@ -75,30 +74,8 @@ jQuery(document).ready(function($) {
         });
     }
 
-    // label Braillewright customizer sections
-    function addProlabel() {
-
-        // to prevent running more than once per session
-        if (!panel.hasClass('pro-labels')) {
-
-            var sections = [ 'header_image', 'colors', 'layout', 'background', 'fonts', 'font_sizes', 'featured_image_size', 'show_hide', 'footer_text', 'spacing' ];
-
-            var proLabel = '<span class="pro-label">PRO</span>';
-
-            $.each(sections, function (key, value) {
-                if ( value == 'colors' || value == 'background' || value == 'show_hide' || value == 'fonts' || value == 'font_sizes' ) {
-                    panel.find('#accordion-panel-braillewright_features_' + value + '_panel').children('h3').append(proLabel);
-                }
-                else if ( value == 'layout' ) {
-                    panel.find('#accordion-panel-braillewright_' + value + '_panel').children('h3').append(proLabel);
-                }
-                else {
-                    panel.find('#accordion-section-braillewright_features_' + value).children('h3').append(proLabel);
-                }
-            });
-            panel.addClass('pro-labels');
-        }
-    }
+    // The "PRO" tags that Period Pro added to its Customizer sections were removed in 2.0.18: there is no Pro
+    // version of Braillewright (Aaron, 2026-09-27). js/build/customizer.min.js had the same function removed.
 
     // Add screen reader text so blind users can navigate the color picker
     function makeColorPickerAccessible() {

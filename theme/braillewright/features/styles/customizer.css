@@ -1,24 +1,5 @@
 @charset "UTF-8";
-.pro-label {
-  position: absolute;
-  top: 12px;
-  right: 40px;
-  font-size: 10px;
-  line-height: 8px;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: #05B0E7;
-  vertical-align: super;
-  margin-left: 4px;
-  padding: 5px;
-  border: solid 1px #05B0E7;
-  border-radius: 3px;
-}
-
-.rtl .pro-label {
-  right: auto;
-  left: 40px;
-}
+/* The styles for the "PRO" tags were removed in 2.0.18 with the tags themselves: there is no Pro version. */
 
 .color-border {
   font-size: 14px;
