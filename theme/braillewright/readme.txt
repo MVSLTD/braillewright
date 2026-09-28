@@ -1,7 +1,7 @@
 === Braillewright ===
 Requires at least: 5.2
 Tested up to: 6.7
-Stable tag: 2.0.15
+Stable tag: 2.0.16
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: accessibility-ready, custom-logo, custom-menu, featured-images, two-columns, left-sidebar, right-sidebar
@@ -21,6 +21,10 @@ Forked from Period 1.750 (GPLv2-or-later) Source integrity hashes and full attri
 Braillewright is created and maintained by Aaron Di Blasi of Mind Vault Solutions, Ltd. on behalf of Top Tech Tidbits, with engineering support from Claude Code.
 
 == Changelog ==
+
+= 2.0.16 =
+* With Bold the Current Page in the Menu switched on, the current page's item in a dropdown menu is no longer drawn twice as heavy. The theme has always shown that item in bold type, and the option's heavier outline was added on top of it. Now the outline alone marks the current page, in the dropdown as in the top row.
+* One scroll bar in the Customizer. At some display scaling settings, WordPress let the open settings section scroll inside the settings panel, which already scrolls, so two scroll bars appeared side by side. Now only the panel scrolls.
 
 = 2.0.15 =
 * When the front page shows your latest posts (Settings, Reading, Your latest posts), breadcrumbs now show Home, then Blog, on it, and Home, then Blog, then Page 2 on its later pages. A static front page still shows no breadcrumbs. As before, nothing shows until breadcrumbs are switched on under Appearance, Customize, Breadcrumbs.
