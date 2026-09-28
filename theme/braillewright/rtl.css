@@ -3,7 +3,7 @@
 Theme Name: Braillewright
 Author: Aaron Di Blasi
 Description: Accessibility-first WordPress theme, maintained in-house. Forked from the GPL Period theme
-Version: 2.0.18
+Version: 2.0.19
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: two-columns, left-sidebar, right-sidebar, accessibility-ready, custom-logo, custom-menu, featured-images, full-width-template, rtl-language-support, sticky-post, theme-options, threaded-comments, translation-ready, blog, education, news
@@ -1266,6 +1266,22 @@ li.pingback > article {
 .menu-primary a:hover, .menu-primary a:active, .menu-primary a:focus {
   color: #333333;
   background: white;
+}
+/* Touch screens: a menu link changes to its tapped colors at once, with no fade and no gray tap veil.
+   A light tap opens the next page within about 50 to 100 ms, while the fade above takes 200 ms, so the
+   screen froze halfway: measured on toptechtidbits.com at phone width, an olive background
+   (rgb 168,139,22) and gray text (rgb 109,109,109) instead of black on yellow (2.0.19). The mouse hover
+   fade on computers is unchanged. From 900 px the yellow sits on the list item, which fades too, so a
+   touch tablet held sideways needs the same for the list item. li.menu-item / li.page_item (not a plain li)
+   so this outranks the later ".menu-primary li { transition: all 0.2s }" in the 900 px section. */
+@media (hover: none) {
+  .menu-primary li.menu-item,
+  .menu-primary li.page_item,
+  .menu-primary a {
+    -webkit-transition: none;
+            transition: none;
+    -webkit-tap-highlight-color: transparent;
+  }
 }
 .menu-primary ul ul {
   max-height: 0;
