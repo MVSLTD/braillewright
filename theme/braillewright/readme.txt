@@ -1,7 +1,7 @@
 === Braillewright ===
 Requires at least: 5.2
 Tested up to: 6.7
-Stable tag: 2.0.18
+Stable tag: 2.0.19
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: accessibility-ready, custom-logo, custom-menu, featured-images, two-columns, left-sidebar, right-sidebar
@@ -21,6 +21,9 @@ Forked from Period 1.750 (GPLv2-or-later) Source integrity hashes and full attri
 Braillewright is created and maintained by Aaron Di Blasi of Mind Vault Solutions, Ltd. on behalf of Top Tech Tidbits, with engineering support from Claude Code.
 
 == Changelog ==
+
+= 2.0.19 =
+* On phones and tablets, tapping a main menu item now shows its tapped colors at once. A light tap used to catch the colors halfway through a fade, a faded background with gray text, just before the next page opened. The mouse hover fade on computers is unchanged.
 
 = 2.0.18 =
 * The Customizer's list of settings is now in alphabetical order, from Additional CSS to Widgets. The active theme stays at the top, anything a plugin adds is sorted in with the rest, and the entries inside each group keep their order.
