@@ -268,6 +268,12 @@ if ( ! function_exists( 'braillewright_header_menu_css' ) ) {
 		$stroke = '-webkit-text-stroke:0.04em currentColor;';
 		if ( $bold['current'] ) {
 			$css .= '.menu-primary li.current-menu-item > a,.menu-primary li.current_page_item > a{' . $stroke . '}';
+			// The theme has always drawn the current page's DROPDOWN item at weight 700 (style.css, from
+			// Period). With the outline on top it came out twice as heavy: Aaron, 2026-09-27, on
+			// donnajodhan.com's Podcasts dropdown, "bolded twice ... really, really thick" (measured: 700
+			// plus a 1.28px outline at 32px). With this option on, the outline alone marks the current
+			// page at every level, as it does in the top row.
+			$css .= '.menu-primary ul ul li.current-menu-item > a,.menu-primary ul ul li.current_page_item > a,.menu-primary ul ul li.current-menu-ancestor > a{font-weight:inherit;}';
 		}
 		if ( $bold['hover'] ) {
 			$css .= '.menu-primary a:hover,.menu-primary a:focus,.menu-primary li:hover > a{' . $stroke . '}';

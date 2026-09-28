@@ -4,6 +4,16 @@
 /* Social Media Brand Colors */
 /*===== Mixins =====*/
 /***** Silent Classes *****/
+/* One scroll bar in the Customizer (2.0.16). WordPress's own customize-controls.css gives the open
+   section and the current panel "overflow: auto" inside the settings pane, which already scrolls. At
+   fractional display scaling (measured at 218.75% in Aaron's Chrome, 2026-09-27) the section's contents
+   end up a fraction of a pixel taller than the section, and Chrome draws a second bar beside the pane's.
+   Aaron: "I hate double scroll bars. They should never appear." Measured with this rule: one bar, and
+   the pane still scrolls to the last setting. */
+#customize-theme-controls .customize-pane-child.open,
+#customize-theme-controls .customize-pane-child.current-panel {
+  overflow: visible;
+}
 #sub-accordion-section-braillewright_social_media_icons #customize-control-email-form {
   padding-bottom: 24px;
   margin-bottom: 24px;
