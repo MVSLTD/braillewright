@@ -203,6 +203,11 @@ jobs:
       #     `outline:0` focus defect that was fixed in the source back in June.
       - name: Minified stylesheets match their sources [BLOCKING]
         run: node tools/build-css.js --check
+      # Added 2026-09-27 (Aaron: "Why don't you have a working JS build tool?"). Every
+      # .min.js is rebuilt from its sources by terser, pinned to one exact version; the
+      # first rebuild found the Customizer preview's footer credit had drifted from source.
+      - name: Minified scripts match their sources [BLOCKING]
+        run: node tools/build-js.js --check
       - name: Every enqueued asset exists on disk [BLOCKING]
         run: python -X utf8 tools/check-enqueued-assets.py
       # Added 2026-08-25. The check above asks "does every enqueued FILE exist?";

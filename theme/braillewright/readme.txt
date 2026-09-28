@@ -1,7 +1,7 @@
 === Braillewright ===
 Requires at least: 5.2
 Tested up to: 6.7
-Stable tag: 2.0.17
+Stable tag: 2.0.18
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: accessibility-ready, custom-logo, custom-menu, featured-images, two-columns, left-sidebar, right-sidebar
@@ -21,6 +21,12 @@ Forked from Period 1.750 (GPLv2-or-later) Source integrity hashes and full attri
 Braillewright is created and maintained by Aaron Di Blasi of Mind Vault Solutions, Ltd. on behalf of Top Tech Tidbits, with engineering support from Claude Code.
 
 == Changelog ==
+
+= 2.0.18 =
+* The Customizer's list of settings is now in alphabetical order, from Additional CSS to Widgets. The active theme stays at the top, anything a plugin adds is sorted in with the rest, and the entries inside each group keep their order.
+* The "PRO" tags beside Customizer sections are gone. There is no Pro version of Braillewright: every setting is part of the theme.
+* The Customizer preview no longer shows a placeholder "Braillewright WordPress Theme" link when the footer text is emptied; the preview now matches the page, which shows nothing.
+* Every minified script is now rebuilt from its source by one tool, checked on every change.
 
 = 2.0.17 =
 * New Dropdown Menus section in the Customizer, for the lists that open under a main menu item. Every setting starts at the theme's usual look, so updating changes nothing until you choose.
