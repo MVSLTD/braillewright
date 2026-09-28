@@ -1,7 +1,7 @@
 === Braillewright ===
 Requires at least: 5.2
 Tested up to: 6.7
-Stable tag: 2.0.16
+Stable tag: 2.0.17
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: accessibility-ready, custom-logo, custom-menu, featured-images, two-columns, left-sidebar, right-sidebar
@@ -21,6 +21,17 @@ Forked from Period 1.750 (GPLv2-or-later) Source integrity hashes and full attri
 Braillewright is created and maintained by Aaron Di Blasi of Mind Vault Solutions, Ltd. on behalf of Top Tech Tidbits, with engineering support from Claude Code.
 
 == Changelog ==
+
+= 2.0.17 =
+* New Dropdown Menus section in the Customizer, for the lists that open under a main menu item. Every setting starts at the theme's usual look, so updating changes nothing until you choose.
+* Dropdown Text Size: its own size for dropdown items, apart from the main menu's.
+* Dropdown Link Color on Hover and Dropdown Background on Hover, for the item under the mouse or keyboard focus. Left empty, the hover text keeps your main menu's hover color where it is easy to read, and uses black or white where it is not.
+* Dropdown Link Color (Current Page), for the item of the page being viewed.
+* Use the Dropdown Colors on Phones Too? On narrow screens, dropdown items can take the dropdown colors instead of looking like main menu items.
+* Space Between Dropdown Items and Space Inside the Dropdown Box, in pixels.
+* Dropdown Border (none or a thin line, in a color you choose) and Dropdown Shadow (none or soft).
+* The Dropdown Link Color and Dropdown Background settings moved here from Colors, Menus, with their saved values kept.
+* The Customizer warns under the dropdown colors when a pair measures below 4.5 to 1.
 
 = 2.0.16 =
 * With Bold the Current Page in the Menu switched on, the current page's item in a dropdown menu is no longer drawn twice as heavy. The theme has always shown that item in bold type, and the option's heavier outline was added on top of it. Now the outline alone marks the current page, in the dropdown as in the top row.
