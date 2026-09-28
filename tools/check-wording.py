@@ -42,6 +42,7 @@ BREADCRUMBS = os.path.join(THEME, "inc", "breadcrumbs.php")
 LABEL_FILES = [
     (os.path.join("inc", "breadcrumbs.php"), 15),
     (os.path.join("inc", "header-menu.php"), 4),
+    (os.path.join("inc", "dropdown-menu.php"), 13),
 ]
 
 BRITISH = {
