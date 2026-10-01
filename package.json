@@ -24,7 +24,7 @@
     "devDependencies": {
         "@axe-core/cli": "^4.13.0",
         "@lhci/cli": "^0.15.1",
-        "@wordpress/env": "^11.13.0",
+        "@wordpress/env": "^11.16.0",
         "clean-css-cli": "^5.6.3",
         "pa11y-ci": "^4.1.1",
         "terser": "5.51.2"
