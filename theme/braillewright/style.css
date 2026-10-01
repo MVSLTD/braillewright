@@ -3,7 +3,7 @@
 Theme Name: Braillewright
 Author: Aaron Di Blasi
 Description: Accessibility-first WordPress theme, maintained in-house. Forked from the GPL Period theme
-Version: 2.0.19
+Version: 2.0.20
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: two-columns, left-sidebar, right-sidebar, accessibility-ready, custom-logo, custom-menu, featured-images, full-width-template, rtl-language-support, sticky-post, theme-options, threaded-comments, translation-ready, blog, education, news
@@ -1405,6 +1405,16 @@ li.pingback > article {
   }
   .menu-primary li:hover > a, .menu-primary li:active > a {
     color: #333333;
+    background: white;
+  }
+  /* A CURRENT top-level item whose dropdown is hovered looks like any hovered item (2.0.20). The rule above ties
+     with "Primary Menu Current Background" (.menu-primary li.current-menu-item > a), which is printed inline AFTER
+     this file, so the current background stayed while the text took the hover color: black on black on
+     donnajodhan.com /balados/ (current #000000, hover text #000000), dark blue on #242424 on barrierfreecanada.org.
+     These selectors are one class stronger, and are exactly the selectors of the inline "Primary Menu Background
+     on Hover" rule, which is printed later, so a site that chose a hover background still gets it. Top level only:
+     a current item inside a dropdown keeps the Dropdown Menus hover colors. */
+  .menu-primary-items > li.current-menu-item:hover > a, .menu-unset > ul > li.current_page_item:hover > a {
     background: white;
   }
   .menu-primary ul ul {
