@@ -25,6 +25,7 @@ require_once trailingslashit( get_template_directory() ) . 'inc/breadcrumbs.php'
 require_once trailingslashit( get_template_directory() ) . 'inc/header-menu.php';
 require_once trailingslashit( get_template_directory() ) . 'inc/dropdown-menu.php';
 require_once trailingslashit( get_template_directory() ) . 'inc/customizer-order.php';
+require_once trailingslashit( get_template_directory() ) . 'inc/emoji.php';
 require_once trailingslashit( get_template_directory() ) . 'inc/last-updated-meta-box.php';
 require_once trailingslashit( get_template_directory() ) . 'inc/scripts.php';
 require_once trailingslashit( get_template_directory() ) . 'features/bootstrap.php';
